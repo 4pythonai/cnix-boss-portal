@@ -1,0 +1,403 @@
+// 布局
+.idc_wrapper {
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+
+  .idc_card {
+    overflow: hidden;
+
+    &.border_bottom_1px {
+      border-bottom: 1px solid #ccc;
+    }
+
+    .idc_block {
+      flex: 1;
+
+      h2 {
+        padding-left: 10px;
+      }
+    }
+
+    .border_right_1px {
+      border-right: 1px solid #ccc;
+    }
+  }
+}
+
+.singer_msg_card {
+  height: 550px;
+  padding: 10px;
+  float: left;
+  width: 33.33%;
+}
+.basic_msg_card {
+  height: 550px;
+  padding: 10px;
+  float: left;
+  width: 66.67%;
+}
+
+.out_pay_card {
+  height: 700px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.customer_card {
+  height: 200px;
+  margin-bottom: 10px;
+
+  padding: 10px;
+}
+
+.idc_contract_title {
+  text-align: center;
+  padding: 10px;
+}
+
+// form control
+.contractFormGroup {
+  display: flex;
+  padding: 5px;
+  margin: 5px;
+
+  .contractFormInfo {
+    flex: 0 0 120px;
+    padding-right: 5px;
+    text-align: right;
+    line-height: 30px;
+  }
+
+  .contractFormValue {
+    flex: 1;
+    line-height: 30px;
+    select,input{
+        width: 210px;
+    }
+
+    .ant-select {
+      width: 210px;
+    }
+
+    .contract_count {
+      width: 210px !important;
+    }
+
+    .number_input {
+      width: 210px;
+    }
+    .firstPayment {
+      width: 210px;
+      padding: 5px;
+    }
+
+    .react-numeric-input {
+
+      input {
+        padding-left: 10px;
+      }
+    }
+  }
+}
+
+.idc_form_group {
+  text-align: center;
+  padding: 20px 0;
+}
+
+._show {
+  display: block;
+}
+
+._hide {
+  display: none;
+}
+
+.rangeDatePicker {
+  width: 90%;
+}
+
+.base_info_form {
+  height: 740px;
+}
+
+.externalPayment {
+  min-height: 164px;
+}
+
+.submitContractWrapper {
+  text-align: right;
+}
+
+.contractModle {
+  width: 1200px;
+}
+
+.requireIcon {
+  padding-right: 4px;
+  color: #f5070b;
+  font-size: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.project-search {
+  .ant-input-affix-wrapper .ant-input-suffix {
+    right: 0;
+  }
+
+  input {
+    height: 35px;
+    border: 1px solid #bdbdbd;
+    border-radius: 0;
+  }
+
+  .search-btn {
+    height: 37px;
+  }
+}
+
+.ant-message {
+  z-index: 1080;
+}
+
+.expandInfo {
+  color: #54a4e6;
+}
+
+.ant-table-thead > tr > th.chargeStyle,
+.ant-table-tbody > tr > td.chargeStyle {
+  padding: 5px;
+}
+
+.ant-table-fixed > tr > th.chargeStyle,
+.ant-table-fixed > tr > td.chargeStyle {
+  padding: 5px;
+}
+
+.approvalWrapper {
+  padding: 10px 20px;
+  background: #fff;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  .approvalBox {
+    text-align: center;
+  }
+}
+
+.approvalOption {
+  margin-top: 20px;
+}
+
+.contractDetailContent {
+  .contract_title {
+    text-align: center;
+    line-height: 50px;
+    background: #fafafa;
+    margin-bottom: 0;
+    background: #e8e8e8;
+    border-bottom: 0;
+  }
+
+  .contractDetailBase {
+    .contract_header {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 30px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      padding: 5px 10px;
+      background: #474544;
+      color: #fff;
+    }
+
+    .detailRow {
+      display: flex;
+      border-left: 1px solid #ccc;
+      border-top: 1px solid #ccc;
+
+      &.lastRow {
+        border-bottom: 1px solid #ccc;
+      }
+
+      &:nth-child(odd) {
+        background: #fafafa;
+      }
+
+      &:nth-child(even) {
+        background: #f1f1f1;
+      }
+
+      .contractDetalGroup {
+        flex: 1;
+        display: flex;
+
+        .detailInfo {
+          flex: 0 0 100px;
+          font-size: 14px;
+          line-height: 25px;
+          padding: 5px;
+          font-weight: bold;
+          text-align: right;
+          color: #000;
+          border-right: 1px solid #ccc;
+        }
+
+        .detailValue {
+          flex: 1;
+          font-size: 14px;
+          line-height: 25px;
+          padding: 5px;
+          color: #000;
+          border-right: 1px solid #ccc;
+        }
+      }
+    }
+  }
+}
+
+.suggestionWrapper {
+  .suggestionRow {
+    display: flex;
+    border-left: 1px solid #ccc;
+
+    &:nth-child(odd) {
+      background: #fafafa;
+    }
+
+    &:nth-child(even) {
+      background: #f1f1f1;
+    }
+
+    &.suggestionHeader {
+      font-weight: bold;
+      color: #000;
+      border-top: 1px solid #ccc;
+    }
+
+    .suggestionCol {
+      flex: 1;
+      padding: 5px;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .sortCol {
+      flex: 0 0 50px;
+    }
+  }
+}
+
+// 详情页收费项
+.contractDetailBase {
+  .chargeDetailBody {
+    display: flex;
+    border: 1px solid #ccc;
+
+    &:nth-child(odd) {
+      background: #fafafa;
+    }
+
+    &:nth-child(even) {
+      background: #f1f1f1;
+    }
+
+    .cahrgeColIcon {
+      flex: 0 0 30px;
+      padding: 5px;
+    }
+
+    .chargeRowWrapper {
+      flex: 1;
+      border-left: 1px solid #ccc;
+
+      .chargeRow {
+        display: flex;
+
+        &.chargeRowHeader {
+          .cahrgeCol {
+            font-weight: bold;
+            flex: 1;
+            line-height: 25px;
+            border-right: 1px solid #ccc;
+            padding: 5px;
+            color: #000;
+          }
+        }
+
+        &:first-child {
+          flex: 0 0 25px;
+        }
+
+        .cahrgeCol {
+          flex: 1;
+          line-height: 25px;
+          border-right: 1px solid #ccc;
+          padding: 5px;
+        }
+      }
+
+      .chargeDetail {
+        flex: 1 1 100%;
+        flex-wrap: wrap;
+        transition: all 0.3 linear;
+
+        .description {
+          border-top: 1px solid #ccc;
+        }
+
+        .note {
+        }
+
+        .chargeDetailInfo {
+          color: #54a4e6;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+
+  .summary_box {
+    display: flex;
+
+    .summary_row {
+      flex: 0 0 200px;
+    }
+  }
+}
+
+.print-button,
+.breakOff {
+  margin-top: 20px;
+}
+
+// 附件上传
+.upLoadWrapper {
+  height: 87px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.outpay {
+  padding-bottom: 9px;
+}
+
+// 计费日期
+.dateWrapper {
+  display: flex;
+  align-items: center;
+
+  .dateSum {
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    line-height: 100px;
+  }
+}
+
+.bill_debug_form {
+  height: 360px;
+  margin: 0 0 10px 0;
+}

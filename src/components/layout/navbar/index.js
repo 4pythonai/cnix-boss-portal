@@ -1,0 +1,112 @@
+import React from 'react'
+import Hamburger from './hamburger';
+import PortalBreadcrumb from './breadcrumb/PortalBreadcrumb'
+import { Form, message, Input, Menu, Icon, Dropdown, Modal } from 'antd';
+import AuthService from '../../../routes/auth/AuthService'
+import EditPassword from '../../antdComponents/editPassword'
+import api from '../../../api/api'
+import { inject, observer } from 'mobx-react'
+import { hashHistory } from "react-router";
+
+const { confirm } = Modal
+
+
+// @inject('userStore')
+@observer
+export default class Navbar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false,
+            imageUrl: null
+        }
+        this.AuthService = new AuthService()
+
+        if (sessionStorage.getItem("staff_name") === null) {
+            this.AuthService.logout()
+        }
+    }
+
+
+    componentWillMount() {
+        if (sessionStorage.getItem("staff_name") === null) {
+            this.AuthService.logout()
+        }
+    }
+    
+
+
+    componentDidMount() {
+        this.getprofile()
+        if (sessionStorage.getItem("staff_name") == 'null') {
+            hashHistory.push('/login')
+        }
+    }
+
+    async getprofile() {
+        let res = await api.user.profile({ method: 'POST' })
+        if (res.code == '200') {
+            this.setState({
+                imageUrl: res.data.head_portrait,
+            })
+        }
+    }
+
+    showConfirm() {
+        confirm({
+            content: <h4>您确定要退出系统么？</h4>,
+            onOk: () => this.AuthService.logout(),
+            cancelText: '取消',
+            okText: '确定',
+            onCancel() {
+                console.log('Cancel');
+
+            },
+        });
+    }
+    showmodal() {
+        this.setState({
+            visible: true,
+        });
+    }
+    handleCancel = e => {
+        this.setState({
+            visible: false,
+        });
+    };
+    getUserBox = () => {
+        return <Menu className="dropdownMenu">
+            <Menu.Item key="setting:2" onClick={ event => hashHistory.push('/profile') }>个人中心</Menu.Item>
+            <Menu.Item key="setting:1" onClick={ event => this.showmodal() } >修改密码</Menu.Item>
+            {/* <Menu.Item key="setting:3">锁屏</Menu.Item> */ }
+            <Menu.Divider />
+            <Menu.Item key="setting:5" onClick={ event => this.showConfirm() }>退出登录</Menu.Item>
+        </Menu>
+    }
+
+
+
+    render() {
+        return (
+            <div className="hamburger_box">
+                <Hamburger className="hamburger-container" />
+                <PortalBreadcrumb />
+                <Dropdown overlay={ this.getUserBox() } trigger={ ['click'] } className="dropdown">
+                    <a className="ant-dropdown-link" href="#">
+                        <span style={ { paddingRight: '5px', color: "#97a8be", fontSize: "14px" } }>
+                            {
+                                sessionStorage.getItem("staff_name")
+                                + " / " +
+                                sessionStorage.getItem("role_name")
+                            }
+                        </span>
+                        <img style={ { width: '36px', verticalAlign: 'middle' } } src={ this.state.imageUrl } className="user-avatar" />
+
+                        <Icon type="down" />
+                    </a>
+                </Dropdown>
+                <EditPassword visible={ this.state.visible } onchanged={ this.handleCancel } />
+            </div>
+        )
+    }
+}
