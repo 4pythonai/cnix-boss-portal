@@ -13,6 +13,7 @@ var syncactiviti = {
         };
         console.log(params);
         let json = await api.bpm.syncNetworkStatus(params);
+        message.info(json.message)
     },
 
 
