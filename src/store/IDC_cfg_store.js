@@ -14,8 +14,6 @@ class IDC_cfg_store {
 
     @observable contract_action = ''
 
-    @observable disabledSignType = ''
-
     @observable detailContractNo = ''
 
     // 页面来源
@@ -166,7 +164,7 @@ class IDC_cfg_store {
             customerName: ''
         }
     }
-    @action setDefaultSignCustomer = async (customerId, addressId, readOnlyFirstSigner) => {
+    @action setDefaultSignCustomer = async (customerId, addressId) => {
         let customerMsg = await this.getCustomerReferInfo(customerId);
         let addressMsg = await this.getAddressList(customerId, addressId)
         // 默认为一个已签约方
@@ -178,7 +176,6 @@ class IDC_cfg_store {
                 addressList: addressMsg.addressList,
                 addressName: addressMsg.addressName,
                 isRenderButton: false,
-                readOnly: readOnlyFirstSigner,
                 customerName: customerMsg.customerName
             }
         ]
@@ -248,7 +245,6 @@ class IDC_cfg_store {
         };
         this.fileList = [];
         this.contract_action = ''
-        this.disabledSignType = ''
     }
 
     @action setDataRights = dataRights => this.dataRights = dataRights
@@ -284,11 +280,8 @@ class IDC_cfg_store {
 
     @action setNew = () => {
         this.newSignHandle()
-        this.setDisabledSignType('disableRenewSign')
         this.saveContractData.sign_type = '新签'
     }
-
-    @action setDisabledSignType = disabledSignType => this.disabledSignType = disabledSignType
 
 
     @action setDefaultActiveCollapse = activeCollapse => this.activeCollapse = activeCollapse
@@ -349,15 +342,34 @@ class IDC_cfg_store {
     // 合同名称
     @action setContractName = value => this.saveContractData.contract_name = value;
     // 签约类型
-    @action changeSignType = (e) => {
-        this.saveContractData['sign_type'] = e.target ? e.target.value : e;
-        if (this.saveContractData['sign_type'] == '新签') {
+    @action changeSignType = (value, isfromChance) => {
+        
+        this.saveContractData['sign_type'] = value;
+        if (value== '新签') {
+            if(typeof isfromChance == 'object'){
+                let singers_customers = this.saveContractData.singers_customers[0]
+                let  contract_action = this.contract_action
+                singers_customers.customerReferInfo = {};
+                singers_customers.customerId = ''
+                singers_customers.addressId = ''
+                singers_customers.customerName = ''
+                singers_customers.addressName = ''
+
+                this.clearContractState()
+                this.contract_action = contract_action
+                this.saveContractData.sign_type = value
+                this.saveContractData.singers_customers = [singers_customers]
+                chargeStore.clearStore()
+            }
+            
             this.newSignHandle()
             this.generateContractNo()
             return;
         }
 
-        this._showContractListModle()
+        if(value== '续签'){
+            this._showContractListModle()
+        }
     }
 
     @action changeRentType = (e) => this.saveContractData.rent_type = e.target.value
@@ -441,7 +453,6 @@ class IDC_cfg_store {
     @action
     makeReNewContractno = async () => {
         await this.getContractDetail();
-        this.setDisabledSignType('disableNewSign')
         this.saveContractData.sign_type = '续签';
         await this.generateContractNo();
 
@@ -532,14 +543,6 @@ class IDC_cfg_store {
 
     @action
     setEditData = async contractData => {
-        if (this.page_source == 'edit') {
-            contractData.contract_type == '新签'
-                ?
-                this.setDisabledSignType('disableRenewSign')
-                :
-                this.setDisabledSignType('disableNewSign');
-
-        }
         this.RequireOther = contractData.payment_method == '其他' ? true : false;
         let data = {
             contract_name: contractData.contract_name,
@@ -604,14 +607,6 @@ class IDC_cfg_store {
         this.setDefultFileList(contractData.attachment_url);
 
         this.saveContractData.sign_type = contractData.sign_type;
-
-        if (contractData.sign_type == '新签') {
-            this.setDisabledSignType('disableRenewSign');
-        }
-        if (contractData.sign_type == '续签') {
-            this.setDisabledSignType('disableNewSign');
-        }
-
         this.saveContractData = { ...this.saveContractData, ...data };
         localStorage.setItem('contract_no', this.saveContractData.contract_no);
         await chargeStore.getChargeList('y');
@@ -763,10 +758,13 @@ class IDC_cfg_store {
     }
 
     validateSingerCustomerRepeat = signerCustomer => {
+        console.log(signerCustomer)
+        debugger
         for(let i=0; i<signerCustomer.length; i++ ){
             let field_pre = signerCustomer[i].customerId
-            for(let j = i+ 1; j<signerCustomer.length -i; j++){
+            for(let j = i+ 1; j<signerCustomer.length; j++){
                 let field_next = signerCustomer[j].customerId
+                console.log(field_pre, field_next, field_pre == field_next)
                 if(field_pre === field_next){
                     message.warning('签约方字段不能重复')
                     return false;
@@ -783,28 +781,6 @@ class IDC_cfg_store {
         let keys = Object.keys(validata);
         let submitKeys = Object.keys(data)
         let isAllowSave = true;
-
-        // if (data.singers_customers.length == 0) {
-        //     message.error('签约方不能为空');
-        //     isAllowSave = false;
-        //     return isAllowSave;
-        // }
-
-        // for (let index = 0; index < data.singers_customers.length; index++) {
-        //     let singer = data.singers_customers[index];
-        //     if (singer) {
-        //         if (!singer.customerId) {
-        //             message.error('签约方不能为空');
-        //             isAllowSave = false;
-        //             return isAllowSave;
-        //         }
-        //         if (!singer.addressId) {
-        //             message.error('客户地址不能为空');
-        //             isAllowSave = false;
-        //             return isAllowSave;
-        //         }
-        //     }
-        // }
 
         if (this.validateSingerCustomer(data) === false) {
             isAllowSave = false;

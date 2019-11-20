@@ -32,9 +32,9 @@ export default class CustomerAddr extends React.Component {
                     <span className="requireIcon">*</span>客户地址：</label>
                 <div className="contractFormValue">
                     {
-                        this.props.disabled || this.props.readOnly
-                            ?
-                            this.props.addressName
+                        this.props.disabled 
+                        ?
+                        this.props.addressName
                             :
                             <Select
                                 onChange={this.addressHandle}

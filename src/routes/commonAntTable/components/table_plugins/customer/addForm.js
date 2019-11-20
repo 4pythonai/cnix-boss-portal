@@ -228,6 +228,7 @@ export default class AddForm extends React.Component {
         let json = await api.curd.addData(params);
         if (json.code == 200) {
             this.hideModal()
+            this.props.refreshTable();
         }
 
     }
@@ -237,7 +238,7 @@ export default class AddForm extends React.Component {
             destroyOnClose
             footer={null}
             visible={this.state.visible}
-            style={{ width: '400px' }}
+            width={650}
             onCancel={() => this.hideModal()}
             title="新增客户" >
             <GetFields

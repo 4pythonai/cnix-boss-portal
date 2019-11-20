@@ -3,7 +3,7 @@ import React from "react"
 import { Collapse, Button, Icon, Input } from 'antd';
 import { observer, inject } from "mobx-react"
 import CustomerReferInfo from './CustomerReferInfo'
-import CustomerSelecte from './CustomerSelecte'
+import OurCompanySelect from './OurCompanySelect'
 import api from '@/api/api'
 const { Panel } = Collapse;
 
@@ -46,7 +46,7 @@ export default class OurCompany extends React.Component {
         return (
             <div style={wrapperStyle}>
 
-                <CustomerSelecte
+                <OurCompanySelect
                     customerId={this.store.saveContractData.singer_our_company_id}
                     readOnly={false}
                     disabled={this.store.disabled}

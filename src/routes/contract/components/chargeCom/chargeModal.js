@@ -15,7 +15,7 @@ export default class ChargeModal extends React.Component {
         return (
             <div>
                 <Modal
-                    title='IDC合同收费项编辑器'
+                    title='IDC合同收费项'
                     width={610}
                     bodyStyle={
                         {

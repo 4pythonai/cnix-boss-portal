@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'antd'
 import commonTableStore from '@/store/commonTableStore'
+import FlowApprovalStore from '@/store/FlowApprovalStore'
 import '@/components/Uform_extends'
 import { toJS } from 'mobx'
-import { newformatDate} from '@/utils/tools'
+
+import '../../commonTable.scss'
 import {
     SchemaForm,
     createFormActions,
@@ -11,7 +13,7 @@ import {
 } from '@uform/antd'
 
 const actions = createFormActions()
-let date=newformatDate(new Date())
+
 const CommonTableForm = props => {
     let formCfg = toJS(props.formCfg)
     let layoutcfg=props.layoutcfg
@@ -23,7 +25,6 @@ const CommonTableForm = props => {
         return null
     }
     if(layoutcfg=='2'){
-        require('../../commonTable.scss')
         formCfg.properties.group_all['x-component']='grid'
         formnum=Object.keys(formCfg.properties.group_all.properties)
         let cols=[]
@@ -37,8 +38,7 @@ const CommonTableForm = props => {
         // formCfg.properties.group_all['x-props'].wrapperCol=10
     }
     if (props.optionType == 'add' || props.optionType == 'edit') {
-        return <div>
-            {staticformcfg!=null?<div style={{marginBottom:'20px'}}><span style={{marginRight:'10px'}}>下单人:{localStorage.getItem('staff_name')}</span><span style={{marginRight:'10px'}}>下单时间:{date}</span><span style={{marginRight:'10px'}}>下单部门：{staticformcfg.departname}</span></div>:null}
+        return <div  className="addmodal">
             <SchemaForm
             value={value}
             initialValues={state.value}
@@ -53,12 +53,10 @@ const CommonTableForm = props => {
                             state.visible = false
                         })
                     }
-
+                    
                     $('onFormInit').subscribe(async () => {
                         hide('id');
-
-
-
+                        // hide('maincontent')
                         for (let key in formCfg.properties.group_all.properties) {
                             let item = formCfg.properties.group_all.properties[key];
 
@@ -67,8 +65,41 @@ const CommonTableForm = props => {
                                     state.props["x-props"].commonTableStore = props.commonTableStore;
                                 });
                             }
+                            if(item['x-props'] && item['x-props'].field_id=='customer_phone'){
+                                setFieldState(key, state => {
+                                    state.props['x-rules']='phone'
+                                });
+                                
+                            }
+                            if(item['x-props'] && item['x-props'].field_id=='phone'){
+                                setFieldState(key, state => {
+                                    state.props['x-rules']='phone'
+                                });
+                                
+                            }
+                            if(item['x-props'] && item['x-props'].field_id=='contactPhone'){
+                                setFieldState(key, state => {
+                                    state.props['x-rules']='phone'
+                                });
+                                
+                            }
+                            if(item['x-props'] && item['x-props'].field_id=='customer_email'){
+                                setFieldState(key, state => {
+                                    state.props['x-rules']='email'
+                                });
+                            }
+                            if(item['x-props'] && item['x-props'].field_id=='email'){
+                                setFieldState(key, state => {
+                                    state.props['x-rules']='email'
+                                });
+                            }
+                            if(item['x-props'] && item['x-props'].field_id=='postcode'){
+                                setFieldState(key, state => {
+                                    state.props['x-rules']='zip'
+                                });
+                            }
+                           
                         }
-
                         setFieldState('contractno', state => {
                             state.props["x-props"].selectedRow = props.commonTableStore.selectedRows[0];
                         });
@@ -94,13 +125,12 @@ const CommonTableForm = props => {
                 }
             }
             labelCol={layoutcfg=='2'?7:8}
-            wrapperCol={layoutcfg=='2'?17:12}
+            wrapperCol={layoutcfg=='2'?17:15}
         >
-
             <div style={{ textAlign: 'center' }}>
                 <Button type="primary" htmlType="button" className="marginRihgt10" onClick={async event => {
                     let res = await actions.validate()
-                    await props.saveFormData(actions.getFormState().values, props.onChange, props.as_virtual, props.optionType);
+                    await props.saveFormData(actions.getFormState().values,FlowApprovalStore.uuid, props.onChange, props.as_virtual, props.optionType);
                     props.hideModal()
                 }
                 }>保存</Button>

@@ -30,7 +30,7 @@ export default class SignCustomer extends React.Component {
 
     controlCustomerDetail() {
 
-        let { addressList, addressId, customerReferInfo, addressName, readOnly, ...props } = this.props.customer_target
+        let { addressList, addressId, customerReferInfo, addressName, ...props } = this.props.customer_target
         let { getCurrentCustomerAddr, customer_index, disabled } = this.props
 
         return <Collapse
@@ -45,8 +45,7 @@ export default class SignCustomer extends React.Component {
                     addressId={addressId}
                     customer_index={customer_index}
                     getCurrentCustomerAddr={getCurrentCustomerAddr}
-                    disabled={disabled}
-                    readOnly={readOnly} />
+                    disabled={disabled}/>
                 <CustomerReferInfo
                     customerReferInfo={customerReferInfo} />
             </Panel>
@@ -56,20 +55,18 @@ export default class SignCustomer extends React.Component {
 
 
     render() {
-        let { customerId, readOnly, customerName, ...props } = this.props.customer_target;
-        let { getCurrentCustomer, getCustomerApi, customer_index, customerList, disabled } = this.props
+        let { customerId, customerName, ...props } = this.props.customer_target;
+        let { getCurrentCustomer, getCustomerApi, customer_index, disabled } = this.props
         return (
             <div style={wrapperStyle}>
 
                 <CustomerSelecte
                     customerName={customerName}
-                    customerList={customerList}
                     customerId={customerId}
                     customer_index={customer_index}
                     getCustomerApi={getCustomerApi}
                     getCurrentCustomer={getCurrentCustomer}
-                    disabled={disabled}
-                    readOnly={readOnly} />
+                    disabled={disabled}/>
 
                 {this.controlCustomerDetail()}
 

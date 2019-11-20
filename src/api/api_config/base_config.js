@@ -8,9 +8,7 @@
 
 // }
 
-const root_url = (process.env.NODE_ENV === 'docker') ? 'http://127.0.0.1' : 'http://portal.sinnet.com.cn';
-
-// const root_url = 'http://portal.sinnet.com.cn';
+const root_url = 'http://114.113.88.2';
 const port = '8502';
 const version_1 = 'v1';
 const version_2 = 'v2';
@@ -34,8 +32,8 @@ const controller = {
     activity: 'Activity',
     curd: 'curd',
     auth: 'Auth',
-    button:'Button',
-    organization:'organization',
+    button: 'Button',
+    organization: 'organization',
     user: 'user',
     address: 'address'
 }

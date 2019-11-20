@@ -6,6 +6,7 @@ import {
     hashHistory
 } from 'react-router'
 import ContractContainer from '@/routes/contract/components/contractContainer'
+import FlowForm from '../../../flow/containers/flowForm';
 
 
 export default class BpmFormDetail extends React.Component {
@@ -37,7 +38,7 @@ export default class BpmFormDetail extends React.Component {
         hashHistory.push({ pathname: `flow/FlowForm`, state: data });
         let flowUrl=window.location.href
         hashHistory.go(-1)
-        window.open(flowUrl,'_blank')
+        window.open(flowUrl+'&&remark=FlowForm','_blank')
     }
 
     render() {

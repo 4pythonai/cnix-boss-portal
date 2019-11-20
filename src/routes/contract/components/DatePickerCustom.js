@@ -1,6 +1,6 @@
 import React from 'react'
 import { DatePicker } from 'antd';
-const format = "YYYY-MM-DD";
+const format = "YYYY-MM-DD HH:mm:ss";
 
 export default class DatePickerCustom extends React.Component {
     constructor(props) {
@@ -53,16 +53,17 @@ export default class DatePickerCustom extends React.Component {
                             {this.props.startText}：</label>
                         <div className="contractFormValue">
 
-                                <DatePicker
-                                    disabled={this.props.disabled}
-                                    className="datePicker"
-                                    disabledDate={this.disabledStartDate}
-                                    format={format}
-                                    value={this.props.startValue}
-                                    placeholder={"请选择" + this.props.startText}
-                                    onChange={this.props.onStartChange}
-                                    onOpenChange={this.handleStartOpenChange}
-                                />
+                            <DatePicker
+                                showTime
+                                disabled={this.props.disabled}
+                                className="datePicker"
+                                disabledDate={this.disabledStartDate}
+                                format={format}
+                                value={this.props.startValue}
+                                placeholder={"请选择" + this.props.startText}
+                                onChange={this.props.onStartChange}
+                                onOpenChange={this.handleStartOpenChange}
+                            />
                         </div>
                     </section>
                     <section className="contractFormGroup">
@@ -80,7 +81,7 @@ export default class DatePickerCustom extends React.Component {
 
                             <DatePicker
                                 disabled={this.props.disabled}
-
+                                showTime
                                 className="datePicker"
                                 disabledDate={this.disabledEndDate}
                                 format={format}

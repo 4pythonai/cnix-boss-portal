@@ -14,7 +14,7 @@ export default class GetDepart extends React.Component {
     render() {
 
         return (
-            <Input disabled placeholder="" defaultValue={JSON.parse(sessionStorage.getItem('userInfo')).department}/>
+            <Input disabled placeholder="" defaultValue={JSON.parse(sessionStorage.getItem('userInfo')).department} value={this.props.value!=''?this.props.value:JSON.parse(sessionStorage.getItem('userInfo')).department}/>
         );
     }
 }

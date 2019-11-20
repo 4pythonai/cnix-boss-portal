@@ -229,7 +229,10 @@ class FlowApprovalStore {
         let params = { data: data, method: 'POST' };
 
         let res = await api.bpm.terminateProcess(params)
-
+        if (res.code == 200) {
+            hashHistory.goBack()
+        }
+        // 
     }
 
 
@@ -240,7 +243,7 @@ class FlowApprovalStore {
 
 
     // 退回发起人
-    @action returnToStart = (event, submitData) => {
+    @action returnToStart = async (event, submitData) => {
         // event.stopPropagation();
         event.persist()
         let data = {
@@ -252,14 +255,18 @@ class FlowApprovalStore {
         };
 
         let params = { data: data, method: 'POST' };
-        let res = api.bpm.returnToStart(params);
+        let res = await api.bpm.returnToStart(params);
+        if (res.code == 200) {
+            hashHistory.goBack()
+        }
         this.clearNextUser()
+
     }
 
 
 
     // 退回上一步
-    @action returnToPrev = (event, submitData) => {
+    @action returnToPrev = async (event, submitData) => {
         // event.stopPropagation();
         event.persist()
 
@@ -272,8 +279,12 @@ class FlowApprovalStore {
         };
 
         let params = { data: data, method: 'POST' };
-        let res = api.bpm.returnToPrev(params);
+        let res = await api.bpm.returnToPrev(params);
+        if (res.code == 200) {
+            hashHistory.goBack()
+        }
         this.clearNextUser()
+
 
 
     }
@@ -316,7 +327,7 @@ class FlowApprovalStore {
         // e.persist()
         this.uuid = record.uuid
         this.processDefinitionKey = record.process_key;
-        this.progressImgUrl = `${ api.bpm.progressImgUrl }/${ record.uuid }&${ this.processDefinitionKey }?date=` + new Date()
+        this.progressImgUrl = `${api.bpm.progressImgUrl}/${record.uuid}&${this.processDefinitionKey}?date=` + new Date()
         hashHistory.push({
             pathname: 'flow/flowProgress',
             state: {

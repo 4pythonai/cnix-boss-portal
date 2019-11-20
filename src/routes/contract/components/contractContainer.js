@@ -15,10 +15,6 @@ import '../chargeData.scss'
 @observer
 export default class ContractContainer extends React.Component {
 
-    // defaultProps = {
-    //     readOnly: true,   // 详情： true， 编辑/新增： false
-    // }
-
     constructor(props) {
         super(props);
         this.store = this.props.IDC_cfg_store
@@ -34,7 +30,6 @@ export default class ContractContainer extends React.Component {
         // 详情页
         if (defaultProps.page_source == 'detail') {
             this.getDetail(defaultProps)
-            // this.setEditData()
             return;
         }
 
@@ -54,12 +49,11 @@ export default class ContractContainer extends React.Component {
 
         if (defaultProps.page_source == 'add') {
             // 设置一个默认的客户签约方，不能删除
-            this.store.setDefaultSignCustomer(defaultProps.customId, defaultProps.addressId, defaultProps.readOnlyFirstSigner)
+            await this.store.setDefaultSignCustomer(defaultProps.customId, defaultProps.addressId)
             // 转合同处理
-            defaultProps.readOnlyFirstSigner && this.dealWithOppMsg(defaultProps)
+            defaultProps.isFromChance && this.dealWithOppMsg(defaultProps)
             return;
         }
-
 
         defaultProps.page_source == 'edit' && this.getDetail(defaultProps)
     }
@@ -75,11 +69,7 @@ export default class ContractContainer extends React.Component {
         await this.store.setOppid(defaultProps.oppId);
 
         if (defaultProps.proWorkType === 'IDC新签业务') {
-            this.store.changeSignType('新签');
-            this.store.setDisabledSignType('disableRenewSign');
-        }
-        if (defaultProps.proWorkType === 'IDC续签业务') {
-            this.store.setDisabledSignType('disableNewSign');
+            this.store.changeSignType('新签', defaultProps.isFromChance);
         }
 
         this.store.setContractName(defaultProps.oppName);

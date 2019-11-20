@@ -4,7 +4,7 @@ import { Radio, AutoComplete, Card, Button, Icon, Input, InputNumber, DatePicker
 import moment from 'moment';
 import UpLoad from './UpLoad'
 const RadioGroup = Radio.Group;
-const dateFormat = 'YYYY/MM/DD';
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 @inject("IDC_cfg_store")
 @inject("FlowApprovalStore")
@@ -32,15 +32,15 @@ export default class Basicinfo extends React.Component {
                         签约类型：
                 </label>
                     <div className="contractFormValue" >
-                        <RadioGroup
-                            disabled={disabled}
-                            name="radiogroup" onChange={this.store.changeSignType} value={this.store.saveContractData.sign_type}>
-                            <Radio value='新签' >新签</Radio>
-                            <Radio value='续签' >续签</Radio>
-                        </RadioGroup>
 
-                        {/* disabled={this.store.disabledSignType == 'disableNewSign'}
-                            disabled={this.store.disabledSignType == 'disableRenewSign'} */}
+                        <Select
+                            disabled={disabled}
+                            onChange={this.store.changeSignType}
+                            value={this.store.saveContractData.sign_type || '请选择'}>
+                            <Select.Option key='请选择' value='请选择'>请选择</Select.Option>
+                            <Select.Option value="新签">新签</Select.Option>
+                            <Select.Option value="续签">续签</Select.Option>
+                        </Select>
                     </div>
 
                 </section>
@@ -164,6 +164,7 @@ export default class Basicinfo extends React.Component {
                         <DatePicker
                             disabled={disabled}
                             placeholder='请选择合同完工日期'
+                            showTime
                             onChange={this.store.setOndemandEnddate}
                             value={
                                 this.store.saveContractData.enddate_ondemand

@@ -63,8 +63,13 @@ export default class CycleFee extends React.Component {
 
     // 计费方式
     getBillingMethod() {
-        if (this.store.charge_cfg.billing_methods == undefined || this.store.charge_cfg.billing_methods.length == 1) {
+        if (this.store.charge_cfg.billing_methods == undefined) {
             return ''
+        }
+
+        // 只有，直接返回
+        if(this.store.charge_cfg.billing_methods.length == 1 && this.store.charge_cfg.billing_methods[0].method == 'using_fee_common_without_step'){
+            return null
         }
 
         return (

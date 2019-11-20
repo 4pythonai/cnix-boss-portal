@@ -7,7 +7,7 @@ export default class YesOrNo extends React.Component {
     constructor(props) {
 
         super(props)
-        console.log(props)
+        console.log(777,props)
     }
 
 

@@ -3,6 +3,7 @@ import { Modal } from 'antd'
 import SearchFormContainer from './searchFormContainer'
 
 
+
 export default class SearchTableModal extends React.Component {
     constructor(props) {
         super(props)
@@ -16,7 +17,7 @@ export default class SearchTableModal extends React.Component {
         this.showModal()
     }
 
-    onCancelHandle = ()=> {
+    onCancelHandle = () => {
         this.setState({
             visible: false
         })
@@ -28,7 +29,7 @@ export default class SearchTableModal extends React.Component {
         })
     }
 
-    saveFormData = ()=> {
+    saveFormData = () => {
         this.refs.searchFormContainerRef.getFormValue()
     }
 
@@ -37,7 +38,7 @@ export default class SearchTableModal extends React.Component {
             destroyOnClose: true,
             title: '搜索',
             bodyStyle: {
-                height: "600px",
+                height: "auto",
                 overflow: 'auto',
                 bottom: 0
             },
@@ -56,9 +57,9 @@ export default class SearchTableModal extends React.Component {
             {...modalProps}>
             <SearchFormContainer
                 ref="searchFormContainerRef"
-                hideModal = {this.onCancelHandle}
-                refreshTable = {this.props.refreshTable}
-                setQueryCfg = {this.props.setQueryCfg}
+                hideModal={this.onCancelHandle}
+                refreshTable={this.props.refreshTable}
+                setQueryCfg={this.props.setQueryCfg}
                 formCfg={this.props.commonTableStore.formCfg}
                 tableColumnsJson={this.props.commonTableStore.tableColumnsJson} />
         </Modal>

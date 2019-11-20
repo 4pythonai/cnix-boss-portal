@@ -7,23 +7,13 @@ const { confirm } = Modal;
 
 var syncactiviti = {
 
-    deleteData: async function() {
+    syncnetwork: async function() {
         let params = {
             method: 'POST'
         };
         console.log(params);
-
-
-        let json = await api.bpm.syncActivitiuser(params);
-
-        // if (json.code == 200) {
-        //     this.props.refreshTable()
-        // }
-
-
+        let json = await api.bpm.syncNetworkStatus(params);
     },
-
-
 
 
 
@@ -35,13 +25,13 @@ var syncactiviti = {
 
 
         confirm({
-            title: '你确定要同步吗?',
-            content: '删除后将无法恢复',
+            title: '将使用本表同步网络资源状态',
+            content: '时间稍长,请稍候',
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
             onOk: () => {
-                this.deleteData()
+                this.syncnetwork()
             },
             onCancel: () => {
                 console.log('Cancel');
@@ -54,7 +44,7 @@ var syncactiviti = {
 
 
 export default syncactiviti
-// module.exports = syncactiviti
+
 
 
 

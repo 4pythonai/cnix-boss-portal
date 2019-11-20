@@ -14,7 +14,7 @@ export default class GetLander extends React.Component {
     render() {
 
         return (
-            <Input disabled placeholder="" defaultValue={localStorage.getItem('staff_name')} />
+            <Input disabled placeholder="" defaultValue={localStorage.getItem('staff_name')}  value={this.props.value!=''?this.props.value:localStorage.getItem('staff_name')}/>
         );
     }
 }

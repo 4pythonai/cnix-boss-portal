@@ -111,7 +111,7 @@ export default class Login extends React.Component {
             obj.role_name=this.state.rolename
             obj.role_code=this.state.rolecode
             userStore.setUserRole(obj);
-                hashHistory.push('/home')
+            hashHistory.push('/home')
         
     }
     handleCancel(){

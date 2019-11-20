@@ -229,12 +229,12 @@ export default class datagridmnt extends React.Component {
                 dataIndex: 'updateurl',
                 key: 'updateurl',
             },
-            {
-                title: 'query_cfg',
-                dataIndex: 'fixed_query_cfg',
-                key: 'fixed_query_cfg',
-                width: 200
-            },
+            // {
+            //     title: 'query_cfg',
+            //     dataIndex: 'fixed_query_cfg',
+            //     key: 'fixed_query_cfg',
+            //     width: 200
+            // },
             {
                 title: '布局',
                 dataIndex: 'layoutcfg',

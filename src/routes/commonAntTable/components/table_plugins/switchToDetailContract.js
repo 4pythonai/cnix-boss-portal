@@ -30,6 +30,9 @@ export default class SwitchToDetailContract extends React.Component {
          
 
          hashHistory.push({ pathname: 'contract/detailIDCContract', state: params });
+         let flowUrl=window.location.href
+        hashHistory.go(-1)
+        window.open(flowUrl+'&&remark=FlowForm','_blank')
     }
 
     render() {

@@ -183,23 +183,39 @@ export default class ChanceForm extends React.Component {
         if (this.validateForm() === false) {
             return;
         }
-
         let params = { data: this.state.rowData, method: 'POST' };
-
         let res = await api.clue.transferToOpportunity(params);
         if (res.code == 200) {
             message.success(res.msg);
             this.setState({
-                visible: false
+                visible: false,
+                rowData: {
+                    clueId: null,
+                    oppName: null,
+                    proWorkType: null,
+                    contactPhone: null,
+                    email: null,
+                    oppType: null,
+                    address: null,
+                    salesStep: null,
+                    salesMoney: null,
+                    contactPerson: null,
+                    contactPhone: null,
+                    email: null,
+                    oppDesc: null,
+                    customName: null
+                }
             })
+
+            this.props.refreshTable()
             return;
         }
         message.error(res.msg)
     }
 
     validateForm() {
-        this.state.form_cfg.map(field_cfg=> {
-            this.validateField(field_cfg,this.state.rowData[field_cfg.key])
+        this.state.form_cfg.map(field_cfg => {
+            this.validateField(field_cfg, this.state.rowData[field_cfg.key])
         })
 
         var validate = true;
@@ -236,7 +252,7 @@ export default class ChanceForm extends React.Component {
         this.setState({ form_cfg: form_cfg })
     }
 
-    async validateField(field_cfg, value){
+    async validateField(field_cfg, value) {
         field_cfg['required'] = field_cfg.required === true ? field_cfg.required : false
 
         // 必填验证
@@ -268,9 +284,7 @@ export default class ChanceForm extends React.Component {
     }
 
     _onChange(field_cfg, value) {
-
         let name = field_cfg.key;
-        
         let rowData = { ...this.state.rowData };
         rowData[name] = value
         this.setState({
@@ -338,7 +352,7 @@ export default class ChanceForm extends React.Component {
             case 'textArea':
                 return <Input.TextArea
                     defaultValue={this.state.rowData[item.key]}
-                    onChange={value => this._onChange(item, value)}>
+                    onChange={value => this._onChange(item, value.target.value)}>
                 </Input.TextArea>
 
             case 'number':

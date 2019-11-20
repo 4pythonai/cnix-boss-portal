@@ -216,6 +216,7 @@ export default class Activity extends React.Component {
         let params = { data: data, method: 'POST' };
 
         await api.activityRecord.addRecord(params)
+        this.getRecordList();
     }
 
 

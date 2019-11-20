@@ -1,3 +1,62 @@
 .ant-col-12{
+    height:auto
+}
+.addmodal .ant-col-12{
     height:70px
 }
+.ant-modal-header{
+    border-radius:8px 8px 0 0
+}
+.ant-modal-content{
+    border-radius:8px;
+    // border:3px solid #304156
+}
+.ant-btn-primary{
+    background:#304156;
+    border-color:#304156
+}
+.ant-btn-primary:hover{
+    background:#304156;
+}
+.ant-btn-primary:hover{
+    background:#304156;
+}
+.ant-btn-primary:focus{
+    background:#304156;
+}
+.ant-btn-primary:active{
+    background:#304156;
+}
+.ant-modal-close{
+    color:#fff
+}
+.ant-modal-title{
+    color:#fff;
+    font-size:20px
+}
+// ::-webkit-scrollbar{
+//     width:10px;
+//     -webkit-border-radius: 15px;
+// }
+// ::-webkit-scrollbar-thumb {
+//     border-radius:10px;
+//     background:#ccc;
+//     }
+.ant-modal-header{
+    background:#304156
+}
+
+// ::-webkit-scrollbar-track-piece {
+//     background-color: transparent; //滚动槽
+//     -webkit-border-radius: 6px;
+//   }
+//   ::-webkit-scrollbar-thumb:vertical {
+//     height: 12px;
+//     background-color: #BDBDBD;
+//     -webkit-border-radius: 6px;
+//   }
+// ::-webkit-scrollbar-thumb:horizontal {
+//     width: 12px;
+//     background-color: #BDBDBD;
+//     -webkit-border-radius: 6px;
+//   }

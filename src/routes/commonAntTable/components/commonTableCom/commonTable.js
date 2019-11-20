@@ -7,6 +7,7 @@ import { columnsRender } from '../../../../utils/columnsHandle'
 import getColumnSearchProps from './getColumnSearchProps'
 import ResizeableTitle from './resizeableTitle';
 import commonTableStore from '@/store/commonTableStore'
+import '../../commonTable.scss'
 import api from '@/api/api'
 const { Search } = Input
 
@@ -35,14 +36,6 @@ export default class CommonTable extends React.Component {
     setTableCompomentQueryCfg = async cfg => {
         this.setState({ query_cfg: cfg })
     }
-
-
-
-
-
-
-
-
     async componentDidMount() {
         this.commonTableStore.resetTableStore();
         this.commonTableStore.clearPaginationStore();
@@ -64,7 +57,6 @@ export default class CommonTable extends React.Component {
         }
         await this.listData()
     }
-
 
     getACtcfg = async (source) => {
         this.commonTableStore.clearSelectRowData();
@@ -274,7 +266,7 @@ export default class CommonTable extends React.Component {
     };
 
     getTableColumns() {
-
+        let hideColumns = ['id','uuid','processDefinitionKey','nodeKey']
         let columns = [];
         this.commonTableStore.tableColumnsJson.map((item, index) => {
             let column = {
@@ -284,12 +276,13 @@ export default class CommonTable extends React.Component {
                 width: index == 0 ? 100 : null,
                 sorter: (a, b) => a[item.key] - b[item.key],
                 onFilter: (value, record) => record[item.key].includes(value),
-                ...getColumnSearchProps(item.key, this.commonTableStore),
+                // ...getColumnSearchProps(item.key, this.commonTableStore),
                 // render: (text, record) => this.columnsRender(text, item, record)
                 render: (text) => !text ? null : text
             }
-
-            columns.push(column)
+            if(hideColumns.includes(item.key) == false){
+                columns.push(column)
+            }           
         })
 
 

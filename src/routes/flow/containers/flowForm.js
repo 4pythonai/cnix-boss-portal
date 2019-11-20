@@ -269,7 +269,6 @@ export default class FlowForm extends React.Component {
 
 
     async FlowFormAction(event, callback) {
-
         let flowFormData = await this.getFormData();
         callback(event, flowFormData)
     }

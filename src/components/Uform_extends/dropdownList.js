@@ -42,6 +42,7 @@ export default class Dropdownlist extends React.Component {
         let defv = ''
         if (dropdownoptions.length > 0) {
             defv = dropdownoptions[0]
+            this.onChange(defv)
         }
 
 

@@ -10,39 +10,8 @@ export default class SignCustomerWrapper extends React.Component {
     constructor(props) {
         super();
         this.store = props.IDC_cfg_store
-        this.state = {
-            customerList: []
-        }
 
     }
-
-    componentDidMount() {
-        this.getCustomerList()
-    }
-
-    getCustomerList = async () => {
-        let params = { method: 'POST' };
-
-        let res = await api.customer.getCustomerDetailByUserPhone(params);
-        res.code == 200 && this.setState({ customerList: res.data.customerList })
-    }
-
-
-    getCustomerReferInfo = async customerId => {
-        let params = { data: { customerId: customerId }, method: 'POST' };
-
-        let res = await api.customer.getCustomerDetailByUserPhone(params);
-        if (res.code == 200) {
-            return {
-                customerReferInfo: res.data.customerReferInfo,
-                customerName: res.data.customerName
-            }
-        }
-        return { customerReferInfo: {}, customerName: '' }
-    }
-
-
-
 
     addCustomerHandle = () => {
         if (this.store.saveContractData.singers_customers.length >= 3) {
@@ -85,30 +54,36 @@ export default class SignCustomerWrapper extends React.Component {
         return res.data
     }
 
-    getCurrentCustomer = async (customerId, customer_index) => {
-        let customerMsg = await this.getCustomerReferInfo(customerId);
+    getCurrentCustomer = async (customerId, customer_index, selectedCustomer) => {
 
-        let addressMsg = customerId == '请选择' ? {
-            addressList: [],
-            addressName: ''
-        } : await this.getAddressList(customerId);
+        let addressMsg = customerId == '请选择'
+            ?
+            {
+                addressList: [],
+                addressName: ''
+            }
+            :
+            await this.getAddressList(customerId);
         let singers_customers = [...this.store.saveContractData.singers_customers]
 
+        let customerReferInfo = {
+            account: '',
+            bank: '',
+            bank_number: '',
+            payee_num: ''
+        };
+
+        if(customerId){
+            let { account,bank,bank_number,payee_num} = selectedCustomer
+            customerReferInfo = {...customerReferInfo, account,bank,bank_number,payee_num}
+        }
+       
         // 设置关联属性
         singers_customers[customer_index] = {
             ...singers_customers[customer_index],
-            customerReferInfo: customerId == '请选择'
-                ?
-                {
-                    account: '',
-                    bank: '',
-                    bank_number: '',
-                    payee_num: ''
-                }
-                :
-                customerMsg.customerReferInfo,
-            customerName: customerMsg.customerName,
-            customerId: customerId == '请选择' ? '' : customerId,
+            customerReferInfo: customerReferInfo,
+            customerName: selectedCustomer.customName,
+            customerId: customerId ? customerId : '',
             addressList: addressMsg.addressList,
             addressId: ''
         }
@@ -141,7 +116,6 @@ export default class SignCustomerWrapper extends React.Component {
                     destroyCustomer={this.destroyCustomer}
                     getCurrentCustomer={this.getCurrentCustomer}
                     getCurrentCustomerAddr={this.getCurrentCustomerAddr}
-                    customerList={this.state.customerList}
                     {...this.props}
                 />
             ))}

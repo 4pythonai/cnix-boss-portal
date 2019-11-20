@@ -14,7 +14,7 @@ import GetDepart from './getDepart'
 import YesOrNo from './yesOrNo'
 import Dropdownlist from './dropdownList'
 import SelectLimitData from './selectLimitData'
-
+import GetDate from './getDate'
 import WorkloadTableeditor from './workloadTableeditor.js'
 
 
@@ -42,7 +42,8 @@ registerFormFields({
 
     GetLander: connect()(props => <GetLander { ...props } value={ props.value || '' } />),
     GetDepart: connect()(props => <GetDepart { ...props } value={ props.value || '' } />),
-    SelectLimitData: connect()(props => <SelectLimitData { ...props } value={ props.value || '' } />)
+    SelectLimitData: connect()(props => <SelectLimitData { ...props } value={ props.value || '' } />),
+    GetDate: connect()(props => <GetDate { ...props } value={ props.value || '' } />)
 
 
 

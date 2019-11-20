@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react'
 import moment from 'moment';
 import { InputNumber, Input, Select } from 'antd';
 import NumericInput from 'react-numeric-input';
-const dateFormat = 'YYYY/MM/DD';
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 
 @inject('IDC_cfg_store')

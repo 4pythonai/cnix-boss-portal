@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Button, message  } from 'antd';
+import { Button, message } from 'antd';
 import SearchTableForm from './searchTableForm'
 import { validate } from '../../../../../utils/tools';
 
@@ -9,59 +9,59 @@ export default class SearchFormContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            field_group: [{ inner_order: 0}],
+            field_group: [{ inner_order: 0 }],
             field_list: [],
             operation_list: {
                 string: [
                     {
-                        label: 'like',
+                        label: '包含',
                         value: 'like'
                     },
                     {
-                        label: '=',
+                        label: '等于',
                         value: '='
                     },
                     {
-                        label: '!=',
+                        label: '不等于',
                         value: '!='
                     }],
                 date: [
                     {
-                        label: '>=',
+                        label: '大于等于',
                         value: '>='
                     },
                     {
-                        label: '=',
+                        label: '等于',
                         value: '='
                     },
                     {
-                        label: '<=',
+                        label: '小于等于',
                         value: '<='
                     }
                 ],
                 number: [
                     {
-                        label: '>=',
+                        label: '大于等于',
                         value: '>='
                     },
                     {
-                        label: '=',
+                        label: '等于',
                         value: '='
                     },
                     {
-                        label: '<=',
+                        label: '小于等于',
                         value: '<='
                     }],
                 other: [{
-                    label: 'like',
+                    label: '包含',
                     value: 'like'
                 },
                 {
-                    label: '=',
+                    label: '等于',
                     value: '='
                 },
                 {
-                    label: '!=',
+                    label: '小于等于',
                     value: '!='
                 }],
             }
@@ -72,7 +72,7 @@ export default class SearchFormContainer extends React.Component {
         this.getFieldList()
     }
 
-    saveActions  = (actions, index) => {
+    saveActions = (actions, index) => {
         let { field_group } = this.state
         field_group[index].actions = actions
         this.setState({
@@ -100,40 +100,40 @@ export default class SearchFormContainer extends React.Component {
         this.setState({ field_group })
     }
 
-    getFormValue = async ()=> {
-            let submitData = []
+    getFormValue = async () => {
+        let submitData = []
 
-            for(let i=0; i<this.state.field_group.length; i++ ){
-                let formValue = await this.state.field_group[i].actions.getSearchTableFormData()
-                formValue['and_or_'+ i] = 'and'
-                submitData.push(formValue);
-            }
+        for (let i = 0; i < this.state.field_group.length; i++) {
+            let formValue = await this.state.field_group[i].actions.getSearchTableFormData()
+            formValue['and_or_' + i] = 'and'
+            submitData.push(formValue);
+        }
 
-            if(this.validateRepeatField(submitData) === false){
-                return;
-            }
+        if (this.validateRepeatField(submitData) === false) {
+            return;
+        }
 
-            let query_cfg={
-                count: this.state.field_group.length,
-                lines: {}
-            };
-            submitData.map(item=> {
-                query_cfg.lines = {...query_cfg.lines, ...item}
-            })
+        let query_cfg = {
+            count: this.state.field_group.length,
+            lines: {}
+        };
+        submitData.map(item => {
+            query_cfg.lines = { ...query_cfg.lines, ...item }
+        })
 
-            this.props.setQueryCfg(query_cfg)
+        this.props.setQueryCfg(query_cfg)
 
-            this.props.refreshTable()
-            this.props.hideModal()
+        this.props.refreshTable()
+        this.props.hideModal()
     }
 
-    validateRepeatField = submitData=> {
-    
-        for(let i=0; i<submitData.length; i++ ){
-            let field_pre = submitData[i]['field_'+i]
-            for(let j = i+ 1; j<submitData.length -i; j++){
+    validateRepeatField = submitData => {
+
+        for (let i = 0; i < submitData.length; i++) {
+            let field_pre = submitData[i]['field_' + i]
+            for (let j = i + 1; j < submitData.length - i; j++) {
                 let field_next = submitData[j]['field_' + j]
-                if(field_pre === field_next){
+                if (field_pre === field_next) {
                     message.warning('搜索字段不能重复')
                     return false;
                 }
@@ -146,13 +146,15 @@ export default class SearchFormContainer extends React.Component {
 
     render() {
         return <div>
-            <Button type="primary" htmlType='button' size="small" onClick={this.addField} style={{marginRight: '10px'}}>增加</Button>
-            <Button type="danger" htmlType='button' size="small" onClick={this.delField}>删除</Button>
+            <div style={{marginBottom:'15px'}}>
+                <Button type="primary" htmlType='button' size="small" onClick={this.addField} style={{ marginRight: '10px' }}>增加</Button>
+                <Button type="danger" htmlType='button' size="small" onClick={this.delField}>删除</Button>
+            </div>
             {
                 this.state.field_group.map((item, index) => {
                     return <SearchTableForm
                         key={index}
-                        saveActions = {this.saveActions} 
+                        saveActions={this.saveActions}
                         operation_list={this.state.operation_list}
                         formCfg={this.props.formCfg.properties.group_all.properties}
                         field_list={this.getFieldList()}

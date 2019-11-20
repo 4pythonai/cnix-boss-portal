@@ -234,7 +234,8 @@ export default class EditForm extends React.Component {
 
         let json = await api.curd.updateData(params);
         if (json.code == 200) {
-            this.hideModal()
+            this.hideModal();
+            this.props.refreshTable();
         }
     }
 
@@ -243,7 +244,7 @@ export default class EditForm extends React.Component {
             destroyOnClose
             footer={null}
             visible={this.state.visible}
-            style={{ width: '400px' }}
+            width={650}
             onCancel={() => this.hideModal()}
             title="编辑客户" >
             <GetFields

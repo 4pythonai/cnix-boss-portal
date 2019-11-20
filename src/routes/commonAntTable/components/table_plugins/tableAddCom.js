@@ -4,7 +4,6 @@ import { observer, inject } from "mobx-react";
 import CommonModal from '../commonTableCom/commonModal'
 import api from '@/api/api'
 
-
 @observer
 export default class TableAddCom extends React.Component {
     state = {
@@ -50,9 +49,11 @@ export default class TableAddCom extends React.Component {
         }
     }
 
-    saveFormData(fmdata, changeValue, as_virtual, optionType) {
-        console.log(changeValue, "保存数据");
-
+    saveFormData(fmdata,uuid, changeValue, as_virtual, optionType) {
+        if(uuid!=''){
+            fmdata.uuid=uuid
+        }
+        console.log(changeValue, "保存数据",fmdata);
         let data = {
             actcode: this.props.commonTableStore.action_code,
             rawdata: fmdata

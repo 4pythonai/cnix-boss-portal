@@ -1,14 +1,13 @@
 import React from 'react'
 import { Modal ,message} from 'antd';
-import { inject, observer } from 'mobx-react'
 import CommonTable from '@/routes/commonAntTable/components/commonTableCom/commonTable'
 
-@inject('IDC_cfg_store')
-@observer
-export default class SelectBackToBackContract extends React.Component {
+export default class CustomerSelectModal extends React.Component {
     constructor(props) {
         super(props)
-        this.store = props.IDC_cfg_store;
+        this.state = {
+            visible: false
+        }
     }
 
     okHandle() {
@@ -17,8 +16,25 @@ export default class SelectBackToBackContract extends React.Component {
             return;
         }
         let selectRow = this.refs.commonTableRef.commonTableStore.selectedRows[0];
-        this.store.setBackToBackContract(selectRow.contract_no)
-        this.store.hideBTBContractModal()
+
+        this.props.getCurrentCustomer(selectRow.id, this.props.customer_index, selectRow)
+
+        this.hideCustomerModal()
+    }
+
+    hideCustomerModal = () => {
+        this.setState({
+            visible: false
+        })
+    }
+
+    showCustomerModal = () => {
+        if(this.props.disabled){
+            return;
+        }
+        this.setState({
+            visible: true
+        })
     }
 
     render() {
@@ -30,15 +46,16 @@ export default class SelectBackToBackContract extends React.Component {
                 keyboard={disable}
                 maskClosable={disable}
                 width={1200}
-                title="选择背靠背合同"
+                title="选择签约方客户"
                 centered
                 cancelText="取消"
                 okText="确认"
-                onCancel={this.store.hideBTBContractModal}
+                onCancel={this.hideCustomerModal}
                 onOk={() => this.okHandle()}
-                visible={this.store.visibleBTBContractModal}
+                visible={this.state.visible}
             >
-                <CommonTable ref="commonTableRef" action_code={this.props.action_code == "renew_IDCPaymentsContract" ? 'backToBackIDCReceiveContract' : 'backToBackIDCPaymentsContract'} />
+                
+                <CommonTable ref="commonTableRef" action_code='signer_customer' />
             </Modal>
         )
     }

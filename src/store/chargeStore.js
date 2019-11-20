@@ -278,14 +278,14 @@ class chargeStore {
 
         this.idcLocation['startIdcLocation'] = value;
         this.setLoc()
-        
+
     }
 
-    @action setLoc = ()=> {
-        if(!this.idcLocation.startIdcLocation || this.idcLocation.startIdcLocation === '请选择'){
+    @action setLoc = () => {
+        if (!this.idcLocation.startIdcLocation || this.idcLocation.startIdcLocation === '请选择') {
             return;
         }
-        if(!this.idcLocation.endIdcLocation || this.idcLocation.endIdcLocation === '请选择'){
+        if (!this.idcLocation.endIdcLocation || this.idcLocation.endIdcLocation === '请选择') {
             return;
         }
         this.chargeRowData.loc = this.idcLocation.startIdcLocation + ',' + this.idcLocation.endIdcLocation
@@ -319,8 +319,6 @@ class chargeStore {
         this.setResUnit(this.charge_cfg);
         if (!this.chargeRowData.billing_methods && res.billing_methods.length == 1) {
             this.chargeRowData.billing_methods = res.billing_methods[0].method;
-        }else{
-            this.chargeRowData.billing_methods = ''
         }
     }
 
@@ -338,7 +336,7 @@ class chargeStore {
                 getMaxRowKey(this.chargeSubmitData),
             ...this.chargeRowData
         };
-        
+
         // @表单验证
         if (this.validateChargeData(chargeSubmitRowData) == false) {
             return;
@@ -463,6 +461,8 @@ class chargeStore {
         event.stopPropagation();
         this.chargeOption = 'edit';
         this.chargeRowData = this.chargeSubmitData.find(item => item.key == key)
+
+        console.log(this.chargeRowData)
 
         if (this.chargeRowData.charge_fee_type == '一次性费用') {
             this.charge_cfg = {};
@@ -646,11 +646,11 @@ class chargeStore {
         if (rowData.amount) {
             return rowData.amount
         }
-        
+
         if (rowData.top_limited_amount) {
             return rowData.top_limited_amount
         }
-        if(rowData.base_amount){
+        if (rowData.base_amount) {
             return rowData.base_amount
         }
         return ''
@@ -665,7 +665,7 @@ class chargeStore {
 
     getShowPrice(rowData, charge_cfg) {
         // 普通计费
-        if (charge_cfg.billing_methods.length == 1) {
+        if (charge_cfg.billing_methods.length == 1 && charge_cfg.billing_methods[0].text == '') {
             var price = rowData.price + "元";
             price += rowData.price_unit ? '/' + rowData.price_unit : '';
             price += rowData.billing_cycle ? '/' + rowData.billing_cycle : '';
@@ -689,7 +689,7 @@ class chargeStore {
     }
 
     getShowDescription(data, charge_cfg) {
-        let ignorePrice = ['price', 'price_in_base', 'price_in_fixed'];
+        let ignorePrice = ['price', 'price_in_base'];
 
         let description = this.getDescriptionSpec(data, charge_cfg, ignorePrice);
 
@@ -706,7 +706,7 @@ class chargeStore {
         description += this.getFeeFixedDescription(data, charge_cfg, ignorePrice);
 
         description += this.getFeeBaseAndOverflowDescription(data, charge_cfg, ignorePrice);
-        
+
         // 带宽峰值处理
         description += this.getPeakValue(data, charge_cfg, ignorePrice);
 
@@ -717,9 +717,9 @@ class chargeStore {
         return false
     }
 
-    getPeakValue(data){
+    getPeakValue(data) {
         let description = ''
-        if(data.res_id == 7 && data.billing_methods == 'using_fee_fixed_with_overflow' && data.peak_value ){
+        if (data.res_id == 7 && data.billing_methods == 'using_fee_fixed_with_overflow' && data.peak_value) {
             return "峰值：" + data.peak_value
         }
 
@@ -730,7 +730,7 @@ class chargeStore {
         let billing_methods_title = ''
         if (charge_cfg.billing_methods.length == 2) {
             billing_methods_title = charge_cfg.billing_methods.find(item => item.method == data.billing_methods).text
-            return '计费方式：' + billing_methods_title
+            return '计费方式：' + billing_methods_title + ','
         }
         return ''
     }
@@ -791,15 +791,24 @@ class chargeStore {
     getFeeBaseAndOverflowDescription(data, charge_cfg, ignorePrice) {
         let description = ''
 
+        
+
         if (data.billing_methods != 'using_fee_fixed_with_overflow' || charge_cfg.using_fee_fixed_with_overflow == undefined) {
             return description
         }
+
+        // 超电上限处理
+        if (data.cabinet_electricity_count) {
+            description += '超电上限：' + data.alt_amount + '/' + data.alt_amount_unit + ','
+        }
+
         charge_cfg.using_fee_fixed_with_overflow.map(item => {
-            if (ignorePrice.includes(item.ui_id))
-                return;
-            description += item.ui_title + ':' + data[item.ui_id];
-            description += (item.unit && data[item.unit.ui_id]) ? '元/' + data[item.unit.ui_id] : '';
-            description += (item.cycle && data[item.cycle.ui_id]) ? '/' + data[item.cycle.ui_id] + '，' : '，';
+            if (ignorePrice.includes(item.ui_id) == false && item.ui_id != 'alt_amount' && item.compoment_name != 'cabinet_electricity_count') {
+                description += item.ui_title + ':' + data[item.ui_id];
+                description += (item.unit && data[item.unit.ui_id]) ? '元/' + data[item.unit.ui_id] : '';
+                description += (item.cycle && data[item.cycle.ui_id]) ? '/' + data[item.cycle.ui_id] + '，' : '，';
+
+            }
         })
         return description;
     }
@@ -814,15 +823,15 @@ class chargeStore {
         let ignoreSpec = ['cabinet_electricity_count']
         // 机柜电量处理
         if (data.cabinet_electricity_count) {
-            description += '机柜电量：' + data.cabinet_electricity_count + 'A= ' + data.cabinet_electricity_count * 220 + 'kw/h，'
+            description += '机柜电量：' + data.cabinet_electricity_count + '/' + data.cabinet_electricity_count_unit + ','
         }
 
         charge_cfg.spec.map(item => {
             if (ignoreSpec.includes(item.ui_id) == false)
-            // 带宽类型不显示的时候不拼接
-                if(this.isShowWidthType === false && charge_cfg.id == 7 && item.ui_id == 'bandwidth_type'){
+                // 带宽类型不显示的时候不拼接
+                if (this.isShowWidthType === false && charge_cfg.id == 7 && item.ui_id == 'bandwidth_type') {
                     description += ''
-                }else{
+                } else {
                     description += item.ui_title + ':' + data[item.ui_id] + '，'
                 }
         })
@@ -845,7 +854,7 @@ class chargeStore {
             return false;
         }
         if (data.price === '' || data.price == undefined) {
-            message.error('价格不能为空！');
+            message.error('单价不能为空！');
             return false;
         }
         return true
@@ -915,15 +924,6 @@ class chargeStore {
                 if (item.unit && data[item.unit.ui_id] == undefined) {
                     message.error(item.check_tip_text + item.ui_title + '单位');
                     return false
-                }
-            }else{
-                
-                // 超电上限
-                if(data[item.ui_id] != '' && data[item.ui_id] != undefined && item.unit && data[item.unit.ui_id] == undefined){
-                    if(data[item.unit.ui_id] === '' || data[item.unit.ui_id] === '请选择'){
-                        message.error(item.check_tip_text + item.ui_title + '单位');
-                        return false
-                    }
                 }
             }
         }
