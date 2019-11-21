@@ -17,53 +17,53 @@ const GetFields = (props) => {
 
     const [value, setValue] = useState()
     let { selectedRows } = props.commonTableStore
-    const selectedRow = {...selectedRows[0]}
+    const selectedRow = { ...selectedRows[0] }
 
 
     return <SchemaForm
-        initialValues={value}
-        actions={actions}
-        effects={($, { setFieldState, getFieldState }) => {
-  
+        initialValues={ value }
+        actions={ actions }
+        effects={ ($, { setFieldState, getFieldState }) => {
+
             $("onFormInit").subscribe(() => {
-                let {customName, contactPhone, email, payee_num, payee_name, bank, bank_number, id, account} = selectedRow
-                setValue({customName, contactPhone, email, payee_num, payee_name, bank,id,account, bank_num:bank_number })
+                let { customName, contactPhone, email, payee_num, payee_name, bank, bank_number, id, account } = selectedRow
+                setValue({ customName, contactPhone, email, payee_num, payee_name, bank, id, account, bank_num: bank_number })
             });
 
             $('onFieldChange', 'newCustomName')
-            .pipe(
-                withLatestFrom($('onChangeOption')),
-                map(([fieldState, { payload: option }]) => {
-                    return {
-                        state: fieldState,
-                        option
+                .pipe(
+                    withLatestFrom($('onChangeOption')),
+                    map(([fieldState, { payload: option }]) => {
+                        return {
+                            state: fieldState,
+                            option
+                        }
+                    })
+                ).subscribe(async ({ state, option }) => {
+                    if (!state.value) {
+                        return;
                     }
+
+                    let params = {
+                        data: {
+                            companyKey: state.value
+                        },
+                        method: 'POST'
+                    }
+                    let res = await api.customer.inquiryCompanyMsg(params)
+                    if (res.code == 200) {
+                        setFieldState('contactPhone', state => {
+                            state.value = res.data.data.contact.telephone
+                        })
+                        setFieldState('email', state => {
+                            state.value = res.data.data.contact.email
+                        })
+                        setFieldState('payee_num', state => {
+                            state.value = res.data.data.credit_no
+                        })
+                    }
+
                 })
-            ).subscribe(async ({ state, option }) => {
-                if (!state.value) {
-                    return;
-                }
-
-                let params = {
-                    data: {
-                        companyKey: state.value
-                    },
-                    method: 'POST'
-                }
-                let res = await api.customer.inquiryCompanyMsg(params)
-                if (res.code == 200) {
-                    setFieldState('contactPhone', state => {
-                        state.value = res.data.data.contact.telephone
-                    })
-                    setFieldState('email', state => {
-                        state.value = res.data.data.contact.email
-                    })
-                    setFieldState('payee_num', state => {
-                        state.value = res.data.data.credit_no
-                    })
-                }
-
-            })
 
 
             // 客户搜索
@@ -95,9 +95,9 @@ const GetFields = (props) => {
                         })
                     }
                 })
-        }}
-        labelCol={8}
-        wrapperCol={12}
+        } }
+        labelCol={ 8 }
+        wrapperCol={ 12 }
     >
 
 
@@ -106,7 +106,7 @@ const GetFields = (props) => {
             title="原客户名称"
             required
             name="customName"
-            editable={false}
+            editable={ false }
         />
 
         <Field
@@ -114,22 +114,22 @@ const GetFields = (props) => {
             title="新客户名称"
             default=''
             name="newCustomName"
-            x-effect={dispatch => ({
+            x-effect={ dispatch => ({
                 onChange(value, type, option) {
                     dispatch('onChangeOption', option)
                 },
                 onSearch(value) {
                     dispatch('onSearchCustomer', value)
                 }
-            })}
-            x-props={{ showSearch: true, filterLocal: false }}
+            }) }
+            x-props={ { showSearch: true, filterLocal: false } }
         />
 
         <Field
             type="string"
             title="客户电话"
             required
-            editable={false}
+            editable={ false }
             name="contactPhone"
             default=''
         />
@@ -139,7 +139,7 @@ const GetFields = (props) => {
             title="客户邮箱"
             required
             name="email"
-            editable={false}
+            editable={ false }
             default=''
         />
 
@@ -148,7 +148,7 @@ const GetFields = (props) => {
             title="税号"
             required
             name="payee_num"
-            editable={false}
+            editable={ false }
             default=''
         />
 
@@ -180,8 +180,8 @@ const GetFields = (props) => {
         />
 
 
-        <div style={{ textAlign: 'center' }}>
-            <Button type="primary" htmlType="button" className="marginRihgt10" onClick={async event => {
+        <div style={ { textAlign: 'center' } }>
+            <Button type="primary" htmlType="button" className="marginRihgt10" onClick={ async event => {
                 await actions.validate()
                 let formData = actions.getFormState().values;
                 await props.saveFormData(formData);
@@ -220,16 +220,16 @@ export default class EditForm extends React.Component {
     }
 
     async saveFormData(data) {
-        let params = { 
+        let params = {
             data: {
                 actcode: this.props.commonTableStore.action_code,
                 rawdata: {
                     id: this.props.commonTableStore.selectedRows[0].id,
                     ...data
                 }
-            }, 
+            },
             updateurl: this.props.commonTableStore.curd.updateurl,
-            method: 'POST' 
+            method: 'POST'
         };
 
         let json = await api.curd.updateData(params);
@@ -242,14 +242,14 @@ export default class EditForm extends React.Component {
     render() {
         return <Modal
             destroyOnClose
-            footer={null}
-            visible={this.state.visible}
-            width={650}
-            onCancel={() => this.hideModal()}
+            footer={ null }
+            visible={ this.state.visible }
+            width={ 1000 }
+            onCancel={ () => this.hideModal() }
             title="编辑客户" >
             <GetFields
-                commonTableStore={this.props.commonTableStore}
-                saveFormData={this.saveFormData.bind(this)}
+                commonTableStore={ this.props.commonTableStore }
+                saveFormData={ this.saveFormData.bind(this) }
             />
         </Modal>
     }

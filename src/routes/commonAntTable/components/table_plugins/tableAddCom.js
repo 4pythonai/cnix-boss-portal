@@ -23,15 +23,15 @@ export default class TableAddCom extends React.Component {
     }
 
     addVirtualData = (formData, changeValue) => {
-        console.log('this.props.commonTableStore.triggers',this.props.commonTableStore.triggers)
+        console.log('this.props.commonTableStore.triggers', this.props.commonTableStore.triggers)
         formData = this.getGhostData(formData)
         let dataSource = [({ id: this.props.commonTableStore.dataSource.length + 1, ...formData }), ...this.props.commonTableStore.dataSource];
         this.props.commonTableStore.setDataSource(dataSource)
         changeValue && changeValue(this.props.commonTableStore.dataSource);
     }
 
-    getGhostData = formData=> {
-        this.props.commonTableStore.triggers.map(item=> {
+    getGhostData = formData => {
+        this.props.commonTableStore.triggers.map(item => {
             formData['ghost_' + item.props.ass_select_field_id] = formData[item.props.ass_select_field_id]
             let option_obj = item.state.optionList.find(optionItem => (optionItem.value == formData[item.props.ass_select_field_id]))
             formData[item.props.ass_select_field_id] = option_obj.label
@@ -49,11 +49,11 @@ export default class TableAddCom extends React.Component {
         }
     }
 
-    saveFormData(fmdata,uuid, changeValue, as_virtual, optionType) {
-        if(uuid!=''){
-            fmdata.uuid=uuid
+    saveFormData(fmdata, uuid, changeValue, as_virtual, optionType) {
+        if (uuid != '') {
+            fmdata.uuid = uuid
         }
-        console.log(changeValue, "保存数据",fmdata);
+        console.log(changeValue, "保存数据", fmdata);
         let data = {
             actcode: this.props.commonTableStore.action_code,
             rawdata: fmdata
@@ -69,7 +69,8 @@ export default class TableAddCom extends React.Component {
 
     render() {
         return <CommonModal
-            height="500px"
+            height="1000"
+            width="1000px"
             footer={ null }
             title="新增"
             ref='commonModalRef'

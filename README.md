@@ -37,3 +37,8 @@ https://github.com/tangyongjin/cnix-boss-portal-api
 资源占用数据是计费的基础(时间线)
 费用条目(设定某个用户下面某个合同某个产品的价格)
 
+
+### 计费逻辑
+
+#### 开通流程永远是insert一条记录 
+#### 关闭流程永远是update一条记录 

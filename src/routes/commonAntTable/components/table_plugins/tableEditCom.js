@@ -77,8 +77,8 @@ export default class TableEditCom extends React.Component {
         this.updateDateApi(data);
     }
 
-    getGhostData = formData=> {
-        this.props.commonTableStore.triggers.map(item=> {
+    getGhostData = formData => {
+        this.props.commonTableStore.triggers.map(item => {
             formData['ghost_' + item.props.ass_select_field_id] = formData[item.props.ass_select_field_id]
             let option_obj = item.state.optionList.find(optionItem => (optionItem.value == formData[item.props.ass_select_field_id]))
             formData[item.props.ass_select_field_id] = option_obj.label
@@ -114,9 +114,9 @@ export default class TableEditCom extends React.Component {
 
     render() {
         return <CommonModal
-            height="500px"
+
             footer={ null }
-            title="编辑"
+            title="编辑2"
             ref='commonModalRef'
             layoutcfg={ this.props.commonTableStore.layoutcfg }
         >

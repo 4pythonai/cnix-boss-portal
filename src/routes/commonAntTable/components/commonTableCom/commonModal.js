@@ -35,6 +35,8 @@ export default class CommonModal extends React.Component {
             title: this.props.title,
             bodyStyle: {
                 height: "600px",
+                width: "1000px",
+
                 overflow: 'auto',
                 bottom: 0
             },
@@ -48,6 +50,6 @@ export default class CommonModal extends React.Component {
 
     render() {
         let modalProps = this.getModalProps();
-        return <Modal width={this.props.layoutcfg=='2'?'800px':'520px'} { ...modalProps }>{ this.props.children }</Modal>
+        return <Modal width={ this.props.layoutcfg == '2' ? '1000px' : '1000px' } { ...modalProps }>{ this.props.children }</Modal>
     }
 }
