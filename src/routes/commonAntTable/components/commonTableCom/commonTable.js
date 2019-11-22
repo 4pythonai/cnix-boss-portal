@@ -241,7 +241,7 @@ export default class CommonTable extends React.Component {
                 onChange={ this.props.onChange }
                 commonTableStore={ this.commonTableStore }
                 refreshTable={ this.refreshTable }
-                setQueryCfg={this.setTableCompomentQueryCfg}
+                setQueryCfg={ this.setTableCompomentQueryCfg }
             />
         }
     }
@@ -266,7 +266,7 @@ export default class CommonTable extends React.Component {
     };
 
     getTableColumns() {
-        let hideColumns = ['id','uuid','processDefinitionKey','nodeKey']
+        let hideColumns = ['uuid', 'processDefinitionKey', 'nodeKey']
         let columns = [];
         this.commonTableStore.tableColumnsJson.map((item, index) => {
             let column = {
@@ -280,9 +280,9 @@ export default class CommonTable extends React.Component {
                 // render: (text, record) => this.columnsRender(text, item, record)
                 render: (text) => !text ? null : text
             }
-            if(hideColumns.includes(item.key) == false){
+            if (hideColumns.includes(item.key) == false) {
                 columns.push(column)
-            }           
+            }
         })
 
 
