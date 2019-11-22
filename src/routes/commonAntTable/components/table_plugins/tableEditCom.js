@@ -116,7 +116,7 @@ export default class TableEditCom extends React.Component {
         return <CommonModal
 
             footer={ null }
-            title="编辑2"
+            title="编辑"
             ref='commonModalRef'
             layoutcfg={ this.props.commonTableStore.layoutcfg }
         >
