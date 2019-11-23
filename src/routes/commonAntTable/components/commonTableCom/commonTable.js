@@ -30,8 +30,12 @@ export default class CommonTable extends React.Component {
             query_cfg: this.props.query_cfg ? this.props.query_cfg : null           //表格保持自己的query_cfg
         }
     }
-
-
+    // 查询
+    inquireModal = async data => {
+        console.log(444, data)
+        await this.setState({ query_cfg: data })
+        await this.listData()
+    }
     //设置表格自己的query_cfg ,不是store的 query_cfg
     setTableCompomentQueryCfg = async cfg => {
         this.setState({ query_cfg: cfg })
@@ -121,7 +125,6 @@ export default class CommonTable extends React.Component {
         this.commonTableStore.setFormCfg({})
         message.error('获取表格配置失败');
     }
-
 
     listData = async () => {
 
@@ -225,8 +228,6 @@ export default class CommonTable extends React.Component {
 
     }
 
-
-
     // commonTable 作为编辑器时候, x-props会传入 as_virtual属性,onChange 属性.
     RenderTablePluginCom() {
 
@@ -240,8 +241,10 @@ export default class CommonTable extends React.Component {
                 editable={ true }
                 onChange={ this.props.onChange }
                 commonTableStore={ this.commonTableStore }
+                dataGridcode={ this.props.dataGridcode }
                 refreshTable={ this.refreshTable }
                 setQueryCfg={ this.setTableCompomentQueryCfg }
+                inquireModal={ this.inquireModal }
             />
         }
     }
@@ -256,6 +259,7 @@ export default class CommonTable extends React.Component {
 
     handleResize = index => (e, { size }) => {
         const nextColumns = [...this.state.columns];
+        console.log(size)
         nextColumns[index] = {
             ...nextColumns[index],
             width: size.width,
@@ -274,6 +278,7 @@ export default class CommonTable extends React.Component {
                 dataIndex: item.key,
                 key: item.key,
                 width: index == 0 ? 100 : null,
+                // ellipsis:true,
                 sorter: (a, b) => a[item.key] - b[item.key],
                 onFilter: (value, record) => record[item.key].includes(value),
                 // ...getColumnSearchProps(item.key, this.commonTableStore),
@@ -284,9 +289,6 @@ export default class CommonTable extends React.Component {
                 columns.push(column)
             }
         })
-
-
-
         this.setState({ columns: columns });
     }
 
@@ -385,6 +387,26 @@ export default class CommonTable extends React.Component {
 
 
 
+    getSearchCom = () => {
+        let contract_action_code_arr = [
+            'waiting_for_signature',
+            'already_seal',
+            'obsolete_invalid',
+            'contract_enquiry',
+            'effective_boss_contract_new_receive',
+            'effective_boss_contract_new_pay'
+        ];
+        if (contract_action_code_arr.includes(this.props.action_code)) {
+            return <SearchContract
+                query_cfg={ this.state.query_cfg }
+                listData={ this.listData }
+                setQueryCfg={ this.setTableCompomentQueryCfg }
+            />
+        }
+    }
+
+
+
 
 
     render() {
@@ -398,6 +420,7 @@ export default class CommonTable extends React.Component {
 
             { this.RenderTablePluginCom() }
             <div className="table_button">
+                { this.getSearchCom() }
                 { this.renderButtons() }
             </div>
 

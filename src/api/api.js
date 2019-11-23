@@ -18,6 +18,9 @@ import permission from './api_permission'
 import user from './api_user'
 import customer from './api_customer'
 import activityRecord from './api_activityRecord'
+import billing from './api_billing'
+
+
 
 export default class api {
 
@@ -153,3 +156,4 @@ api.permission = permission.apis
 api.user = user.apis
 api.customer = customer.apis
 api.activityRecord = activityRecord.apis
+api.billing = billing.apis
