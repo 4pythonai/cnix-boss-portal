@@ -51,11 +51,12 @@ class Fieldmanager extends React.Component {
         return (
             <Card title={ xtitle } style={ { width: "1500px" } }>
                 <Row>
-                    <Col span={ 3 }>字段</Col>
+                    <Col span={ 2 }>字段</Col>
                     <Col span={ 3 }>Label</Col>
+                    <Col span={ 2 }>grouptitle</Col>
                     <Col span={ 3 }>插件 </Col>
-                    <Col span={ 2 }>日期参数 </Col>
-                    <Col span={ 2 }>table隐藏/可见 </Col>
+                    <Col span={ 2 }>参数 </Col>
+                    <Col span={ 2 }>tableX隐藏/可见 </Col>
                     <Col span={ 2 }>form隐藏/可见 </Col>
                     <Col span={ 3 }>form只读/可编辑 </Col>
                     <Col span={ 3 }>数据字典 </Col>
@@ -67,9 +68,12 @@ class Fieldmanager extends React.Component {
                 { allcols.map((col, idx) =>
                     <div key={ idx } >
                         <Row key={ idx }>
-                            <Col span={ 3 }>{ col.Comment.length == 0 ? col.Field : col.Field + '/' + col.Comment } </Col>
+                            <Col span={ 2 }>{ col.Comment.length == 0 ? col.Field : col.Field + '/' + col.Comment } </Col>
                             <Col span={ 3 }>
                                 <Input disabled={ col.Field == 'id' } defaultValue={ col.label } onChange={ (e) => { this.changeCfg_input(e, 'label', col.Field) } } />
+                            </Col>
+                            <Col span={ 2 }>
+                                <Input defaultValue={ col.grouptitle } onChange={ (e) => { this.changeCfg_input(e, 'grouptitle', col.Field) } } />
                             </Col>
                             <Col span={ 3 }>
                                 <Select
@@ -90,7 +94,7 @@ class Fieldmanager extends React.Component {
 
                             </Col>
                             <Col span={ 2 }>
-                                <Input disabled={ col.Field == 'id' } defaultValue={ col.dataLimit } onChange={ (e) => { this.changeCfg_input(e, 'dataLimit', col.Field) } } />
+                                <Input disabled={ col.Field == 'id' } defaultValue={ col.uform_para } onChange={ (e) => { this.changeCfg_input(e, 'uform_para', col.Field) } } />
                             </Col>
                             <Col span={ 2 } style={ { marginLeft: '10px' } }>
                                 <Checkbox checked={ col.column_hidden } onChange={ (e) => { this.changeCfg_cbx(e, 'column_hidden', col.Field) } }>隐藏</Checkbox>
