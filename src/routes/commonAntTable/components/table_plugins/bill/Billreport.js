@@ -68,14 +68,19 @@ export default class Billreport extends React.Component {
         let timeline = record.timeline //该参数是从父表格带过来的key
         const cols = [
             {
+                title: '账期',
+                dataIndex: 'counter',
+                key: 'counter',
+            },
+            {
                 title: '起',
-                dataIndex: 'periodstart',
-                key: 'periodstart',
+                dataIndex: '_begin',
+                key: '_begin',
             },
             {
                 title: '止',
-                dataIndex: 'periodend',
-                key: 'periodend',
+                dataIndex: '_end',
+                key: '_end',
             },
             {
                 title: '满周期',
@@ -83,7 +88,7 @@ export default class Billreport extends React.Component {
                 key: 'fullcycle'
             },
             {
-                title: 'Info:',
+                title: '计算方法',
                 dataIndex: 'info',
                 key: 'info',
                 render: (text, record) => {
@@ -106,10 +111,7 @@ export default class Billreport extends React.Component {
                     return <div>{ result }</div>;
                 }
 
-            }
-
-            ,
-
+            },
             {
                 title: '费用',
                 dataIndex: 'shouldpay',
@@ -130,25 +132,31 @@ export default class Billreport extends React.Component {
     getColumnsCycle() {
         return [
             {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+            },
+            {
                 title: '资源名称',
-                dataIndex: 'resname',
-                key: 'resname',
+                dataIndex: 'sub_category',
+                key: 'sub_category',
+            },
+            {
+                title: '资源详情',
+                dataIndex: 'network_text',
+                key: 'network_text'
             },
             {
                 title: '周期',
-                dataIndex: 'billing_cycle',
-                key: 'billing_cycle',
+                dataIndex: 'paycycle',
+                key: 'paycycle',
             },
             {
-                title: '价格',
+                title: '价格(月)',
                 dataIndex: 'price',
                 key: 'price',
             },
-            {
-                title: '数量',
-                dataIndex: 'amount',
-                key: 'amount'
-            },
+
             {
                 title: '费用合计',
                 dataIndex: 'row_summary',
@@ -177,10 +185,12 @@ export default class Billreport extends React.Component {
 
     getModalProps() {
         return {
+            width: 1200,
             destroyOnClose: true,
             ref: "billrpt",
             title: '账单',
             bodyStyle: {
+                width: 1200,
                 height: "auto",
                 overflow: 'auto',
                 bottom: 0
@@ -194,22 +204,20 @@ export default class Billreport extends React.Component {
     }
 
 
-
-
-
-
-
-
-
     render() {
         console.log('will render.....')
         let modalProps = this.getModalProps();
         return <Modal { ...modalProps }>
             <div>
-                <div style={ { fontWeight: 'bold' } }>周期性费用合计:{ this.store.cycleFee_summary }元</div>
-                <div style={ { fontWeight: 'bold' } }>一次性费用合计:{ this.store.onetimeFee_summary }元</div>
-                <div style={ { fontWeight: 'bold' } }>费用合计:{ this.store.total_summary }元</div>
-                <Divider orientation="left" >周期性费用详情</Divider>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客户名称:{ this.store.cust.customer_name }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同号:{ this.store.contract.contract_no }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>付款周期:{ this.store.contract.paycycle }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>月租金:{ this.store.contract.monthly_fee }元</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同起始:{ this.store.contract.contract_start }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同终止:{ this.store.contract.contract_end }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>周期性费用合计:{ this.store.cycleFee_summary }元</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用合计:{ this.store.total_summary }元</div>
+                <Divider orientation="left">周期性费用详情</Divider>
 
                 <Table
                     dataSource={ this.store.cycle_store }
@@ -219,14 +227,6 @@ export default class Billreport extends React.Component {
                     expandedRowRender={ this.expandedRowRender }
                 />
 
-                <Divider orientation="left" >一次性费用详情</Divider>
-
-                <Table
-                    dataSource={ this.store.onetime_store }
-                    pagination={ false }
-                    size="small"
-                    columns={ this.getColumnsOnetime() }
-                />
             </div >
         </Modal >
     }
