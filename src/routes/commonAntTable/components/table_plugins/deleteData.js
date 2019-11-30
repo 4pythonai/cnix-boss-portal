@@ -91,7 +91,6 @@ export default class DeleteData extends React.Component {
             delurl: this.props.commonTableStore.curd.delurl,
             method: 'POST'
         };
-
         let json = await api.curd.deleteData(params);
 
         if (json.code == 200) {
