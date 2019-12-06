@@ -21,46 +21,46 @@ export default class MenuModalContent extends React.Component {
                     title='菜单名称'
                     required="true"
                     fieldKey="text"
-                    defaultValue={this.store.menuRowData.text}
-                    onChange={this.store.setMenuRowData}
+                    defaultValue={ this.store.menuRowData.text }
+                    onChange={ this.store.setMenuRowData }
                 />
                 <FormRow
                     title='编码'
                     fieldKey="menu"
                     required="true"
-                    defaultValue={this.store.menuRowData.menu}
-                    onChange={this.store.setMenuRowData}
+                    defaultValue={ this.store.menuRowData.menu }
+                    onChange={ this.store.setMenuRowData }
                 />
                 <FormRow
                     title='action_code'
                     fieldKey="action_code"
-                    defaultValue={this.store.menuRowData.action_code}
-                    onChange={this.store.setMenuRowData}
+                    defaultValue={ this.store.menuRowData.action_code }
+                    onChange={ this.store.setMenuRowData }
                 />
                 <FormRow
-                    title='流程key'
+                    title='流程key2'
                     fieldKey="process_key"
-                    defaultValue={this.store.menuRowData.process_key}
-                    onChange={this.store.setMenuRowData}
+                    defaultValue={ this.store.menuRowData.process_key }
+                    onChange={ this.store.setMenuRowData }
                 />
                 <FormRow
                     title='路由'
                     fieldKey="router"
                     required="true"
-                    defaultValue={this.store.menuRowData.router}
-                    onChange={this.store.setMenuRowData}
+                    defaultValue={ this.store.menuRowData.router ? this.store.menuRowData.router : "/table/commonXTable" }
+                    onChange={ this.store.setMenuRowData }
                 />
-                
+
                 <div className="form_group">
                     <div className="form_text_info">
-                        <span style={{ color: 'red' }}>*</span>
+                        <span style={ { color: 'red' } }>*</span>
                         <span>类型：</span>
                     </div>
                     <div className="form_value_node">
                         <Select
-                            defaultValue={this.store.menuRowData.type || '请选择'}
-                            onChange={event => this.store.setMenuRowData(event, this.props.fieldKey)}
-                            style={{ width: '100%' }}
+                            defaultValue={ this.store.menuRowData.type || '请选择' }
+                            onChange={ event => this.store.setMenuRowData(event, this.props.fieldKey) }
+                            style={ { width: '100%' } }
                         >
                             <Select.Option value='目录'>目录</Select.Option>
                             <Select.Option value='菜单'>菜单</Select.Option>
@@ -70,19 +70,19 @@ export default class MenuModalContent extends React.Component {
                 <FormRow
                     title='图标'
                     fieldKey="icon"
-                    defaultValue={this.store.menuRowData.icon}
-                    onChange={this.store.setMenuRowData}
+                    defaultValue={ this.store.menuRowData.icon }
+                    onChange={ this.store.setMenuRowData }
                 />
                 <div className="form_group">
-                    <div className="form_text_info"><span style={{ color: 'red' }}>*</span>是否为一级菜单：</div>
+                    <div className="form_text_info"><span style={ { color: 'red' } }>*</span>是否为一级菜单：</div>
                     <div className="form_value_node">
                         <RadioGroup
                             required
-                            defaultValue={this.store.menuRowData.isFirstMenu}
-                            onChange={event => this.store.setMenuRowData(event, 'isFirstMenu')}
+                            defaultValue={ this.store.menuRowData.isFirstMenu }
+                            onChange={ event => this.store.setMenuRowData(event, 'isFirstMenu') }
                         >
-                            <Radio value={true}>是</Radio>
-                            <Radio value={false}>否</Radio>
+                            <Radio value={ true }>是</Radio>
+                            <Radio value={ false }>否</Radio>
                         </RadioGroup>
 
                     </div>
@@ -96,9 +96,9 @@ export default class MenuModalContent extends React.Component {
                             title='父菜单'
                             fieldKey="parent_id"
                             required="true"
-                            defaultValue={this.store.menuRowData.parent_id}
-                            onChange={this.store.setMenuRowData}
-                            option_list={this.store.allMenuList.filter(item => item.type == '目录')}
+                            defaultValue={ this.store.menuRowData.parent_id }
+                            onChange={ this.store.setMenuRowData }
+                            option_list={ this.store.allMenuList.filter(item => item.type == '目录') }
                         />
                 }
 

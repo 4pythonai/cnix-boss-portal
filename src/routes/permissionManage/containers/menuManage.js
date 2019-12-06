@@ -27,19 +27,19 @@ export default class MenuManage extends React.Component {
         return (<div className="options">
             <Button
                 className="marginRihgt10"
-                onClick={event => this.store.toMenuDetail(event, record)}
+                onClick={ event => this.store.toMenuDetail(event, record) }
                 size="small"
                 type="primary" >查看详情</Button>
             <Button
                 className="marginRihgt10"
-                onClick={event => this.store.editRowMenuButton(event, record)}
+                onClick={ event => this.store.editRowMenuButton(event, record) }
                 size="small"
                 type="primary" >编辑</Button>
             <Popconfirm
                 title="您确定要删除么?"
                 okText="删除"
                 cancelText="取消"
-                onConfirm={event => this.store.deleteMenuRow(event, record)} >
+                onConfirm={ event => this.store.deleteMenuRow(event, record) } >
                 <Button type="danger" size="small" htmlType="button"   >删除</Button>
             </Popconfirm>
         </div>)
@@ -50,7 +50,7 @@ export default class MenuManage extends React.Component {
     }
 
     iconRender(text) {
-        return text ? <Icon type={text} size="20"></Icon> : null
+        return text ? <Icon type={ text } size="20"></Icon> : null
     }
 
     getTableColumns() {
@@ -62,7 +62,7 @@ export default class MenuManage extends React.Component {
             width: 150,
             sorter: (a, b) => a.text.length - b.text.length,
             onFilter: (value, record) => record.text.includes(value),
-            ...getColumnSearchProps('text',this.store),
+            ...getColumnSearchProps('text', this.store),
             render: (text, record) => this.columnsRender(text)
         }, {
             title: '菜单编码',
@@ -72,7 +72,7 @@ export default class MenuManage extends React.Component {
             width: 150,
             sorter: (a, b) => a.menu.length - b.menu.length,
             onFilter: (value, record) => record.menu.includes(value),
-            ...getColumnSearchProps('menu',this.store),
+            ...getColumnSearchProps('menu', this.store),
             render: (text, record) => this.columnsRender(text)
         }, {
             title: '类型',
@@ -82,7 +82,7 @@ export default class MenuManage extends React.Component {
             width: 100,
             sorter: (a, b) => a.type.length - b.type.length,
             onFilter: (value, record) => record.type.includes(value),
-            ...getColumnSearchProps('type',this.store),
+            ...getColumnSearchProps('type', this.store),
 
             render: (text, record) => this.columnsRender(text)
         },
@@ -93,7 +93,7 @@ export default class MenuManage extends React.Component {
             width: 100,
             sorter: (a, b) => a.action_code.length - b.action_code.length,
             onFilter: (value, record) => record.action_code.includes(value),
-            ...getColumnSearchProps('action_code',this.store),
+            ...getColumnSearchProps('action_code', this.store),
 
             render: (text, record) => this.columnsRender(text)
         }, {
@@ -104,7 +104,7 @@ export default class MenuManage extends React.Component {
             width: 150,
             sorter: (a, b) => a.process_key - b.process_key,
             onFilter: (value, record) => record.process_key.includes(value),
-            ...getColumnSearchProps('process_key',this.store),
+            ...getColumnSearchProps('process_key', this.store),
 
             render: (text, record) => this.columnsRender(text)
         }, {
@@ -115,7 +115,7 @@ export default class MenuManage extends React.Component {
             width: 150,
             sorter: (a, b) => a.icon.length - b.icon.length,
             onFilter: (value, record) => record.icon.includes(value),
-            ...getColumnSearchProps('icon',this.store),
+            ...getColumnSearchProps('icon', this.store),
             render: (text, record) => this.iconRender(text)
         }, {
             title: '路由',
@@ -125,7 +125,7 @@ export default class MenuManage extends React.Component {
             width: 200,
             sorter: (a, b) => a.router.length - b.router.length,
             onFilter: (value, record) => record.router.includes(value),
-            ...getColumnSearchProps('router',this.store),
+            ...getColumnSearchProps('router', this.store),
             render: (text, record) => this.columnsRender(text)
         }, {
             title: '父菜单',
@@ -135,7 +135,7 @@ export default class MenuManage extends React.Component {
             width: 150,
             sorter: (a, b) => a.parent_text.length - b.parent_text.length,
             onFilter: (value, record) => record.parent_text.includes(value),
-            ...getColumnSearchProps('parent_text',this.store),
+            ...getColumnSearchProps('parent_text', this.store),
             render: (text, record) => this.columnsRender(text)
         }, {
             title: '菜单等级',
@@ -145,7 +145,7 @@ export default class MenuManage extends React.Component {
             width: 100,
             sorter: (a, b) => a.menu_level.length - b.menu_level.length,
             onFilter: (value, record) => record.menu_level.includes(value),
-            ...getColumnSearchProps('menu_level',this.store),
+            ...getColumnSearchProps('menu_level', this.store),
         }, {
             title: '操作',
             dataIndex: 'action',
@@ -190,29 +190,29 @@ export default class MenuManage extends React.Component {
         return <div className="roleButtonGroup">
             <Button
                 className="marginRihgt10"
-                onClick={event => this.store.addMenuButton(event)}
+                onClick={ event => this.store.addMenuButton(event) }
                 size="small"
                 type="primary"
-                style={{ margin: '15px 20px' }}>新增菜单</Button>
+                style={ { margin: '15px 20px' } }>新增菜单</Button>
             <div className="searchWrapper">
                 <div className="searForm">
                     <div className="searchInfo">菜单编码:</div>
                     <div className="searcControl">
-                        <Input defaultValue={this.store.roleSearchData.role_code} onChange={event => this.store.setSearMenuValue(event, 'menu')} />
+                        <Input defaultValue={ this.store.roleSearchData.role_code } onChange={ event => this.store.setSearMenuValue(event, 'menu') } />
                     </div>
                 </div>
                 <div className="searForm">
                     <div className="searchInfo">菜单名称：</div>
                     <div className="searcControl">
-                        <Input defaultValue={this.store.roleSearchData.role_name} onChange={event => this.store.setSearMenuValue(event, 'text')} />
+                        <Input defaultValue={ this.store.roleSearchData.role_name } onChange={ event => this.store.setSearMenuValue(event, 'text') } />
                     </div>
                 </div>
                 <Button
                     className="marginRihgt10"
-                    onClick={event => this.store.searchMenuHandle(event)}
+                    onClick={ event => this.store.searchMenuHandle(event) }
                     size="small"
                     type="primary"
-                    style={{ margin: '15px 20px' }}>搜索</Button>
+                    style={ { margin: '15px 20px' } }>搜索</Button>
             </div>
         </div>
     }
@@ -228,20 +228,20 @@ export default class MenuManage extends React.Component {
         return (
             <div className="custServiceContent">
 
-                {this.getSearchMenuButtonGrp()}
+                { this.getSearchMenuButtonGrp() }
 
-                <PriviligeTable {...tableProps} />
+                <PriviligeTable { ...tableProps } />
 
                 <MenuModal
-                    modalTitle={this.store.modalTitle}
-                    destroyOnClose={true}
-                    hideModal={this.store.hideModal}
-                    visiblModal={this.store.visibleModal}
-                    saveHandle={this.store.saveMenuHandle}
-                    setRowData={this.store.setMenuRowData}
-                    width={600}
+                    modalTitle={ this.store.modalTitle }
+                    destroyOnClose={ true }
+                    hideModal={ this.store.hideModal }
+                    visiblModal={ this.store.visibleModal }
+                    saveHandle={ this.store.saveMenuHandle }
+                    setRowData={ this.store.setMenuRowData }
+                    width={ 600 }
                 >
-                    <MenuModalContent/>
+                    <MenuModalContent />
                 </MenuModal>
 
             </div>
