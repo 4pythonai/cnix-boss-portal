@@ -11,6 +11,10 @@ export default class billing {
         transferContract: params => http(params, `${ api_root }/App/transferContract`),
         prepareBills: params => http(params, `${ api_root }/Billing/prepareBills`),
         saveSettlement: params => http(params, `${ api_root }/Billing/saveSettlement`),
+        settlementdetail: params => http(params, `${ api_root }/Billing/settlementdetail`),
+
+
+
     }
 }
 

@@ -47,6 +47,7 @@ export default class ButtonModalContent extends React.Component {
                         </Select>
                     </div>
                 </div>
+                <div style={ { marginLeft: '120px' } }>../table_plugins/file</div>
                 <FormRow
                     title='文件路径'
                     fieldKey="file_path"
