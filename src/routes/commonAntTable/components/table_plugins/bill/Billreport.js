@@ -125,12 +125,12 @@ export default class Billreport extends React.Component {
             {
                 title: 'ID',
                 dataIndex: 'id',
-                key: 'id',
+                key: 'id'
             },
             {
                 title: '资源名称',
                 dataIndex: 'sub_category',
-                key: 'sub_category',
+                key: 'sub_category'
             },
             {
                 title: '资源详情',
@@ -140,18 +140,22 @@ export default class Billreport extends React.Component {
             {
                 title: '周期',
                 dataIndex: 'paycycle',
-                key: 'paycycle',
+                key: 'paycycle'
             },
             {
                 title: '价格(月)',
                 dataIndex: 'price',
-                key: 'price',
+                key: 'price'
             },
 
             {
                 title: '费用合计',
                 dataIndex: 'row_summary',
                 key: 'row_summary'
+            }, {
+                title: '备注',
+                dataIndex: 'memo',
+                key: 'memo'
             }
 
         ];
@@ -164,12 +168,12 @@ export default class Billreport extends React.Component {
             {
                 title: '账期',
                 dataIndex: 'counter',
-                key: 'counter',
+                key: 'counter'
             },
             {
                 title: '是否满周期周期',
                 dataIndex: 'fullcycle',
-                key: 'fullcycle',
+                key: 'fullcycle'
             },
             {
                 title: '账期开始时间',
@@ -179,12 +183,16 @@ export default class Billreport extends React.Component {
             {
                 title: '账期结束时间',
                 dataIndex: 'periodend',
-                key: 'periodend',
+                key: 'periodend'
             },
             {
                 title: '账期费用',
                 dataIndex: 'period_money',
-                key: 'period_money',
+                key: 'period_money'
+            }, {
+                title: '备注',
+                dataIndex: 'memo',
+                key: 'memo'
             }
 
         ];
@@ -222,6 +230,10 @@ export default class Billreport extends React.Component {
                 title: '费用',
                 dataIndex: 'shouldpay',
                 key: 'shouldpay'
+            }, {
+                title: '备注',
+                dataIndex: 'memo',
+                key: 'memo'
             }
         ]
 
