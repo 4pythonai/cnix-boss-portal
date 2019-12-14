@@ -227,10 +227,18 @@ export default class Billreport extends React.Component {
                 key: 'network_text',
             },
             {
+                title: '价格',
+                dataIndex: 'price',
+                key: 'price'
+            },
+
+            {
                 title: '费用',
                 dataIndex: 'shouldpay',
                 key: 'shouldpay'
-            }, {
+            },
+
+            {
                 title: '备注',
                 dataIndex: 'memo',
                 key: 'memo'

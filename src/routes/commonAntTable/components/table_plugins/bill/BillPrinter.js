@@ -63,7 +63,6 @@ export default class BillPrinter extends React.Component {
 
 
         const cols = [
-
             {
                 title: '起',
                 dataIndex: '_begin',
@@ -85,10 +84,22 @@ export default class BillPrinter extends React.Component {
                 dataIndex: 'network_text',
                 key: 'network_text',
             },
+
+            {
+                title: '资源价格',
+                dataIndex: 'price',
+                key: 'price',
+            },
+
             {
                 title: '费用',
                 dataIndex: 'shouldpay',
                 key: 'shouldpay'
+            },
+            {
+                title: '备注',
+                dataIndex: 'memo',
+                key: 'memo'
             }
         ]
 
@@ -113,55 +124,12 @@ export default class BillPrinter extends React.Component {
 
 
 
-    expandedLog = (record, index, indent, expanded) => {
-        let resource_logs = record.resource_logs //该参数是从父表格带过来的key
-        const cols = [
-
-            {
-                title: '起',
-                dataIndex: '_begin',
-                key: '_begin',
-            },
-            {
-                title: '止',
-                dataIndex: '_end',
-                key: '_end',
-            },
-            {
-                title: '产品分类',
-                dataIndex: 'sub_category',
-                key: 'sub_category',
-            },
-
-            {
-                title: '资源明细',
-                dataIndex: 'network_text',
-                key: 'network_text',
-            },
-            {
-                title: '费用',
-                dataIndex: 'shouldpay',
-                key: 'shouldpay'
-            }
-        ]
-
-        return (
-            <Table
-                columns={ cols }
-                dataSource={ record.resource_logs }
-                pagination={ false }
-
-            />
-        );
-    };
-
-
     getModalProps() {
         return {
             width: 1200,
             destroyOnClose: true,
             ref: "billrpt",
-            title: '账单',
+            title: '账单详情',
             bodyStyle: {
                 width: 1200,
                 height: "auto",
