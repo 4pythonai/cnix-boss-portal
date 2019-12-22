@@ -39,8 +39,8 @@ export default class SearchTableForm extends React.Component {
 
     render() {
         return <SchemaForm
-            actions={this.state.actions}
-            effects={($, { setFieldState, getFieldState }) => {
+            actions={ this.state.actions }
+            effects={ ($, { setFieldState, getFieldState }) => {
 
                 $("onFormInit").subscribe(() => {
                     setFieldState('field_' + this.props.form_index, state => {
@@ -106,37 +106,37 @@ export default class SearchTableForm extends React.Component {
                         }
                     })
 
-            }}
-            labelCol={8}
-            wrapperCol={16}
+            } }
+            labelCol={ 8 }
+            wrapperCol={ 16 }
         >
-            <FormItemGrid gutter={3} cols={[8, 8, 8]}>
+            <FormItemGrid gutter={ 3 } cols={ [8, 8, 8] }>
                 <Field
                     type="string"
                     title="搜索字段"
-                    name={'field_' + this.props.form_index}
+                    name={ 'field_' + this.props.form_index }
                     default=''
                     required
-                    enum={this.props.field_list}
-                    x-effect={dispatch => ({
+                    enum={ this.props.field_list }
+                    x-effect={ dispatch => ({
                         onChange(value, type, option) {
                             dispatch('onChangeOption', option)
                         }
-                    })}
+                    }) }
                 />
 
                 <Field
                     type="string"
                     title="搜索条件"
                     required
-                    name={'operator_' + this.props.form_index}
+                    name={ 'operator_' + this.props.form_index }
                 />
                 <Field
                     type="string"
-                    title="搜索内容"
-                    name={'vset_' + this.props.form_index}
+                    title="内容"
+                    name={ 'vset_' + this.props.form_index }
                     required
-                    default={null}
+                    default={ null }
                 />
             </FormItemGrid>
         </SchemaForm>

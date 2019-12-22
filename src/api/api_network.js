@@ -7,6 +7,10 @@ const api_root = `${ root_url }:${ port }/${ version_2 }`
 export default class network {
     static apis = {
         saveBatchIP: params => http(params, `${ api_root }/Network/saveBatchIP`),
+        saveBatchODFPort: params => http(params, `${ api_root }/Network/saveBatchODFPort`),
+
+
+
     }
 }
 

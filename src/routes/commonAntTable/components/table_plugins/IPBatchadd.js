@@ -101,7 +101,7 @@ export default class IPBatchadd extends React.Component {
                         "switchid": {
                             "type": "assocselect",
                             "title": "交换机",
-                            "required": true,
+                            "required": false,
                             "x-visible": true,
                             "enum": [
 
@@ -135,7 +135,7 @@ export default class IPBatchadd extends React.Component {
                         "swportid": {
                             "type": "assocselect",
                             "title": "端口",
-                            "required": true,
+                            "required": false,
                             "x-visible": true,
                             "enum": [
 
