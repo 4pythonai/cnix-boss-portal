@@ -8,7 +8,7 @@ export default class network {
     static apis = {
         saveBatchIP: params => http(params, `${ api_root }/Network/saveBatchIP`),
         saveBatchODFPort: params => http(params, `${ api_root }/Network/saveBatchODFPort`),
-
+        getOdfsummary: params => http(params, `${ api_root }/Network/getOdfsummary`),
 
 
     }
