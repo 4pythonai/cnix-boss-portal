@@ -78,18 +78,10 @@ export default class CommonTable extends React.Component {
         if (res.code == 200) {
 
 
-            let tmp_query_cfg = {
-                count: 1,
-                lines: {
-                    and_or_0: "and",
-                    field_0: "prov",
-                    operator_0: "=",
-                    vset_0: 1
-                }
-            }
 
 
-            res.data.predefined_filter = { 'prov': 1 }
+
+
             this.commonTableStore.setTableColumnsJson(res.data.tableColumnConfig)
             this.commonTableStore.setFormCfg(res.data.formcfg);
             this.commonTableStore.setlayoutCfg(res.data.layoutcfg);

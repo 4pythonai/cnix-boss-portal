@@ -19,6 +19,8 @@ import user from './api_user'
 import customer from './api_customer'
 import activityRecord from './api_activityRecord'
 import billing from './api_billing'
+import network from './api_network'
+
 
 
 
@@ -157,3 +159,4 @@ api.user = user.apis
 api.customer = customer.apis
 api.activityRecord = activityRecord.apis
 api.billing = billing.apis
+api.network = network.apis

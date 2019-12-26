@@ -130,12 +130,19 @@ class commonTableStore {
         this.selectedRows = selectedRows;
     }
     @action rowcheckChange = (selectedRowKeys, selectedRows) => {
-        if(!this.selectedRowKeys.includes(selectedRowKeys[0])){
-            this.selectedRowKeys = this.selectedRowKeys.concat(selectedRowKeys);
-        this.selectedRows =this.selectedRows.concat(selectedRows);
-        }
 
+        console.log(selectedRowKeys)
+        console.log(selectedRows)
+
+
+        if (!this.selectedRowKeys.includes(selectedRowKeys[0])) {
+            this.selectedRowKeys = this.selectedRowKeys.concat(selectedRowKeys);
+            this.selectedRows = this.selectedRows.concat(selectedRows);
+        }
     }
+
+
+
     @action
     handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
@@ -144,7 +151,7 @@ class commonTableStore {
         console.log(selectedKeys, dataIndex)
     }
 
-    
+
     @action
     handleReset = (clearFilters) => {
         clearFilters();

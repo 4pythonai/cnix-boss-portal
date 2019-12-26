@@ -7,6 +7,14 @@ const api_root = `${ root_url }:${ port }/${ version_2 }`
 export default class billing {
     static apis = {
         billtest: params => http(params, `${ api_root }/Billing/billtest`),
+        saveBill: params => http(params, `${ api_root }/Billing/saveBill`),
+        transferContract: params => http(params, `${ api_root }/App/transferContract`),
+        prepareBills: params => http(params, `${ api_root }/Billing/prepareBills`),
+        saveSettlement: params => http(params, `${ api_root }/Billing/saveSettlement`),
+        settlementdetail: params => http(params, `${ api_root }/Billing/settlementdetail`),
+
+
+
     }
 }
 

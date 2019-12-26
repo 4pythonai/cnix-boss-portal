@@ -18,7 +18,7 @@ const CommonTableForm = props => {
     let formCfg = toJS(props.formCfg)
     let layoutcfg = props.layoutcfg
     let formnum = []
-    let staticformcfg = toJS(props.staticformcfg)
+    // let staticformcfg = toJS(props.staticformcfg)
     const [state, setState, value] = useState({ editable: props.editable })
 
     if (!formCfg) {
@@ -64,47 +64,9 @@ const CommonTableForm = props => {
                                         state.props["x-props"].commonTableStore = props.commonTableStore;
                                     });
                                 }
-                                if (item['x-props'] && item['x-props'].field_id == 'customer_phone') {
-                                    setFieldState(key, state => {
-                                        state.props['x-rules'] = 'phone'
-                                    });
-
-                                }
-                                if (item['x-props'] && item['x-props'].field_id == 'phone') {
-                                    setFieldState(key, state => {
-                                        state.props['x-rules'] = 'phone'
-                                    });
-
-                                }
-                                if (item['x-props'] && item['x-props'].field_id == 'contactPhone') {
-                                    setFieldState(key, state => {
-                                        state.props['x-rules'] = 'phone'
-                                    });
-
-                                }
-                                if (item['x-props'] && item['x-props'].field_id == 'customer_email') {
-                                    setFieldState(key, state => {
-                                        state.props['x-rules'] = 'email'
-                                    });
-                                }
-                                if (item['x-props'] && item['x-props'].field_id == 'email') {
-                                    setFieldState(key, state => {
-                                        state.props['x-rules'] = 'email'
-                                    });
-                                }
-                                if (item['x-props'] && item['x-props'].field_id == 'postcode') {
-                                    setFieldState(key, state => {
-                                        state.props['x-rules'] = 'zip'
-                                    });
-                                }
-
                             }
-                            setFieldState('contractno', state => {
-                                state.props["x-props"].selectedRow = props.commonTableStore.selectedRows[0];
-                            });
-                            setFieldState('contractno', state => {
-                                state.props["x-props"].action_code = props.commonTableStore.action_code;
-                            });
+
+
                         })
 
                         $("onFormInit").subscribe(() => {
