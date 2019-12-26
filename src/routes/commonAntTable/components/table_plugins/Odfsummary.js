@@ -4,13 +4,14 @@ import { observer, inject } from "mobx-react";
 import CommonModal from '../commonTableCom/commonModal'
 import api from '@/api/api'
 import { message } from 'antd'
-import { Modal, Button } from 'antd';
+import { Modal, Button, Badge } from 'antd';
 
 @observer
 export default class Odfsummary extends React.Component {
     state = {
         visible: false,
-        odfusage: []
+        odfusage: [],
+        devname: '',
 
     }
 
@@ -35,6 +36,8 @@ export default class Odfsummary extends React.Component {
         let res = await api.network.getOdfsummary(params)
         console.log(res)
         this.setState({ odfusage: res.data })
+        this.setState({ devname: res.devname })
+
     }
 
     showModal = () => {
@@ -68,7 +71,14 @@ export default class Odfsummary extends React.Component {
         let rows = []
 
         this.state.odfusage.map(item => {
-            rows.push(<div key={ item.id } value={ item.id }>{ item.odfportindex }{ item.network_text }</div>)
+            rows.push(
+                <div style={ w200v2 } key={ item.id } value={ item.id }>
+
+                    <span> <Badge style={ portbadge } count={ item.odfportindex } /> { item.cust }{ item.resid ? 'RESID=>' + item.resid : '' }  </span>
+                    <div>{ item.network_text }</div>
+                    <div>{ item.memo }</div>
+                </div>
+            )
         })
         return rows;
     }
@@ -78,16 +88,49 @@ export default class Odfsummary extends React.Component {
 
 
         return <Modal
-            title="Basic Modal"
             visible={ this.state.visible }
+            title={ this.state.devname }
             onOk={ this.handleOk }
             onCancel={ this.handleCancel }
-            width={ 1200 }
+            width={ 1320 }
 
         >
-
-            { this.renderUsage() }
-
+            <div style={ flowgrid }>
+                { this.renderUsage() }
+            </div>
         </Modal >
     }
 }
+
+
+const flowgrid = {
+    fontSize: '8',
+    width: '1300px',
+    marginTop: '12px',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+}
+
+
+
+const w200 = {
+    width: '150px',
+    fontSize: '12px',
+}
+
+
+const w200v2 = {
+    width: '150px',
+    height: '180px',
+    fontSize: '12px',
+    margin: '2px',
+    padding: '10px',
+    border: '1px solid black',
+}
+
+const portbadge = {
+    margin: '4px 70px 4px  60px',
+}
+

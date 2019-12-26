@@ -24,6 +24,7 @@ export default class activity {
         resetQueryCfg: params => http(params, `${ api_root }/${ controller.activity }/resetQueryCfg`),
         saveQueryCfg: params => http(params, `${ api_root }/${ controller.activity }/saveQueryCfg`),
 
+        exportExcel: params => http(params, `${ api_root }/${ controller.activity }/exportExcel`),
 
 
 
