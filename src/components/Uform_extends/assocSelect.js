@@ -24,7 +24,7 @@ export default class AssocSelect extends React.Component {
     }
 
     componentDidMount() {
-        if(!this.store){
+        if (!this.store) {
             return;
         }
         console.log(this.store)
@@ -50,7 +50,7 @@ export default class AssocSelect extends React.Component {
             return;
         }
 
-        
+
         for (let i = 0; i < this.store.triggers.length; i++) {
             let element = this.store.triggers[i];
             // 2、同一组
@@ -109,7 +109,7 @@ export default class AssocSelect extends React.Component {
 
     // 获取上一个联动值
     getPrevSelValue(current_ele) {
-        
+
         for (let i = 0; i < this.store.triggers.length; i++) {
             let element = this.store.triggers[i];
 
@@ -133,7 +133,7 @@ export default class AssocSelect extends React.Component {
     async onSelect(value) {
         // 1、设置当前字段的value
         this.props.onChange(value)
-        
+
         this.setState({
             optionValue: value
         })
@@ -210,15 +210,16 @@ export default class AssocSelect extends React.Component {
     render() {
         return (
             <Select
-                loading={this.state.loading}
-                value={this.getOptionValue()}
-                onSelect={this.onSelect}
-                onDropdownVisibleChange={this.onDropdownVisibleChange.bind(this)}
+                showSearch
+                loading={ this.state.loading }
+                value={ this.getOptionValue() }
+                onSelect={ this.onSelect }
+                onDropdownVisibleChange={ this.onDropdownVisibleChange.bind(this) }
             >
 
                 {
                     this.state.optionList.map(option => {
-                        return <Select.Option key={option.value} value={option.value}>{option.label}</Select.Option>
+                        return <Select.Option key={ option.value } value={ option.value }>{ option.label }</Select.Option>
                     })
                 }
 
