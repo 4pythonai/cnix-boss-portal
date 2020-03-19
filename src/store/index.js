@@ -6,10 +6,7 @@ import FlowApprovalStore from './FlowApprovalStore'
 import pmStore from './pmStore'
 import dmStore from './dmStore'
 
-import billingSummaryStore from '@/routes/commonAntTable/components/table_plugins/bill/billingSummaryStore'
-
-import chargeStore from './chargeStore'
-
+import OneContractBillingStore from '@/routes/commonAntTable/components/table_plugins/bill/OneContractBillingStore'
 import triggerlineStore from '../routes/datagridmnt/container/trigger/triggerlineStore'
 
 
@@ -21,8 +18,7 @@ const store = {
     FlowApprovalStore,
     pmStore,
     dmStore,
-    billingSummaryStore,
-    chargeStore,
+    OneContractBillingStore,
 }
 
 export default store

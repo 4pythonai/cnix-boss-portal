@@ -3,13 +3,13 @@ import { observer, inject } from "mobx-react";
 import { Table, Divider } from 'antd';
 
 
-@inject("billingSummaryStore")
+@inject("OneContractBillingStore")
 
 @observer
 export default class BillingSummary extends React.Component {
     constructor(props) {
         super();
-        this.store = props.billingSummaryStore
+        this.store = props.OneContractBillingStore
     }
     componentWillUnmount() {
         this.store.clear()

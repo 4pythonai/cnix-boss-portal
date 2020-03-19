@@ -1,6 +1,6 @@
 import { observable, action, autorun, computed } from "mobx";
 
-class billingSummaryStore {
+class OneContractBillingStore {
 
 
     @observable cycle_store = [];
@@ -11,6 +11,10 @@ class billingSummaryStore {
     @observable cycleFee_summary = 0;
     @observable onetimeFee_summary = 0;
     @observable total_summary = 0;
+    @observable big_total_summary = 0;
+
+
+
 
     @action
     async clear() {
@@ -25,7 +29,7 @@ class billingSummaryStore {
 
 
     @action setBillingData = data => {
-        console.log('费用数据', data)
+        console.log('费用数据--->', data)
         // 设置计费数据
         this.cycle_store = data.billing_store.cycle_store;
         this.onetime_store = data.billing_store.onetime_store;
@@ -35,7 +39,15 @@ class billingSummaryStore {
         this.total_summary = data.total_summary;
         this.cust = data.cust
         this.contract = data.contract
+        this.big_total_summary = data.big_total_summary
+
+
+        if (data.hasOwnProperty('big_total_summary')) {
+            this.big_total_summary = data.big_total_summary
+
+        }
+
     }
 }
 
-export default new billingSummaryStore()
+export default new OneContractBillingStore()

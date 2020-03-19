@@ -5,7 +5,7 @@ import { observer, inject } from "mobx-react";
 import api from '@/api/api'
 import { toJS } from 'mobx'
 import { randomString } from '@/utils/tools'
-import billingSummaryStore from "./billingSummaryStore"
+import OneContractBillingStore from "./OneContractBillingStore"
 import DevicePort from './DevicePort'
 
 
@@ -13,7 +13,7 @@ import DevicePort from './DevicePort'
 export default class BillPrinter extends React.Component {
     constructor(props) {
         super(props)
-        this.store = billingSummaryStore
+        this.store = OneContractBillingStore
         this.init = this.init.bind(this)
     }
 

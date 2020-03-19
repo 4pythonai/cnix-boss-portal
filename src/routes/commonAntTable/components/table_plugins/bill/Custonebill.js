@@ -1,4 +1,8 @@
 
+// 集成账单.
+
+
+
 import React from 'react'
 import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
 import { observer, inject } from "mobx-react";
@@ -10,18 +14,17 @@ import DevicePort from './DevicePort'
 
 
 @observer
-export default class Billreport extends React.Component {
+export default class Custonebill extends React.Component {
     constructor(props) {
         super(props)
         this.store = OneContractBillingStore
         this.init = this.init.bind(this)
+
     }
 
 
     state = {
-        checkpassed: false,
         visible: false,
-        toal_check_errors: []
     }
 
     async init() {
@@ -30,22 +33,13 @@ export default class Billreport extends React.Component {
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-        let params = { method: 'GET', data: { "contract_no": current_row.contract_no } }
+        console.log(current_row)
+        // let params = { method: 'GET', data: { "contract_no": current_row.contract_no } }
+        let params = { method: 'GET', data: { "custid": current_row.id } }
+
         let json = await api.billing.billtest(params);
-        console.log(json);
-        console.log(json.success);
-
-        if (json.success == 'false') {
-            // message.error(json.msg);
-            // return;
-            this.setState({ visible: true, checkpassed: false, toal_check_errors: json.toal_check_errors })
-
-        } else {
-            this.store.setBillingData(json)
-            this.setState({ visible: true, checkpassed: true })
-        }
-
-
+        this.store.setBillingData(json)
+        this.setState({ visible: true })
     }
 
 
@@ -313,83 +307,48 @@ export default class Billreport extends React.Component {
 
     render() {
         console.log('will render.....')
-
         let modalProps = this.getModalProps();
-
-        if (this.state.checkpassed) {
-
-            return <Modal { ...modalProps }>
-                <div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客户名称:{ this.store.cust.customer_name }</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同号:{ this.store.contract.contract_no }</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>付款周期:{ this.store.contract.paycycle }</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>月租金:{ this.store.contract.monthly_fee }元</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同起始:{ this.store.contract.contract_start }</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同终止:{ this.store.contract.contract_end }</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>周期性费用合计:{ this.store.cycleFee_summary }元</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用合计:{ this.store.total_summary }元</div>
+        return <Modal { ...modalProps }>
+            <div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客户名称:{ this.store.cust.customer_name }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>总费用合计:{ this.store.big_total_summary }元</div>
 
 
-                    <Button onClick={ event => this.saveBill(event) }>保存账单</Button>
+                <Button onClick={ event => this.saveBill(event) }>保存账单</Button>
 
-                    <Divider orientation="left">周期性费用详情</Divider>
+                <Divider orientation="left">周期性费用详情</Divider>
 
-                    <Table
-                        dataSource={ this.store.cycle_store }
-                        columns={ this.getColumnsCycleByResourceitem() }
-                        pagination={ false }
-                        size="small"
-                        expandedRowRender={ this.expandedTime }
-                    />
-
-
-                    <Divider orientation="left">周期账单</Divider>
-
-                    <Table
-                        dataSource={ this.store.contract_timeline }
-                        columns={ this.getColumnsCycleByContractTimelime() }
-                        pagination={ false }
-                        size="small"
-                        expandedRowRender={ this.expandedLog }
-                    />
-
-                    <Divider orientation="left">一次性账单</Divider>
-
-                    <Table
-                        dataSource={ this.store.onetime_store }
-                        columns={ this.getColumnsCycleByContractTimelime() }
-                        pagination={ false }
-                        size="small"
-
-                    />
-
-                </div >
-            </Modal >
-
-        } else {
-
-            return <Modal { ...modalProps }>
-                <div>
-                    <p>合同资源项目时间检查失败:涉及到合同数量:{ this.state.toal_check_errors.length }:</p>
-                    {
-                        this.state.toal_check_errors.map(one_contract_error =>
-                            (
-                                one_contract_error.errors.map(error => <li key={ error.idx }>{ error.text }</li>))
-                        )
-                    }
-                </div >
-            </Modal >
-
-        }
+                {/* <Table
+                    dataSource={ this.store.cycle_store }
+                    columns={ this.getColumnsCycleByResourceitem() }
+                    pagination={ false }
+                    size="small"
+                    expandedRowRender={ this.expandedTime }
+                /> */}
 
 
+                <Divider orientation="left">周期账单</Divider>
 
+                <Table
+                    dataSource={ this.store.contract_timeline }
+                    columns={ this.getColumnsCycleByContractTimelime() }
+                    pagination={ false }
+                    size="small"
+                    expandedRowRender={ this.expandedLog }
+                />
 
+                <Divider orientation="left">一次性账单</Divider>
 
+                {/* <Table
+                    dataSource={ this.store.onetime_store }
+                    columns={ this.getColumnsCycleByContractTimelime() }
+                    pagination={ false }
+                    size="small"
 
+                />
+                 */}
 
-
-
-
+            </div >
+        </Modal >
     }
 }

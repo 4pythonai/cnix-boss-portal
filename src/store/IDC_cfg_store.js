@@ -343,12 +343,12 @@ class IDC_cfg_store {
     @action setContractName = value => this.saveContractData.contract_name = value;
     // 签约类型
     @action changeSignType = (value, isfromChance) => {
-        
+
         this.saveContractData['sign_type'] = value;
-        if (value== '新签') {
-            if(typeof isfromChance == 'object'){
+        if (value == '新签') {
+            if (typeof isfromChance == 'object') {
                 let singers_customers = this.saveContractData.singers_customers[0]
-                let  contract_action = this.contract_action
+                let contract_action = this.contract_action
                 singers_customers.customerReferInfo = {};
                 singers_customers.customerId = ''
                 singers_customers.addressId = ''
@@ -361,13 +361,13 @@ class IDC_cfg_store {
                 this.saveContractData.singers_customers = [singers_customers]
                 chargeStore.clearStore()
             }
-            
+
             this.newSignHandle()
             this.generateContractNo()
             return;
         }
 
-        if(value== '续签'){
+        if (value == '续签') {
             this._showContractListModle()
         }
     }
@@ -752,7 +752,7 @@ class IDC_cfg_store {
             }
         }
         // 签约方重复判断
-        if(this.validateSingerCustomerRepeat(data.singers_customers) === false){
+        if (this.validateSingerCustomerRepeat(data.singers_customers) === false) {
             return false
         }
     }
@@ -760,12 +760,12 @@ class IDC_cfg_store {
     validateSingerCustomerRepeat = signerCustomer => {
         console.log(signerCustomer)
         debugger
-        for(let i=0; i<signerCustomer.length; i++ ){
+        for (let i = 0; i < signerCustomer.length; i++) {
             let field_pre = signerCustomer[i].customerId
-            for(let j = i+ 1; j<signerCustomer.length; j++){
+            for (let j = i + 1; j < signerCustomer.length; j++) {
                 let field_next = signerCustomer[j].customerId
                 console.log(field_pre, field_next, field_pre == field_next)
-                if(field_pre === field_next){
+                if (field_pre === field_next) {
                     message.warning('签约方字段不能重复')
                     return false;
                 }
@@ -846,13 +846,13 @@ class IDC_cfg_store {
         let res = await api.billing_api.testbill(params);
 
         console.log(res);
-        billingSummaryStore.cycle_store = []
-        billingSummaryStore.cycle_store = res.billing_store.cycle_store
-        billingSummaryStore.onetime_store = res.billing_store.onetime_store
+        OneContractBillingStore.cycle_store = []
+        OneContractBillingStore.cycle_store = res.billing_store.cycle_store
+        OneContractBillingStore.onetime_store = res.billing_store.onetime_store
 
-        billingSummaryStore.cyclefee_summary = res.cyclefee_summary
-        billingSummaryStore.onetimefee_summary = res.onetimefee_summary
-        billingSummaryStore.total_summary = res.total_summary
+        OneContractBillingStore.cyclefee_summary = res.cyclefee_summary
+        OneContractBillingStore.onetimefee_summary = res.onetimefee_summary
+        OneContractBillingStore.total_summary = res.total_summary
 
     }
 

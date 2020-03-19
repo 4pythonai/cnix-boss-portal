@@ -6,14 +6,14 @@ import ChargeModal from './chargeModal'
 import BillingSummary from '../billingSummary'
 
 @inject("chargeStore")
-@inject("billingSummaryStore")
+@inject("OneContractBillingStore")
 @observer
 
 export default class ResItem extends React.Component {
     constructor(props) {
         super(props);
         this.store = props.chargeStore;
-        this.billingSummaryStore = props.billingSummaryStore;
+        this.OneContractBillingStore = props.OneContractBillingStore;
     }
 
     componentWillUnmount() {
@@ -63,8 +63,8 @@ export default class ResItem extends React.Component {
     }
 
     renderMore(text, record, title, count) {
-        return <Popover title={title} content={text} >
-             <span className="lookMore">{text.length > count ? text.slice(0, count) + '...': text }</span>
+        return <Popover title={ title } content={ text } >
+            <span className="lookMore">{ text.length > count ? text.slice(0, count) + '...' : text }</span>
         </Popover>
     }
 
@@ -141,36 +141,36 @@ export default class ResItem extends React.Component {
     render() {
         let scrollx = this.props.contract_type == '固定合同' ? 1350 : 1050;
         return (
-            <article id="chargeTable" style={{ position: 'relative' }}>
+            <article id="chargeTable" style={ { position: 'relative' } }>
                 <Card title='收费项'>
                     <div className="charge_add_group">
                         {
-                            this.props.disabled || <Button onClick={() => this.store.addChargeBtnHandle('周期性费用')} > 添加周期性费用项 </Button>
+                            this.props.disabled || <Button onClick={ () => this.store.addChargeBtnHandle('周期性费用') } > 添加周期性费用项 </Button>
                         }
 
                         {
                             this.props.disabled || <Button
-                                onClick={() => this.store.addChargeBtnHandle('一次性费用')}
-                                style={{ marginLeft: '10px' }}> 添加一次性费用项 </Button>
+                                onClick={ () => this.store.addChargeBtnHandle('一次性费用') }
+                                style={ { marginLeft: '10px' } }> 添加一次性费用项 </Button>
                         }
 
                         <Button
-                            onClick={() => this.billingSummaryStore.showBillingModal()}
-                            style={{ marginLeft: '10px' }}> 查看费用详情 </Button>
+                            onClick={ () => this.OneContractBillingStore.showBillingModal() }
+                            style={ { marginLeft: '10px' } }> 查看费用详情 </Button>
                     </div>
 
                     <div className='chargeTableWrapper'>
                         <ChargeTable
-                            disabled={this.props.disabled}
-                            scroll={{ x: scrollx }}
-                            editChargeRow={this.store.editChargeRow}
-                            deleteChargeRow={this.store.deleteChargeRow}
-                            columns={this.getChargeColumns()}
+                            disabled={ this.props.disabled }
+                            scroll={ { x: scrollx } }
+                            editChargeRow={ this.store.editChargeRow }
+                            deleteChargeRow={ this.store.deleteChargeRow }
+                            columns={ this.getChargeColumns() }
                         />
                         {
                             this.props.contract_type == '固定合同'
                                 ?
-                                <Statistic className="chargeSumPrice" title="总计" value={this.store.chargeSumPrice + '元'} />
+                                <Statistic className="chargeSumPrice" title="总计" value={ this.store.chargeSumPrice + '元' } />
                                 :
                                 ''
                         }
@@ -180,11 +180,11 @@ export default class ResItem extends React.Component {
 
                 <ChargeModal />
                 <Modal
-                    width={800}
+                    width={ 800 }
                     title='费用详情'
-                    visible={this.billingSummaryStore.billingVisible}
-                    onCancel={this.billingSummaryStore.hideBillingModal}
-                    onOk={this.billingSummaryStore.hideBillingModal}
+                    visible={ this.OneContractBillingStore.billingVisible }
+                    onCancel={ this.OneContractBillingStore.hideBillingModal }
+                    onOk={ this.OneContractBillingStore.hideBillingModal }
                 >
                     <BillingSummary />
                 </Modal>
