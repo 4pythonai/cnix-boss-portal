@@ -19,6 +19,9 @@ export default class Sidebar extends React.Component {
 
 
 
+
+
+
     async componentDidMount() {
         await this.store.getMenuList()
         let { menuList } = this.store
@@ -44,36 +47,44 @@ export default class Sidebar extends React.Component {
 
     getChildren(menuitem, index) {
         let one = menuitem
+
         if (!one.children) {
             one.children = []
         }
+        if (!one.icon) {
+            one.icon = 'File'
+        }
+
+
+
 
         return (
             one.children.length === 0 ? (
-                <Menu.Item key={menuitem.key} onClick={this.menuclickHandler.bind(this, one)}>
+                <Menu.Item key={ menuitem.key } onClick={ this.menuclickHandler.bind(this, one) }>
 
-                    <Icon type={one.icon} />
-                    <span title={one.text}>
-                        {one.text}
+                    <Icon type={ one.icon } />
+
+                    <span title={ one.text }>
+                        { one.text }
                     </span>
                 </Menu.Item>
             ) : (
-                    <Menu.SubMenu key={menuitem.key} title={
+                    <Menu.SubMenu key={ menuitem.key } title={
                         <span>
-                            <Icon type={one.icon} />
-                            <span title={one.text}>
-                                {one.text}
+                            <Icon type={ one.icon } />
+                            <span title={ one.text }>
+                                { one.text }
                             </span>
                         </span>
                     }
                     >
-                        {one.children.map((xitem, itemIndex) => this.getChildren(xitem, itemIndex))}
+                        { one.children.map((xitem, itemIndex) => this.getChildren(xitem, itemIndex)) }
                     </Menu.SubMenu>
                 )
         )
     }
 
-    onOpenChange(openKeys){
+    onOpenChange(openKeys) {
         this.store.setOpenKeys(openKeys)
     }
 
@@ -86,11 +97,11 @@ export default class Sidebar extends React.Component {
                         <Menu
                             mode="inline"
                             theme="dark"
-                            selectedKeys={this.store.selectedKeys}
-                            openKeys={this.store.openKeys}
-                            onOpenChange={openKeys => this.onOpenChange(openKeys)}
+                            selectedKeys={ this.store.selectedKeys }
+                            openKeys={ this.store.openKeys }
+                            onOpenChange={ openKeys => this.onOpenChange(openKeys) }
                         >
-                            {this.state.menulist.map((menuitem, index) => this.getChildren(menuitem, index))}
+                            { this.state.menulist.map((menuitem, index) => this.getChildren(menuitem, index)) }
                         </Menu>
                         :
                         null

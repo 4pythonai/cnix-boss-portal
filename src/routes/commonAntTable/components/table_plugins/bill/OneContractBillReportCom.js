@@ -1,24 +1,23 @@
 
-// 集成账单.
-
-
-
 import React from 'react'
 import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
 import { observer, inject } from "mobx-react";
 import api from '@/api/api'
 import { toJS } from 'mobx'
 import { randomString } from '@/utils/tools'
+
 import OneContractBillingStore from "./OneContractBillingStore"
+
 import DevicePort from './DevicePort'
 
 
 @observer
-export default class Custonebill extends React.Component {
+export default class OneContractBillReportCom extends React.Component {
     constructor(props) {
         super(props)
         this.store = OneContractBillingStore
-        this.init = this.init.bind(this)
+        this.incomoe_json = props.OneContractBillingStore
+        this.showSaveBillBtn = props.showSaveBillBtn
 
     }
 
@@ -28,17 +27,19 @@ export default class Custonebill extends React.Component {
     }
 
     async init() {
-        if (this.props.commonTableStore.selectedRowKeys.length == 0) {
-            message.error('请选择一条数据');
-            return;
-        }
-        let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-        console.log(current_row)
-        // let params = { method: 'GET', data: { "contract_no": current_row.contract_no } }
-        let params = { method: 'GET', data: { "custid": current_row.id } }
 
-        let json = await api.billing.billtest(params);
-        this.store.setBillingData(json)
+
+    }
+
+
+
+
+    componentWillMount() {
+
+        console.log("OneContractBillReportCom--初始化----incomoe_json")
+        console.log(this.incomoe_json)
+        this.store.setBillingData(this.incomoe_json)
+        console.log(this.store)
         this.setState({ visible: true })
     }
 
@@ -121,6 +122,7 @@ export default class Custonebill extends React.Component {
             <Table
                 columns={ cols }
                 dataSource={ record.timeline }
+                rowKey="counter"
                 pagination={ false }
 
             />
@@ -255,6 +257,7 @@ export default class Custonebill extends React.Component {
         return (
             <Table
                 columns={ cols }
+                rowKey="reactkey"
                 dataSource={ record.resource_logs }
                 pagination={ false }
 
@@ -307,30 +310,44 @@ export default class Custonebill extends React.Component {
 
     render() {
         console.log('will render.....')
-        let modalProps = this.getModalProps();
-        return <Modal { ...modalProps }>
+        return <div>
             <div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客户名称:{ this.store.cust.customer_name }</div>
-                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>总费用合计:{ this.store.big_total_summary }元</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同号:{ this.store.contract.contract_no }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>付款周期:{ this.store.contract.paycycle }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>月租金:{ this.store.contract.monthly_fee }元</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同起始:{ this.store.contract.contract_start }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同终止:{ this.store.contract.contract_end }</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>周期性费用合计:{ this.store.cycleFee_summary }元</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用合计:{ this.store.total_summary }元</div>
+
+                {
+                    this.showSaveBillBtn == 'yes' ? <Button onClick={ event => this.saveBill(event) }>保存账单</Button> : ''
+
+                }
 
 
-                <Button onClick={ event => this.saveBill(event) }>保存账单</Button>
+
+
+
 
                 <Divider orientation="left">周期性费用详情</Divider>
 
-                {/* <Table
+                <Table
                     dataSource={ this.store.cycle_store }
+                    rowKey="id"
                     columns={ this.getColumnsCycleByResourceitem() }
                     pagination={ false }
                     size="small"
                     expandedRowRender={ this.expandedTime }
-                /> */}
+                />
 
 
                 <Divider orientation="left">周期账单</Divider>
 
                 <Table
                     dataSource={ this.store.contract_timeline }
+                    rowKey="counter"
                     columns={ this.getColumnsCycleByContractTimelime() }
                     pagination={ false }
                     size="small"
@@ -345,10 +362,9 @@ export default class Custonebill extends React.Component {
                     pagination={ false }
                     size="small"
 
-                />
-                 */}
+                /> */}
 
             </div >
-        </Modal >
+        </div >
     }
 }
