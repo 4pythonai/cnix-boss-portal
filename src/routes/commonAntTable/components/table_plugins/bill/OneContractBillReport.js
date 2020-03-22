@@ -86,7 +86,7 @@ export default class OneContractBillReport extends React.Component {
 
             return <Modal { ...modalProps }>
 
-                <OneContractBillReportCom showSaveBillBtn="yes" OneContractBillingStore={ this.state.billstore } />
+                <OneContractBillReportCom onlyShowTimeLine="no" showSaveBillBtn="yes" OneContractBillingStore={ this.state.billstore } />
 
 
 

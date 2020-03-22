@@ -17,7 +17,7 @@ export default class TableEditCom extends React.Component {
 
     init() {
         if (this.props.commonTableStore.selectedRows.length != 1) {
-            message.error("请选择一条数据！")
+            message.error("请从列表选择选择一条数据！")
             return;
         }
 
@@ -44,15 +44,6 @@ export default class TableEditCom extends React.Component {
             message.error('流程已经启动,不能编辑.');
             return;
         }
-
-
-
-
-
-
-
-
-
 
         this.refs.commonModalRef.showModal()
         this.props.commonTableStore.setTableAction('edit_table')
@@ -107,6 +98,11 @@ export default class TableEditCom extends React.Component {
         let params = { data: fmdata, method: 'POST' };
         params.updateurl = this.props.commonTableStore.curd.updateurl;
         let json = await api.curd.updateData(params);
+        console.log('编辑数据,返回结果--->')
+
+        console.log(json)
+
+
         if (json.code == 200) {
             this.props.refreshTable();
         }

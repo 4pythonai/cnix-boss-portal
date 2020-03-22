@@ -6,11 +6,11 @@ import api from '@/api/api'
 import { toJS } from 'mobx'
 import { randomString } from '@/utils/tools'
 const { Panel } = Collapse;
-import OneContractBillReportCom from "./OneContractBillReportCom"
+import OneContractBillsCom from "./OneContractBillsCom"
 
 
 @observer
-export default class CustIntegrationBill extends React.Component {
+export default class CustIntegrationBillBuilder extends React.Component {
     constructor(props) {
         super(props)
         console.log(props)
@@ -34,7 +34,7 @@ export default class CustIntegrationBill extends React.Component {
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
         let params = { method: 'GET', data: { "custid": current_row.id } }
-        let json = await api.billing.billtest(params);
+        let json = await api.billing.getUnUsedBills(params);
         console.log(json)
 
         this.setState({ visible: true, big_total_summary: json.big_total_summary, cust: json.cust, IntegrationStore: json, united_results: json.united_results })
@@ -53,7 +53,7 @@ export default class CustIntegrationBill extends React.Component {
             width: 1200,
             destroyOnClose: true,
             ref: "billrpt",
-            title: '查看账期数据',
+            title: '生成合并账单',
             bodyStyle: {
                 width: 1200,
                 height: "auto",
@@ -68,36 +68,26 @@ export default class CustIntegrationBill extends React.Component {
     }
 
     generatePanel() {
-
-
-
         let united_results = this.state.united_results
         let panels = []
-
         for (let index = 0; index < united_results.length; index++) {
 
             let one = united_results[index]
             panels.push(
 
-                <Panel key={ index } header={ '合同号:' + one.contract_no + '费用:' + one.total_summary } >
-                    <OneContractBillReportCom key={ index } onlyShowTimeLine="yes" howSaveBillBtn="no" OneContractBillingStore={ one } />
+                <Panel key={ index } header={ '合同号:' + one.contract_no } >
+                    <OneContractBillsCom key={ index } onlyShowTimeLine="yes" howSaveBillBtn="no" bills={ one.bills } />
                 </Panel >
             )
         }
 
         return panels;
-
-
-
-
-
-
     }
 
 
 
     render() {
-        console.log('  客户集成账单.....')
+
         let modalProps = this.getModalProps();
         return <Modal { ...modalProps }>
             <div>

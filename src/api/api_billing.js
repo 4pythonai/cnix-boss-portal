@@ -12,6 +12,8 @@ export default class billing {
         prepareBills: params => http(params, `${ api_root }/Billing/prepareBills`),
         saveSettlement: params => http(params, `${ api_root }/Billing/saveSettlement`),
         settlementdetail: params => http(params, `${ api_root }/Billing/settlementdetail`),
+        getUnUsedBills: params => http(params, `${ api_root }/Billing/getUnUsedBills`),
+
 
 
 

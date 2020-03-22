@@ -1,14 +1,10 @@
-
+// 账单组件
 import React from 'react'
 import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
 import { observer, inject } from "mobx-react";
 import api from '@/api/api'
 import { toJS } from 'mobx'
-import { randomString } from '@/utils/tools'
-
 import OneContractBillingStore from "./OneContractBillingStore"
-
-import DevicePort from './DevicePort'
 
 
 @observer
@@ -18,7 +14,7 @@ export default class OneContractBillReportCom extends React.Component {
         this.store = OneContractBillingStore
         this.incomoe_json = props.OneContractBillingStore
         this.showSaveBillBtn = props.showSaveBillBtn
-
+        this.onlyShowTimeLine = props.onlyShowTimeLine
     }
 
 
@@ -26,20 +22,11 @@ export default class OneContractBillReportCom extends React.Component {
         visible: false,
     }
 
-    async init() {
-
-
-    }
-
 
 
 
     componentWillMount() {
-
-        console.log("OneContractBillReportCom--初始化----incomoe_json")
-        console.log(this.incomoe_json)
         this.store.setBillingData(this.incomoe_json)
-        console.log(this.store)
         this.setState({ visible: true })
     }
 
@@ -57,10 +44,6 @@ export default class OneContractBillReportCom extends React.Component {
         let json = await api.billing.saveBill(params);
         console.log(json)
     }
-
-
-
-
 
 
     expandedTime = (record, index, indent, expanded) => {
@@ -207,9 +190,6 @@ export default class OneContractBillReportCom extends React.Component {
         ];
     }
 
-
-
-
     expandedLog = (record, index, indent, expanded) => {
         let resource_logs = record.resource_logs //该参数是从父表格带过来的key
         const cols = [
@@ -265,11 +245,6 @@ export default class OneContractBillReportCom extends React.Component {
         );
     };
 
-
-
-
-
-
     getColumnsOnetime() {
         return [
             {
@@ -308,6 +283,19 @@ export default class OneContractBillReportCom extends React.Component {
     }
 
 
+    rowSelection = {
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${ selectedRowKeys }`, 'selectedRows: ', selectedRows);
+        },
+        onSelect: (record, selected, selectedRows) => {
+            console.log(toJS(record));
+        },
+        onSelectAll: (selected, selectedRows, changeRows) => {
+            console.log(selected, selectedRows, changeRows);
+        },
+    }
+
+
     render() {
         console.log('will render.....')
         return <div>
@@ -320,32 +308,29 @@ export default class OneContractBillReportCom extends React.Component {
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同终止:{ this.store.contract.contract_end }</div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>周期性费用合计:{ this.store.cycleFee_summary }元</div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用合计:{ this.store.total_summary }元</div>
-
                 {
                     this.showSaveBillBtn == 'yes' ? <Button onClick={ event => this.saveBill(event) }>保存账单</Button> : ''
-
                 }
 
-
-
-
-
-
-                <Divider orientation="left">周期性费用详情</Divider>
-
-                <Table
-                    dataSource={ this.store.cycle_store }
-                    rowKey="id"
-                    columns={ this.getColumnsCycleByResourceitem() }
-                    pagination={ false }
-                    size="small"
-                    expandedRowRender={ this.expandedTime }
-                />
-
+                {
+                    this.onlyShowTimeLine !== 'yes' ?
+                        <div>
+                            <Divider orientation="left">周期性费用详情</Divider>
+                            <Table
+                                dataSource={ this.store.cycle_store }
+                                rowKey="id"
+                                columns={ this.getColumnsCycleByResourceitem() }
+                                pagination={ false }
+                                size="small"
+                                expandedRowRender={ this.expandedTime }
+                            />
+                        </div>
+                        : ''
+                }
 
                 <Divider orientation="left">周期账单</Divider>
-
                 <Table
+
                     dataSource={ this.store.contract_timeline }
                     rowKey="counter"
                     columns={ this.getColumnsCycleByContractTimelime() }
@@ -355,14 +340,12 @@ export default class OneContractBillReportCom extends React.Component {
                 />
 
                 <Divider orientation="left">一次性账单</Divider>
-
-                {/* <Table
+                <Table
                     dataSource={ this.store.onetime_store }
                     columns={ this.getColumnsCycleByContractTimelime() }
                     pagination={ false }
                     size="small"
-
-                /> */}
+                />
 
             </div >
         </div >
