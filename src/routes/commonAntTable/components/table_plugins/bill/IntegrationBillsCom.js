@@ -9,26 +9,33 @@ import OneContractBillingStore from "./OneContractBillingStore"
 
 
 @observer
-export default class OneContractBillsCom extends React.Component {
+export default class IntegrationBillsCom extends React.Component {
     constructor(props) {
         super(props)
         this.bills = props.bills
+        this.custid = props.custid
     }
+
+
     state = {
-        visible: false,
-    }
+        selectedRows: [],
 
-    componentWillMount() {
-        this.setState({ visible: true })
     }
 
 
-    onCancel = (e, f) => {
-        this.setState({
-            visible: false
-        })
-    }
+    saveCombinedBill = async (e) => {
 
+        let dataSend = { custid: this.custid, selectedRows: this.state.selectedRows }
+        let params = { data: dataSend, method: 'POST' };
+        let json = await api.billing.saveCombinedBill(params);
+        console.log(json)
+        if (json.code == 200) {
+            message.success(json.msg)
+        } else {
+            message.error(json.msg)
+        }
+        this.props.updateParentVisible(false)
+    }
 
 
     getColumnsCycleByContractTimelime() {
@@ -39,13 +46,21 @@ export default class OneContractBillsCom extends React.Component {
                 dataIndex: 'id',
                 key: 'id'
             },
-
+            {
+                title: '合同号',
+                dataIndex: 'contract_no',
+                key: 'contract_no'
+            },
             {
                 title: '账期',
                 dataIndex: 'counter',
                 key: 'counter'
             },
-
+            {
+                title: '账单类型',
+                dataIndex: 'billtype',
+                key: 'billtype'
+            },
             {
                 title: '账期开始时间',
                 dataIndex: 'periodstart',
@@ -136,30 +151,15 @@ export default class OneContractBillsCom extends React.Component {
         );
     };
 
-    getModalProps() {
-        return {
-            width: 1200,
-            destroyOnClose: true,
-            ref: "billrpt",
-            title: '账单',
-            bodyStyle: {
-                width: 1200,
-                height: "auto",
-                overflow: 'auto',
-                bottom: 0
-            },
-            cancelText: '取消',
-            okText: "确定",
-            visible: this.state.visible,
-            onOk: this.saveFormData,
-            onCancel: () => this.onCancel()
-        }
-    }
+
 
 
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${ selectedRowKeys }`, 'selectedRows: ', selectedRows);
+            console.log('选择的数据rows: ', selectedRows);
+
+            this.setState({ selectedRows: selectedRows })
+
         },
         onSelect: (record, selected, selectedRows) => {
             console.log(toJS(record));
@@ -177,22 +177,17 @@ export default class OneContractBillsCom extends React.Component {
         return <div>
             <div>
 
-
+                <Button onClick={ event => this.saveCombinedBill(event) }>保存合并账单</Button>
                 <Divider orientation="left">未付款账单</Divider>
                 <Table
-
                     dataSource={ this.bills }
-                    rowKey="counter"
+                    rowKey="id"
                     columns={ this.getColumnsCycleByContractTimelime() }
                     pagination={ false }
                     size="small"
                     expandedRowRender={ this.expandedLog }
                     rowSelection={ this.rowSelection }
-
                 />
-
-
-
             </div >
         </div >
     }

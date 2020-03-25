@@ -9,6 +9,7 @@ export default class network {
         saveBatchIP: params => http(params, `${ api_root }/Network/saveBatchIP`),
         saveBatchODFPort: params => http(params, `${ api_root }/Network/saveBatchODFPort`),
         getOdfsummary: params => http(params, `${ api_root }/Network/getOdfsummary`),
+        saveSwinnerLink: params => http(params, `${ api_root }/Network/saveSwinnerLink`),
 
 
     }

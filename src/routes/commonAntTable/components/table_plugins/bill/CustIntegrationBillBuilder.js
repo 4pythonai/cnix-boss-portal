@@ -6,7 +6,7 @@ import api from '@/api/api'
 import { toJS } from 'mobx'
 import { randomString } from '@/utils/tools'
 const { Panel } = Collapse;
-import OneContractBillsCom from "./OneContractBillsCom"
+import IntegrationBillsCom from "./IntegrationBillsCom"
 
 
 @observer
@@ -20,10 +20,12 @@ export default class CustIntegrationBillBuilder extends React.Component {
 
 
     state = {
-        IntegrationStore: {},
-        united_results: [],
+
+
+        all_bills: [],
         visible: false,
         cust: {},
+        custid: -1,
         big_total_summary: 0,
     }
 
@@ -33,11 +35,19 @@ export default class CustIntegrationBillBuilder extends React.Component {
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
+        this.setState({ custid: current_row.id })
+
+
         let params = { method: 'GET', data: { "custid": current_row.id } }
         let json = await api.billing.getUnUsedBills(params);
         console.log(json)
 
-        this.setState({ visible: true, big_total_summary: json.big_total_summary, cust: json.cust, IntegrationStore: json, united_results: json.united_results })
+        this.setState({
+            visible: true,
+
+            all_bills: json.all_bills,
+            big_total_summary: json.big_total_summary, cust: json.cust,
+        })
 
     }
 
@@ -67,21 +77,24 @@ export default class CustIntegrationBillBuilder extends React.Component {
         }
     }
 
+
+    updateParentVisible(someValue) {
+        console.log(someValue);//在这里就可以取到子组件传来的值
+        this.setState({
+            visible: someValue
+        })
+
+    }
+
     generatePanel() {
-        let united_results = this.state.united_results
-        let panels = []
-        for (let index = 0; index < united_results.length; index++) {
 
-            let one = united_results[index]
-            panels.push(
-
-                <Panel key={ index } header={ '合同号:' + one.contract_no } >
-                    <OneContractBillsCom key={ index } onlyShowTimeLine="yes" howSaveBillBtn="no" bills={ one.bills } />
-                </Panel >
-            )
-        }
-
-        return panels;
+        let divs = []
+        divs.push(
+            <div key={ "AAA" }>
+                <IntegrationBillsCom key={ 1 } updateParentVisible={ this.updateParentVisible.bind(this) } custid={ this.state.custid } onlyShowTimeLine="yes" howSaveBillBtn="no" bills={ this.state.all_bills } />
+            </div>
+        )
+        return divs;
     }
 
 
@@ -98,14 +111,7 @@ export default class CustIntegrationBillBuilder extends React.Component {
                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>银行帐号:{ this.state.cust.bank_account }</div>
                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用合计:{ this.state.big_total_summary }</div>
                 </div>
-
-
-                <Collapse destroyInactivePanel={ true } >
-                    {
-                        this.generatePanel()
-                    }
-
-                </Collapse>
+                { this.generatePanel() }
             </div >
         </Modal >
     }
