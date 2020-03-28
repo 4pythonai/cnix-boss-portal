@@ -10,6 +10,7 @@ export default class bpm {
 
         // sync user data
         syncNetworkStatus: params => http(params, `${ api_root }/network/syncNetworkStatus`),
+        clear_ibm_net_usage: params => http(params, `${ api_root }/network/clear_ibm_net_usage`),
 
     }
 }
