@@ -79,21 +79,12 @@ export default class OneContractBillReport extends React.Component {
 
     render() {
         console.log('will render.....')
-
         let modalProps = this.getModalProps();
-
         if (this.state.checkpassed) {
-
             return <Modal { ...modalProps }>
-
                 <OneContractBillReportCom onlyShowTimeLine="no" showSaveBillBtn="yes" OneContractBillingStore={ this.state.billstore } />
-
-
-
             </Modal >
-
         } else {
-
             return <Modal { ...modalProps }>
                 <div>
                     <p>合同资源项目时间检查失败:涉及到合同数量:{ this.state.toal_check_errors.length }:</p>
@@ -103,20 +94,8 @@ export default class OneContractBillReport extends React.Component {
                                 one_contract_error.errors.map(error => <li key={ error.idx }>{ error.text }</li>))
                         )
                     }
-
                 </div >
             </Modal >
-
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

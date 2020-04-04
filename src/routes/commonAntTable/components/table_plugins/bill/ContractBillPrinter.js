@@ -10,7 +10,7 @@ import DevicePort from './DevicePort'
 
 
 @observer
-export default class BillPrinter extends React.Component {
+export default class ContractBillPrinter extends React.Component {
     constructor(props) {
         super(props)
         this.store = OneContractBillingStore
