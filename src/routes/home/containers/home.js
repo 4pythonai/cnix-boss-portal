@@ -20,8 +20,8 @@ export default class home extends React.Component {
             <div>
 
 
-                report here
-   
+
+
             </div>
         )
     }

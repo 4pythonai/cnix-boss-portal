@@ -115,7 +115,7 @@ export default class SearchTableForm extends React.Component {
                     type="string"
                     title="搜索字段"
                     name={ 'field_' + this.props.form_index }
-                    default=''
+                    default='id'
                     required
                     enum={ this.props.field_list }
                     x-effect={ dispatch => ({
@@ -130,6 +130,8 @@ export default class SearchTableForm extends React.Component {
                     title="搜索条件"
                     required
                     name={ 'operator_' + this.props.form_index }
+                    default='='
+
                 />
                 <Field
                     type="string"

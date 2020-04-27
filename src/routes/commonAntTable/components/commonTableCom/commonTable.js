@@ -17,9 +17,7 @@ export default class CommonTable extends React.Component {
 
     constructor(props) {
         super(props)
-        console.log('表格props')
 
-        console.log(props)
 
         this.commonTableStore = new commonTableStore()
 
@@ -76,12 +74,6 @@ export default class CommonTable extends React.Component {
         let res = await api.activity.getACtcfg(params);
 
         if (res.code == 200) {
-
-
-
-
-
-
             this.commonTableStore.setTableColumnsJson(res.data.tableColumnConfig)
             this.commonTableStore.setFormCfg(res.data.formcfg);
             this.commonTableStore.setlayoutCfg(res.data.layoutcfg);
@@ -270,12 +262,10 @@ export default class CommonTable extends React.Component {
                 dataIndex: item.key,
                 key: item.key,
                 width: index == 0 ? 100 : null,
-                // ellipsis:true,
                 sorter: (a, b) => a[item.key] - b[item.key],
-                onFilter: (value, record) => record[item.key].includes(value),
-                // ...getColumnSearchProps(item.key, this.commonTableStore),
+                //  ...getColumnSearchProps(item.key, this.commonTableStore),
                 // render: (text, record) => this.columnsRender(text, item, record)
-                render: (text) => !text ? null : text
+                // render: (text) => !text ? null : text
             }
             if (hideColumns.includes(item.key) == false) {
                 columns.push(column)
