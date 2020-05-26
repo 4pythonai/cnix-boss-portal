@@ -315,7 +315,7 @@ export default class OneContractBillReportCom extends React.Component {
                 {
                     this.onlyShowTimeLine !== 'yes' ?
                         <div>
-                            <Divider orientation="left">周期性费用详情</Divider>
+                            <Divider orientation="left">周期性账单-按产品</Divider>
                             <Table
                                 dataSource={ this.store.cycle_store }
                                 rowKey="id"
@@ -328,7 +328,7 @@ export default class OneContractBillReportCom extends React.Component {
                         : ''
                 }
 
-                <Divider orientation="left">周期账单</Divider>
+                <Divider orientation="left">周期性账单-按账期</Divider>
                 <Table
 
                     dataSource={ this.store.contract_timeline }

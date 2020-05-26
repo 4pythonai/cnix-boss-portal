@@ -327,7 +327,7 @@ export default class CustPaperBillPrinter extends React.Component {
                                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>开户银行:{ "中国建设银行房山支行" }</div>
                                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>银行帐号:{ "1100 1016 1000 5306 8105" }</div>
                                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>发票类型:{ "增值税专用发票" }</div>
-                                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>联系人:{ "李旭 18810188656" }</div>
+                                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>联系人:{  this.state.custinfo.custserviceandphone }</div>
                                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>主页:{ "http://www.cninx.com.cn" }</div>
                                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客服联系电话:{ "40012345678" }</div>
                                 </td>

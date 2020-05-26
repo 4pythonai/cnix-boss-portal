@@ -101,6 +101,7 @@ export default class CustIntegrationBill extends React.Component {
         let modalProps = this.getModalProps();
         return <Modal { ...modalProps }>
             <div>
+
                 <div style={ { marginBottom: '5px', marginLeft: '5px' } }>
                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客户名称:{ this.state.cust.customer_name }</div>
                     <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>地址:{ this.state.cust.address }</div>
@@ -116,6 +117,7 @@ export default class CustIntegrationBill extends React.Component {
                     }
 
                 </Collapse>
+
             </div >
         </Modal >
     }
