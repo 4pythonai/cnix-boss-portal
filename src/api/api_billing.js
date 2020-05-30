@@ -15,6 +15,9 @@ export default class billing {
         getUnUsedBills: params => http(params, `${ api_root }/Billing/getUnUsedBills`),
         saveCombinedBill: params => http(params, `${ api_root }/Billing/saveCombinedBill`),
         getPaperInfoById: params => http(params, `${ api_root }/Billing/getPaperInfoById`),
+        getZones: params => http(params, `${ api_root }/Billing/getZones`),
+        
+        
     }
 }
 
