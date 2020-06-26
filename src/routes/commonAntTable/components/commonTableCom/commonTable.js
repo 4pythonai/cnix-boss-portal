@@ -10,7 +10,6 @@ import getColumnSearchProps from './getColumnSearchProps'
 import ResizeableTitle from './resizeableTitle';
 import commonTableStore from '@/store/commonTableStore'
 import SearchContract from '../table_plugins/contractDepartment/searchContract'
-import InputSearchCabinet from '../table_plugins/inputSearchCabinet'
 import '../../commonTable.scss'
 import api from '@/api/api'
 const { Search } = Input

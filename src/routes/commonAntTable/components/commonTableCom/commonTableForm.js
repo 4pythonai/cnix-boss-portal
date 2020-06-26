@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'antd'
 import commonTableStore from '@/store/commonTableStore'
-import FlowApprovalStore from '@/store/FlowApprovalStore'
 import '@/components/Uform_extends'
 import { toJS } from 'mobx'
 import '../../commonTable.scss'
@@ -91,7 +90,7 @@ const CommonTableForm = props => {
                 <div style={ { textAlign: 'center' } }>
                     <Button type="primary" htmlType="button" className="marginRihgt10" onClick={ async event => {
                         let res = await actions.validate()
-                        await props.saveFormData(actions.getFormState().values, FlowApprovalStore.uuid, props.onChange, props.as_virtual, props.optionType);
+                        await props.saveFormData(actions.getFormState().values,  '', props.onChange, props.as_virtual, props.optionType);
                         props.hideModal()
                     }
                     }>保存</Button>

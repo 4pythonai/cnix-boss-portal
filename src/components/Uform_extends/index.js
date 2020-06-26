@@ -6,7 +6,7 @@ import CheckBoxTest from './checkBoxTest'
 import Fileuploader from './fileuploader'
 import Assocselect from './assocSelect'
 import AssocSelectSimple from './assocSelectSimple'
-import SelectCabinet from './selectCabinet'
+ 
  
 import GetLander from './getLander'
 import GetDepart from './getDepart'
@@ -25,14 +25,10 @@ import Dropdowncombox from './dropdowncombox'
 import PortSpeedDropdown from './PortSpeedDropdown'
 import PortTypeDropdown from './PortTypeDropdown'
 import YnSelect from './YnSelect'
-import ResourceApplicationSelect from './resourceApplicationSelect'
 import CommonTable from '@/routes/commonAntTable/components/commonTableCom/commonTable'
-import CabinetPowerQuantity from './CabinetPowerQuantity'
-import CabinetSelector from './CabinetSelector'
 import UbitLocation from './UbitLocation'
 import EditgetDate from './editgetDate'
 import CategoryDropDown from './categoryDropDown'
-import UncompletedCabinetSelector from './uncompletedCabinetSelector'
 import QuitInput from './quitInput'
 import DeviceDroplist from './deviceDroplist'
 import DeviceNumber from './deviceNumber'
@@ -49,7 +45,6 @@ registerFormFields({
     checkBoxTest: connect()(props => <CheckBoxTest { ...props } getComponentValue={ props.onChange } value={ props.value || '' } />),
     fileuploader: connect()(props => <Fileuploader { ...props } value={ props.value || '' } />),
 
-    selectCabinet: connect()(props => <SelectCabinet { ...props } value={ props.value || '' } />),
     com_cabinet: connect()(props => <ComCabinet { ...props } value={ props.value || '' } />),
  
     Assocselect: connect()(props => <Assocselect { ...props } value={ props.value || '' } />),
@@ -76,16 +71,12 @@ registerFormFields({
     QuitInput: connect()(props => <QuitInput { ...props } value={ props.value || '' } />),
 
     GetRadio: connect()(props => <GetRadio { ...props } value={ props.value || '' } />),
-    ResourceApplicationSelect: connect()(props => <ResourceApplicationSelect { ...props } value={ props.value || '' } />),
     PortSpeedDropdown: connect()(props => <PortSpeedDropdown { ...props } value={ props.value || '' } />),
     PortTypeDropdown: connect()(props => <PortTypeDropdown  { ...props } value={ props.value || '' } />),
     YnSelect: connect()(props => <YnSelect { ...props } value={ props.value || '' } />),
     CabinetPowerQuantity: connect()(props => <CabinetPowerQuantity { ...props } value={ props.value || '' } />),
-    CabinetSelector: connect()(props => <CabinetSelector { ...props } value={ props.value || '' } />),
     UbitLocation:connect()(props => <UbitLocation { ...props } value={ props.value || '' } />),
-    CabinetSelectorcheckbox:connect()(props => <CabinetSelectorcheckbox { ...props } value={ props.value || '' } />),
     EditgetDate:connect()(props => <EditgetDate { ...props } value={ props.value || '' } />),
-    UncompletedCabinetSelector:connect()(props => <UncompletedCabinetSelector { ...props } value={ props.value || '' } />),
     DeviceDroplist:connect()(props => <DeviceDroplist { ...props } value={ props.value || '' } />),
     DeviceNumber:connect()(props => <DeviceNumber { ...props } value={ props.value || '' } />),
     ProviderList:connect()(props => <ProviderList { ...props } value={ props.value || '' } />),

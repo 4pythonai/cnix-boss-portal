@@ -12,8 +12,6 @@ import activity from './api_activity'
 import curd from './api_curd'
 import auth from './api_auth'
 import bpm from './api_bpm'
-import api_contract from './api_contract'
-import contractmanage from './api_contractmanage'
 import permission from './api_permission'
 import user from './api_user'
 import customer from './api_customer'
@@ -47,17 +45,7 @@ export default class api {
 
 
     }
-    static completion = {
-        // 获取开工单列表（已归档）
-        getStartWorkAndCompleteList: (params) => http(params, `${ api_root }/${ controller.completion }/getStartWorkAndCompletionList`),
-        getCompletionList: (params) => http(params, `${ api_root }/${ controller.completion }/getCompletionList`),
-        addCompletionOrder: (params) => http(params, `${ api_root }/${ controller.completion }/AddCompletion`),
-        updateCompletionOrder: (params) => http(params, `${ api_root }/${ controller.completion }/updateCompletionBill`),
-        deleteCompletionOrder: (params) => http(params, `${ api_root }/${ controller.completion }/deleteCompletionBill`),
-        getCompletionOrderDetail: (params) => http(params, `${ api_root }/${ controller.completion }/getCompletionDetail`),
-        getCompletionBillCabinet: (params) => http(params, `${ api_root }/${ controller.completion }/getCompletionBillCabinet`),
-        deleteCabinetShelf: (params) => http(params, `${ api_root }/${ controller.completion }/deleteCabinetShelf`),
-    }
+    
     static equipmentMaterial = {
         addEquipmentMaterial: (params) => http(params, `${ api_root }/${ controller.equipmentMaterial }/addEquipmentMaterial`),
         deleteEquipmentMaterial: (params) => http(params, `${ api_root }/${ controller.equipmentMaterial }/deleteEquipmentMaterial`),
@@ -94,67 +82,22 @@ export default class api {
         updateOpp: (params) => http(params, `${ api_root }/${ controller.sales }/updateOpp`),
     }
 
-
-    static record = {
-        punchCard: `${ api_root }/${ controller.sales }/punchCard`,
-        getRecord: `${ api_root }/${ controller.sales }/getRecord`,
-        getWeekDay: `${ api_root }/${ controller.sales }/getWeekDay`,
-        removeWorkContent: (params) => http(params, `${ api_root }/${ controller.sales }/removeWorkContent`),
-        addWorkContent: (params) => http(params, `${ api_root }/${ controller.sales }/addWorkContent`),
-        updateWorkContent: (params) => http(params, `${ api_root }/${ controller.sales }/updateWorkContent`),
-    }
-
-
-    static clue = {
-        removeClue: (params) => http(params, `${ api_root }/${ controller.sales }/removeClue`),
-        addClue: (params) => http(params, `${ api_root }/${ controller.sales }/addClue`),
-        editClue: (params) => http(params, `${ api_root }/${ controller.sales }/editClue`),
-        transferToOpportunity: (params) => http(params, `${ api_root }/${ controller.sales }/transferToOpportunity`),
-        getClues: `${ api_root }/${ controller.sales }/getClues`,
-    }
+ 
+   
 
 
 
-    static message = {
-        getWechatMetion: (params) => http(params, `${ api_root }/${ controller.sales }/getWechatMetion`),
-        recordListRecordReply: (params) => http(params, `${ api_root }/${ controller.sales }/recordListRecordReply`),
-        addReply: (params) => http(params, `${ api_root }/${ controller.sales }/addReply`),
-    }
-
-    static graphs = {
-        getAnnualSalesData: (params) => http(params, `${ api_root }/${ controller.sales }/getAnnualSalesData`),
-        getCharg_nameSales: (params) => http(params, `${ api_root }/${ controller.sales }/getCharg_nameSales`),
-        getReport: (params) => http(params, `${ api_root }/${ controller.sales }/getReport`),
-    }
-
-
-
-    // 测试接口
-    static test = {
-        userInfo: params => http(params, `http://localhost:3000/userInfo`),
-    }
-
-
-
-    static mock = {
-        getProvince: params => http(null, 'http://localhost:3003/getProvince'),
-        getCities: params => http(null, 'http://localhost:3003/getCities'),
-        getArea: params => http(null, 'http://localhost:3003/getArea'),
-
-    }
+ 
 }
 
 
 api.device_api = device.apis
 api.processmanager = processmanager.apis
-api.processmanager = processmanager.apis
 api.activity = activity.apis
 api.curd = curd.apis
 api.auth = auth.apis
 api.bpm = bpm.apis
-api.contract_api = api_contract.apis
-api.contractManage = contractmanage.apis
-api.permission = permission.apis
+ api.permission = permission.apis
 api.user = user.apis
 api.customer = customer.apis
 api.activityRecord = activityRecord.apis

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Tag, Icon } from 'antd'
-import FlowApprovalStore from '@/store/FlowApprovalStore'
 import {
     hashHistory
 } from 'react-router'
@@ -200,7 +199,6 @@ class ColumnsHandle {
         // let new_url = `/#/flow/FlowDetail?${ params }`
 
         // window.open(new_url, '_blank')
-        FlowApprovalStore.setInitNode('n');
         hashHistory.push({ pathname: `flow/FlowForm`, state:data});
     }
     jumpcontractreceivedetail(event, record, store){

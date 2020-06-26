@@ -4,7 +4,6 @@ import { observer, inject } from "mobx-react";
 import {message} from 'antd';
 import CommonModal from '../commonTableCom/commonModal'
 import navigationStore from '@/store/navigationStore'
-import FlowApprovalStore from '@/store/FlowApprovalStore'
 import api from '@/api/api'
 import {
     hashHistory
@@ -66,7 +65,7 @@ export default class TableAddCom extends React.Component {
                     init_node: 'y',
                     contract_no: json.data.contract_no?json.data.contract_no:''
                 }
-                FlowApprovalStore.setInitNode('y');
+                // FlowApprovalStore.setInitNode('y');
                 hashHistory.push({ pathname: `flow/FlowForm`, state: data });
             }
 
