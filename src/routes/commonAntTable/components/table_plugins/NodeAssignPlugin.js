@@ -1,12 +1,21 @@
 
+<<<<<<< HEAD
 // 分配到节点[添加动作]	已经弃用.
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import React from 'react'
 import { Modal, Descriptions, message, Checkbox } from 'antd';
 import { observer, inject } from "mobx-react";
 import api from '../../../../api/api'
 import pmStore from '../../../../store/pmStore'
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import { toJS } from 'mobx'
 const CheckboxGroup = Checkbox.Group;
 
@@ -46,6 +55,7 @@ export default class NodeAssignPlugin extends React.Component {
                     },
                     method: 'POST'
                 }
+<<<<<<< HEAD
                 let resp = await api.bpm.getItemAssignInfo(params);
                 if (resp.code == 200) {
                     var arr = []
@@ -56,6 +66,16 @@ export default class NodeAssignPlugin extends React.Component {
                     console.log(arr)
                     this.setState({
                         checkedList: arr
+=======
+                let resp =await api.bpm.getItemAssignInfo(params);
+                if (resp.code == 200) {                   
+                    var arr=[]                   
+                    for(var i=0;i<resp.data.length;i++){
+                        arr.push(resp.data[i].nodesid+'')
+                    }                                            
+                    this.setState({
+                        checkedList:arr
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     })
                     message.success(resp.message)
                 }
@@ -76,6 +96,7 @@ export default class NodeAssignPlugin extends React.Component {
     async SaveAssignHandler() {
 
         let _row = toJS(this.props.commonTableStore.selectedRows[0])
+<<<<<<< HEAD
 
         let _rows = toJS(this.props.commonTableStore.selectedRows)
 
@@ -93,6 +114,11 @@ export default class NodeAssignPlugin extends React.Component {
         let cfgobj = {
             assigntype: this.props.commonTableStore.action_code,
             itemids: itemids,
+=======
+        console.log('选择的节点', this.props.commonTableStore)
+        let cfgobj = {
+            assigntype: this.props.commonTableStore.action_code,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             itemid: _row.id, processkey: _row.processkey, processname: _row.processname,
             assigns: this.state.checkedList
         }
@@ -109,11 +135,19 @@ export default class NodeAssignPlugin extends React.Component {
             let _tmp = {}
             _tmp.nodesid = node_id;
 
+<<<<<<< HEAD
             var found_node = pmStore.AllNodeName.find(function(xnode) {
+=======
+            var found_node = pmStore.AllNodeName.find(function (xnode) {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 return xnode.id == node_id;
             });
 
             _tmp.nodename = found_node.name
+<<<<<<< HEAD
+=======
+            console.log(_tmp)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             combine.push(_tmp)
         }
         )
@@ -121,9 +155,12 @@ export default class NodeAssignPlugin extends React.Component {
 
         cfgobj.assigns_combine = combine
         let params = { data: { ...cfgobj }, method: 'POST' };
+<<<<<<< HEAD
         console.log(params)
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let res = await api.processmanager.saveItemAssign(params);
         if (res.code == 200) {
             message.success(res.message, 0.5)
@@ -160,11 +197,26 @@ export default class NodeAssignPlugin extends React.Component {
 
     render() {
 
+<<<<<<< HEAD
         let { selectedRows } = this.props.commonTableStore
 
         console.log(pmStore)
         let nodeNames = pmStore.AllNodeName;
         console.log(toJS(nodeNames))
+=======
+        console.log(pmStore)
+        console.log(this.props.commonTableStore)
+
+        let { selectedRows } = this.props.commonTableStore
+
+
+        let nodeNames = pmStore.AllNodeName;
+
+
+        // nodeNames.push({ 'id': 'init_node', 'name': '初始节点' })
+
+        console.log(nodeNames)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 
@@ -174,6 +226,7 @@ export default class NodeAssignPlugin extends React.Component {
             selectedRows.length > 0 ?
 
                 <Modal
+<<<<<<< HEAD
                     visible={ this.state.visible }
                     destroyOnClose={ true }
                     onCancel={ () => this.onCancel() }
@@ -189,11 +242,29 @@ export default class NodeAssignPlugin extends React.Component {
                                     <Descriptions.Item key={ "x2" } label="字段">{ selectedRows[0].fieldtitle }</Descriptions.Item>
                                     <Descriptions.Item key={ "x3" } label="Fieldid">{ selectedRows[0].id }</Descriptions.Item>
                                     <Descriptions.Item key={ "x4" } label="memo">{ selectedRows[0].memo }</Descriptions.Item>
+=======
+                    visible={this.state.visible}
+                    destroyOnClose={true}
+                    onCancel={() => this.onCancel()}
+                    onOk={() => this.SaveAssignHandler()}
+                    style={{ width: '400px' }}
+                    title="节点权限分配" >
+
+                    <div>
+                        <div style={{ borderBottom: '1px solid #E9E9E9', margin: '10px' }}>
+                            <div className="field_msg">
+                                <Descriptions title="元素" size={"middle"} bordered>
+                                    <Descriptions.Item key={"x1"} label="ID">{selectedRows[0].id}</Descriptions.Item>
+                                    <Descriptions.Item key={"x2"} label="字段">{selectedRows[0].fieldtitle}</Descriptions.Item>
+                                    <Descriptions.Item key={"x3"} label="Fieldid">{selectedRows[0].id}</Descriptions.Item>
+                                    <Descriptions.Item key={"x4"} label="memo">{selectedRows[0].memo}</Descriptions.Item>
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                 </Descriptions>
                             </div>
                         </div>
                         <br />
                         <Checkbox
+<<<<<<< HEAD
                             indeterminate={ this.state.indeterminate }
                             onChange={ this.onCheckAllChange }
                             checked={ this.state.checkAll }
@@ -210,6 +281,24 @@ export default class NodeAssignPlugin extends React.Component {
                                     nodeNames.map((item, index) => {
                                         return (
                                             <Checkbox style={ { width: '180px', marginLeft: '10px' } } key={ index } value={ item.id }>{ item.name }</Checkbox>
+=======
+                            indeterminate={this.state.indeterminate}
+                            onChange={this.onCheckAllChange}
+                            checked={this.state.checkAll}
+                        >
+                            选择所有
+               </Checkbox>
+                        <br /><br />
+                        <CheckboxGroup
+                            value={this.state.checkedList}
+                            onChange={this.onChangeSelectNode}>
+
+                            {
+                                nodeNames ?
+                                    nodeNames.map((item, index) => {
+                                        return (
+                                            <Checkbox style={{ width: '180px', marginLeft: '10px' }} key={index} value={item.id}>{item.name}</Checkbox>
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                         )
                                     })
                                     :

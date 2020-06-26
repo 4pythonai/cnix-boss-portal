@@ -15,7 +15,11 @@ class ReferService extends React.Component {
         this.pmstore = props.pmStore
     }
 
+<<<<<<< HEAD
     addReferServiceCfg = e => {
+=======
+    addModifyCfg = e => {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         e.preventDefault();
         this.props.form.validateFieldsAndScroll(async (err, values) => {
             if (!err) {
@@ -69,14 +73,21 @@ class ReferService extends React.Component {
 
                 <Card title="Service说明" style={ { width: 1000 } }>
                     <div>在流程表单中,为了展示关系信息,有可能需要后台进行复杂的计算,
+<<<<<<< HEAD
                     可以配置从主表中选择一个字段,在运行时,后台将根据记录的字段值,
                     作为参数,进行计算,进行展示.由于使用统一的控制器(bpm),则下面的
                     url只需填写model/function
+=======
+                       可以配置从主表中选择一个字段,在运行时,后台将根据记录的字段值,
+                       作为参数,进行计算,进行展示.由于使用统一的控制器(bpm),则下面的
+                       url只需填写model/function
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                        <div stye={ { color: "red" } }>必须包含/,请确认model及function存在</div>
                     </div>
                     <br /><br />
                     <p>Demo: <br />
                         <br />
+<<<<<<< HEAD
 
 
                         <section className="code-box expand">
@@ -104,11 +115,19 @@ class ReferService extends React.Component {
                                 <br/>
                             </code>
                         </section>
+=======
+                        Somemodel/somefunction
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     </p>
                 </Card>
                 <br />
 
+<<<<<<< HEAD
                 <Form { ...formItemLayout } onSubmit={ this.addReferServiceCfg }>
+=======
+                <Form { ...formItemLayout } onSubmit={ this.addModifyCfg }>
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     <Form.Item
                         { ...formItemLayout }
                         label="标题"

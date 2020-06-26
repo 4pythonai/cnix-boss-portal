@@ -6,8 +6,12 @@ import api from '@/api/api'
 import {
     SchemaForm,
     createFormActions,
+<<<<<<< HEAD
     Field,
     FormPath
+=======
+    Field
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 } from '@uform/antd'
 
 const actions = createFormActions()
@@ -25,6 +29,7 @@ const GetFields = (props) => {
         value={value}
         actions={actions}
         effects={($, { setFieldState, getFieldState }) => {
+<<<<<<< HEAD
             $('onFormInit').subscribe(() => {
                 setFieldState(FormPath.match('*(address,contactPhone,email,payee_num)'), state => {
                   state.props['x-props'] = state.props['x-props'] || {}
@@ -35,6 +40,8 @@ const GetFields = (props) => {
                 })
               })
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
             // 选中客户获取客户地址
             $('onFieldChange', 'customName')
@@ -62,6 +69,7 @@ const GetFields = (props) => {
                     if (res.code == 200) {
                         setFieldState('address', state => {
                             state.value = res.data.data.contact.address
+<<<<<<< HEAD
                             state.visible = true
                         })
                         setFieldState('contactPhone', state => {
@@ -75,6 +83,17 @@ const GetFields = (props) => {
                         setFieldState('payee_num', state => {
                             state.value = res.data.data.credit_no
                             state.visible = true
+=======
+                        })
+                        setFieldState('contactPhone', state => {
+                            state.value = res.data.data.contact.telephone
+                        })
+                        setFieldState('email', state => {
+                            state.value = res.data.data.contact.email
+                        })
+                        setFieldState('payee_num', state => {
+                            state.value = res.data.data.credit_no
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                         })
                     }
 

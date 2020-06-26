@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import echarts from 'echarts/lib/echarts';
 import  'echarts/lib/chart/bar';
 import 'echarts/lib/component/tooltip'
@@ -18,11 +19,22 @@ import '../home.scss'
 // import './navbar.scss';
 
 import Bossreport from  './bossreport'
+=======
+
+import { Table, Divider, Tag, Button } from 'antd';
+import navigationStore from '@/store/navigationStore'
+import 'antd/dist/antd.css';
+
+// import './navbar.scss';
+
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 
 
 export default class home extends React.Component {
+<<<<<<< HEAD
     constructor(props) {
         super(props)
         this.state={}
@@ -48,6 +60,18 @@ export default class home extends React.Component {
                     
                     <Dot/>
                 </div> */}
+=======
+
+
+
+    render() {
+        return (
+            <div>
+
+
+
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             </div>
         )
     }

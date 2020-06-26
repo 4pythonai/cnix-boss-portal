@@ -1,8 +1,12 @@
 import { observable, action, toJS, autorun, computed } from "mobx";
 import api from '../api/api'
 import IDC_cfg_store from './IDC_cfg_store'
+<<<<<<< HEAD
 import billingSummaryStore from './billingSummaryStore'
 import navigationStore from './navigationStore'
+=======
+import OneContractBillingStore from './OneContractBillingStore'
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import { message } from 'antd'
 import { getMaxRowKey } from '../utils/tools'
 
@@ -12,11 +16,14 @@ class chargeStore {
         memo: ''
     }
 
+<<<<<<< HEAD
 
     @observable selectedRowKeys = []
 
     @observable selectedRows = []
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     // 峰值显示标识
     @observable isShowPeakValue = false
 
@@ -47,6 +54,12 @@ class chargeStore {
     // 提交后台的收费项数据
     @observable chargeSubmitData = []
 
+<<<<<<< HEAD
+=======
+    // 波分的所在机房处理
+    @observable idcLocation = {}
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     // 带宽运营商checkBox处理
     @observable selectCheckBoxList = []
 
@@ -58,6 +71,7 @@ class chargeStore {
         this.chargeRowData = {};
         this.chargeShowListData = [];
         this.chargeSumPrice = 0
+<<<<<<< HEAD
         this.selectedRowKeys = []
         this.selectedRows = []
     }
@@ -113,6 +127,10 @@ class chargeStore {
     }
 
 
+=======
+    }
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     /******************* 收费项弹框 *************************/
     @observable chargeModalVisible = false;
 
@@ -140,7 +158,11 @@ class chargeStore {
             message.error('请选择收费周期')
             return
         }
+<<<<<<< HEAD
         if (!IDC_cfg_store.saveContractData.pay_type || IDC_cfg_store.saveContractData.pay_type === '请选择') {
+=======
+        if (IDC_cfg_store.saveContractData.pay_type === null || IDC_cfg_store.saveContractData.pay_type === '请选择') {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.chargeModalVisible = false;
             message.error('请选择支付类型')
             return
@@ -151,18 +173,25 @@ class chargeStore {
             return
         }
 
+<<<<<<< HEAD
         if (IDC_cfg_store.saveContractData.contract_start_date === null || IDC_cfg_store.saveContractData.contract_start_date === '' ||
             IDC_cfg_store.saveContractData.contract_start_date == undefined
         ) {
+=======
+        if (IDC_cfg_store.saveContractData.contract_start_date === null || IDC_cfg_store.saveContractData.contract_start_date === '') {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.chargeModalVisible = false;
             message.error('请选择合同签订日期')
             return
         }
+<<<<<<< HEAD
 
         console.log('合同签订日期:')
         console.log(IDC_cfg_store.saveContractData.contract_start_date)
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (IDC_cfg_store.saveContractData.contract_end_date === null || IDC_cfg_store.saveContractData.contract_end_date == null) {
             this.chargeModalVisible = false;
             message.error('请选择合同结束日期')
@@ -175,7 +204,10 @@ class chargeStore {
 
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action showChargeModal = () => this.chargeModalVisible = true;
 
     /******************* 费用详情弹框 ***********************/
@@ -203,11 +235,14 @@ class chargeStore {
     }
 
 
+<<<<<<< HEAD
     @action rowSelectChange = (selectedRowKeys, selectedRows) => {
         this.selectedRowKeys = selectedRowKeys
         this.selectedRows = selectedRows
     }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action setShowWidthType = () => this.isShowWidthType = true;
 
@@ -217,7 +252,13 @@ class chargeStore {
     }
 
     @action setNormalFiledsValue = async (event, key) => {
+<<<<<<< HEAD
         if (event === null || event === undefined) {
+=======
+
+        console.log(event, key)
+        if (event === null) {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.chargeRowData[key] = '';
             return;
         }
@@ -231,6 +272,7 @@ class chargeStore {
         }
 
         if (key == 'res_id') {
+<<<<<<< HEAD
             this.chargeRowData = {
                 res_id: this.chargeRowData.res_id,
                 charge_fee_type: this.chargeRowData.charge_fee_type
@@ -238,10 +280,13 @@ class chargeStore {
             if (this.chargeRowData.key) {
                 chargeRowData.key = this.chargeRowData.key
             }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             await this.getui_cfg();
             return;
         }
 
+<<<<<<< HEAD
         // idc联动
         if (key == 'start_type') {
             console.log('clear start')
@@ -251,6 +296,8 @@ class chargeStore {
             console.log('clear end')
             this.chargeRowData.loc_end == ''
         }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
         if (this.chargeRowData.resname == '带宽') {
@@ -289,9 +336,12 @@ class chargeStore {
         }
     }
     @action setResUnit = (charge_cfg) => {
+<<<<<<< HEAD
         if (this.charge_cfg.using_fee_common_with_step) {
             this.resUnitCB(charge_cfg.using_fee_common_with_step);
         }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (charge_cfg.using_fee_common_without_step) {
             this.resUnitCB(charge_cfg.using_fee_common_without_step);
         }
@@ -301,6 +351,7 @@ class chargeStore {
         if (this.charge_cfg.using_fee_fixed_with_overflow) {
             this.resUnitCB(charge_cfg.using_fee_fixed_with_overflow);
         }
+<<<<<<< HEAD
 
 
         // 单位为一个时默认选择第一个
@@ -318,6 +369,8 @@ class chargeStore {
             })
         }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
@@ -348,7 +401,11 @@ class chargeStore {
             message.error('预留起始时间不能小于合同起始时间');
             return;
         }
+<<<<<<< HEAD
         if (new Date(IDC_cfg_store.saveContractData.contract_end_date) < fee_end) {
+=======
+        if (new Date(IDC_cfg_store.saveContractData.contract_end_date) <= fee_end) {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.chargeRowData.end_date = ''
             message.error('预留结束时间不能大于合同结束时间');
             return;
@@ -364,17 +421,53 @@ class chargeStore {
 
     }
 
+<<<<<<< HEAD
+=======
+    @action setEndIdcLocation = value => {
+        if (value === '请选择') {
+            this.chargeRowData.loc = '请选择'
+            return;
+        }
+        this.idcLocation['endIdcLocation'] = value;
+        this.setLoc()
+    }
+
+    @action setStartIdcLocation = value => {
+        if (value === '请选择') {
+            this.chargeRowData.loc = '请选择'
+            return;
+        }
+
+        this.idcLocation['startIdcLocation'] = value;
+        this.setLoc()
+
+    }
+
+    @action setLoc = () => {
+        if (!this.idcLocation.startIdcLocation || this.idcLocation.startIdcLocation === '请选择') {
+            return;
+        }
+        if (!this.idcLocation.endIdcLocation || this.idcLocation.endIdcLocation === '请选择') {
+            return;
+        }
+        this.chargeRowData.loc = this.idcLocation.startIdcLocation + ',' + this.idcLocation.endIdcLocation
+    }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
     /************** 收费项交互 ****************/
     // 获取资源项列表
     @action getFeeItemList = async () => {
+<<<<<<< HEAD
         let params = {
             data: {
                 contract_type: navigationStore.currentMenu.action_code
             }
         }
         let res = await api.contract_api.getResItemList(params);
+=======
+        let res = await api.contract_api.getResItemList();
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (res.code == 200) {
             this.fee_item_list = res.data;
         }
@@ -389,15 +482,22 @@ class chargeStore {
 
         let res = await api.contract_api.getUICfg(params);
         this.charge_cfg = res;
+<<<<<<< HEAD
 
         this.chargeRowData.resname = res.resname;
 
         // 设置收费项的收费周期
         if ((IDC_cfg_store.saveContractData.billing_cycle != '一次性' || IDC_cfg_store.saveContractData.billing_cycle != '请选择') && this.chargeOption == 'add') {
+=======
+        this.chargeRowData.resname = res.resname;
+
+        if (IDC_cfg_store.saveContractData.billing_cycle != '一次性' || IDC_cfg_store.saveContractData.billing_cycle != '请选择') {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.chargeRowData.billing_cycle = IDC_cfg_store.saveContractData.billing_cycle;
         }
 
         this.setResUnit(this.charge_cfg);
+<<<<<<< HEAD
 
         if (!this.chargeRowData.billing_methods && res.billing_methods.length == 1) {
             this.chargeRowData.billing_methods = res.billing_methods[0].method;
@@ -414,13 +514,23 @@ class chargeStore {
         })
         return formData
     }
+=======
+        if (!this.chargeRowData.billing_methods && res.billing_methods.length == 1) {
+            this.chargeRowData.billing_methods = res.billing_methods[0].method;
+        }
+    }
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     // 保存收费项
     @action saveChargeItem = async (e) => {
         e.preventDefault();
         e.stopPropagation();
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let chargeSubmitRowData = {
             ui_cfg: this.chargeRowData.ui_cfg ? this.chargeRowData.ui_cfg : this.charge_cfg,
             key: this.chargeRowData.key
@@ -436,12 +546,15 @@ class chargeStore {
             return;
         }
 
+<<<<<<< HEAD
         if (this.chargeOption == 'add' || (this.chargeOption == 'edit' && IDC_cfg_store.page_source == 'add')) {
             this.chargeRowData = this.getGhostData({ ...this.chargeRowData })
         }
 
         chargeSubmitRowData = { ...chargeSubmitRowData, ...this.chargeRowData }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         // 编辑收费项
         if (IDC_cfg_store.page_source == 'edit' && this.chargeOption == 'edit') {
             await this.updateChargeData(chargeSubmitRowData);
@@ -477,6 +590,10 @@ class chargeStore {
     @action initSubmitChargeData = () => {
         this.charge_cfg = {};
         this.selectCheckBoxList = [];
+<<<<<<< HEAD
+=======
+        this.idcLocation = {}
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.idcServiceFeeWidthCount = '';
         this.chargeRowData = {
             memo: '',
@@ -517,7 +634,11 @@ class chargeStore {
         }
         let res = await api.contract_api.updateChargeItem(params);
         if (res.code == 200) {
+<<<<<<< HEAD
             message.success('修改成功！');
+=======
+            message.success('编辑成功！');
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             // 刷新收费项列表
             await this.getChargeList();
             this.hideChargeModal();
@@ -537,7 +658,11 @@ class chargeStore {
                 method: 'POST'
             };
 
+<<<<<<< HEAD
             let res = await api.contract_api.deleteChargeItem(params);
+=======
+            let res = await api.contract_api.deleteChargeItems(params);
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             if (res.code == 200) {
                 this.getChargeList();
                 message.success('删除成功！');
@@ -559,7 +684,13 @@ class chargeStore {
     @action editChargeRow = (event, key) => {
         event.stopPropagation();
         this.chargeOption = 'edit';
+<<<<<<< HEAD
         this.chargeRowData = { ...this.chargeSubmitData.find(item => item.key == key) }
+=======
+        this.chargeRowData = this.chargeSubmitData.find(item => item.key == key)
+
+        console.log(this.chargeRowData)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         if (this.chargeRowData.charge_fee_type == '一次性费用') {
             this.charge_cfg = {};
@@ -569,6 +700,16 @@ class chargeStore {
 
         if (this.chargeRowData.charge_fee_type == '周期性费用') {
             this.charge_cfg = this.chargeRowData.ui_cfg;
+<<<<<<< HEAD
+=======
+            if (this.chargeRowData.loc) {
+                let index = this.chargeRowData.loc.indexOf(',');
+                if (index != -1) {
+                    this.idcLocation.startIdcLocation = this.chargeRowData.loc.slice(0, index);
+                    this.idcLocation.endIdcLocation = this.chargeRowData.loc.slice(index + 1);
+                }
+            }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
             // 带宽的计费方式为： 基础带宽加上超出带宽计费 时 判断峰值是否显示，带宽类型是否显示
             if (this.chargeRowData.resname == '带宽' && this.chargeRowData.billing_methods == 'using_fee_fixed_with_overflow') {
@@ -583,18 +724,30 @@ class chargeStore {
 
 
             this.getFeeItemList();
+<<<<<<< HEAD
             this.getui_cfg();
+=======
+            this.getui_cfg(this.chargeRowData.res_id);
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.showChargeModal();
 
         }
     }
 
     // 获取收费项列表
+<<<<<<< HEAD
     @action getChargeList = async (noUpdateContractmoney, flow_type) => {
 
         let params = {
             data: {
                 // contract_no: IDC_cfg_store.detailContractNo,
+=======
+    @action getChargeList = async (noUpdateContractmoney) => {
+
+        let params = {
+            data: {
+                contract_no: IDC_cfg_store.detailContractNo,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 uuid: IDC_cfg_store.uuid,
                 process_key: IDC_cfg_store.process_key
             },
@@ -602,6 +755,7 @@ class chargeStore {
         };
 
         let res = await api.contract_api.getChargeData(params);
+<<<<<<< HEAD
         if (flow_type) {
             if (res.data.length <= 0) {
                 return;
@@ -614,6 +768,8 @@ class chargeStore {
         }
 
         console.log('查看过滤后的数据', flow_type, res);
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         await this.reMakedata(res.data, noUpdateContractmoney);
     }
 
@@ -632,8 +788,14 @@ class chargeStore {
 
     @action reMakedata = async (chargeData, noUpdateContractmoney) => {
 
+<<<<<<< HEAD
         if (this.isCanCharge(chargeData) === false) {
             console.log('not charge')
+=======
+        if (chargeData == '' || chargeData.length == 0) {
+            await this.getResbilling(chargeData, noUpdateContractmoney);
+            this.chargeShowListData = [];
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             return;
         }
 
@@ -644,18 +806,27 @@ class chargeStore {
         let chargeItemData = [];
 
         chargeData = await this.getResbilling(chargeData, noUpdateContractmoney);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         chargeData.map(item => {
             showChargeData.push(this.formOfShowData(item, item.ui_cfg));
             chargeItemData.push(item)
         })
+<<<<<<< HEAD
         // 排序 机柜  网络  线路
         chargeItemData.sort(this.ownSort)
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.chargeShowListData = showChargeData;
         this.chargeSubmitData = chargeItemData;
 
         IDC_cfg_store.saveContractData['chargeData'] = chargeItemData;
     }
 
+<<<<<<< HEAD
 
     @action ownSort(a, b) {
         if (a.ui_cfg && b.ui_cfg) {
@@ -682,10 +853,21 @@ class chargeStore {
 
 
         let res = await api.billing.getResbilling(params);
+=======
+    @action getResbilling = async (chargeData, noUpdateContractmoney) => {
+        let { contract_end_date, contract_start_date, rent_type, contract_type, billing_cycle, contract_days, pay_type, give_day, contract_first_payment } = IDC_cfg_store.saveContractData
+        let params = {
+            data: { payCycle: billing_cycle, chargeData, contract_end_date, contract_start_date, rent_type, contract_type, contract_days, pay_type, give_day, contract_first_payment },
+            method: 'POST'
+        };
+
+        let res = await api.contract_api.getResbilling(params);
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.chargeSumPrice = res.total_summary;
         this.cahrge_cyclefee_summary = res.cyclefee_summary;
         this.charge_onetimefee_summary = res.onetimefee_summary;
 
+<<<<<<< HEAD
         // 如果用户设置的 manualset_billing_itmes 有数据,这使用用户设置的总和
 
 
@@ -693,12 +875,16 @@ class chargeStore {
 
         // 合同额重新赋值
 
+=======
+        // 合同额重新赋值
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         IDC_cfg_store.saveContractData.contract_money = noUpdateContractmoney == 'y'
             ?
             IDC_cfg_store.saveContractData.contract_money
             :
             res.total_summary;
 
+<<<<<<< HEAD
 
         if (res.manualset_billing_itmes.length > 0) {
             // alert('使用用户的合计数据')
@@ -715,10 +901,14 @@ class chargeStore {
 
 
         billingSummaryStore.setBillingData(res)
+=======
+        OneContractBillingStore.setBillingData(res)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         return res.chargeData
     }
 
+<<<<<<< HEAD
     isCanCharge = chargeData => {
         if (chargeData == '' || chargeData.length == 0) {
             this.chargeSumPrice = 0;
@@ -755,6 +945,9 @@ class chargeStore {
 
     }
 
+=======
+    // 获取一次性费用
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action getCycleFeeCount = data => {
         let cycleFeeCount = 0
         data.map((item, index, arr) => {
@@ -784,6 +977,7 @@ class chargeStore {
     }
 
     formOfShowData = (rowData, charge_cfg) => {
+<<<<<<< HEAD
 
         console.log(rowData)
 
@@ -792,6 +986,11 @@ class chargeStore {
             charge_fee_type: rowData.charge_fee_type,
             itemend: rowData.itemend,
             itemstart: rowData.itemstart,
+=======
+        let returnRowData = {
+            key: rowData.key ? rowData.key : getMaxRowKey(this.chargeSubmitData),
+            charge_fee_type: rowData.charge_fee_type,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             memo: rowData.memo ? rowData.memo : '',
             row_summary: rowData.row_summary != undefined ? rowData.row_summary : '',
             sub_summary: rowData.sub_summary != undefined ? rowData.sub_summary : '',
@@ -802,6 +1001,7 @@ class chargeStore {
         }
 
         if (rowData.charge_fee_type == '一次性费用') {
+<<<<<<< HEAD
 
             var onetime_item = {
                 loc: '',
@@ -888,6 +1088,32 @@ class chargeStore {
         if (rowData.free_amount) {
             return rowData.free_amount
         }
+=======
+            return {
+                loc: '',
+                resname: rowData.costName,
+                price: rowData.price + '元',
+                description: '',
+                num: '',
+                ...returnRowData
+            }
+        }
+        // 周期性费用
+        return {
+            loc: rowData.loc,
+            resname: charge_cfg.resname += rowData.reserved_cabinet_type ? (rowData.reserved_cabinet_type) : '',
+            price: this.getShowPrice(rowData, charge_cfg),
+            description: this.getShowDescription(rowData, charge_cfg),
+            num: this.getNum(rowData),
+            ...returnRowData
+        }
+    }
+
+    getNum(rowData) {
+        if (rowData.amount) {
+            return rowData.amount
+        }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         if (rowData.top_limited_amount) {
             return rowData.top_limited_amount
@@ -932,8 +1158,13 @@ class chargeStore {
 
     getShowDescription(data, charge_cfg) {
         let ignorePrice = ['price', 'price_in_base'];
+<<<<<<< HEAD
         let description = this.getDescriptionLoc(data, charge_cfg);
         description += this.getDescriptionSpec(data, charge_cfg, ignorePrice);
+=======
+
+        let description = this.getDescriptionSpec(data, charge_cfg, ignorePrice);
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         description += this.getBillingMethods(data, charge_cfg);
 
@@ -951,6 +1182,10 @@ class chargeStore {
 
         // 带宽峰值处理
         description += this.getPeakValue(data, charge_cfg, ignorePrice);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         return description
     }
 
@@ -978,7 +1213,10 @@ class chargeStore {
 
     // 普通计费
     getFeeCommonDescription(data, charge_cfg, ignorePrice) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let description = ''
         if (charge_cfg.using_fee_common_without_step == undefined) {
             return description
@@ -1019,14 +1257,22 @@ class chargeStore {
         if (data.billing_methods != 'using_fee_fixed_without_overflow' || charge_cfg.using_fee_fixed_without_overflow == undefined) {
             return description
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         charge_cfg.using_fee_fixed_without_overflow.map(item => {
             if (ignorePrice.includes(item.ui_id))
                 return;
 
+<<<<<<< HEAD
             description += data[item.ui_id] ? item.ui_title + ':' + data[item.ui_id] : '';
 
             description += item.cycle ? '/' + data.billing_cycle + ',' : ','
 
+=======
+            description += data[item.ui_id] ? item.ui_title + ':' + data[item.ui_id] + ',' : ''
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         })
         return description;
     }
@@ -1064,6 +1310,7 @@ class chargeStore {
             return description;
         }
 
+<<<<<<< HEAD
         let ignoreSpec = ['cabinet_electricity_count', 'used_months']
         // 机柜电量处理
         if (data.cabinet_electricity_count) {
@@ -1077,6 +1324,12 @@ class chargeStore {
                     '使用时间：' + data.used_months + '个' + this.getMonthUnit(data) + ','
                     :
                     '使用时间：' + data.used_months + this.getMonthUnit(data) + ','
+=======
+        let ignoreSpec = ['cabinet_electricity_count']
+        // 机柜电量处理
+        if (data.cabinet_electricity_count) {
+            description += '机柜电量：' + data.cabinet_electricity_count + '/' + data.cabinet_electricity_count_unit + ','
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
 
         charge_cfg.spec.map(item => {
@@ -1085,19 +1338,26 @@ class chargeStore {
                 if (this.isShowWidthType === false && charge_cfg.id == 7 && item.ui_id == 'bandwidth_type') {
                     description += ''
                 } else {
+<<<<<<< HEAD
                     description += data[item.ui_id] ?
                         item.ui_title + ':' + data[item.ui_id] + '，'
                         :
                         item.ui_title + ': ，'
+=======
+                    description += item.ui_title + ':' + data[item.ui_id] + '，'
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 }
         })
         return description;
     }
 
+<<<<<<< HEAD
     getMonthUnit = (data) => {
         return data.used_months_unit ? data.used_months_unit : ''
     }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     // 收费项验证
     validateChargeData(data) {
         return data.charge_fee_type == '一次性费用'
@@ -1113,18 +1373,24 @@ class chargeStore {
             message.error('费用名称不能为空！');
             return false;
         }
+<<<<<<< HEAD
         if ((this.isShowOneceLoc && !data.loc) || (this.isShowOneceLoc && data.loc === '请选择')) {
             message.error('所在机房不能为空！')
             return false
         }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (data.price === '' || data.price == undefined) {
             message.error('单价不能为空！');
             return false;
         }
+<<<<<<< HEAD
         if (data.once_charge_type === '' || data.once_charge_type == undefined) {
             message.error('收费项不能为空！');
             return false;
         }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         return true
     }
 
@@ -1135,6 +1401,7 @@ class chargeStore {
             message.error('请选择收费项.');
             return false;
         }
+<<<<<<< HEAD
 
         // 计费方式验证
         if (data.ui_cfg.billing_methods) {
@@ -1149,6 +1416,14 @@ class chargeStore {
         }
 
         // 计费方式验证
+=======
+        // 所在机房验证
+        if (data.loc == undefined || data.loc.indexOf('请选择') != -1 || data.loc.indexOf('undefined') != -1) {
+            message.error(data.ui_cfg.loc.check_tip_text + data.ui_cfg.loc.ui_title);
+            return false;
+        }
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (data.ui_cfg.billing_methods && data.ui_cfg.billing_methods.length == 2) {
             if (data.billing_methods == undefined || data.billing_methods == '请选择') {
                 message.error('请选择计费方式');
@@ -1179,12 +1454,15 @@ class chargeStore {
     }
 
     cycleValidateCb(config, data) {
+<<<<<<< HEAD
         console.log("周期性字段验证......")
 
         console.log(toJS(config))
         console.log(toJS(data))
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (config == undefined) return true;
         for (let i = 0; i < config.length; i++) {
             let item = config[i];
@@ -1195,12 +1473,15 @@ class chargeStore {
                     continue;
                 }
 
+<<<<<<< HEAD
                 // 带宽峰值的验证
                 if (item.ui_id == 'over_bandwidth_billing_method' && data[item.ui_id] == '峰值' && !data[item.peak_value.ui_id]) {
                     message.error(data[item.ui_id] + '不能为空')
                     return false;
                 }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 if (data[item.ui_id] === '' || data[item.ui_id] == undefined || data[item.ui_id] == '请选择') {
                     message.error(item.check_tip_text + item.ui_title);
                     return false;
@@ -1209,7 +1490,11 @@ class chargeStore {
                     message.error(item.check_tip_text + item.ui_title + '周期');
                     return false
                 }
+<<<<<<< HEAD
                 if ((item.unit && data[item.unit.ui_id] == undefined && item.unit.text) || (item.unit && data[item.unit.ui_id] == undefined && item.unit.options_list)) {
+=======
+                if (item.unit && data[item.unit.ui_id] == undefined) {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     message.error(item.check_tip_text + item.ui_title + '单位');
                     return false
                 }

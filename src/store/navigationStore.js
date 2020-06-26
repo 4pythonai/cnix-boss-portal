@@ -3,10 +3,14 @@ import { observable, action, computed, toJS } from "mobx";
 import api from '../api/api'
 import { hashHistory } from 'react-router'
 
+<<<<<<< HEAD
 import WsService from '@/routes/auth/WsService';
 
 import {randomString} from '@/utils/tools'
 const wsService = new WsService()
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 class navigationStore {
 
@@ -32,15 +36,22 @@ class navigationStore {
 
         // 浏览器刷新
         window.onload = () => {
+<<<<<<< HEAD
             wsService.wsinit(sessionStorage.getItem('session_id'));
             this.getBreadcrumbSessionStorage();
             this.getSessionBadge()
+=======
+            this.getBreadcrumbSessionStorage();
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.setCurrentMenu(this.breadcrumb[this.breadcrumb.length - 1]);
         }
     }
 
+<<<<<<< HEAD
     @observable updateKey = '2222'
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @observable breadcrumb = []
     @observable isCollapse = false
     // @observable routerText = '首页'
@@ -69,16 +80,20 @@ class navigationStore {
         this.openKeys = []
     }
 
+<<<<<<< HEAD
     @action changeUpdateKey = ()=> {
         setTimeout(() => {
             this.updateKey = randomString(5)
         }, 0); 
     }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action toggleCollapse = () => {
         this.isCollapse = !this.isCollapse
     }
 
+<<<<<<< HEAD
     @action setBossTitle = (staff_name)=> {
         let ele = document.getElementById('bossTitle');
         if(staff_name){
@@ -88,6 +103,8 @@ class navigationStore {
         ele.innerHTML = '光环BOSS系统'
     }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     // @action
     // setRouterText = routerText => {
     //     this.routerText = routerText
@@ -105,6 +122,7 @@ class navigationStore {
     @action setSelectedKeys = selectedKeys => this.selectedKeys = selectedKeys
 
 
+<<<<<<< HEAD
     @action saveSessionBadge = data => {
         sessionStorage.setItem('badge',JSON.stringify(data))
     }
@@ -124,6 +142,15 @@ class navigationStore {
 
 
 
+=======
+    @action change_badge_num = data => {
+        this.badge_sum = data.badge_sum;
+        this.address_count = data.address_count;
+        this.message_count = data.message_count;
+        this.affair_count = data.affair_count;
+    }
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     //三级未测试
     @action setBreadcrumb(item) {
@@ -195,9 +222,13 @@ class navigationStore {
         // console.log('获取菜单....')
         //直接根据 token 就可以获取,不需要发送role_code
         let params = {
+<<<<<<< HEAD
             data: {
                 role_code: sessionStorage.getItem("role_code")
             },
+=======
+            data: {},
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             method: 'POST'
         }
         let res = await api.permission.getMenuList(params);

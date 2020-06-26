@@ -1,7 +1,11 @@
 import React from 'react'
+<<<<<<< HEAD
 import { Transfer, Button, Tree  } from 'antd'
 
 const { TreeNode } = Tree;
+=======
+import { Transfer } from 'antd'
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 export default class PriviligeTransfer extends React.Component {
     constructor(props) {
         super()
@@ -19,6 +23,7 @@ export default class PriviligeTransfer extends React.Component {
                 onChange={onChange}
                 onSelectChange={onSelectChange}
                 onScroll={onScroll}
+<<<<<<< HEAD
                 operations={operations}
                 listStyle={listStyle}
                 render={item => item.text}
@@ -94,10 +99,17 @@ export default class PriviligeTransfer extends React.Component {
             </Transfer>
 
 
+=======
+                render={render}
+                operations={operations}
+                listStyle={listStyle}
+            />
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         )
     }
 
 }
+<<<<<<< HEAD
 
 const leftGenerateTree = (treeNodes = [], checkedKeys = []) => {
     return treeNodes.map(({ children, ...props }) => (
@@ -121,3 +133,5 @@ const isChecked = (selectedKeys, eventKey) => {
 const leftIsChecked = (selectedKeys, eventKey) => {
     return selectedKeys.indexOf(eventKey) !== -1;
   };
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778

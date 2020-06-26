@@ -96,7 +96,10 @@ class Addarea extends React.Component {
 
                 <CommonTable
                     ref={ this.tbref }
+<<<<<<< HEAD
                     pageSize={ 100 }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     action_code="boss_flow_add_cfg"
                     is_association_process={ false }
                 />

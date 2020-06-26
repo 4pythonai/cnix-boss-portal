@@ -1,6 +1,7 @@
 import CommonTableForm from '../commonTableCom/commonTableForm';
 import React from 'react'
 import { observer, inject } from "mobx-react";
+<<<<<<< HEAD
 import {message} from 'antd';
 import CommonModal from '../commonTableCom/commonModal'
 import navigationStore from '@/store/navigationStore'
@@ -10,6 +11,10 @@ import {
     hashHistory
 } from 'react-router'
 
+=======
+import CommonModal from '../commonTableCom/commonModal'
+import api from '@/api/api'
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 @observer
 export default class TableAddCom extends React.Component {
@@ -17,6 +22,7 @@ export default class TableAddCom extends React.Component {
         visible: false,
     }
 
+<<<<<<< HEAD
     init(btncode) {
         console.log('button_code', this.props.parentTable.state.button_code)
         // console.log(btncode)
@@ -26,6 +32,15 @@ export default class TableAddCom extends React.Component {
         this.props.commonTableStore.setTableAction('add_table')
 
     }
+=======
+    init() {
+        this.refs.commonModalRef.showModal()
+
+        this.props.commonTableStore.setTableAction('add_table')
+        // this.props.refreshTable()
+    }
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     hideModal() {
 
         this.refs.commonModalRef.onCancelHandle()
@@ -54,6 +69,7 @@ export default class TableAddCom extends React.Component {
         params.addurl = this.props.commonTableStore.curd.addurl;
         let json = await api.curd.addData(params);
         if (json.code == 200) {
+<<<<<<< HEAD
             await this.props.refreshTable()
             // 新增之后自动跳转到启动流程页面
              if (navigationStore.currentMenu.process_key != "" && navigationStore.currentMenu.process_key != null) {
@@ -70,6 +86,9 @@ export default class TableAddCom extends React.Component {
                 hashHistory.push({ pathname: `flow/FlowForm`, state: data });
             }
 
+=======
+            this.props.refreshTable()
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
     }
 
@@ -77,6 +96,7 @@ export default class TableAddCom extends React.Component {
         if (uuid != '') {
             fmdata.uuid = uuid
         }
+<<<<<<< HEAD
         if (fmdata.customerid && fmdata.customerid != '') {
             fmdata.customerAddr = fmdata.customerid.split('-')[2]
             fmdata.customerid = fmdata.customerid.split('-')[0]
@@ -102,6 +122,9 @@ export default class TableAddCom extends React.Component {
             
             }
         }
+=======
+        console.log(changeValue, "保存数据", fmdata);
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let data = {
             actcode: this.props.commonTableStore.action_code,
             rawdata: fmdata
@@ -117,15 +140,23 @@ export default class TableAddCom extends React.Component {
 
     render() {
         return <CommonModal
+<<<<<<< HEAD
             height="500px"
+=======
+            height="1000"
+            width="1000px"
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             footer={ null }
             title="新增"
             ref='commonModalRef'
             layoutcfg={ this.props.commonTableStore.layoutcfg }
         >
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             <CommonTableForm
                 as_virtual={ this.props.as_virtual }
                 editable={ true }
@@ -133,8 +164,11 @@ export default class TableAddCom extends React.Component {
                 onChange={ this.props.onChange }
                 hideModal={ () => this.hideModal() }
                 formCfg={ this.props.commonTableStore.formCfg }
+<<<<<<< HEAD
                 referinfo={ this.props.commonTableStore.referinfo }
                 dataGridcode={ this.props.dataGridcode }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 layoutcfg={ this.props.commonTableStore.layoutcfg }
                 staticformcfg={ this.props.commonTableStore.staticformcfg }
                 selectedRows={ this.props.commonTableStore.selectedRows }

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { message, Modal, Button } from 'antd'
 
+<<<<<<< HEAD
 import api from '@/api/api'
+=======
+import api from '@/api/customer_address_api'
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 import {
     SchemaForm,
@@ -91,7 +95,10 @@ const GetFields = (props) => {
                 await actions.validate()
                 await props.saveFormData(actions.getFormState().values);
                 props.hideModal()
+<<<<<<< HEAD
                 props.refreshTable()
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             }
             }>提交</Button>
         </div>
@@ -109,11 +116,16 @@ export default class ApprovalAddress extends React.Component {
         }
     }
 
+<<<<<<< HEAD
     async init() {
+=======
+    init() {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (this.props.commonTableStore.selectedRowKeys.length != 1) {
             message.error('请选择一条数据');
             return;
         }
+<<<<<<< HEAD
         let data = {
             id:this.props.commonTableStore.selectedRows[0].id
         }
@@ -128,12 +140,19 @@ export default class ApprovalAddress extends React.Component {
             }
             
         }
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.setState({
             visible: true
         })
     }
 
+<<<<<<< HEAD
     hideModal = ()=> {
+=======
+    hideModal() {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.setState({
             visible: false
         })
@@ -148,7 +167,11 @@ export default class ApprovalAddress extends React.Component {
         }
         let params = { data: data, method: 'POST' };
 
+<<<<<<< HEAD
         let res = await api.customer_address.checkAddress(params)
+=======
+        let res = await api.checkAddress(params)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if(res.code == 200){
             this.hideModal()
         }
@@ -165,8 +188,11 @@ export default class ApprovalAddress extends React.Component {
             <GetFields
                 commonTableStore={this.props.commonTableStore}
                 saveFormData={this.saveFormData}
+<<<<<<< HEAD
                 hideModal = {this.hideModal}
                 refreshTable = {this.props.refreshTable}
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             />
             ></Modal>
     }

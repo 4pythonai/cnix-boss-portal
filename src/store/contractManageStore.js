@@ -430,7 +430,11 @@ class contractManageStore {
     showSealModal = async (event, record) => {
         this.contract_no = record.contract_no;
         IDC_cfg_store.detailContractno = record.contract_no;
+<<<<<<< HEAD
         await IDC_cfg_store.getContractByUUID();
+=======
+        await IDC_cfg_store.getContractDetail();
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.sealSubmitData.stamp_duty_tax = (record.contract_money / 1 * 0.0003).toFixed(2)
         this.sealVisible = true
     }

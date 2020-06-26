@@ -15,8 +15,11 @@ export default class EditPassword extends React.Component {
     async handleOk(){
         if(this.state.new_pwd==""||this.state.confirm_pwd==""){
           message.error("密码不能为空")
+<<<<<<< HEAD
         }else if(this.state.new_pwd.length<=6){
           message.error("请输入大于6位的密码")
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }else if(this.state.new_pwd!=this.state.confirm_pwd){
           message.error("两次输入密码不同")
         }else{

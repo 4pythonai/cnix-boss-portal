@@ -110,8 +110,11 @@ class ButtonCfg extends React.Component {
                     ref={ this.tbref }
                     action_code="boss_portal_button_actcode"
                     is_association_process={ false }
+<<<<<<< HEAD
                     dataGridcode={this.dmstore.current_actcode}
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 />
             </Card>
         );

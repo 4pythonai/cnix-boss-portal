@@ -28,7 +28,6 @@ const controller = {
     menu_api: 'menu_api',
     bpm: 'bpm',
     process: 'process',
-    contract_management: "ContractManagement",
     startTask: "start_work",
     cabinet: "sinnet_tree_plugin",
     resitemui: "resitemui",
@@ -54,5 +53,9 @@ export {
     root_url,
     port,
     controller,
+<<<<<<< HEAD
+=======
+    processRoot
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 }
 

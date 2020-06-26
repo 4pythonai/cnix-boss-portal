@@ -1,5 +1,8 @@
 import { observable, action, autorun, computed } from "mobx";
+<<<<<<< HEAD
 import api from '@/api/api'
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 class billingSummaryStore {
 
@@ -9,15 +12,21 @@ class billingSummaryStore {
 
     @observable onetime_store = [];
 
+<<<<<<< HEAD
     @observable chargeData = [];
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @observable cycleFee_summary = 0;
 
     @observable onetimeFee_summary = 0;
 
     @observable total_summary = 0;
+<<<<<<< HEAD
     
     @observable manualset_billing_itmes=[]
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action
     async clear() {
@@ -27,6 +36,7 @@ class billingSummaryStore {
 
 
     @observable billingVisible = false;
+<<<<<<< HEAD
     @observable chargeVisible = false;
 
     /******************* 手工添加计费条目 *************************/
@@ -76,14 +86,27 @@ class billingSummaryStore {
 
     @action setBillingData = data => {
         console.log('费用数据', data)
+=======
+
+
+    @action showBillingModal = () => this.billingVisible = true;
+    @action hideBillingModal = () => this.billingVisible = false;
+
+    @action setBillingData = data => {
+        console.log('费用数据--->', data)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         // 设置计费数据
         this.cycle_store = data.billing_store.cycle_store;
         this.onetime_store = data.billing_store.onetime_store;
         this.cycleFee_summary = data.cyclefee_summary;
         this.onetimeFee_summary = data.onetimefee_summary;
         this.total_summary = data.total_summary;
+<<<<<<< HEAD
         this.manualset_billing_itmes = data.manualset_billing_itmes;
  
+=======
+        console.log(this)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 }
 

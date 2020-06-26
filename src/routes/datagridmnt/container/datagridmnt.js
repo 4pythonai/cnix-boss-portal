@@ -97,7 +97,10 @@ export default class datagridmnt extends React.Component {
     onSelectedRowKeysChange = (selectedRowKeys, records) => {
         let record = records[0]
         this.selectRow(record)
+<<<<<<< HEAD
         console.log(record)
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
@@ -105,6 +108,7 @@ export default class datagridmnt extends React.Component {
 
 
     changeStoreCfg(record) {
+<<<<<<< HEAD
         console.log(record)
 
         // this.setState({ current_processkey: toJS(record).processkey })
@@ -112,6 +116,12 @@ export default class datagridmnt extends React.Component {
         this.dmstore.clearMaintableColumns()
         this.dmstore.setCurrentActName(toJS(record).grid_title)
         this.dmstore.setCurrentBasetable(toJS(record).base_table)
+=======
+
+        this.setState({ current_processkey: toJS(record).processkey })
+        this.dmstore.setCurrentActcode(toJS(record).activity_code)
+        this.dmstore.setCurrentActName(toJS(record).grid_title)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.dmstore.setCurrentActObj(toJS(record))
     }
 
@@ -202,14 +212,21 @@ export default class datagridmnt extends React.Component {
                 title: '名称',
                 dataIndex: 'grid_title',
                 key: 'grid_title',
+<<<<<<< HEAD
                 width: 200,
                 ...this.getColumnSearchProps('grid_title'),
+=======
+                width: 200
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             },
             {
                 title: '基础表格',
                 dataIndex: 'base_table',
                 key: 'base_table',
+<<<<<<< HEAD
                 ...this.getColumnSearchProps('base_table'),
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             },
             {
                 title: '多选',
@@ -235,6 +252,15 @@ export default class datagridmnt extends React.Component {
                 dataIndex: 'updateurl',
                 key: 'updateurl',
             },
+<<<<<<< HEAD
+=======
+            // {
+            //     title: 'query_cfg',
+            //     dataIndex: 'fixed_query_cfg',
+            //     key: 'fixed_query_cfg',
+            //     width: 200
+            // },
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             {
                 title: '布局',
                 dataIndex: 'layoutcfg',
@@ -264,6 +290,10 @@ export default class datagridmnt extends React.Component {
                             rowSelection={ rowSelection }
                             dataSource={ dataGrids } />
                     </div>
+<<<<<<< HEAD
+=======
+                    {/* <GridAdder /> */ }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 </div>
 
                 <div><Dmtabs /></div>

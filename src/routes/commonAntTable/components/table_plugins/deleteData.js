@@ -29,6 +29,7 @@ export default class DeleteData extends React.Component {
                 canstart = true;
             }
 
+<<<<<<< HEAD
             if (_tmprec.flowstatus == '未提交') {
                 canstart = true;
             }
@@ -38,24 +39,35 @@ export default class DeleteData extends React.Component {
             if(_tmprec.flowstatus == '撤回'){
                 canstart = true
             }
+=======
+            if (_tmprec.flowstatus == '未启动') {
+                canstart = true;
+            }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         } else {
             canstart = true;
 
         }
+<<<<<<< HEAD
         console.log('99'+ _tmprec.ghost_author + '*****' + sessionStorage.getItem('user') + '&&&&&')
         
         if(_tmprec.hasOwnProperty('ghost_author') && _tmprec.ghost_author != sessionStorage.getItem('user')){
             message.error('不是自己的数据不能删除');
             return;
         }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         if (!canstart) {
             message.error('流程已经启动,不能删除.');
             return;
         }
 
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
         confirm({
@@ -105,7 +117,10 @@ export default class DeleteData extends React.Component {
             delurl: this.props.commonTableStore.curd.delurl,
             method: 'POST'
         };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let json = await api.curd.deleteData(params);
 
         if (json.code == 200) {

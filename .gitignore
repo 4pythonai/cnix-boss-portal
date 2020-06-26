@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /node_modules/*
 /build/*
 /build/static/*
@@ -7,3 +8,7 @@ package-lock.json
 /.vscode
 /.cache
 ./README.md
+=======
+node_modules/
+package-lock.json
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778

@@ -144,6 +144,7 @@ class CCconfig extends React.Component {
 
 
         const columns = [
+<<<<<<< HEAD
             // {
             //     title: 'CC操作',
             //     width: 100,
@@ -155,6 +156,19 @@ class CCconfig extends React.Component {
             //         )
             //     }
             // },
+=======
+            {
+                title: 'CC操作',
+                width: 100,
+                render: (text, record) => {
+                    return (
+                        <div style={ { width: "100px" } }>
+                            <Button size="small" type="button" onClick={ () => this.onClick(record.activity_code, 'bpmstart_template') }>启动</Button>
+                        </div>
+                    )
+                }
+            },
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
             {
                 title: '名称',

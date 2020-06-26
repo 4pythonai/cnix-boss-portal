@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom'
 import { Card } from 'antd';
 import Modifyarea from './modifyarea';
 import Addarea from './addarea';
+<<<<<<< HEAD
 import ReferArea from './referArea'
+=======
+import ReferInfo from './referinfo'
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import Resarea from './resarea'
 import CCconfig from './ccconfig'
 import PapernoCfg from './papernocfg'
@@ -31,12 +35,16 @@ export default class Pmtabs extends React.Component {
     };
 
     render() {
+<<<<<<< HEAD
         
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         const tabList = [
             {
                 key: 'tab1',
                 tab: '增加区域配置',
             },
+<<<<<<< HEAD
             // {
             //     key: 'tab2',
             //     tab: '修改区域配置',
@@ -44,6 +52,18 @@ export default class Pmtabs extends React.Component {
             {
                 key: 'tab3',
                 tab: '受理信息配置',
+=======
+            {
+                key: 'tab2',
+                tab: '修改区域配置',
+            },
+            {
+                key: 'tab3',
+                tab: '参考信息配置',
+            }, {
+                key: 'tab4',
+                tab: '资源操作配置',
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             }, {
                 key: 'tab5',
                 tab: '抄送配置',
@@ -57,14 +77,24 @@ export default class Pmtabs extends React.Component {
             },
             {
                 key: 'tab8',
+<<<<<<< HEAD
                 tab: '流程配置总览',
+=======
+                tab: '已分配规则',
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             }
         ];
 
         const contentList = {
             tab1: <Addarea />,
+<<<<<<< HEAD
             // tab2: <Modifyarea />,
             tab3: <ReferArea />,
+=======
+            tab2: <Modifyarea />,
+            tab3: <ReferInfo />,
+            tab4: <Resarea />,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             tab5: <CCconfig />,
             tab6: <PapernoCfg />,
             tab7: <SidHandlercfg />,

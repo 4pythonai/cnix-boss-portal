@@ -7,7 +7,11 @@ import reqwest from 'reqwest';
 
 
 
+<<<<<<< HEAD
 export default class Fileuploader extends React.Component {
+=======
+export default class SelectFile extends React.Component {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
   constructor(props) {
     super(props)
     this.state = {
@@ -33,7 +37,11 @@ export default class Fileuploader extends React.Component {
       uploading: true,
     });
     reqwest({
+<<<<<<< HEAD
       url: api.file.upload,
+=======
+      url: api.curd.upload,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
       method: 'post',
       headers: {
         "Authorization": localStorage.getItem("token"),
@@ -71,6 +79,10 @@ export default class Fileuploader extends React.Component {
           }else{
             message.error('文件已存在');
           }
+<<<<<<< HEAD
+=======
+          console.log(12121212,this.props.value)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
           this.setState({
             fileList: []
           })
@@ -95,18 +107,27 @@ export default class Fileuploader extends React.Component {
     var newarrstr=JSON.stringify(arr)
     this.props.onChange(newarrstr);
     
+<<<<<<< HEAD
     // if(this.props.commontablestore.selectedRows.length==0){
+=======
+    // if(this.props.commonTableStore.selectedRows.length==0){
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
       let params = {
         method: 'POST', data: {
             "file": fileurl,
         }
       }
+<<<<<<< HEAD
       let res = api.file.deleteFiles(params)
+=======
+      let res = api.curd.deleteFiles(params)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
       if (res.code == '200') {
         // message.success("删除附件成功")
       }
     // }
     //"filename": fileurl,
+<<<<<<< HEAD
     // "table":this.props.commontablestore.base_table,
     // "id":this.props.commontablestore.selectedRows[0].id,
     // "uploadname":this.props.field_id   
@@ -115,6 +136,14 @@ export default class Fileuploader extends React.Component {
     console.log("文件上传组件props",this.props)
     if (this.props.value != "") {
       
+=======
+    // "table":this.props.commonTableStore.base_table,
+    // "id":this.props.commonTableStore.selectedRows[0].id,
+    // "uploadname":this.props.field_id   
+  }
+  getFilesList() {
+    if (this.props.value != "") {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
       var fileListt = JSON.parse(this.props.value)
       var num = 0
       for (var i = 0; i < fileListt.length; i++) {
@@ -136,9 +165,12 @@ export default class Fileuploader extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     
     console.log(this.props)
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     const { uploading, fileList } = this.state;
     const props = {
       multiple: true,
@@ -169,6 +201,7 @@ export default class Fileuploader extends React.Component {
     };
 
     return (
+<<<<<<< HEAD
         
      
       <div>
@@ -189,6 +222,14 @@ export default class Fileuploader extends React.Component {
               
               
               
+=======
+
+      <div>
+        <Upload {...props}>
+          <Button>
+            <Icon type="upload" /> 选择文件
+              </Button>
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         </Upload>
       </div>
     );

@@ -41,9 +41,12 @@ class pmStore {
     @observable current_sid = '';
     @observable current_nodename = '';
 
+<<<<<<< HEAD
     @observable PorcessSummary = {};
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 
@@ -101,12 +104,18 @@ class pmStore {
 
         let params = { method: 'POST', data: { "processkey": this.current_processkey } }
         let json = await api.bpm.getAllNodeName(params);
+<<<<<<< HEAD
 
+=======
+        console.log("后台返回:")
+        console.log(json)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.AllNodeName = json.data;
     }
 
 
 
+<<<<<<< HEAD
     @action setPorcessSummary = async (pk) => {
 
         if (pk.length > 0) {
@@ -123,6 +132,8 @@ class pmStore {
 
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action setCurrentSid = value => {
         this.current_sid = value
     }
@@ -165,7 +176,11 @@ class pmStore {
         this.getMainTableCols()
         this.getRelatedTableCols()
         this.setAllNodeName()
+<<<<<<< HEAD
         // this.setPorcessSummary()
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.getAllPapernoRules()
 
 

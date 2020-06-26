@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { root_url, port, controller, version_2 } from './api_config/base_config'
+=======
+import { root_url, port, controller, processRoot, version_2 } from './api_config/base_config'
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import http from './http'
 
 const api_root = `${ root_url }:${ port }/${ version_2 }`
@@ -7,6 +11,11 @@ const api_root = `${ root_url }:${ port }/${ version_2 }`
 
 export default class api_contract {
     static apis = {
+<<<<<<< HEAD
+=======
+        // 文件上传
+        upload: `${ api_root }/${ controller.contract_api }/uploadfile`,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         // 生成合同号的不重复5位数字
         getNorepeatNumbre: (params) => http(params, `${ api_root }/${ controller.contract_api }/readBossNorepeatNumber`),
         //获取签约方
@@ -30,6 +39,7 @@ export default class api_contract {
         deleteContract: params => http(params, `${ api_root }/${ controller.contract_api }/deleteContract`),
         // 修改合同
         updateContract: params => http(params, `${ api_root }/${ controller.contract_api }/updateContract`),
+<<<<<<< HEAD
         // 获取合同详情   
         getContractByUUID: params => http(params, `${ api_root }/${ controller.contract_api }/getContractByUUID`),
         
@@ -40,6 +50,17 @@ export default class api_contract {
         deleteChargeItem: params => http(params, `${ api_root }/${ controller.contract_api }/deleteChargeItem`),
         // 添加收费项
         addChargeData: params => http(params, `${ api_root }/${ controller.contract_api }/addChargeItem`),
+=======
+        // 获取合同详情
+        getContractByContractNo: params => http(params, `${ api_root }/${ controller.contract_api }/getContractByContractNo`),
+
+        // 更新收费项
+        updateChargeItem: params => http(params, `${ api_root }/${ controller.contract_api }/updateChargeItem`),
+        // 删除收费项
+        deleteChargeItems: params => http(params, `${ api_root }/${ controller.contract_api }/deleteChargeItems`),
+        // 添加收费项
+        addChargeData: params => http(params, `${ api_root }/${ controller.contract_api }/addChargeItems`),
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         // 获取收费项列表
         getChargeData: params => http(params, `${ api_root }/${ controller.contract_api }/getChargeData`),
 
@@ -47,6 +68,7 @@ export default class api_contract {
         getResItemList: params => http(params, `${ api_root }/${ controller.contract_api }/getResItemList`),
         //获取资源配置
         getUICfg: params => http(params, `${ api_root }/${ controller.resitemui }/getUICfg`),
+<<<<<<< HEAD
         
         // 生成合同号
         generateContractNo: params => http(params, `${ api_root }/${ controller.contract_api }/generateContractNo`),
@@ -98,6 +120,20 @@ export default class api_contract {
     
     
     
+=======
+        // 计算资源项的收费
+
+        getResbilling: params => http(params, `${ api_root }/${ controller.billing_api }/Testbilling`),
+
+        // 生成合同号
+        generateContractNo: params => http(params, `${ api_root }/${ controller.contract_api }/generateContractNo`),
+        // 获取合同详情
+        getContractDetail:params => http(params, `${ api_root }/${ controller.contract_api }/getContractDataById`),
+        // 获取合同客户
+        updateContractCustomer:params => http(params, `${ api_root }/${ controller.contract_api }/updateContractCustomerIdById`),
+        // 获取合同详情
+        getAddressList:params => http(params, `${ api_root }/${ controller.contract_api }/getAddressList`)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 }
 

@@ -29,7 +29,11 @@ class ReferTable extends React.Component {
 
 
 
+<<<<<<< HEAD
     addRefertableCfg = e => {
+=======
+    addModifyCfg = e => {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         e.preventDefault();
         this.props.form.validateFieldsAndScroll(async (err, values) => {
             if (!err) {
@@ -113,7 +117,11 @@ class ReferTable extends React.Component {
         return (
 
 
+<<<<<<< HEAD
             <Form { ...formItemLayout } onSubmit={ this.addRefertableCfg }>
+=======
+            <Form { ...formItemLayout } onSubmit={ this.addModifyCfg }>
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 <Form.Item
                     { ...formItemLayout }
                     label="标题"

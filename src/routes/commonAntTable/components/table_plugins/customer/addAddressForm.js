@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { message, Modal, List, Icon, Button, Popconfirm } from 'antd'
 import api from '@/api/api'
+<<<<<<< HEAD
 import RenderAddress from './RenderAddress'
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import {
     SchemaForm,
     createFormActions,
@@ -46,6 +50,43 @@ const GetFields = (props) => {
 }
 
 
+<<<<<<< HEAD
+=======
+const RenderAddress = props => {
+    let userInfo = sessionStorage.getItem('userInfo')
+    userInfo = JSON.parse(userInfo)
+    return <List
+        size="small"
+        style={{ marginBottom: '20px' }}
+        header={<div style={{ fontSize: '16px', fontWeight: 'bold' }}>地址列表</div>}
+        footer={null}
+        bordered
+        dataSource={props.addressList}
+        renderItem={item => <List.Item
+            avatar={
+                <Icon type="environment" style={{ width: '25px', height: '25px' }} />
+            }
+        >
+            <div style={{ overflow: 'hidden',width: '100%' }}>
+                <div style={{ float: 'left' }}>{item.address}</div>
+                {
+                    item.userId == userInfo.staff_id
+                        ?
+                        <div style={{ float: 'right' }}>
+                            <Popconfirm title="确定要删除吗?" onConfirm={() => props.removeAddressList(item)}>
+                                <a>删除</a>
+                            </Popconfirm>
+
+                        </div>
+
+                        : null
+                }
+            </div>
+        </List.Item>}
+    />
+}
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 export default class AddAddressForm extends React.Component {
     constructor(props) {
@@ -132,9 +173,13 @@ export default class AddAddressForm extends React.Component {
 
             <RenderAddress
                 removeAddressList={this.removeAddressList}
+<<<<<<< HEAD
                 addressList={this.state.addressList} 
                 isDelete = {true} />
                 
+=======
+                addressList={this.state.addressList} />
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             <GetFields
                 saveFormData={this.saveFormData.bind(this)}
             />

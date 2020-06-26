@@ -21,12 +21,15 @@ export default class TriggerList extends React.Component {
 
 
     render() {
+<<<<<<< HEAD
 
         console.log(this.dmstore)
 
 
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         return (
             <div style={ { marginLeft: '5px' } }>
 

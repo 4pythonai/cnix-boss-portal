@@ -54,9 +54,14 @@ class GridEditor extends React.Component {
     }
 
 
+<<<<<<< HEAD
     //针对某个activiticode的第一级别 querycfg, 如果存在,则会覆盖 commonTable的query_cfg
 
     saveOverrideQueryCfg = () => {
+=======
+
+    saveQueryCfg = () => {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         if (this.dmstore.current_actcode == '') {
             message.error('请选择一个DataGrid');
@@ -79,7 +84,11 @@ class GridEditor extends React.Component {
         let params = { method: 'POST', data: { "actcode": this.dmstore.current_actcode, "query_cfg_field": this.state.query_cfg_field, query_cfg_value: this.state.query_cfg_value } }
 
         console.log(params)
+<<<<<<< HEAD
         api.activity.saveOverrideQueryCfg(params);
+=======
+        api.activity.saveQueryCfg(params);
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
@@ -95,8 +104,13 @@ class GridEditor extends React.Component {
         this.props.form.validateFieldsAndScroll(async (err, values) => {
             if (!err) {
 
+<<<<<<< HEAD
                 values.portaluse = "y"
                 values.multiple = values.multiple == true ? '' : 'n';
+=======
+                values.portaluse = 'y'
+                values.multiple = values.multiple == true ? 'y' : 'n';
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 let params = {
                     data: values,
                     method: 'POST'
@@ -106,6 +120,11 @@ class GridEditor extends React.Component {
                 let ret = await api.activity.modifyActionCode(params)
                 if (ret.code == 200) {
                     message.info(ret.message, 1.5)
+<<<<<<< HEAD
+=======
+                    // alert(1)
+                    // debugger;
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     this.dmstore.initAll()
                 }
 
@@ -186,11 +205,18 @@ class GridEditor extends React.Component {
 
                         <Form.Item label="多选">
                             { getFieldDecorator('multiple', {
+<<<<<<< HEAD
                                 valuePropName: 'checked',
                                 initialValue: this.dmstore.currentObj.multiple == 'n' ? false : true,
                                 rules: [{ required: false, message: '多选' }],
                             })(<Switch style={ { marginLeft: '10px' } } checkedChildren="y" unCheckedChildren="n" />) }
 
+=======
+                                valuePropName: 'y',
+                                defaultChecked: this.dmstore.currentObj.multiple == 'n' ? false : true,
+                                rules: [{ required: true, message: '多选' }],
+                            })(<Switch style={ { marginLeft: '10px' } } checkedChildren="y" unCheckedChildren="n" />) }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                         </Form.Item>
                     </Row>
 
@@ -278,7 +304,11 @@ class GridEditor extends React.Component {
                         </Col>
 
                         <Col span={ 6 }>
+<<<<<<< HEAD
                             <div>    <Input.TextArea style={ { minWidth: '800px' } } disabled value={ this.dmstore.currentObj.fixed_query_cfg } />   </div>
+=======
+                            <div>    <Input style={ { width: '800px' } } disabled value={ this.dmstore.currentObj.fixed_query_cfg } />   </div>
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                         </Col>
                     </Row>
                     <br />
@@ -314,6 +344,7 @@ class GridEditor extends React.Component {
                         </Col>
 
                         <Col span={ 6 }>
+<<<<<<< HEAD
                             <Button style={ { marginLeft: "20px", marginBottom: '10px' } } type="default" onClick={ () => this.saveOverrideQueryCfg() }  >
                                 保存
                         </Button>
@@ -334,6 +365,15 @@ class GridEditor extends React.Component {
                     
                     
                 </div >
+=======
+                            <Button style={ { marginLeft: "20px", marginBottom: '10px' } } type="default" onClick={ () => this.saveQueryCfg() }  >
+                                保存
+                        </Button>
+                        </Col>
+
+                    </Row>
+                </div >
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             </Card>
         );
     }

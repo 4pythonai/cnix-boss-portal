@@ -30,6 +30,12 @@ export default class SearchTableModal extends React.Component {
     }
 
     saveFormData = () => {
+<<<<<<< HEAD
+=======
+
+
+        this.props.commonTableStore.clearPaginationStore()
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.refs.searchFormContainerRef.getFormValue()
     }
 
@@ -53,6 +59,7 @@ export default class SearchTableModal extends React.Component {
     render() {
         let modalProps = this.getModalProps();
         return <Modal
+<<<<<<< HEAD
             width={800}
             {...modalProps}>
             <SearchFormContainer
@@ -65,6 +72,17 @@ export default class SearchTableModal extends React.Component {
                 formCfg={this.props.commonTableStore.formCfg}
                 onOk={this.saveFormData}
                 tableColumnsJson={this.props.commonTableStore.tableColumnsJson} />
+=======
+            width={ 800 }
+            { ...modalProps }>
+            <SearchFormContainer
+                ref="searchFormContainerRef"
+                hideModal={ this.onCancelHandle }
+                refreshTable={ this.props.refreshTable }
+                setQueryCfg={ this.props.setQueryCfg }
+                formCfg={ this.props.commonTableStore.formCfg }
+                tableColumnsJson={ this.props.commonTableStore.tableColumnsJson } />
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         </Modal>
     }
 }

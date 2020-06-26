@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { message, Modal, Button } from 'antd'
 
+<<<<<<< HEAD
 import RenderAddress from './RenderAddress'
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import { filter, withLatestFrom, map, debounceTime } from 'rxjs/operators'
 import api from '@/api/api'
 
@@ -19,10 +22,19 @@ const GetFields = (props) => {
     const [value, setValue] = useState()
     let { selectedRows } = props.commonTableStore
     const selectedRow = { ...selectedRows[0] }
+<<<<<<< HEAD
     return <SchemaForm
         initialValues={value}
         actions={actions}
         effects={($, { setFieldState, getFieldState }) => {
+=======
+
+
+    return <SchemaForm
+        initialValues={ value }
+        actions={ actions }
+        effects={ ($, { setFieldState, getFieldState }) => {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
             $("onFormInit").subscribe(() => {
                 let { customName, contactPhone, email, payee_num, payee_name, bank, bank_number, id, account } = selectedRow
@@ -51,6 +63,7 @@ const GetFields = (props) => {
                     }
                     let res = await api.customer.inquiryCompanyMsg(params)
                     if (res.code == 200) {
+<<<<<<< HEAD
                         console.log('查看客户信息',res);
                         setFieldState('contactPhone', state => {
                             state.value = res.data.data.contact.telephone
@@ -58,6 +71,11 @@ const GetFields = (props) => {
                         setFieldState('address', state => {
                             state.value = res.data.data.address
                         })
+=======
+                        setFieldState('contactPhone', state => {
+                            state.value = res.data.data.contact.telephone
+                        })
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                         setFieldState('email', state => {
                             state.value = res.data.data.contact.email
                         })
@@ -98,9 +116,15 @@ const GetFields = (props) => {
                         })
                     }
                 })
+<<<<<<< HEAD
         }}
         labelCol={8}
         wrapperCol={12}
+=======
+        } }
+        labelCol={ 8 }
+        wrapperCol={ 12 }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     >
 
 
@@ -109,30 +133,45 @@ const GetFields = (props) => {
             title="原客户名称"
             required
             name="customName"
+<<<<<<< HEAD
             editable={false}
         />
         <RenderAddress
             addressList={props.addressList}
             isDelete={false} />
+=======
+            editable={ false }
+        />
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         <Field
             type="string"
             title="新客户名称"
             default=''
             name="newCustomName"
+<<<<<<< HEAD
             x-effect={dispatch => ({
+=======
+            x-effect={ dispatch => ({
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 onChange(value, type, option) {
                     dispatch('onChangeOption', option)
                 },
                 onSearch(value) {
                     dispatch('onSearchCustomer', value)
                 }
+<<<<<<< HEAD
             })}
             x-props={{ showSearch: true, filterLocal: false }}
+=======
+            }) }
+            x-props={ { showSearch: true, filterLocal: false } }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         />
 
         <Field
             type="string"
+<<<<<<< HEAD
             title="客户地址"
             x-props={{ readOnly: true }}
             name="address"
@@ -142,6 +181,11 @@ const GetFields = (props) => {
             type="string"
             title="客户电话"
             x-props={{ readOnly: true }}
+=======
+            title="客户电话"
+            required
+            editable={ false }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             name="contactPhone"
             default=''
         />
@@ -149,15 +193,27 @@ const GetFields = (props) => {
         <Field
             type="string"
             title="客户邮箱"
+<<<<<<< HEAD
             name="email"
+=======
+            required
+            name="email"
+            editable={ false }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             default=''
         />
 
         <Field
             type="string"
             title="税号"
+<<<<<<< HEAD
             name="payee_num"
             x-props={{ readOnly: true }}
+=======
+            required
+            name="payee_num"
+            editable={ false }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             default=''
         />
 
@@ -189,8 +245,13 @@ const GetFields = (props) => {
         />
 
 
+<<<<<<< HEAD
         <div style={{ textAlign: 'center' }}>
             <Button type="primary" htmlType="button" className="marginRihgt10" onClick={async event => {
+=======
+        <div style={ { textAlign: 'center' } }>
+            <Button type="primary" htmlType="button" className="marginRihgt10" onClick={ async event => {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 await actions.validate()
                 let formData = actions.getFormState().values;
                 await props.saveFormData(formData);
@@ -208,7 +269,10 @@ export default class EditForm extends React.Component {
         this.init = this.init.bind(this)
         this.state = {
             visible: false,
+<<<<<<< HEAD
             addressList: []
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
     }
 
@@ -221,6 +285,7 @@ export default class EditForm extends React.Component {
         this.setState({
             visible: true
         })
+<<<<<<< HEAD
 
         this.getAddressList();
     }
@@ -239,6 +304,8 @@ export default class EditForm extends React.Component {
                 addressList: res.data.addressList
             })
         }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     hideModal() {
@@ -270,6 +337,7 @@ export default class EditForm extends React.Component {
     render() {
         return <Modal
             destroyOnClose
+<<<<<<< HEAD
             footer={null}
             visible={this.state.visible}
             width={650}
@@ -280,6 +348,16 @@ export default class EditForm extends React.Component {
                 addressList={this.state.addressList}
                 commonTableStore={this.props.commonTableStore}
                 saveFormData={this.saveFormData.bind(this)}
+=======
+            footer={ null }
+            visible={ this.state.visible }
+            width={ 1000 }
+            onCancel={ () => this.hideModal() }
+            title="编辑客户" >
+            <GetFields
+                commonTableStore={ this.props.commonTableStore }
+                saveFormData={ this.saveFormData.bind(this) }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             />
         </Modal>
     }

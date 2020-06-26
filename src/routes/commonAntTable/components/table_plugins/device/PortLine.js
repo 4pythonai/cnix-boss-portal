@@ -312,10 +312,16 @@ export default class PortLine extends React.Component {
 
         let sliderWidth = this.state.sliderWidth
         return (
+<<<<<<< HEAD
             <div style={ lineWrapper } id="slider_template_wrapper">
                 <Slider
                     style={ { width: sliderWidth ? sliderWidth : '100%', position: 'relative' } }
                     getTooltipPopupContainer = {()=> document.getElementById('slider_template_wrapper')}
+=======
+            <div style={ lineWrapper }>
+                <Slider
+                    style={ { width: sliderWidth ? sliderWidth : '100%' } }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     min={ 0 }
                     range
                     max={ this.state.ports.length }

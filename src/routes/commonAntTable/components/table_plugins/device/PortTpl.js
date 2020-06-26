@@ -59,6 +59,7 @@ export default class PortTpl extends React.Component {
 
         await this.setState({ 'routermodelid': this.props.parentTable.commonTableStore.selectedRows[0].id })
 
+<<<<<<< HEAD
         if(!this.statics(true)){
             return;
         }
@@ -90,6 +91,9 @@ export default class PortTpl extends React.Component {
                 visible: false
             })
         }
+=======
+        console.log(JSON.stringify(this.state))
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     //统计当前的端口情况

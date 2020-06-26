@@ -1,5 +1,6 @@
 import React from 'react'
 import CommonTable from '../../../routes/commonAntTable/components/commonTableCom/commonTable'
+<<<<<<< HEAD
 import { Card, Table, Button, Select, Collapse, Descriptions, message } from 'antd';
 import api from '../../../api/api'
 import { observer, inject } from "mobx-react";
@@ -9,11 +10,23 @@ import { observable, toJS, reaction, action, autorun, computed } from "mobx";
 // const { Option } = Select;
 const { Panel } = Collapse;
 
+=======
+import { Form, Input, Card, Select, Button, message, AutoComplete, } from 'antd';
+import api from '../../../api/api'
+import { observer, inject } from "mobx-react";
+import { observable, reaction, action, autorun, computed } from "mobx";
+
+const { Option } = Select;
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 @inject("pmStore")
 @observer
 class ProcessSummary extends React.Component {
     constructor(props) {
         super(props)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.pmstore = props.pmStore
         this.tbref = React.createRef()
         this.pk_watcher = reaction(
@@ -42,8 +55,16 @@ class ProcessSummary extends React.Component {
         this.pk_watcher()
     }
 
+<<<<<<< HEAD
     async refreshCurrentcfg(pk) {
         this.pmstore.setPorcessSummary(pk);
+=======
+
+
+
+    async refreshCurrentcfg(pk) {
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (this.tbref.current) {
             let query_cfg = { count: 1, lines: { and_or_0: "and", field_0: "processkey", operator_0: "=", vset_0: pk } }
             await this.tbref.current.setTableCompomentQueryCfg(query_cfg)
@@ -51,6 +72,7 @@ class ProcessSummary extends React.Component {
         }
     }
 
+<<<<<<< HEAD
     expandedAssigned = (record, index, indent, expanded) => {
 
         if (record.assigned) {
@@ -194,10 +216,16 @@ class ProcessSummary extends React.Component {
             }
         }
     }
+=======
+
+
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 
     render() {
+<<<<<<< HEAD
         let xtitle = "流程:" + this.pmstore.current_processkey + "/" + this.pmstore.current_processname
         console.log(toJS(this.pmstore.PorcessSummary))
         let summary = this.pmstore.PorcessSummary
@@ -268,3 +296,22 @@ class ProcessSummary extends React.Component {
 }
 
 export default ProcessSummary;
+=======
+        let xtitle = "流程节点情况:" + this.pmstore.current_processname
+
+
+        return (
+            <Card title={ xtitle } style={ { width: "100%" } }>
+
+                <CommonTable
+                    ref={ this.tbref }
+                    action_code="boss_flow_area_cfg_assign"
+                    is_association_process={ false }
+                />
+            </Card>
+        );
+    }
+}
+
+export default Form.create()(ProcessSummary);
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778

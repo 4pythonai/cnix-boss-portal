@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { root_url, port, controller, version_2 } from './api_config/base_config'
+=======
+import { root_url, port, controller, processRoot, version_2 } from './api_config/base_config'
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import http from './http'
 
 const api_root = `${ root_url }:${ port }/${ version_2 }`
@@ -12,7 +16,10 @@ export default class permission {
         getUserByRole: (params) => http(params, `${ api_root }/${ controller.permission }/getUserByRole`),
 
         getAllMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getAllMenuList`),
+<<<<<<< HEAD
         getTreeMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getTreeMenuList`),
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         // 分配菜单（添加、取消）
         saveMenuPermission: (params) => http(params, `${ api_root }/${ controller.permission }/saveMenuPermissions`),
         getRoleButtonList: (params) => http(params, `${ api_root }/${ controller.permission }/getRoleButtonList`),
@@ -22,6 +29,7 @@ export default class permission {
         // 获取分配的二级菜单和按钮
         getSecondMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getSecondMenuList`),
         // 获取已分配的一级菜单
+<<<<<<< HEAD
 
         getFirstMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getFirstMenuList`),
         // getFirstMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getMenuList`),
@@ -30,6 +38,9 @@ export default class permission {
         //getMenuList
 
 
+=======
+        getFirstMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getFirstMenuList`),
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         // 获取角色列表
         getRoleList: (params) => http(params, `${ api_root }/${ controller.permission }/getRoleList`),
         // 新增角色
@@ -62,10 +73,13 @@ export default class permission {
         getButtonByMenuIdAndRole: params => http(params, `${ api_root }/${ controller.permission }/getButtonByMenuIdAndRole`),
 
         getTableColumnUi: params => http(params, `${ api_root }/${ controller.permission }/getTableColumnUi`),
+<<<<<<< HEAD
         
         getUserInformationByMenuId: params => http(params, `${ api_root }/${ controller.permission }/getUserInformationByMenuId`),
         
         getRoleByMenuId: params => http(params, `${ api_root }/${ controller.permission }/getRoleByMenuId`),
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     }
 

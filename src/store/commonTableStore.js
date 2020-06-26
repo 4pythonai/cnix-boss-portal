@@ -24,14 +24,21 @@ class commonTableStore {
 
     @observable currentPage = 1
 
+<<<<<<< HEAD
     @observable pageSize = 20
+=======
+    @observable pageSize = 10
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @observable loading = false
 
     @observable formCfg = null
 
+<<<<<<< HEAD
     @observable referinfo = null
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @observable layoutcfg = null
 
     @observable staticformcfg = null
@@ -40,8 +47,11 @@ class commonTableStore {
 
     @observable curd = {}
 
+<<<<<<< HEAD
     @observable isExistence = true
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @observable TableButtonsJson = []
 
     @observable tableColumnsJson = []
@@ -58,18 +68,25 @@ class commonTableStore {
 
     @observable fixed_query_cfg = null
 
+<<<<<<< HEAD
     @observable dropdownRef = []
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
     @observable table_width = 2000
 
+<<<<<<< HEAD
     @action setIsExistence = isExistence => this.isExistence = isExistence;
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action registerSchmeForm(obj) {
         this.schmeForm.push(obj)
     }
 
+<<<<<<< HEAD
     @action registerDropDown(key,obj){
         this.dropdownRef[key] = obj
     }
@@ -80,6 +97,8 @@ class commonTableStore {
 
     @action setPageSize = pageSize => this.pageSize = pageSize
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 
@@ -148,12 +167,27 @@ class commonTableStore {
         this.selectedRows = selectedRows;
     }
     @action rowcheckChange = (selectedRowKeys, selectedRows) => {
+<<<<<<< HEAD
+=======
+
+        console.log(selectedRowKeys)
+        console.log(selectedRows)
+
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (!this.selectedRowKeys.includes(selectedRowKeys[0])) {
             this.selectedRowKeys = this.selectedRowKeys.concat(selectedRowKeys);
             this.selectedRows = this.selectedRows.concat(selectedRows);
         }
+<<<<<<< HEAD
 
     }
+=======
+    }
+
+
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action
     handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
@@ -186,11 +220,14 @@ class commonTableStore {
 
     @action setFormCfg = formCfg => this.formCfg = formCfg;
 
+<<<<<<< HEAD
     @action setReferinfo = referinfo => this.referinfo = referinfo;
 
 
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action setlayoutCfg = layoutcfg => this.layoutcfg = layoutcfg;
 
     @action setstaticformcfg = staticformcfg => this.staticformcfg = staticformcfg;

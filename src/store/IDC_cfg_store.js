@@ -16,15 +16,19 @@ class IDC_cfg_store {
 
     @observable detailContractNo = ''
 
+<<<<<<< HEAD
     @observable contractManageData = {}
 
     // 是否是大客户合同转正式合同
     @observable isFromBigContract = false
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     // 页面来源
     @observable page_source = ''
 
     @computed get disabled() {
+<<<<<<< HEAD
 
 
         return this.page_source == 'detail' ? true : false;
@@ -49,6 +53,22 @@ class IDC_cfg_store {
     // @observable signer_list = []
 
 
+=======
+        return this.page_source == 'detail' ? true : false;
+    }
+
+    // 项目列表
+    // @observable project_list = []
+
+    // 客户信息
+    @observable cust = {}
+    // 地址信息
+    @observable addresses = []
+    // 签约方列表
+    @observable signer_list = []
+    // 收费项列表
+    @observable fee_item_list = []
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     // 收费周期列表
     @observable periord_list = []
 
@@ -56,24 +76,57 @@ class IDC_cfg_store {
     @observable charge_item_list = []
 
 
+<<<<<<< HEAD
     // 附件上传列表
     @observable fileList = []
 
 
+=======
+
+    @observable searchProjectKeywords = ''
+
+
+    // 附件上传列表
+    @observable fileList = []
+
+    // 合同期限
+    @observable contract_start_date = null
+    @observable contract_end_date = null
+    @observable contract_billing_day = null
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     // 是否选中固定合同
     @observable isFixedContract = false
 
+<<<<<<< HEAD
+=======
+    // 合同编号
+    @observable contract_no = null
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     // 合同modle列表显示与否
     @observable showContractListModle = false
 
+<<<<<<< HEAD
 
     @observable shorthand = ''
     @observable chinese_shorthand = ''
 
     @observable other = ''
 
+=======
+    //收费周期
+    @observable chargeCycles = ''
+
+    @observable PowerConversion = ''
+
+    @observable shorthand = ''
+
+    @observable other = ''
+
+    //结算方式
+    @observable clearing = {}
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     //其他数据
     @observable otherValue = ''
@@ -81,6 +134,7 @@ class IDC_cfg_store {
 
     @observable dataRights = 'self'   // self: 查看自己的， all: 查看所有的
 
+<<<<<<< HEAD
 
     @observable oaflag = ''
     @observable oainfo = ''
@@ -92,6 +146,12 @@ class IDC_cfg_store {
     @observable saveContractData = {
         oppId: null,
 
+=======
+    @observable saveContractData = {
+        oppId: null,
+        give_explain: '',
+        give_day: '',
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         attachment_url: '',
         chargeData: [],
         sign_type: null,
@@ -99,6 +159,7 @@ class IDC_cfg_store {
         singer_our_company_id: '',
         singers_customers: [],
         customerId: null,
+<<<<<<< HEAD
         project_no: '',
         oppId: '',
         singerReferInfo: {},
@@ -110,6 +171,16 @@ class IDC_cfg_store {
         billingoption: '',  //  later or early
 
 
+=======
+        contract_billing_start: '',
+        contract_billing_end: '',
+        enddate_ondemand: '',
+        contract_billing_day: '',
+        project_no: '',
+        oppId: '',
+        singerReferInfo: {},
+        back_to_back_contract_no: ''
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
@@ -123,6 +194,7 @@ class IDC_cfg_store {
 
     @observable visibleBTBContractModal = false
 
+<<<<<<< HEAD
     @observable isFormal = ''
 
     @action setIsFormal = isFormal => this.isFormal = isFormal
@@ -133,6 +205,8 @@ class IDC_cfg_store {
 
     @action setIsFromBigContract = isFromBigContract => this.isFromBigContract = isFromBigContract
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action showBTBContractModal = () => this.visibleBTBContractModal = true;
     @action hideBTBContractModal = () => this.visibleBTBContractModal = false;
 
@@ -185,7 +259,10 @@ class IDC_cfg_store {
             customerName: ''
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action setDefaultSignCustomer = async (customerId, addressId) => {
         let customerMsg = await this.getCustomerReferInfo(customerId);
         let addressMsg = await this.getAddressList(customerId, addressId)
@@ -229,31 +306,46 @@ class IDC_cfg_store {
         let res = await api.contract_api.getSignerList(params);
         if (res.code == 200) {
             let signer = res.data.find(item => item.id == customerId)
+<<<<<<< HEAD
             this.signerCustomer = signer.customName;
             this.chinese_shorthand = signer.chinese_shorthand
+=======
+            this.signerCustomer = signer.customName
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
     }
 
 
 
     @action setOurCompany = customerId => this.saveContractData.singer_our_company_id = customerId
+<<<<<<< HEAD
     @action setDescription = event => {
         event.persist()
         this.saveContractData.description = event.target.value
     }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action setShorthand = shorthand => {
         this.shorthand = shorthand
         this.generateContractNo()
     }
+<<<<<<< HEAD
     @action setChineseShorthand = chinese_shorthand => {
         this.chinese_shorthand = chinese_shorthand
     }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action
     clearContractState = () => {
         this.saveContractData = {
+<<<<<<< HEAD
 
+=======
+            give_explain: '',
+            give_day: '',
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             attachment_url: '',
             chargeData: [],
             sign_type: null,
@@ -261,11 +353,19 @@ class IDC_cfg_store {
             singer_our_company_id: '',
             singers_customers: [],
             project_name: '',
+<<<<<<< HEAD
+=======
+            contract_billing_start: '',
+            contract_billing_end: '',
+            enddate_ondemand: '',
+            contract_billing_day: '',
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             project_no: '',
             charge_item: '',
             singersCustomers: [],
             oppId: '',
             singerReferInfo: {},
+<<<<<<< HEAD
             back_to_back_contract_no: '',
             contract_first_payment: 0,
             payment_method: '网银',
@@ -278,6 +378,12 @@ class IDC_cfg_store {
         this.contractManageData = {}
         this.isFromBigContract = false
         this.detailContractNo = ''
+=======
+            back_to_back_contract_no: ''
+        };
+        this.fileList = [];
+        this.contract_action = ''
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     @action setDataRights = dataRights => this.dataRights = dataRights
@@ -309,6 +415,17 @@ class IDC_cfg_store {
     }
 
 
+<<<<<<< HEAD
+=======
+
+
+    @action setNew = () => {
+        this.newSignHandle()
+        this.saveContractData.sign_type = '新签'
+    }
+
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @action setDefaultActiveCollapse = activeCollapse => this.activeCollapse = activeCollapse
 
     @action setDetailContractNo = detailContractNo => this.detailContractNo = detailContractNo
@@ -327,10 +444,13 @@ class IDC_cfg_store {
     // 合同签订日期
     @action
     changeContractStartDate = (info, value) => {
+<<<<<<< HEAD
         if (this.saveContractData.contract_end_date && value.valueOf() > this.saveContractData.contract_end_date.valueOf()) {
             message.error('合同签定日期不能大于结束日期')
             return
         }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.saveContractData.contract_start_date = value;
         if (this.saveContractData.contract_end_date) {
             let contract_days = this.computedDate(this.saveContractData.contract_end_date, this.saveContractData.contract_start_date);
@@ -342,10 +462,13 @@ class IDC_cfg_store {
     // 合同结束日期
     @action
     changeContractEndDate = (info, value) => {
+<<<<<<< HEAD
         if (this.saveContractData.contract_start_date && value.valueOf() < this.saveContractData.contract_start_date.valueOf()) {
             message.error('合同签定日期不能大于结束日期')
             return
         }
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.saveContractData.contract_end_date = value;
         if (this.saveContractData.contract_start_date) {
             let contract_days = this.computedDate(this.saveContractData.contract_end_date, this.saveContractData.contract_start_date);
@@ -376,25 +499,60 @@ class IDC_cfg_store {
     @action setContractName = value => this.saveContractData.contract_name = value;
     // 签约类型
     @action changeSignType = (value, isfromChance) => {
+<<<<<<< HEAD
         console.log('changge签约类型');
         this.saveContractData.sign_type = value;
         if (value == '新签') {
+=======
+
+        this.saveContractData['sign_type'] = value;
+        if (value == '新签') {
+            if (typeof isfromChance == 'object') {
+                let singers_customers = this.saveContractData.singers_customers[0]
+                let contract_action = this.contract_action
+                singers_customers.customerReferInfo = {};
+                singers_customers.customerId = ''
+                singers_customers.addressId = ''
+                singers_customers.customerName = ''
+                singers_customers.addressName = ''
+
+                this.clearContractState()
+                this.contract_action = contract_action
+                this.saveContractData.sign_type = value
+                this.saveContractData.singers_customers = [singers_customers]
+                chargeStore.clearStore()
+            }
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.newSignHandle()
             this.generateContractNo()
             return;
         }
 
+<<<<<<< HEAD
         if (value == '续签' || value == '补充协议' || value == '合同变更' || value == '顺延') {
+=======
+        if (value == '续签') {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this._showContractListModle()
         }
     }
 
     @action changeRentType = (e) => this.saveContractData.rent_type = e.target.value
 
+<<<<<<< HEAD
 
 
     // 合同份数
     @action setContractNumber = value => this.saveContractData.contractNumber = value
+=======
+    //要求完工日期   
+    @action setOndemandEnddate = (mode, value) => this.saveContractData.enddate_ondemand = value
+
+
+    // 合同份数
+    @action setContractNumber = value => this.saveContractData.contractNumber = value;
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     // 项目编号
     @action setProjectNo = (e) => {
@@ -417,6 +575,7 @@ class IDC_cfg_store {
         this.saveContractData.attachment_url = url;
     }
 
+<<<<<<< HEAD
     @action setFieldsValue = (key, value) => {
         this.saveContractData[key] = value
         if (key === 'hasContract') {
@@ -424,6 +583,8 @@ class IDC_cfg_store {
         }
     }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     // 删除附件
     @action deleteAttachmentUrl = url => {
         if (!this.saveContractData.attachment_url) {
@@ -436,6 +597,10 @@ class IDC_cfg_store {
         attachment_arr.splice(attachment_index, 1)
         this.saveContractData.attachment_url = attachment_arr.join(',');
 
+<<<<<<< HEAD
+=======
+        console.log('查看附件地址', this.saveContractData.attachment_url)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     // 设置文件回显列表
@@ -452,7 +617,12 @@ class IDC_cfg_store {
         this.fileList = []
     }
 
+<<<<<<< HEAD
 
+=======
+    // 付款方
+    @action setPayCompany = event => this.saveContractData.pay_company = event.target.value;
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     // 支付类型
     @action setPayType = value => this.saveContractData.pay_type = value;
 
@@ -462,6 +632,7 @@ class IDC_cfg_store {
         this.saveContractData.billing_cycle = value
         chargeStore.setChargeBillingCycle();
     }
+<<<<<<< HEAD
 
     @action  saveBillingoption = value => {
         this.saveContractData.billingoption = value
@@ -486,27 +657,56 @@ class IDC_cfg_store {
             return
         }
         await this.getContractByUUID('renewal');
+=======
+    // 首付款
+    @action setFirstPayment = value => this.saveContractData.contract_first_payment = value;
+
+    // 赠送时间
+    @action setGiveDay = event => this.saveContractData.give_day = event.target.value;
+    // 赠送说明
+    @action setGiveExplain = event => this.saveContractData.give_explain = event.target.value;
+
+    @action
+    makeReNewContractno = async () => {
+        await this.getContractDetail();
+        this.saveContractData.sign_type = '续签';
+        await this.generateContractNo();
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         this._hideContractListModle();
     }
 
     @action generateContractNo = async () => {
+<<<<<<< HEAD
         if (!this.saveContractData.sign_type) {
             return;
         }
         if (this.shorthand == '') {
             return
         }
+=======
+
+        if (!this.saveContractData.sign_type) {
+            return;
+        }
+
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let params = {
             data: {
                 sign_type: this.saveContractData.sign_type,
                 shorthand: this.shorthand,
+<<<<<<< HEAD
                 contract_action: this.contract_action,
                 hasContract: this.saveContractData.hasContract
+=======
+                contract_action: this.contract_action
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             },
             method: 'POST'
         }
 
+<<<<<<< HEAD
         if (this.isFromBigContract) {
             params.data.isFromBigContract = this.isFromBigContract
         }
@@ -514,17 +714,26 @@ class IDC_cfg_store {
             params.data.isFormal = this.isFormal
         }
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         params.data['contract_no'] = this.detailContractNo
 
         let res = await api.contract_api.generateContractNo(params);
 
         if (res.code == 200) {
+<<<<<<< HEAD
             this.rightContract = true
             this.saveContractData['contract_no'] = res.data;
 
             localStorage.setItem('contract_no', this.saveContractData.contract_no);
         } else {
             this.rightContract = false
+=======
+
+            this.saveContractData['contract_no'] = res.data;
+
+            localStorage.setItem('contract_no', this.saveContractData.contract_no);
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
 
     }
@@ -535,6 +744,7 @@ class IDC_cfg_store {
 
     // 保存合同
     @action
+<<<<<<< HEAD
     submitContractHandle = async (parameter) => {
         console.log('保存合同')
 
@@ -553,12 +763,25 @@ class IDC_cfg_store {
         }
         data['chargeData'] = chargeStore.chargeSubmitData;
         if (this.detailContractNo != '' && (this.page_source == 'edit' || this.saveContractData.sign_type == '续签')) {
+=======
+    submitContractHandle = async () => {
+
+        let data = this.saveContractData;
+        if (!this.validate(data, this.contractValidata, false)) {
+            return;
+        }
+        data['chargeData'] = chargeStore.chargeSubmitData;
+        if (this.detailContractNo != '') {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             data['old_contract_no'] = this.detailContractNo;
         }
         data['contract_action'] = this.contract_action;
 
+<<<<<<< HEAD
         data.ifvip = parameter.ifvip  // 是否为大客户合同
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let params = {
             data: data,
             method: 'POST'
@@ -569,24 +792,35 @@ class IDC_cfg_store {
             return;
         }
         if (this.page_source == 'add') {
+<<<<<<< HEAD
             console.log(params);
 
             let addRes = await api.contract_api.addContract(params);
             addRes.code == 200 && hashHistory.goBack()
             return;
 
+=======
+            let addRes = await api.contract_api.addContract(params);
+            addRes.code == 200 && hashHistory.goBack()
+            return;
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
     }
 
     @action
+<<<<<<< HEAD
     // 
 
     async getContractByUUID(isRenewal) {
+=======
+    async getContractDetail() {
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         let params = {
             data: {
                 process_key: this.process_key,
                 uuid: this.uuid,
+<<<<<<< HEAD
                 // contract_action: this.contract_action
             },
             method: 'POST'
@@ -598,10 +832,22 @@ class IDC_cfg_store {
         console.log('合同详情:')
         console.log(res.data)
         await this.setEditData(res.data, isRenewal)
+=======
+                contract_no: this.detailContractNo,
+                contract_action: this.contract_action
+            },
+            method: 'POST'
+        };
+
+        let res = await api.contract_api.getContractByContractNo(params);
+
+        await this.setEditData(res.data)
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
     @action
+<<<<<<< HEAD
     setEditData = async (contractData, isRenewal) => {
         this.RequireOther = contractData.payment_method == '其他' ? true : false;
         let data = {
@@ -611,17 +857,40 @@ class IDC_cfg_store {
             contractNumber: contractData.contractNumber,
             sign_type: isRenewal == 'renewal' ? this.saveContractData.sign_type : contractData.sign_type,
             contract_no: this.saveContractData.contract_no ? this.saveContractData.contract_no : contractData.contract_no,
+=======
+    setEditData = async contractData => {
+        this.RequireOther = contractData.payment_method == '其他' ? true : false;
+        let data = {
+            contract_name: contractData.contract_name,
+            contractNumber: contractData.contractNumber,
+            sign_type: contractData.sign_type,
+            contract_no: contractData.contract_no,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             project_no: contractData.project_no,
             contract_type: contractData.contract_type,
             contract_money: contractData.contract_money,
             signer: contractData.pay_supplier,
             payee_num: contractData.pay_supplier_certificate_no,
+<<<<<<< HEAD
+=======
+            pay_company: contractData.pay_company,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             billing_cycle: contractData.billing_cycle,
             pay_type: contractData.pay_type,
             contract_first_payment: contractData.contract_first_payment,
             contract_start_date: contractData.contract_start_date,
             contract_end_date: contractData.contract_end_date,
+<<<<<<< HEAD
 
+=======
+            contract_days: contractData.contract_days,
+            give_day: contractData.give_day,
+            give_explain: contractData.give_explain,
+            contract_billing_start: contractData.pay_begin_date != '0000-00-00' ? contractData.pay_begin_date : null,
+            contract_billing_end: contractData.pay_end_date != '0000-00-00' ? contractData.pay_end_date : null,
+            enddate_ondemand: contractData.enddate_ondemand != '0000-00-00' ? contractData.enddate_ondemand : null,
+            contract_billing_day: contractData.pay_interval,
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             attachment_url: contractData.attachment_url,
             rent_type: contractData.rent_type,
             payment_method: contractData.payment_method,
@@ -631,6 +900,7 @@ class IDC_cfg_store {
             project_name: contractData.project_name,
             singer_our_company_id: contractData.singer_our_company_id,
             singerReferInfo: contractData.selectedSigner,
+<<<<<<< HEAD
             back_to_back_contract_no: contractData.back_to_back_contract_no,
 
             cabinet_description: contractData.cabinet_description,
@@ -670,6 +940,33 @@ class IDC_cfg_store {
                 archives_no: contractData.archives_no,
                 customer_type_id: contractData.customer_type_id
             }
+=======
+            back_to_back_contract_no: contractData.back_to_back_contract_no
+        };
+
+        let contractManageData = {
+            archive_note: contractData.archive_note,
+            customer_type: contractData.customer_type,
+            seal_date: contractData.seal_date,
+            seal_note: contractData.seal_note,
+            return_date: contractData.return_date || formatDate(new Date()),
+            return_note: contractData.return_note,
+            stamp_duty_tax: contractData.stamp_duty_tax
+        }
+        contractManageStore.sealSubmitData = {
+            ...contractManageStore.sealSubmitData,
+            return_date: contractData.return_date ? contractData.return_date : formatDate(new Date()),
+            state: contractData.contract_management_state,
+            return_note: contractData.return_note
+        }
+
+        if (contractData.archives_no) {
+
+            contractManageData.archives_no = contractData.archives_no
+        }
+
+        contractManageStore.contractDepData = { ...contractManageStore.contractDepData, ...contractManageData }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         this.setEditDefaultSignCustomer(contractData.sign_customers)
         await this.setOurCompanyName(contractData.singer_our_company_id)
@@ -677,6 +974,7 @@ class IDC_cfg_store {
 
         this.saveContractData.sign_type = contractData.sign_type;
         this.saveContractData = { ...this.saveContractData, ...data };
+<<<<<<< HEAD
         let contract_days = this.computedDate(this.saveContractData.contract_end_date, this.saveContractData.contract_start_date);
         this.setContractTerm(contract_days)
         localStorage.setItem('contract_no', this.saveContractData.contract_no);
@@ -690,6 +988,10 @@ class IDC_cfg_store {
 
             this.setFieldsValue('hasContract', '是')
         }
+=======
+        localStorage.setItem('contract_no', this.saveContractData.contract_no);
+        await chargeStore.getChargeList('y');
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     // 设置格式化附件的列表
@@ -740,23 +1042,32 @@ class IDC_cfg_store {
             require: true,
             requireText: '签约方不能为空'
         },
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         payment_method: {
             require: true,
             requireText: '结算方式不能为空'
         },
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         contract_name: {
             require: true,
             requireText: '合同名称不能为空'
         },
+<<<<<<< HEAD
         stamp_name: {
             require: true,
             requireText: '印章名称不能为空'
         },
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         contractNumber: {
             require: true,
             requireText: '合同份数不能为空',
@@ -771,7 +1082,14 @@ class IDC_cfg_store {
             require: true,
             requireText: '整租散组不能为空'
         },
+<<<<<<< HEAD
 
+=======
+        enddate_ondemand: {
+            require: true,
+            requireText: '要求完工日期不能为空'
+        },
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         contract_no: {
             require: true,
@@ -782,11 +1100,14 @@ class IDC_cfg_store {
             requireText: '合同类型不能为空',
             notAllow: '请选择'
         },
+<<<<<<< HEAD
         hasContract: {
             require: true,
             requireText: '是否为预签订不能为空',
             notAllow: '请选择'
         },
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         pay_type: {
             require: true,
@@ -814,12 +1135,18 @@ class IDC_cfg_store {
             require: true,
             requireText: '合同结束日期不能为空'
         },
+<<<<<<< HEAD
         marketing_department_leader_clause: {
             require: true,
             requireText: '市场部领导定夺条款不能为空'
         },
 
 
+=======
+
+        give_day: {},
+        give_explain: {},
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         attachment_url: {},
 
     }
@@ -851,7 +1178,11 @@ class IDC_cfg_store {
 
     validateSingerCustomerRepeat = signerCustomer => {
         console.log(signerCustomer)
+<<<<<<< HEAD
         // debugger
+=======
+        debugger
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         for (let i = 0; i < signerCustomer.length; i++) {
             let field_pre = signerCustomer[i].customerId
             for (let j = i + 1; j < signerCustomer.length; j++) {
@@ -868,7 +1199,11 @@ class IDC_cfg_store {
 
     validate = (data, validata, ischargeData) => {
 
+<<<<<<< HEAD
         let ignoreArr = ['chargeData', 'contract_days', 'attachment_url', 'remarks']
+=======
+        let ignoreArr = ['chargeData', 'contract_days', 'attachment_url', 'give_explain', 'give_day', 'remarks']
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         let keys = Object.keys(validata);
         let submitKeys = Object.keys(data)
@@ -881,7 +1216,10 @@ class IDC_cfg_store {
 
 
         for (let i = 0; i < keys.length; i++) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             let key = keys[i];
             if (ischargeData == false && ignoreArr.includes(key)) {
                 continue
@@ -900,8 +1238,13 @@ class IDC_cfg_store {
                 isAllowSave = false;
                 break;
             }
+<<<<<<< HEAD
             if (data.contract_type == '固定合同' && chargeStore.chargeSumPrice != 0 && Math.abs(this.saveContractData.contract_money - chargeStore.chargeSumPrice) > 100) {
                 message.error('固定合同金额与收费项总额不符');
+=======
+            if (data.contract_type == '固定合同' && chargeStore.chargeSumPrice != 0 && Math.sqrt(this.saveContractData.contract_money - chargeStore.chargeSumPrice) > 10) {
+                message.error('更改金额与收费项总额差值不能大于10');
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 isAllowSave = false;
                 break;
             }
@@ -920,11 +1263,14 @@ class IDC_cfg_store {
 
             if (validata[key].require) {
                 let keysarr = ['contractNumber', 'contract_first_payment']
+<<<<<<< HEAD
                 console.log('------------')
                 console.log('检查' + key)
 
                 console.log(data[key])
 
+=======
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 let value = keysarr.includes(key) ? data[key] : data[key].replace(/(^\s*)|(\s*$)/g, "");
                 if (value === '') {
                     message.error(validata[key].requireText)
@@ -939,6 +1285,23 @@ class IDC_cfg_store {
 
 
 
+<<<<<<< HEAD
+=======
+    @action
+    async testBill(params) {
+        let res = await api.billing_api.testbill(params);
+
+        console.log(res);
+        OneContractBillingStore.cycle_store = []
+        OneContractBillingStore.cycle_store = res.billing_store.cycle_store
+        OneContractBillingStore.onetime_store = res.billing_store.onetime_store
+
+        OneContractBillingStore.cyclefee_summary = res.cyclefee_summary
+        OneContractBillingStore.onetimefee_summary = res.onetimefee_summary
+        OneContractBillingStore.total_summary = res.total_summary
+
+    }
+>>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 }
