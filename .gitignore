@@ -1,0 +1,9 @@
+/node_modules/*
+/build/*
+/build/static/*
+/dist/*
+/.idea
+package-lock.json
+/.vscode
+/.cache
+./README.md

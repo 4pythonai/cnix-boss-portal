@@ -1,0 +1,230 @@
+{
+    "type": "object",
+    "properties": {
+        "group_all": {
+            "type": "object",
+            "x-component": "card",
+            "properties": {
+                "UFORM_NO_NAME_FIELD0": {
+                    "type": "object",
+                    "x-component": "card",
+                    "x-props": {
+                        "title": "网络开通工单"
+                    },
+                    "properties": {
+                        "id": {
+                            "grouptitle": "",
+                            "type": "number",
+                            "title": "id",
+                            "required": true,
+                            "x-visible": true,
+                            "x-props": {
+                                "field_id": "id",
+                                "trigger_style": "no_trigger",
+                                "uform_para": ""
+                            }
+                        },
+                        "orderdate": {
+                            "grouptitle": "",
+                            "type": "GetDate",
+                            "title": "下单日期",
+                            "required": false,
+                            "x-visible": true,
+                            "x-props": {
+                                "field_id": "orderdate",
+                                "trigger_style": "no_trigger",
+                                "uform_para": ""
+                            }
+                        },
+                        "demandcompletedate": {
+                            "grouptitle": "",
+                            "type": "date",
+                            "title": "要求完工日期",
+                            "required": false,
+                            "x-visible": true,
+                            "x-props": {
+                                "field_id": "demandcompletedate",
+                                "trigger_style": "no_trigger",
+                                "uform_para": ""
+                            }
+                        },
+                        "preoccupationidc": {
+                            "grouptitle": "IDC",
+                            "type": "assocselect",
+                            "title": "所在IDC",
+                            "required": true,
+                            "x-visible": true,
+                            "enum": [],
+                            "x-component": "assocselect",
+                            "x-props": {
+                                "form_action": "edit",
+                                "disabled": true,
+                                "query_cfg": {
+                                    "level": 1,
+                                    "api": "curd/getTableData",
+                                    "basetable": "boss_idc",
+                                    "filter_field": null,
+                                    "associate_field": "preoccupationbuilding",
+                                    "trigger_group_uuid": "UmyeLLZRzJDInIS6N9uZq748QEdp8X8",
+                                    "codetable_category_value": null,
+                                    "label_field": "idc_site",
+                                    "value_field": "id"
+                                },
+                                "ass_select_field_id": "preoccupationidc",
+                                "uform_para": ""
+                            }
+                        },
+                        "preoccupationbuilding": {
+                            "grouptitle": "IDC",
+                            "type": "assocselect",
+                            "title": "所在楼宇",
+                            "required": false,
+                            "x-visible": true,
+                            "enum": [],
+                            "x-component": "assocselect",
+                            "x-props": {
+                                "level": 2,
+                                "api": "curd/getTableData",
+                                "basetable": "boss_idc_building",
+                                "filter_field": "idc_id",
+                                "associate_field": "preoccupationfloor",
+                                "trigger_group_uuid": "UmyeLLZRzJDInIS6N9uZq748QEdp8X8",
+                                "codetable_category_value": null,
+                                "label_field": "build_name",
+                                "value_field": "id",
+                                "query_cfg": {
+                                    "level": 2,
+                                    "api": "curd/getTableData",
+                                    "basetable": "boss_idc_building",
+                                    "filter_field": "idc_id",
+                                    "associate_field": "preoccupationfloor",
+                                    "trigger_group_uuid": "UmyeLLZRzJDInIS6N9uZq748QEdp8X8",
+                                    "codetable_category_value": null,
+                                    "label_field": "build_name",
+                                    "value_field": "id"
+                                },
+                                "ass_select_field_id": "preoccupationbuilding",
+                                "uform_para": ""
+                            }
+                        },
+                        "preoccupationfloor": {
+                            "grouptitle": "IDC",
+                            "type": "assocselect",
+                            "title": "所在楼层",
+                            "required": false,
+                            "x-visible": true,
+                            "enum": [],
+                            "x-component": "assocselect",
+                            "x-props": {
+                                "level": 3,
+                                "api": "curd/getTableData",
+                                "basetable": "boss_idc_building_floor",
+                                "filter_field": "build_id",
+                                "associate_field": "preoccupationroom",
+                                "trigger_group_uuid": "UmyeLLZRzJDInIS6N9uZq748QEdp8X8",
+                                "codetable_category_value": null,
+                                "label_field": "floor_name",
+                                "value_field": "id",
+                                "query_cfg": {
+                                    "level": 3,
+                                    "api": "curd/getTableData",
+                                    "basetable": "boss_idc_building_floor",
+                                    "filter_field": "build_id",
+                                    "associate_field": "preoccupationroom",
+                                    "trigger_group_uuid": "UmyeLLZRzJDInIS6N9uZq748QEdp8X8",
+                                    "codetable_category_value": null,
+                                    "label_field": "floor_name",
+                                    "value_field": "id"
+                                },
+                                "ass_select_field_id": "preoccupationfloor",
+                                "uform_para": ""
+                            }
+                        },
+                        "preoccupationroom": {
+                            "grouptitle": "IDC",
+                            "type": "assocselect",
+                            "title": "所在区域",
+                            "required": false,
+                            "x-visible": true,
+                            "enum": [],
+                            "x-component": "assocselect",
+                            "x-props": {
+                                "level": 4,
+                                "api": "curd/getTableData",
+                                "basetable": "boss_idc_room",
+                                "filter_field": "floor_id",
+                                "associate_field": null,
+                                "trigger_group_uuid": "UmyeLLZRzJDInIS6N9uZq748QEdp8X8",
+                                "codetable_category_value": null,
+                                "label_field": "room_name",
+                                "value_field": "id",
+                                "query_cfg": {
+                                    "level": 4,
+                                    "api": "curd/getTableData",
+                                    "basetable": "boss_idc_room",
+                                    "filter_field": "floor_id",
+                                    "associate_field": null,
+                                    "trigger_group_uuid": "UmyeLLZRzJDInIS6N9uZq748QEdp8X8",
+                                    "codetable_category_value": null,
+                                    "label_field": "room_name",
+                                    "value_field": "id"
+                                },
+                                "ass_select_field_id": "preoccupationroom",
+                                "uform_para": ""
+                            }
+                        },
+                        "specificLocation": {
+                            "grouptitle": "",
+                            "type": "string",
+                            "title": "具体位置",
+                            "required": true,
+                            "x-visible": true,
+                            "x-props": {
+                                "field_id": "specificLocation",
+                                "trigger_style": "no_trigger",
+                                "uform_para": ""
+                            }
+                        },
+                        "ipCount": {
+                            "grouptitle": "",
+                            "type": "number",
+                            "title": "IP地址个数",
+                            "required": true,
+                            "x-visible": true,
+                            "x-props": {
+                                "field_id": "ipCount",
+                                "trigger_style": "no_trigger",
+                                "uform_para": ""
+                            }
+                        },
+                        "taskrequirementdescription": {
+                            "grouptitle": "",
+                            "type": "text_area",
+                            "title": "任务需求描述",
+                            "required": true,
+                            "x-visible": true,
+                            "x-props": {
+                                "field_id": "taskrequirementdescription",
+                                "trigger_style": "no_trigger",
+                                "uform_para": ""
+                            }
+                        },
+                        "flow_notes": {
+                            "required": false,
+                            "title": "批注信息",
+                            "default": "同意",
+                            "type": "string",
+                            "x-visible": true
+                        },
+                        "candidate": {
+                            "required": true,
+                            "title": "提交给",
+                            "type": "CandidateRefactor",
+                            "x-visible": true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "obsolete_invalid": {
+        "contract_begin_date": "splitDate",
+        "contract_end_date": "splitDate"
+    },
+    "already_seal": {
+        "contract_begin_date": "splitDate",
+        "contract_end_date": "splitDate"
+    },
+    "waiting_for_signature": {
+        "contract_begin_date": "splitDate",
+        "contract_end_date": "splitDate"
+    },
+    "contract_enquiry": {
+        "contract_begin_date": "splitDate",
+        "contract_end_date": "splitDate"
+    },
+    "effective_boss_contract_new_receive": {
+        "contract_begin_date": "splitDate",
+        "contract_end_date": "splitDate"
+    },
+    "effective_boss_contract_new_pay": {
+        "contract_begin_date": "splitDate",
+        "contract_end_date": "splitDate"
+    },
+    "IDCReceiveContract": {
+        "contract_begin_date": "splitDate",
+        "contract_end_date": "splitDate"
+    },
+    "IDCPaymentsContract": {
+        "contract_begin_date": "splitDate",
+        "contract_end_date": "splitDate"
+    }
+}
