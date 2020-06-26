@@ -106,30 +106,20 @@ export default class BatchUpdate extends React.Component {
         }
     }
     showModal() {
-<<<<<<< HEAD
         var obj={}
         var objarr=Object.keys(this.commonTableStore.formCfg.properties.group_all.properties)
         for(var i=0;i<objarr.length;i++){
             obj=Object.assign(this.commonTableStore.formCfg.properties.group_all.properties[objarr[i]].properties)
         }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         var arr=this.commonTableStore.selectedRowKeys
         this.setState({
             visible: true,
             batchId: arr,
-<<<<<<< HEAD
             formConfigData: obj
         })
     }
     async onChange(event, data) {
         console.log(this.state.formConfigData,event)
-=======
-            formConfigData: this.commonTableStore.formCfg.properties.group_all.properties
-        })
-    }
-    async onChange(event, data) {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (event == 'idc_id' || event == 'building_id' || event == 'floor_id' || event == 'room_id') {
             this.setState({
                 selectData: event,
@@ -222,10 +212,7 @@ export default class BatchUpdate extends React.Component {
                                             if (item['x-props'] && item['x-props'].query_cfg && item['x-props'].query_cfg.level) {
                                                 setFieldState(key, state => {
                                                     state.props["x-props"].commonTableStore = this.commonTableStore;
-<<<<<<< HEAD
                                                     state.props["x-props"].schema = formCfg;
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                                 });
                                             }
                                         }

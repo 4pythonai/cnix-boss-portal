@@ -143,21 +143,13 @@ export default class RoleList extends React.Component {
                 <div className="searForm">
                     <div className="searchInfo">角色code</div>
                     <div className="searcControl">
-<<<<<<< HEAD
                         <Input onPressEnter={event=>this.store.searchRoleHandle(event)} onChange={ event => this.store.setSearRoleValue(event, 'role_code') } />
-=======
-                        <Input defaultValue={ this.store.roleSearchData.role_code } onChange={ event => this.store.setSearRoleValue(event, 'role_code') } />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     </div>
                 </div>
                 <div className="searForm">
                     <div className="searchInfo">角色名称</div>
                     <div className="searcControl">
-<<<<<<< HEAD
                         <Input onPressEnter={event=>this.store.searchRoleHandle(event)} onChange={ event => this.store.setSearRoleValue(event, 'role_name') } />
-=======
-                        <Input defaultValue={ this.store.roleSearchData.role_name } onChange={ event => this.store.setSearRoleValue(event, 'role_name') } />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     </div>
                 </div>
                 <Button

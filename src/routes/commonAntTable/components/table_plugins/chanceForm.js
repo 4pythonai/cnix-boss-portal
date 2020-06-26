@@ -15,10 +15,7 @@ export default class ChanceForm extends React.Component {
     }
 
     state = {
-<<<<<<< HEAD
         currentCustomer: {},
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         visible: false,
         rowData: {
             clueId: null,
@@ -122,11 +119,7 @@ export default class ChanceForm extends React.Component {
                 label: '销售金额',
                 type: 'number',
                 key: 'salesMoney',
-<<<<<<< HEAD
                 required: true,
-=======
-                required: false,
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 regx: /[1-9]+/,
                 errorMsg: "销售金额输入不正确（请输入数字）！",
                 isShowMsg: false
@@ -135,11 +128,7 @@ export default class ChanceForm extends React.Component {
                 label: '客户联系人',
                 type: 'input',
                 key: 'contactPerson',
-<<<<<<< HEAD
                 required: true,
-=======
-                required: false,
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 regx: /[a-zA-Z_\u4e00-\u9fa5]+/,
                 errorMsg: "客户联系人输入不正确！",
                 isShowMsg: false
@@ -148,15 +137,9 @@ export default class ChanceForm extends React.Component {
                 label: '客户电话',
                 type: 'input',
                 key: 'contactPhone',
-<<<<<<< HEAD
                 required: true,
                 regx: /^1[34578]\d{9}$/,
                 errorMsg: "客户电话输入不正确！",
-=======
-                required: false,
-                regx: /^1[34578]\d{9}$/,
-                errorMsg: "客户联系电话输入不正确！",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 isShowMsg: false
             },
             {
@@ -189,15 +172,11 @@ export default class ChanceForm extends React.Component {
             proWorkType: this.props.commonTableStore.selectedRows[0].business_classification_type,
             contactPhone: this.props.commonTableStore.selectedRows[0].customer_phone,
             email: this.props.commonTableStore.selectedRows[0].customer_email,
-<<<<<<< HEAD
             customerName: this.props.commonTableStore.selectedRows[0].customName
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
 
         this.setState({
             visible: true,
-<<<<<<< HEAD
             rowData: { ...this.state.rowData, ...defaultData },
             currentCustomer: {
                 key: this.props.commonTableStore.selectedRows[0].customName,
@@ -219,10 +198,6 @@ export default class ChanceForm extends React.Component {
         // this._onChange(customer_cfg, this.props.commonTableStore.selectedRows[0].customName)
         this.addressHandle(this.props.commonTableStore.selectedRows[0].customName)
 
-=======
-            rowData: { ...this.state.rowData, ...defaultData }
-        })
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     async saveHandler() {
@@ -313,14 +288,6 @@ export default class ChanceForm extends React.Component {
                 this._setErrorMsg(field_cfg.key, true)
                 return;
             }
-<<<<<<< HEAD
-=======
-
-            // if (field_cfg.callBack) {
-            //     await field_cfg.callBack(field_cfg.key, value);
-            //     return
-            // }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
 
         // 非必填，有值时验证(not 请选择)
@@ -333,10 +300,7 @@ export default class ChanceForm extends React.Component {
     }
 
     _onChange(field_cfg, value) {
-<<<<<<< HEAD
         console.log(field_cfg, value)
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let name = field_cfg.key;
         let rowData = { ...this.state.rowData };
         rowData[name] = value
@@ -419,10 +383,7 @@ export default class ChanceForm extends React.Component {
                 return <CustomerRemoteSelect
                     onChange={this._onChange.bind(this)}
                     field_cfg={item}
-<<<<<<< HEAD
                     defaultValue = {this.state.currentCustomer}
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     addressHandle={this.addressHandle.bind(this)}
                     value={this.state.rowData.customName}
                 />

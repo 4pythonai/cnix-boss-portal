@@ -6,11 +6,7 @@ import navigationStore from '@/store/navigationStore'
 import { hashHistory } from "react-router";
 import userStore from '@/store/userStore'
 import Qrimg from './Qrimg'
-<<<<<<< HEAD
 import { message, Tabs, Icon, Modal, Form, Select } from 'antd'
-=======
-import { message,Tabs, Icon,Modal,Form,Select } from 'antd'
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import { randomString } from '../../../utils/tools'
 import api from '../../../api/api'
 
@@ -23,45 +19,25 @@ export default class Login extends React.Component {
 
     constructor(props) {
         super();
-<<<<<<< HEAD
         this.state = {
             visible: false,
             roles: [],
             rolename: '',
             rolecode: ''
-=======
-        this.state={
-            visible:false,
-            roles:[],
-            rolename:'',
-            rolecode:''
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmitMobile = this.handleFormSubmitMobile.bind(this);
         this.login_mobile = this.login_mobile.bind(this);
         this.afterLogin = this.afterLogin.bind(this);
-<<<<<<< HEAD
         this.changeValue = this.changeValue.bind(this);
-=======
-        this.changeValue = this.changeValue.bind(this);                       
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.Auth = new AuthService();
         this.WsService = new WsService();
     }
 
     componentWillMount() {
-<<<<<<< HEAD
         let transaction_id = randomString(20)
         this.setState({ transaction_id })
         sessionStorage.setItem('session_id', transaction_id)
-=======
-        this.setState(
-            {
-                transaction_id: randomString(20)
-            }
-        )
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     componentDidMount() {
@@ -103,7 +79,6 @@ export default class Login extends React.Component {
     }
     afterLogin(res) {
         message.loading('登录成功,准备工作环境', 1.1, () => {
-<<<<<<< HEAD
             // navigationStore.saveSessionBadge(res.info);
             // navigationStore.setBadge(res.info);
             userStore.setUserProfile(res.profile);
@@ -122,25 +97,6 @@ export default class Login extends React.Component {
                 })
             }
             console.log(456, this.state.roles)
-=======
-            navigationStore.change_badge_num(res);
-            userStore.setUserProfile(res.profile);
-            userStore.setToken(res.token);
-            this.setState({
-                roles:res.profile.roles,
-                rolename:res.profile.roles[0].role_name,
-                rolecode:res.profile.roles[0].role_code
-            })
-            if(res.profile.roles.length==1){
-                userStore.setUserRole(res.profile.roles[0]);
-                hashHistory.push('/home')
-            }else{
-                this.setState({
-                    visible:true
-                })
-            }
-            console.log(456,this.state.roles)           
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         })
 
 
@@ -148,7 +104,6 @@ export default class Login extends React.Component {
 
 
     }
-<<<<<<< HEAD
     handleOk() {
 
         let obj = {}
@@ -169,59 +124,24 @@ export default class Login extends React.Component {
             rolename: b.props.children
         })
         console.log(b.props.value, b.props.children)
-=======
-    handleOk(){
-        
-            let obj={}
-            obj.role_name=this.state.rolename
-            obj.role_code=this.state.rolecode
-            userStore.setUserRole(obj);
-            hashHistory.push('/home')
-        
-    }
-    handleCancel(){
-        this.setState({
-            visible:false
-        })
-    }
-    changeValue(a,b){
-        this.setState({
-            rolecode:b.props.value,
-            rolename:b.props.children
-        })
-        console.log(b.props.value,b.props.children)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
     render() {
         return (
             <div className="w3layouts-two-grids">
                 <div className="mid-class">
                     <div className="txt-left-side">
-<<<<<<< HEAD
                         <h2> 手机号登录（BOSS/V1.0.0）</h2>
-                        <p>如果登录有问题,请联系信息管理中心, 或发送邮件至 admin@sinnet.com.cn </p>
+                        
                         <form action="#" method="post">
                             <div className="form-left-to-w3l">
                                 <span className="fa fa-envelope-o" aria-hidden="true"></span>
                                 <input type="mobile"  id="boss_mobile" name="mobile" placeholder="手机号" onChange={ this.handleChange } required="" />
-=======
-                        <h2> 手机号登录</h2>
-                        <p>如果登录有问题,请联系信息管理中心, 热线电话:8888,或发送邮件至 admin@sinnet.com.cn </p>
-                        <form action="#" method="post">
-                            <div className="form-left-to-w3l">
-                                <span className="fa fa-envelope-o" aria-hidden="true"></span>
-                                <input type="mobile" name="mobile" placeholder="手机号" onChange={ this.handleChange } required="" />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                 <div className="clear"></div>
                             </div>
                             <div className="form-left-to-w3l ">
 
                                 <span className="fa fa-lock" aria-hidden="true"></span>
-<<<<<<< HEAD
                                 <input type="password" id="boss_pwd" name="password" placeholder="密码" onChange={ this.handleChange } required="" />
-=======
-                                <input type="password" name="password" placeholder="密码" onChange={ this.handleChange } required="" />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                 <div className="clear"></div>
                             </div>
 
@@ -246,7 +166,6 @@ export default class Login extends React.Component {
                 </div>
                 <Modal
                     title="选择角色："
-<<<<<<< HEAD
                     onOk={ this.handleOk.bind(this) }
                     onCancel={ this.handleCancel.bind(this) }
                     okText="确认"
@@ -267,28 +186,6 @@ export default class Login extends React.Component {
                                         <Select.Option key={ index } value={ item.role_code }>{ item.role_name }</Select.Option>)
                                     )
                                 }
-=======
-                    onOk={this.handleOk.bind(this)}
-                    onCancel={this.handleCancel.bind(this)}
-                    okText="确认"
-                    cancelText="取消"
-                    width="400px"
-                    visible={this.state.visible}
-                >
-                    <Form labelCol={{ span: 5 }} wrapperCol={{ span: 19 }}>
-                        <Form.Item label="选择角色：">
-                            <Select
-                                style={{ width: '100%' }}
-                                placeholder="请选择角色"
-                                onChange={this.changeValue}
-                                defaultValue={this.state.roles[0]?this.state.roles[0].role_code:null}
-                            >
-                                {
-                            this.state.roles.length && this.state.roles.map((item, index) => (
-                                <Select.Option key={index} value={item.role_code}>{item.role_name}</Select.Option>)
-                            )
-                        }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             </Select>
                         </Form.Item>
                     </Form>

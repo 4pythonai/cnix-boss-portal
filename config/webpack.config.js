@@ -136,10 +136,7 @@ module.exports = function(webpackEnv) {
         // These are the "entry points" to our application.
         // This means they will be the "root" imports that are included in JS bundle.
         entry: [
-<<<<<<< HEAD
             'react-hot-loader/patch', //设置这里
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             isEnvDevelopment &&
             require.resolve('react-dev-utils/webpackHotDevClient'),
             // Finally, this is your app's code:
@@ -493,13 +490,9 @@ module.exports = function(webpackEnv) {
             // Otherwise React will be compiled in the very slow development mode.
             new webpack.DefinePlugin(env.stringified),
             // This is necessary to emit hot updates (currently CSS only):
-<<<<<<< HEAD
             // isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             
-=======
-            isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             // Watcher doesn't work well if you mistype casing in a path so we use
             // a plugin that prints an error when you attempt to do this.
             // See https://github.com/facebook/create-react-app/issues/240

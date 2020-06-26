@@ -19,14 +19,10 @@ class permissionManageStore {
 
     @observable roleSearchData = {};
 
-<<<<<<< HEAD
     @observable currentRole = {
         role_code: sessionStorage.getItem("currentRoleCode"),
         role_name: sessionStorage.getItem("currentRoleName"),
     }
-=======
-    @observable currentRole = {}
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action clearPagination = () => {
         this.pagination = {
@@ -94,29 +90,16 @@ class permissionManageStore {
     }
 
     @action allocationMenu = (event, record) => {
-<<<<<<< HEAD
         this.customerHashPush('permissionManage/allocationMenu',record)
         
     }
 
     @action allocationButton = (event, record) => {
         this.customerHashPush('permissionManage/allocationButton',record)
-=======
-        this.currentRole.role_code = record.role_code;
-        this.currentRole.role_name = record.role_name;
-        hashHistory.push('permissionManage/allocationMenu')
-    }
-
-    @action allocationButton = (event, record) => {
-        this.currentRole.role_code = record.role_code;
-        this.currentRole.role_name = record.role_name;
-        hashHistory.push('permissionManage/allocationButton')
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
     @action toPermissionDetail = (event, record) => {
-<<<<<<< HEAD
         this.customerHashPush('permissionManage/permissionDetail',record)
     }
 
@@ -134,17 +117,6 @@ class permissionManageStore {
             role_name: this.currentRole.role_name,
         }
         hashHistory.push({pathname, state: params})
-=======
-        this.currentRole.role_code = record.role_code;
-        this.currentRole.role_name = record.role_name;
-        hashHistory.push('permissionManage/permissionDetail')
-    }
-
-    @action toLookUserByRole = (event, record) => {
-        this.currentRole.role_code = record.role_code;
-        this.currentRole.role_name = record.role_name;
-        hashHistory.push('permissionManage/lookUserByRole')
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     @action getUserByRole = async () => {
@@ -160,11 +132,7 @@ class permissionManageStore {
 
     @action editRowRoleButton = (event, record) => {
         this.modalTitle = '编辑角色';
-<<<<<<< HEAD
         this.roleRowData = {...record};
-=======
-        this.roleRowData = record;
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.showModal();
     }
 
@@ -270,11 +238,7 @@ class permissionManageStore {
     @action updateRoleHandle = async params => {
         let res = await api.permission.updateRole(params);
         if (res.code == 200) {
-<<<<<<< HEAD
             message.success('修改成功');
-=======
-            message.success('编辑成功');
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.clearPagination();
             this.getRoleList();
             this.hideModal();
@@ -304,10 +268,7 @@ class permissionManageStore {
     @observable selectMenukeys = []
 
     @observable selectTartgetMenukeys = []
-<<<<<<< HEAD
     @observable treeMenuList = []
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action saveMenuPermission = async (nextTargetKeys, direction, moveKeys) => {
 
@@ -330,7 +291,6 @@ class permissionManageStore {
         message.success('菜单分配失败！');
     };
 
-<<<<<<< HEAD
     @action getRoleMenuList = async () => {
         let params = {
             data: {
@@ -369,9 +329,6 @@ class permissionManageStore {
 
     @action menuSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
         console.log(sourceSelectedKeys, targetSelectedKeys);
-=======
-    @action menuSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.selectMenukeys = [...sourceSelectedKeys, ...targetSelectedKeys];
     }
 
@@ -397,24 +354,6 @@ class permissionManageStore {
         }
         message.success('获取所有菜单失败');
     }
-<<<<<<< HEAD
-=======
-
-    @action getRoleMenuList = async () => {
-        let params = {
-            data: {
-                role_code: this.currentRole.role_code
-            },
-            method: 'POST'
-        };
-        let res = await api.permission.getRoleMenuList(params);
-        if (res.code == 200) {
-            this.selectTartgetMenukeys = res.data.map(item => item.key);
-            return;
-        }
-        message.success('获取角色已分配的菜单失败');
-    }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     /**************  菜单权限分配end ********************/
 
 
@@ -552,11 +491,7 @@ class permissionManageStore {
 
     @action editRowMenuButton = (event, record) => {
         this.modalTitle = '编辑菜单';
-<<<<<<< HEAD
         this.menuRowData = {...record};
-=======
-        this.menuRowData = record;
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.menuRowData.isFirstMenu  = record.menu_level == 1 ? true : false
         this.showModal();
         this.getAllMenuList()
@@ -625,11 +560,7 @@ class permissionManageStore {
         params.data.id = params.data.key
         let res = await api.permission.updateMenu(params,);
         if (res.code == 200) {
-<<<<<<< HEAD
             message.success('修改成功');
-=======
-            message.success('编辑成功');
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.clearPagination();
             this.getTableMenuList();
             this.hideModal();
@@ -707,17 +638,9 @@ class permissionManageStore {
     }
 
     @action editRowButtonBtn = (event, record) => {
-<<<<<<< HEAD
         this.modalTitle = '编辑按钮';
 
         this.buttonRowData = {...record};
-=======
-        console.log(444,record)
-        this.modalTitle = '编辑按钮';
-        // this.getAllMenuList();
-
-        this.buttonRowData = record;
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.showModal();
     }
 
@@ -785,11 +708,7 @@ class permissionManageStore {
         console.log(4455,params)
         let res = await api.button.updateButton(params);
         if (res.code == 200) {
-<<<<<<< HEAD
             message.success('修改成功');
-=======
-            message.success('编辑成功');
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.clearPagination();
             this.getButtonList();
             this.hideModal();

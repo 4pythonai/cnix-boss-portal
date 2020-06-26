@@ -31,22 +31,14 @@ export default class IPBatchadd extends React.Component {
                             }
                         },
                         "supplyerid": {
-<<<<<<< HEAD
                             "type": "AssocSelectSimple",
-=======
-                            "type": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "title": "提供方",
                             "required": true,
                             "x-visible": true,
                             "enum": [
 
                             ],
-<<<<<<< HEAD
                             "x-component": "AssocSelectSimple",
-=======
-                            "x-component": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "x-props": {
                                 "level": "1",
                                 "api": "curd\/getTableData",
@@ -107,22 +99,14 @@ export default class IPBatchadd extends React.Component {
                         },
 
                         "switchid": {
-<<<<<<< HEAD
                             "type": "AssocSelectSimple",
-=======
-                            "type": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "title": "交换机",
                             "required": false,
                             "x-visible": true,
                             "enum": [
 
                             ],
-<<<<<<< HEAD
                             "x-component": "AssocSelectSimple",
-=======
-                            "x-component": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "x-props": {
                                 "level": "1",
                                 "api": "curd\/getTableData",
@@ -149,22 +133,14 @@ export default class IPBatchadd extends React.Component {
                             }
                         },
                         "swportid": {
-<<<<<<< HEAD
                             "type": "AssocSelectSimple",
-=======
-                            "type": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "title": "端口",
                             "required": false,
                             "x-visible": true,
                             "enum": [
 
                             ],
-<<<<<<< HEAD
                             "x-component": "AssocSelectSimple",
-=======
-                            "x-component": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "x-props": {
                                 "level": "2",
                                 "api": "curd\/getTableData",
@@ -247,7 +223,6 @@ export default class IPBatchadd extends React.Component {
 
     render() {
         return <CommonModal
-<<<<<<< HEAD
           
             
             height="1000"
@@ -258,14 +233,6 @@ export default class IPBatchadd extends React.Component {
             layoutcfg={ 2 }
             
             
-=======
-            height="1000"
-            width="900"
-            footer={ null }
-            title="批量增加"
-            ref='commonModalRef'
-            layoutcfg={ this.props.commonTableStore.layoutcfg }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         >
             <CommonTableForm
                 as_virtual={ this.props.as_virtual }

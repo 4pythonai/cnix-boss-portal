@@ -1,21 +1,13 @@
 import React from 'react'
-<<<<<<< HEAD
 import { Table, Select, Modal, Spin, Upload, Input, Icon, Divider, Button, Tag, Card, Popconfirm, message, Checkbox, Row, Col } from 'antd';
 import Highlighter from 'react-highlight-words';
-=======
-import { Table, Select, Modal, Spin, Upload, Input, Icon, Divider, Button, Tag, Card, Popconfirm, message } from 'antd';
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 import 'antd/dist/antd.css';
 import { observer, inject } from "mobx-react";
 import { toJS } from 'mobx'
 import api from '../../../api/api'
-<<<<<<< HEAD
 import Pmtabs from './pmtabs';
 import navigationStore from '@/store/navigationStore'
-=======
-import Pmtabs from './pmtabs'
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 const { Option } = Select;
 
 
@@ -27,7 +19,6 @@ export default class processmanagement extends React.Component {
         super(props)
         this.pmstore = props.pmStore
         this.xref = React.createRef()
-<<<<<<< HEAD
         this.limitsChange = this.limitsChange.bind(this)
 
     }
@@ -107,15 +98,6 @@ export default class processmanagement extends React.Component {
             this.getlistExtracfg()
 
         })
-=======
-
-    }
-
-    state = { tableColums: [], Diagrams: {}, selectedRowKeys: [], 'current_processkey': '', 'processkey': '', 'maintable': '', 'memo': '' }
-
-    selectRow = (record) => {
-        this.setState({ selectedRowKeys: [record.id] });
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.changeStoreCfg(record)
     }
 
@@ -123,15 +105,11 @@ export default class processmanagement extends React.Component {
 
         let record = records[0]
         this.setState({ selectedRowKeys: [record.id] });
-<<<<<<< HEAD
         this.setState({ current_processkey: toJS(record).processkey, current_processname: toJS(record).processname }, () => {
             // this.getLimitNodes()
             this.getlistExtracfg()
 
         })
-=======
-        this.setState({ current_processkey: toJS(record).processkey })
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.changeStoreCfg(record)
 
     }
@@ -155,7 +133,6 @@ export default class processmanagement extends React.Component {
     }
 
     async openDiagram(processkey) {
-<<<<<<< HEAD
 
         let res = await api.bpm.getActivityDiagram({ data: {}, method: 'POST' });
         if (res.code != 200) {
@@ -168,14 +145,6 @@ export default class processmanagement extends React.Component {
             let tmp = {}
             tmp[processkey] = true;
             this.setState({ Diagrams: tmp, progressImgUrl: res.data })
-=======
-        if (this.state.Diagrams.hasOwnProperty(processkey)) {
-            this.setState({ Diagrams: { processkey: true } })
-        } else {
-            let tmp = {}
-            tmp[processkey] = true;
-            this.setState({ Diagrams: tmp })
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
     }
 
@@ -196,7 +165,6 @@ export default class processmanagement extends React.Component {
         }
     }
 
-<<<<<<< HEAD
     async  syncActivitiuser() {
         let params = { data: { ...this.state }, method: 'POST' };
         let json = await api.processmanager.syncActivitiuser(params);
@@ -222,10 +190,6 @@ export default class processmanagement extends React.Component {
     componentDidMount() {
         this.pmstore.initAll()
 
-=======
-    componentDidMount() {
-        this.pmstore.initAll()
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     onChange(k, v, x) {
@@ -234,17 +198,13 @@ export default class processmanagement extends React.Component {
         this.setState(obj)
     }
     handleChange(value) {
-<<<<<<< HEAD
         console.log(111, value)
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.setState({
             tableColums: value
         })
 
     }
     async settableColums() {
-<<<<<<< HEAD
         if (this.state.current_processkey == '' || this.state.current_processkey == null) {
             message.error('请选择流程')
             return
@@ -269,17 +229,10 @@ export default class processmanagement extends React.Component {
         } else {
             let params = { data: { processkey: this.state.current_processkey, groupname: this.state.groupName }, method: 'POST' };
             let res = await api.bpm.saveProcessGroup(params);
-=======
-        if (this.state.tableColums.length != 0) {
-            let flowparafields = JSON.stringify(this.state.tableColums).substring(1, JSON.stringify(this.state.tableColums).length - 1).replace(/\"/g, "")
-            let params = { data: { processkey: this.state.current_processkey, flowparafields: flowparafields }, method: 'POST' };
-            let res = await api.bpm.saveProcessParaFields(params);
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             if (res.code == 200) {
                 await this.pmstore.initAll()
                 message.success(res.message)
             }
-<<<<<<< HEAD
         }
     }
     onChangeGroupname(e) {
@@ -307,22 +260,12 @@ export default class processmanagement extends React.Component {
             })
 
         }
-=======
-        } else {
-            message.error('请设置参数')
-        }
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
     onChangeMemo(e) {
         e.persist();
 
         let obj = {}
         obj['memo'] = e.target.value
-<<<<<<< HEAD
-=======
-        console.log(obj)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.setState(obj)
     }
 
@@ -331,7 +274,6 @@ export default class processmanagement extends React.Component {
         e.persist();
         let obj = {}
         obj['prefix'] = e.target.value
-<<<<<<< HEAD
         this.setState(obj)
     }
     async setLimitNodes() {
@@ -364,13 +306,6 @@ export default class processmanagement extends React.Component {
             defaultLimitNodes: e
         })
     }
-=======
-        console.log(obj)
-        this.setState(obj)
-    }
-
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     render() {
         let maintables = this.pmstore.processMaintableList
         let processes = this.pmstore.processList
@@ -412,10 +347,7 @@ export default class processmanagement extends React.Component {
             {
                 title: '显示',
                 render: (text, record) => {
-<<<<<<< HEAD
                     const limitsNodes = this.pmstore.AllNodeName
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     const antIcon = <Icon type="loading" style={ { fontSize: 24 } } spin />;
                     let displayLoading = this.state.Diagrams[record.processkey] ? 'inline-block' : 'none;';
                     return (
@@ -429,11 +361,7 @@ export default class processmanagement extends React.Component {
                                 destroyOnClose={ true }
                             >
                                 <div style={ { textAlign: "center", overflowX: 'auto' } }>
-<<<<<<< HEAD
                                     <img style={ { zindex: 12 } } src={ this.state.progressImgUrl + '/null&' + record.processkey } />
-=======
-                                    <img style={ { zindex: 12 } } src={ api.bpm.progressImgUrl + '/null&' + record.processkey } />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                 </div>
                             </Modal>
                         </div >
@@ -447,26 +375,17 @@ export default class processmanagement extends React.Component {
                 key: 'id',
             },
             {
-<<<<<<< HEAD
                 title: '流程key',
                 dataIndex: 'processkey',
                 key: 'processkey',
                 ...this.getColumnSearchProps('processkey'),
 
-=======
-                title: '流程key4',
-                dataIndex: 'processkey',
-                key: 'processkey',
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             },
             {
                 title: '流程名',
                 dataIndex: 'processname',
                 key: 'processname',
-<<<<<<< HEAD
                 ...this.getColumnSearchProps('processname'),
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             },
             {
                 title: '单据前缀',
@@ -490,14 +409,11 @@ export default class processmanagement extends React.Component {
                 dataIndex: 'flowparafields',
                 key: 'flowparafields',
             },
-<<<<<<< HEAD
             {
                 title: '分组',
                 dataIndex: 'groupname',
                 key: 'groupname',
             },
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 
@@ -510,7 +426,6 @@ export default class processmanagement extends React.Component {
                 <div style={ { marginLeft: '20px' } } className="bordered">
                     <div>
 
-<<<<<<< HEAD
                         <div>
                             <Button type="primary" style={ { marginLeft: '2px', marginBottom: '20px' } } onClick={ this.syncActivitiuser.bind(this) }>同步[push=>流程-涉及角色]</Button>
                             <Button type="primary" style={ { marginLeft: '2px', marginBottom: '20px' } } onClick={ this.syncNodeIdAndName.bind(this) }>同步[pull=>流程-SID/节点名称]</Button>
@@ -518,8 +433,6 @@ export default class processmanagement extends React.Component {
 
 
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
                         <Table
@@ -533,18 +446,10 @@ export default class processmanagement extends React.Component {
                             columns={ columns }
                             rowSelection={ rowSelection }
                             dataSource={ maintables } />
-<<<<<<< HEAD
                     </div>
 
 
 
-=======
-
-
-
-
-                    </div>
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     <div>
                         <p style={ { fontWeight: 'bold' } }>添加新流程</p>
                         <Select
@@ -588,7 +493,6 @@ export default class processmanagement extends React.Component {
                         <Input onChange={ e => this.onChangeMemo(e) } placeholder="备注" style={ { width: '300px' } } />
                         <Button onClick={ this.setPkMain.bind(this) }>提交</Button>
                     </div>
-<<<<<<< HEAD
                     <div style={ { marginTop: '30px' } }>
                         <p style={ { fontWeight: 'bold' } }>添加分组</p>
                         <div>
@@ -600,19 +504,11 @@ export default class processmanagement extends React.Component {
 
                 <div style={ { margin: '30px 0px 10px 20px' } }>
                     <p style={ { fontWeight: 'bold' } }>选择流程参数字段(影响流程走向)</p>
-=======
-                </div>
-                <div style={ { margin: '30px 0px 10px 20px' } }>
-                    <p style={ { fontWeight: 'bold' } }>设置参数</p>
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     <Select
                         mode="multiple"
                         placeholder="请选择"
                         onChange={ this.handleChange.bind(this) }
-<<<<<<< HEAD
                         value={ this.state.tableColums }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                         style={ { width: 600 } }
                     >
                         {
@@ -623,7 +519,6 @@ export default class processmanagement extends React.Component {
                     </Select>
                     <Button style={ { marginLeft: '20px' } } onClick={ this.settableColums.bind(this) }>提交</Button>
                 </div>
-<<<<<<< HEAD
                 <div style={ { margin: '30px 0px 10px 20px' } }>
                     <p style={ { fontWeight: 'bold' } }>设置流程按钮权限(选中的角色将没有"退回发起人"和"终止流程"按钮)</p>
 
@@ -645,8 +540,6 @@ export default class processmanagement extends React.Component {
                         : null }
 
                 </div>
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 

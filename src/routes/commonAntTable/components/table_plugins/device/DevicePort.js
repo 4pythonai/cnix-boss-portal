@@ -1,11 +1,7 @@
 
 
 import React from 'react'
-<<<<<<< HEAD
 import { Checkbox, Badge } from 'antd';
-=======
-import { Descriptions, Checkbox, Badge } from 'antd';
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 import { observer, inject } from "mobx-react";
 import api from '@/api/api'

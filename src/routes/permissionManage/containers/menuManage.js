@@ -2,10 +2,7 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import MenuModalContent from '../components/menuModalContent'
-<<<<<<< HEAD
 import ShowMenuUser from '../components/showMenuUser'
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import PriviligeTable from '../../../components/antdComponents/table'
 import getColumnSearchProps from '../../commonAntTable/components/commonTableCom/getColumnSearchProps'
 import MenuModal from '../../../components/antdComponents/modal'
@@ -27,42 +24,27 @@ export default class MenuManage extends React.Component {
         this.store.clearPagination();
     }
 
-<<<<<<< HEAD
     toMenuDetail = (text,record) => {
         this.refs.showMenuUserRef.showModal(text,record)
     }
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     getOptionButtons(record) {
         return (<div className="options">
             <Button
                 className="marginRihgt10"
-<<<<<<< HEAD
                 onClick={event => this.toMenuDetail(event, record)}
-=======
-                onClick={ event => this.store.toMenuDetail(event, record) }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 size="small"
                 type="primary" >查看详情</Button>
             <Button
                 className="marginRihgt10"
-<<<<<<< HEAD
                 onClick={event => this.store.editRowMenuButton(event, record)}
-=======
-                onClick={ event => this.store.editRowMenuButton(event, record) }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 size="small"
                 type="primary" >编辑</Button>
             <Popconfirm
                 title="您确定要删除么?"
                 okText="删除"
                 cancelText="取消"
-<<<<<<< HEAD
                 onConfirm={event => this.store.deleteMenuRow(event, record)} >
-=======
-                onConfirm={ event => this.store.deleteMenuRow(event, record) } >
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 <Button type="danger" size="small" htmlType="button"   >删除</Button>
             </Popconfirm>
         </div>)
@@ -73,11 +55,7 @@ export default class MenuManage extends React.Component {
     }
 
     iconRender(text) {
-<<<<<<< HEAD
         return text ? <Icon type={text} size="20"></Icon> : null
-=======
-        return text ? <Icon type={ text } size="20"></Icon> : null
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     getTableColumns() {
@@ -217,51 +195,29 @@ export default class MenuManage extends React.Component {
         return <div className="roleButtonGroup">
             <Button
                 className="marginRihgt10"
-<<<<<<< HEAD
                 onClick={event => this.store.addMenuButton(event)}
                 size="small"
                 type="primary"
                 style={{ margin: '15px 20px' }}>新增菜单</Button>
-=======
-                onClick={ event => this.store.addMenuButton(event) }
-                size="small"
-                type="primary"
-                style={ { margin: '15px 20px' } }>新增菜单</Button>
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             <div className="searchWrapper">
                 <div className="searForm">
                     <div className="searchInfo">菜单编码:</div>
                     <div className="searcControl">
-<<<<<<< HEAD
                         <Input onPressEnter={event=>this.store.searchMenuHandle(event)} onChange={event => this.store.setSearMenuValue(event, 'menu')} />
-=======
-                        <Input defaultValue={ this.store.roleSearchData.role_code } onChange={ event => this.store.setSearMenuValue(event, 'menu') } />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     </div>
                 </div>
                 <div className="searForm">
                     <div className="searchInfo">菜单名称：</div>
                     <div className="searcControl">
-<<<<<<< HEAD
                         <Input onPressEnter={event=>this.store.searchMenuHandle(event)} onChange={event => this.store.setSearMenuValue(event, 'text')} />
-=======
-                        <Input defaultValue={ this.store.roleSearchData.role_name } onChange={ event => this.store.setSearMenuValue(event, 'text') } />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     </div>
                 </div>
                 <Button
                     className="marginRihgt10"
-<<<<<<< HEAD
                     onClick={event => this.store.searchMenuHandle(event)}
                     size="small"
                     type="primary"
                     style={{ margin: '15px 20px' }}>搜索</Button>
-=======
-                    onClick={ event => this.store.searchMenuHandle(event) }
-                    size="small"
-                    type="primary"
-                    style={ { margin: '15px 20px' } }>搜索</Button>
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             </div>
         </div>
     }
@@ -277,7 +233,6 @@ export default class MenuManage extends React.Component {
         return (
             <div className="custServiceContent">
 
-<<<<<<< HEAD
                 {this.getSearchMenuButtonGrp()}
 
                 <PriviligeTable {...tableProps} />
@@ -290,20 +245,6 @@ export default class MenuManage extends React.Component {
                     saveHandle={this.store.saveMenuHandle}
                     setRowData={this.store.setMenuRowData}
                     width={600}
-=======
-                { this.getSearchMenuButtonGrp() }
-
-                <PriviligeTable { ...tableProps } />
-
-                <MenuModal
-                    modalTitle={ this.store.modalTitle }
-                    destroyOnClose={ true }
-                    hideModal={ this.store.hideModal }
-                    visiblModal={ this.store.visibleModal }
-                    saveHandle={ this.store.saveMenuHandle }
-                    setRowData={ this.store.setMenuRowData }
-                    width={ 600 }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 >
                     <MenuModalContent />
                 </MenuModal>

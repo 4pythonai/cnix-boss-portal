@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 export function splitDate(text){
         if(!text){
             return text
@@ -8,8 +7,6 @@ export function splitDate(text){
         return arr[0]
     }
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 export function randomString(string_length) {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 

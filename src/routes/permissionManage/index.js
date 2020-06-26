@@ -77,7 +77,6 @@ export default {
           })
         }
       },
-<<<<<<< HEAD
       { 
         path: 'dev2online',
         getComponent(nextState, cb){
@@ -86,8 +85,6 @@ export default {
           })
         }
       },
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     ]
   }
   

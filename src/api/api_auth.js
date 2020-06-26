@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { root_url, port, controller, version_2 } from './api_config/base_config'
-=======
-import { root_url, port, controller, processRoot, version_2 } from './api_config/base_config'
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import http from './http'
 
 const api_root = `${ root_url }:${ port }/${ version_2 }`
@@ -19,10 +15,6 @@ export default class auth {
 
         change_badge_num: 'ws://apis.sinnet.com.cn:9000/wss/change_badge_num/',
         miniLogin: 'https://apis.sinnet.com.cn/v8/weixin/scancallback?ENV=DEV',
-<<<<<<< HEAD
-=======
-        upload_url: `${ api_root }/${ controller.auth }/uploadfile`,
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         upload_display_url: `${ root_url }:${ port }/`
     }
 }

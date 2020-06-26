@@ -1,9 +1,5 @@
 import React from 'react'
-<<<<<<< HEAD
 import { Form, Input, Radio, message, Upload, Icon,Select,Button } from 'antd';
-=======
-import { Form, Input, Radio, message, Upload, Icon } from 'antd';
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import 'antd/dist/antd.css';
 import api from '../../../api/api'
 const plainOptions = [
@@ -37,20 +33,12 @@ function beforeUpload(file) {
 
 
 }
-<<<<<<< HEAD
 class Profile extends React.Component {
-=======
-export default class Profile extends React.Component {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     constructor(props) {
         super(props)
         this.state = {
             department: '',
-<<<<<<< HEAD
             role_code: '',
-=======
-            role_name: '',
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             user: '',
             email: '',
             mobile: '',
@@ -59,7 +47,6 @@ export default class Profile extends React.Component {
             receive_dingtalk_notify: '',
             loading: false,
             imageUrl: '',
-<<<<<<< HEAD
             authorization: '',
             roleList:[],
             deptList:[]
@@ -90,32 +77,13 @@ export default class Profile extends React.Component {
                 deptList:resp.data
             })
         }
-=======
-            authorization: ''
-        }
-        this.submit = this.submit.bind(this)
-        this.onChange = this.onChange.bind(this)
-    }
-    componentDidMount() {
-        this.getprofile()
-        let auth_code = localStorage.getItem('token');
-        console.log('查看token', auth_code);
-        this.setState({
-            authorization: auth_code
-        })
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
     async getprofile() {
         let res = await api.user.profile({ method: 'POST' })
         if (res.code == '200') {
             this.setState({
-<<<<<<< HEAD
                 department: res.data.deptid,
                 role_code: res.data.role_code,
-=======
-                department: res.data.department,
-                role_name: res.data.role_name,
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 user: res.data.user,
                 email: res.data.email,
                 mobile: res.data.mobile,
@@ -127,7 +95,6 @@ export default class Profile extends React.Component {
         }
     }
     onChange(e) {
-<<<<<<< HEAD
         this.setState({
             [e.target.name]: e.target.value,
         });
@@ -147,22 +114,6 @@ export default class Profile extends React.Component {
     }
 
     
-=======
-        console.log(e);
-        this.setState({
-            [e.target.name]: e.target.value,
-        }, () => { this.submit() });
-
-    };
-    async submit() {
-        let params = { method: 'POST', data: { "receive_mail_notify": this.state.receive_mail_notify, "receive_sms_notify": this.state.receive_sms_notify, "receive_dingtalk_notify": this.state.receive_dingtalk_notify } }
-        let res = await api.user.setnotify(params)
-        console.log(res)
-        if (res.code == '200') {
-            message.success("保存通知成功")
-        }
-    }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     handleChange = info => {
         console.log(info.file)
         if (info.file.status === 'uploading') {
@@ -179,7 +130,6 @@ export default class Profile extends React.Component {
             );
         }
     };
-<<<<<<< HEAD
     roleonChange(e){
         this.setState({
             role_code:e
@@ -203,8 +153,6 @@ export default class Profile extends React.Component {
            callback('请输入正确格式');
        }
    };
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     render() {
         const uploadButton = (
             <div>
@@ -212,28 +160,17 @@ export default class Profile extends React.Component {
             </div>
         );
         const { imageUrl } = this.state;
-<<<<<<< HEAD
         const { getFieldDecorator } = this.props.form
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         return (
             <div style={ { margin: '50px auto', width: '600px' } }>
                 <Form labelCol={ { span: 7 } } wrapperCol={ { span: 10 } }>
                     <Form.Item label="修改头像" hasFeedback>
                         <Upload
-<<<<<<< HEAD
                             data={{"source":"avatar"}}
                             listType="picture-card"
                             className="avatar-uploader"
                             showUploadList={ false }
                             action={ api.file.uploadFile }
-=======
-                            name="avatar"
-                            listType="picture-card"
-                            className="avatar-uploader"
-                            showUploadList={ false }
-                            action={ api.auth.upload_url }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             headers={ { Authorization: this.state.authorization } }
                             beforeUpload={ beforeUpload }
                             onChange={ this.handleChange }
@@ -241,7 +178,6 @@ export default class Profile extends React.Component {
                             { imageUrl ? <img src={ imageUrl } alt="avatar" style={ { width: '100%' } } /> : uploadButton }
                         </Upload>
                     </Form.Item>
-<<<<<<< HEAD
                     <Form.Item label="部门：" hasFeedback>
                     {getFieldDecorator('dept_name', {
                                     rules: [{
@@ -309,23 +245,6 @@ export default class Profile extends React.Component {
                                 })(
                         <Input disabled />
                                 )}
-=======
-
-                    <Form.Item label="部门：" hasFeedback>
-                        <Input disabled value={ this.state.department } />
-                    </Form.Item>
-                    <Form.Item label="角色：" hasFeedback>
-                        <Input disabled value={ this.state.role_name } />
-                    </Form.Item>
-                    <Form.Item label="内部userID" hasFeedback>
-                        <Input disabled value={ this.state.user } />
-                    </Form.Item>
-                    <Form.Item label="邮箱：" hasFeedback>
-                        <Input disabled value={ this.state.email } />
-                    </Form.Item>
-                    <Form.Item label="手机号：" hasFeedback>
-                        <Input disabled value={ this.state.mobile } />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     </Form.Item>
                     <Form.Item style={ { padding: '0px 0px 0px 95px' } } label="是否接受邮件通知：" hasFeedback>
                         <Radio.Group name='receive_mail_notify' options={ plainOptions } onChange={ this.onChange } value={ this.state.receive_mail_notify } />
@@ -333,7 +252,6 @@ export default class Profile extends React.Component {
                     <Form.Item style={ { padding: '0px 0px 0px 95px' } } label="是否接受短信通知" hasFeedback>
                         <Radio.Group name='receive_sms_notify' options={ options } onChange={ this.onChange } value={ this.state.receive_sms_notify } />
                     </Form.Item>
-<<<<<<< HEAD
                     {/* <Form.Item style={ { padding: '0px 0px 0px 95px' } } label="是否接受钉钉通知" hasFeedback>
                         <Radio.Group name='receive_dingtalk_notify' options={ optionsWithDisabled } onChange={ this.onChange } value={ this.state.receive_dingtalk_notify } />
                     </Form.Item> */}
@@ -341,18 +259,9 @@ export default class Profile extends React.Component {
                     <Button type="primary" onClick={this.submit}>保存</Button>
                     </Form.Item>
                     
-=======
-                    <Form.Item style={ { padding: '0px 0px 0px 95px' } } label="是否接受钉钉通知" hasFeedback>
-                        <Radio.Group name='receive_dingtalk_notify' options={ optionsWithDisabled } onChange={ this.onChange } value={ this.state.receive_dingtalk_notify } />
-                    </Form.Item>
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 </Form>
             </div>
         )
     }
-<<<<<<< HEAD
 }
 export default Form.create()(Profile);
-=======
-}
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778

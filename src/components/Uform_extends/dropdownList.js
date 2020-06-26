@@ -39,29 +39,17 @@ export default class Dropdownlist extends React.Component {
 
 
 
-<<<<<<< HEAD
         // let defv = ''
         // if (dropdownoptions.length > 0) {
         //     defv = dropdownoptions[0]
             // this.onChange(defv)
         // }
-=======
-        let defv = ''
-        if (dropdownoptions.length > 0) {
-            defv = dropdownoptions[0]
-            this.onChange(defv)
-        }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
         return (
             <div>
 
-<<<<<<< HEAD
                 <Select placeholder='请选择' style={ { width: 120 } } onChange={ this.onChange }>
-=======
-                <Select defaultValue={ defv } style={ { width: 120 } } onChange={ this.onChange }>
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     {
                         dropdownoptions ?
                             dropdownoptions.map((item, index) => {

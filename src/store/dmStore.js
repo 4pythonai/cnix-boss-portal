@@ -5,16 +5,11 @@ import api from '../api/api'
 class dmStore {
     constructor() {
         autorun(() => {
-<<<<<<< HEAD
 
             if (this.current_actcode) {
                 // this.initAll_v2()
                 this.initAll()
 
-=======
-            if (this.current_actcode) {
-                this.initAll()
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             }
         });
     }
@@ -30,7 +25,6 @@ class dmStore {
     @observable Categories = [];
     @observable currentObj = {}
     @observable fixed_query_cfg = ''
-<<<<<<< HEAD
     @observable maintable = ''
     @observable relatedtableColumns = []
     @observable relatedtable = []
@@ -131,42 +125,14 @@ class dmStore {
     @action initAll = () => {
 
         console.log('初始化所有 dmStore 属性.')
-=======
-
-
-    @action setCurrentActcode = actcode => {
-        console.log('setCurrentActcode to ' + actcode)
-        this.current_actcode = actcode
-
-    }
-
-    @action setCurrentActObj = obj => {
-        this.currentObj = obj
-    }
-
-    @action setCurrentActName = name => {
-        this.current_actname = name
-
-    }
-
-
-
-
-    @action initAll = () => {
-        console.log('initall')
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.getAllGrids()
         this.getAllBiztable()
         this.getActCols()
         this.getTriggerGroups()
         this.getAllPlugins()
         this.getAllCategory()
-<<<<<<< HEAD
         this.getRelatedTableCols()
         this.setCurrentBasetable()
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
@@ -177,7 +143,6 @@ class dmStore {
         this.plugins = json.data;
     }
 
-<<<<<<< HEAD
     @action batchUpdateFieldCfg = async () => {
         console.log('批量修改字段配置', this.maintableColumns);
         let params = {
@@ -195,8 +160,6 @@ class dmStore {
 
 
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action getAllCategory = async () => {
         let params = { data: {} }
@@ -214,11 +177,8 @@ class dmStore {
         }
     }
 
-<<<<<<< HEAD
     @action setMaintableColumns = maintableColumns => this.maintableColumns = maintableColumns
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 
@@ -261,7 +221,6 @@ class dmStore {
     }
 
 
-<<<<<<< HEAD
     @action setFieldAttr = (field, attr, value) => {
         let maintableColumns = [...maintableColumns]
         maintableColumns.map((element, idx) => {
@@ -270,14 +229,6 @@ class dmStore {
             }
         });
         this.setMaintableColumns(maintableColumns)
-=======
-    @action setFieldAttr = async (field, attr, value) => {
-        this.maintableColumns.forEach((element, idx) => {
-            if (element.Field === field) {
-                this.maintableColumns[idx][attr] = value
-            }
-        });
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     @action saveFieldCfg = async (field) => {
@@ -296,10 +247,6 @@ class dmStore {
         obj.actcode = this.current_actcode
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let params = { data: obj, method: 'POST' }
         let json = await api.activity.saveFieldCfg(params);
         message.info(json.message)

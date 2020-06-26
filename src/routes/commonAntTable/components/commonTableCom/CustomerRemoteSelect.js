@@ -11,17 +11,12 @@ export default class CustomerRemoteSelect extends React.Component {
 		this.fetchCustomer = debounce(this.fetchCustomer, 800);
 		this.state = {
 			data: [],
-<<<<<<< HEAD
 			value: this.props.defaultValue,
-=======
-			value: [],
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 			fetching: false,
 			customerList: []
 		};
 	}
 
-<<<<<<< HEAD
 	componentDidMount(){
 		this.fetchCustomer(this.props.defaultValue.key)
 	}
@@ -30,11 +25,6 @@ export default class CustomerRemoteSelect extends React.Component {
 
 	fetchCustomer = async value => {
 		console.log(value)
-=======
-	
-
-	fetchCustomer = async value => {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 		if(!value){
 			return;
 		}
@@ -52,40 +42,20 @@ export default class CustomerRemoteSelect extends React.Component {
 		this.setState({ data, fetching: false });
 	};
 
-<<<<<<< HEAD
 	handleChange = async customer_obj => {
 		if(typeof customer_obj != 'object'){
 			this.setState({
 				value: customer_obj,
-=======
-	handleChange = async value => {
-		console.log(value)
-		if(value.length == 0){
-			this.setState({
-				value,
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 				data: [],
 				fetching: false,
 			});
 			return;
 		}
-<<<<<<< HEAD
 
 		await this.props.addressHandle(customer_obj.key)
 		this.props.onChange(this.props.field_cfg, customer_obj.key)
 		this.setState({
 			value: customer_obj,
-=======
-		if(value.length >1 ){
-			message.error('只能选择一条数据')
-			return;
-		}
-
-		await this.props.addressHandle(value[0].key)
-		this.props.onChange(this.props.field_cfg, value[0].key)
-		this.setState({
-			value,
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 			data: [],
 			fetching: false,
 		});
@@ -93,19 +63,12 @@ export default class CustomerRemoteSelect extends React.Component {
 
 	render() {
 		const { fetching, data, value } = this.state;
-<<<<<<< HEAD
 		console.log('查看客户名称',value);
 		return (
 			<Select
 			
 				// mode="multiple"
 				showSearch
-=======
-		return (
-			<Select
-			
-				mode="multiple"
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 				labelInValue
 				value={value}
 				placeholder="请输入客户名称"

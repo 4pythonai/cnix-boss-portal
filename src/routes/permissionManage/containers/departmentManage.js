@@ -59,7 +59,6 @@ export default class DepartmentManage extends React.Component {
 
     render() {
         let treeProps = this.getTreeProps()
-<<<<<<< HEAD
         return <div className="orgnizationWrapper" style={{ overflow: 'hidden', padding: '20px',position: 'relative' }}>
             <div className="deptTreeBox" style={{ float: 'left', width: '30%', marginRight: '20px' }}>
 
@@ -77,17 +76,6 @@ export default class DepartmentManage extends React.Component {
 
                 <List
                     grid={{
-=======
-        return <div className="orgnizationWrapper" style={ { overflow: 'hidden', padding: '20px' } }>
-            <div className="deptTreeBox" style={ { float: 'left', width: '30%', marginRight: '20px' } }>
-
-                <SearchTree { ...treeProps }></SearchTree>
-            </div>
-            <div className="userBox" style={ { float: 'left', width: '50%' } }>
-
-                <List
-                    grid={ {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                         gutter: 16,
                         xs: 2,
                         sm: 2,
@@ -96,7 +84,6 @@ export default class DepartmentManage extends React.Component {
                         xl: 4,
                         xxl: 3,
                         column: 4
-<<<<<<< HEAD
                     }}
                     dataSource={this.state.userList}
                     renderItem={item => (
@@ -104,15 +91,6 @@ export default class DepartmentManage extends React.Component {
                             <Card title={item.user}>{item.username}</Card>
                         </List.Item>
                     )}
-=======
-                    } }
-                    dataSource={ this.state.userList }
-                    renderItem={ item => (
-                        <List.Item>
-                            <Card title={ item.user }>{ item.username }</Card>
-                        </List.Item>
-                    ) }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 />
             </div>
         </div>

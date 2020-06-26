@@ -1,7 +1,6 @@
 import React from 'react'
 import { observer, inject } from "mobx-react";
 import { autorun } from "mobx";
-<<<<<<< HEAD
 import { Button, Table, Input, message, Icon } from 'antd'
 import { toJS } from 'mobx'
 import columnsRenderHandle from './columnsRender/columnsRenderHandle'
@@ -12,14 +11,6 @@ import ResizeableTitle from './resizeableTitle';
 import commonTableStore from '@/store/commonTableStore'
 import SearchContract from '../table_plugins/contractDepartment/searchContract'
 import InputSearchCabinet from '../table_plugins/inputSearchCabinet'
-=======
-import { Button, Table, Input, message } from 'antd'
-import { toJS } from 'mobx'
-import { columnsRender } from '../../../../utils/columnsHandle'
-import getColumnSearchProps from './getColumnSearchProps'
-import ResizeableTitle from './resizeableTitle';
-import commonTableStore from '@/store/commonTableStore'
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import '../../commonTable.scss'
 import api from '@/api/api'
 const { Search } = Input
@@ -27,7 +18,6 @@ const { Search } = Input
 @observer
 export default class CommonTable extends React.Component {
 
-<<<<<<< HEAD
     constructor(props) {
         super(props)
 
@@ -55,38 +45,13 @@ export default class CommonTable extends React.Component {
         await this.setState({ search_query_cfg: data })
         await this.listData()
     }
-=======
-
-    constructor(props) {
-        super(props)
-
-
-        this.commonTableStore = new commonTableStore()
-
-        this.state = {
-
-            buttonUsedComponent: null,
-            columns: [],
-            query_cfg: this.props.query_cfg ? this.props.query_cfg : null           //表格保持自己的query_cfg
-        }
-    }
-    // 查询
-    inquireModal = async data => {
-        console.log(444, data)
-        await this.setState({ query_cfg: data })
-        await this.listData()
-    }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     //设置表格自己的query_cfg ,不是store的 query_cfg
     setTableCompomentQueryCfg = async cfg => {
         this.setState({ query_cfg: cfg })
     }
-<<<<<<< HEAD
     setSearchQueryConfig = async cfg => {
         this.setState({ search_query_cfg: cfg })
     }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     async componentDidMount() {
         this.commonTableStore.resetTableStore();
         this.commonTableStore.clearPaginationStore();
@@ -100,16 +65,11 @@ export default class CommonTable extends React.Component {
         }
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     refreshTable = async () => {
         await this.getACtcfg('refreshTable')
         if (this.props.as_virtual == 'y') {
             return
         }
-<<<<<<< HEAD
         await this.setState({
             search_query_cfg: null
         }, () => { 
@@ -123,11 +83,6 @@ export default class CommonTable extends React.Component {
             query_cfg: null
         }, () => { this.listData() })
     }
-=======
-        await this.listData()
-    }
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     getACtcfg = async (source) => {
         this.commonTableStore.clearSelectRowData();
         let params = {
@@ -142,7 +97,6 @@ export default class CommonTable extends React.Component {
         let res = await api.activity.getACtcfg(params);
 
         if (res.code == 200) {
-<<<<<<< HEAD
 
 
 
@@ -153,10 +107,6 @@ export default class CommonTable extends React.Component {
             this.commonTableStore.setFormCfg(res.data.formcfg);
             this.commonTableStore.setReferinfo(res.data.referinfo);
 
-=======
-            this.commonTableStore.setTableColumnsJson(res.data.tableColumnConfig)
-            this.commonTableStore.setFormCfg(res.data.formcfg);
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.commonTableStore.setlayoutCfg(res.data.layoutcfg);
 
             if (res.data.staticformcfg) {
@@ -169,7 +119,6 @@ export default class CommonTable extends React.Component {
             this.commonTableStore.setCurd(res.data.curd)
             this.commonTableStore.setTableWidth(res.data.table_width)
 
-<<<<<<< HEAD
             //
             if (res.data.fixed_query_cfg) {
                 this.setTableCompomentQueryCfg(res.data.fixed_query_cfg)
@@ -177,19 +126,6 @@ export default class CommonTable extends React.Component {
             }
 
 
-=======
-            if (res.data.fixed_query_cfg) {
-                console.log(res.data.fixed_query_cfg)
-                this.setTableCompomentQueryCfg(res.data.fixed_query_cfg)
-                // this.commonTableStore.setQueryCfg(res.data.fixed_query_cfg)
-
-            } else {
-                console.log('没有初始的query_cfg')
-            }
-
-
-            // this.commonTableStore.setQueryCfg(tmp_query_cfg)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             if (this.props.as_virtual != 'y') {
                 // await this.listData()
             }
@@ -201,7 +137,6 @@ export default class CommonTable extends React.Component {
         message.error('获取表格配置失败');
     }
 
-<<<<<<< HEAD
 
     listDataParams = () => {
         var query_config = {}
@@ -259,23 +194,6 @@ export default class CommonTable extends React.Component {
         let data = this.listDataParams()
         let params = {
             data: data,
-=======
-    listData = async () => {
-
-
-
-        let params = {
-            data: {
-                actcode: this.commonTableStore.action_code,
-                role: sessionStorage.getItem("role_code"),
-                user: sessionStorage.getItem("user"),
-                // query_cfg: query_cfg ? query_cfg : this.commonTableStore.query_cfg,
-                query_cfg: this.state.query_cfg,
-
-                pageSize: this.commonTableStore.pageSize,
-                currentPage: this.commonTableStore.currentPage
-            },
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             method: 'POST'
         }
 
@@ -290,23 +208,12 @@ export default class CommonTable extends React.Component {
         if (json.code == 200) {
             this.commonTableStore.setDataSource(json.data);
             this.commonTableStore.setTotal(json.total)
-<<<<<<< HEAD
             this.rowSelectChange([],[])
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
 
     }
 
 
-<<<<<<< HEAD
-=======
-    renderTableSearch() {
-        return <Search style={ { width: "250px", marginTop: '5px' } } placeholder="请输入关键字" onSearch={ value => console.log(value) } enterButton />
-    }
-
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     getComponentByFile = (path) => {
 
@@ -334,23 +241,17 @@ export default class CommonTable extends React.Component {
 
 
     renderButtons() {
-<<<<<<< HEAD
         if (this.props.readOnly === true) {
             return null
         }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (!this.commonTableStore.TableButtonsJson) {
             return null
         }
 
         return this.commonTableStore.TableButtonsJson.map((item, index) => {
-<<<<<<< HEAD
             if(this.commonTableStore.action_code=='IDCReceiveContract'&&this.state.buttonremark=='false'&&index>5){
                     return
             }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             return <Button
                 key={ index }
                 type={ item.ui_type }
@@ -362,7 +263,6 @@ export default class CommonTable extends React.Component {
         })
     }
 
-<<<<<<< HEAD
     getMoreButton(){
         if(this.commonTableStore.action_code=='IDCReceiveContract'&&this.state.buttonremark=='false'){
             return <Button style={{color:'#409eff',cursor:'pointer'}} onClick={()=>this.changeButtonremark('true')}>更多按钮</Button>
@@ -380,18 +280,11 @@ export default class CommonTable extends React.Component {
     getButtonHandler(event, item) {
 
         var entry_function = item.entry_function.substring(0, item.entry_function.length - 2)
-=======
-
-    getButtonHandler(event, item) {
-
-        var entry_function = item.entry_function
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let _compoment = this.getComponentByFile(item.file_path)
 
         if (item.using_component == "y") {
             this.setState(
                 {
-<<<<<<< HEAD
                     button_code: item.button_code,
                     buttonUsedComponent: _compoment
                 }, () => {
@@ -401,17 +294,6 @@ export default class CommonTable extends React.Component {
         } else {
             _compoment[entry_function]()
         }
-=======
-                    buttonUsedComponent: _compoment
-                }, () => this.refs[item.component_name][entry_function.substring(0, entry_function.length - 2)]())
-
-        } else {
-            let funcstr = entry_function.substring(0, entry_function.length - 2)
-            _compoment[funcstr]()
-        }
-
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
     // commonTable 作为编辑器时候, x-props会传入 as_virtual属性,onChange 属性.
@@ -421,12 +303,8 @@ export default class CommonTable extends React.Component {
 
         if (this.state.buttonUsedComponent) {
             return <PluginCom
-<<<<<<< HEAD
                 // ref={PluginCom.name}
                 ref={ (item) => { this.pluginComRef = item } }
-=======
-                ref={ PluginCom.name }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 parentTable={ this }
                 as_virtual={ this.props.as_virtual }
                 editable={ true }
@@ -434,17 +312,12 @@ export default class CommonTable extends React.Component {
                 commonTableStore={ this.commonTableStore }
                 dataGridcode={ this.props.dataGridcode }
                 refreshTable={ this.refreshTable }
-<<<<<<< HEAD
                 resetTable={ this.resetTable }
                 setQueryCfg={ this.setTableCompomentQueryCfg }
                 setSearchQueryConfig={ this.setSearchQueryConfig }
                 inquireModal={ this.inquireModal }
                 searchOrder={ this.searchOrder }
                 onCancel={ this.props.onCancel }
-=======
-                setQueryCfg={ this.setTableCompomentQueryCfg }
-                inquireModal={ this.inquireModal }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             />
         }
     }
@@ -453,7 +326,6 @@ export default class CommonTable extends React.Component {
 
 
 
-<<<<<<< HEAD
     columnsRender(text, record, column_cfg) {
         if (text === '' || text === undefined) {
             return '';
@@ -478,15 +350,6 @@ export default class CommonTable extends React.Component {
 
     handleResize = (col, index) => (e, { size }) => {
         const nextColumns = [...this.state.columns];
-=======
-    columnsRender(text, column, record) {
-        return column.alt_render == 'y' ? columnsRender[column.render_fun](text, record) : text;
-    }
-
-    handleResize = index => (e, { size }) => {
-        const nextColumns = [...this.state.columns];
-        console.log(size)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         nextColumns[index] = {
             ...nextColumns[index],
             width: size.width,
@@ -497,33 +360,21 @@ export default class CommonTable extends React.Component {
     };
 
     getTableColumns() {
-<<<<<<< HEAD
         // let hideColumns = ['id', 'uuid', 'processDefinitionKey', 'nodeKey']
         let hideColumns = ['uuid', 'processDefinitionKey', 'transactid', 'nodeKey']
 
-=======
-        let hideColumns = ['uuid', 'processDefinitionKey', 'nodeKey']
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let columns = [];
         this.commonTableStore.tableColumnsJson.map((item, index) => {
             let column = {
                 title: item.title,
                 dataIndex: item.key,
                 key: item.key,
-<<<<<<< HEAD
                 width: item.width && item.width != null && item.width != '' ? parseFloat(item.width) : 200,
                 // ellipsis:true,
                 sorter: (a, b) => this.sorter(a[item.key], b[item.key]),
                 // onFilter: (value, record) => record[item.key].includes(value),
                 // ...getColumnSearchProps(item.key, this.commonTableStore),
                 render: (text, record) => { return this.columnsRender(text, record, item) }
-=======
-                width: index == 0 ? 100 : null,
-                sorter: (a, b) => a[item.key] - b[item.key],
-                //  ...getColumnSearchProps(item.key, this.commonTableStore),
-                // render: (text, record) => this.columnsRender(text, item, record)
-                // render: (text) => !text ? null : text
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             }
             if (hideColumns.includes(item.key) == false) {
                 columns.push(column)
@@ -531,7 +382,6 @@ export default class CommonTable extends React.Component {
         })
         this.setState({ columns: columns });
     }
-<<<<<<< HEAD
     sorter(valueA, valueB) {
         let targetA = valueA != null && valueA.toString().toLowerCase()
         let targetB = valueB != null && valueB.toString().toLowerCase()
@@ -541,9 +391,6 @@ export default class CommonTable extends React.Component {
             :
             targetA - targetB
     }
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     getResizeColumns() {
         const columns = this.state.columns.map((col, index) => ({
@@ -551,11 +398,7 @@ export default class CommonTable extends React.Component {
             onHeaderCell: column => {
                 return {
                     width: column.width ? column.width : 200,
-<<<<<<< HEAD
                     onResize: this.handleResize(col, index),
-=======
-                    onResize: this.handleResize(index),
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 }
             }
         }));
@@ -572,10 +415,6 @@ export default class CommonTable extends React.Component {
     }
 
     getTableComponents() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         return {
             header: {
                 cell: ResizeableTitle,
@@ -583,10 +422,6 @@ export default class CommonTable extends React.Component {
         };
     }
     onRowClick(event, record) {
-<<<<<<< HEAD
-=======
-        console.log(event)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (this.props.sendData) {
             let arr = []
             arr.push(record)
@@ -608,15 +443,12 @@ export default class CommonTable extends React.Component {
         }
     }
 
-<<<<<<< HEAD
     onShowSizeChange = async (current, pageSize) => {
         this.commonTableStore.setCurrentPage(current);
         this.commonTableStore.setPageSize(pageSize);
         await this.listData();
     }
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     getTableProps() {
         return {
             onRow: record => {
@@ -634,18 +466,12 @@ export default class CommonTable extends React.Component {
                 onChange: (selectedRowKeys, selectedRows) => this.rowSelectChange(selectedRowKeys, selectedRows)
             },
             scroll: {
-<<<<<<< HEAD
                 x: parseInt(this.commonTableStore.table_width),
                 // y: '720px'
             },
             pagination: {
                 showSizeChanger: true,
                 onShowSizeChange: this.onShowSizeChange,
-=======
-                x: parseInt(this.commonTableStore.table_width)
-            },
-            pagination: {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 total: this.commonTableStore.total,
                 showLessItems: true,
                 defaultCurrent: this.commonTableStore.currentPage,
@@ -656,13 +482,6 @@ export default class CommonTable extends React.Component {
                     let pageNum = Math.ceil(count / this.commonTableStore.pageSize);
                     return '共 ' + pageNum + '页' + '/' + count + ' 条数据';
                 },
-<<<<<<< HEAD
-=======
-                onShowSizeChange: (current, pageSize) => {
-                    console.log(current, pageSize);
-
-                },
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 onChange: currentPage => this.setCurrentPage(currentPage)
             },
             columns: this.getResizeColumns(),
@@ -672,7 +491,6 @@ export default class CommonTable extends React.Component {
 
 
     getSearchCom = () => {
-<<<<<<< HEAD
         let contract_action_code_arr = ['rec_pay_and_termination_1', 'rec_pay_and_termination_2', 'rec_pay_and_termination_3', 'contract_enquiry', 'effective_boss_idc_contract_receive', 'effective_boss_idc_contract_pay','contract_enquiry_list']
         if (contract_action_code_arr.includes(this.props.action_code)) {
             return <SearchContract
@@ -717,29 +535,6 @@ export default class CommonTable extends React.Component {
                 onClick={ () => this.filterSelfList(true) } />
     }
 
-=======
-        let contract_action_code_arr = [
-            'waiting_for_signature',
-            'already_seal',
-            'obsolete_invalid',
-            'contract_enquiry',
-            'effective_boss_contract_new_receive',
-            'effective_boss_contract_new_pay'
-        ];
-        if (contract_action_code_arr.includes(this.props.action_code)) {
-            return <SearchContract
-                query_cfg={ this.state.query_cfg }
-                listData={ this.listData }
-                setQueryCfg={ this.setTableCompomentQueryCfg }
-            />
-        }
-    }
-
-
-
-
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     render() {
         let styles = {
             padding: "10px"
@@ -753,7 +548,6 @@ export default class CommonTable extends React.Component {
             <div className="table_button">
                 { this.getSearchCom() }
                 { this.renderButtons() }
-<<<<<<< HEAD
                 { this.getFilterButton() }
                 {this.getMoreButton()}
 
@@ -762,23 +556,14 @@ export default class CommonTable extends React.Component {
 
 
             <Table size={this.props.size?'small':'default'} key={ this.props.action_code } className="commonTable" components={ this.getTableComponents() } { ...tableProps } />
-=======
-            </div>
-
-
-            <Table key={ this.props.action_code } className="commonTable" components={ this.getTableComponents() } { ...tableProps } />
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         </div>
         )
     }
 
 }
-<<<<<<< HEAD
 
 
 const filter_style = {
     fontSize: '16px'
 }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778

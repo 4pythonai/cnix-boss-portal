@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { root_url, port, controller, version_2 } from './api_config/base_config'
-=======
-import { root_url, port, controller, processRoot, version_2 } from './api_config/base_config'
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import http from './http'
 
 const api_root = `${ root_url }:${ port }/${ version_2 }`
@@ -26,7 +22,6 @@ export default class activity {
         saveFieldCfg: params => http(params, `${ api_root }/${ controller.activity }/saveFieldCfg`),
         modifyActionCode: params => http(params, `${ api_root }/${ controller.activity }/modifyActionCode`),
         resetQueryCfg: params => http(params, `${ api_root }/${ controller.activity }/resetQueryCfg`),
-<<<<<<< HEAD
         saveOverrideQueryCfg: params => http(params, `${ api_root }/${ controller.activity }/saveOverrideQueryCfg`),
 
         addGridReferCfg: params => http(params, `${ api_root }/${ controller.activity }/addGridReferCfg`),
@@ -40,12 +35,6 @@ export default class activity {
         syncAllconfig: params => http(params, `${ api_root }/${ controller.activity }/syncAllconfig`),
         //表格排序接口
         saveActCodeColumnOrder:params => http(params, `${ api_root }/${ controller.activity }/saveActCodeColumnOrder`)
-=======
-        saveQueryCfg: params => http(params, `${ api_root }/${ controller.activity }/saveQueryCfg`),
-
-        exportExcel: params => http(params, `${ api_root }/${ controller.activity }/exportExcel`),
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 

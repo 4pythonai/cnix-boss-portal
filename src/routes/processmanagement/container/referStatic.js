@@ -2,11 +2,8 @@ import React from 'react'
 import { Form, Input, Divider, Card, Select, Row, Col, Button, message } from 'antd';
 import api from '../../../api/api'
 import { observable, action, autorun, computed } from "mobx";
-<<<<<<< HEAD
 import Editor from '@/components/Uform_extends/wangeditor'
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import { observer, inject } from "mobx-react";
 const { TextArea } = Input;
 
@@ -85,17 +82,12 @@ class ReferStatic extends React.Component {
                         { getFieldDecorator('statictext', {
                             rules: [{ required: true, message: 'Please input 静态文本' }],
                         })(
-<<<<<<< HEAD
 
 
                             <Editor
                                 key='statictext'
                                 placeholder="statictext"
                             ></Editor>
-=======
-                            <Input placeholder="statictext"
-                            />,
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                         ) }
 
 

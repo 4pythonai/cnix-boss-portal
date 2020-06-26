@@ -16,7 +16,6 @@ export default class ViewProcess extends React.Component {
             return;
         }
 
-<<<<<<< HEAD
 
         
         let rowData =this.props.commonTableStore.selectedRows[0]
@@ -44,16 +43,6 @@ export default class ViewProcess extends React.Component {
             uuid: uuid,
         }
 
-=======
-        console.log('ViewProcess',navigationStore.currentMenu.process_key, this.props.commonTableStore.selectedRows[0].processDefinitionKey)
-        let params = {
-            process_key: navigationStore.currentMenu.process_key || this.props.commonTableStore.selectedRows[0].processDefinitionKey,
-            uuid: this.props.commonTableStore.selectedRows[0].uuid,
-        }
-
-        console.log(params)
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         FlowApprovalStore.FlowProgress(event, params);
     }
 

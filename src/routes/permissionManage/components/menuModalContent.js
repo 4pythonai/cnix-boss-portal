@@ -38,29 +38,18 @@ export default class MenuModalContent extends React.Component {
                     onChange={ this.store.setMenuRowData }
                 />
                 <FormRow
-<<<<<<< HEAD
                     title='流程key'
-=======
-                    title='流程key2'
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     fieldKey="process_key"
                     defaultValue={ this.store.menuRowData.process_key }
                     onChange={ this.store.setMenuRowData }
                 />
-<<<<<<< HEAD
                 <div style={ { paddingLeft: '120px' } }>通用表格路由: /table/commonXTable</div>
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 <FormRow
                     title='路由'
                     fieldKey="router"
                     required="true"
-<<<<<<< HEAD
                     defaultValue={ this.store.menuRowData.router }
-=======
-                    defaultValue={ this.store.menuRowData.router ? this.store.menuRowData.router : "/table/commonXTable" }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     onChange={ this.store.setMenuRowData }
                 />
 

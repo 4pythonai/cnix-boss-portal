@@ -4,7 +4,6 @@ import { Input } from 'antd'
 
 import CheckBoxTest from './checkBoxTest'
 import Fileuploader from './fileuploader'
-<<<<<<< HEAD
 import Assocselect from './assocSelect'
 import AssocSelectSimple from './assocSelectSimple'
 import SelectCabinet from './selectCabinet'
@@ -40,28 +39,10 @@ import DeviceNumber from './deviceNumber'
 import ProviderList from './providerList'
 import SearchUser from './searchUser'
 
-=======
-import CandidateSelector from './CandidateSelector'
-import Assocselect from './assocSelect'
-import SelectCabinet from './selectCabinet'
-import CabinetSelector from './CabinetSelector'
-import ContractSelect from './contractSelect'
-import GetLander from './getLander'
-import GetDepart from './getDepart'
-import YesOrNo from './yesOrNo'
-import Dropdownlist from './dropdownList'
-import SelectLimitData from './selectLimitData'
-import GetDate from './getDate'
-import WorkloadTableeditor from './workloadTableeditor.js'
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 
 
-<<<<<<< HEAD
-=======
-import CommonTable from '@/routes/commonAntTable/components/commonTableCom/commonTable'
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 registerFormFields({
     YesOrNo: connect()(props => <YesOrNo      { ...props } getComponentValue={ props.onChange } value={ props.value || '' } />),
@@ -70,23 +51,13 @@ registerFormFields({
 
     selectCabinet: connect()(props => <SelectCabinet { ...props } value={ props.value || '' } />),
     com_cabinet: connect()(props => <ComCabinet { ...props } value={ props.value || '' } />),
-<<<<<<< HEAD
  
     Assocselect: connect()(props => <Assocselect { ...props } value={ props.value || '' } />),
     AssocSelectSimple: connect()(props => <AssocSelectSimple{ ...props } value={ props.value || '' } />),
-=======
-    contractSelect: connect()(props => <ContractSelect { ...props } value={ props.value || '' } />),
-    cabinetselector: connect()(props => <CabinetSelector { ...props } getComponentValue={ props.onChange } value={ props.value || '' } />),
-
-    CandidateSelector: connect()(props => <CandidateSelector { ...props } value={ props.value || '' } />),
-
-    Assocselect: connect()(props => <Assocselect { ...props } value={ props.value || '' } />),
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     text_area: connect()(props => <Input.TextArea { ...props } value={ props.value || '' } />),
     tableEditor: connect()(props => <CommonTable { ...props } value={ 'aaaa' } />),
     Dropdownlist: connect()(props => <Dropdownlist      { ...props } getComponentValue={ props.onChange } value={ props.value || '' } />),
     WorkloadTableeditor: connect()(props => <WorkloadTableeditor      { ...props } getComponentValue={ props.onChange } value={ props.value || '' } />),
-<<<<<<< HEAD
     CategoryDropDown: connect()(props => <CategoryDropDown      { ...props } getComponentValue={ props.onChange } value={ props.value || '' } />),
 
     GetLander: connect()(props => <GetLander { ...props } value={ props.value || '' } />),
@@ -122,14 +93,3 @@ registerFormFields({
 
 
 })
-=======
-
-    GetLander: connect()(props => <GetLander { ...props } value={ props.value || '' } />),
-    GetDepart: connect()(props => <GetDepart { ...props } value={ props.value || '' } />),
-    SelectLimitData: connect()(props => <SelectLimitData { ...props } value={ props.value || '' } />),
-    GetDate: connect()(props => <GetDate { ...props } value={ props.value || '' } />)
-
-
-
-})
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778

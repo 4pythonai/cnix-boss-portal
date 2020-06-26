@@ -126,11 +126,7 @@ class GridAdder extends React.Component {
                         <Col span={4}>
                             <Form.Item label="多选">
                                 {getFieldDecorator('multiple', {
-<<<<<<< HEAD
                                     valuePropName: 'checked',
-=======
-                                    valuePropName: 'y',
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                     rules: [{ required: true, message: '多选' }],
                                 })(<Switch style={{ marginLeft: '10px' }}  checkedChildren="y" unCheckedChildren="n"/>)}
                             </Form.Item>

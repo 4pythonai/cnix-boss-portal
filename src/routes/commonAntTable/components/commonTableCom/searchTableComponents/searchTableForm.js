@@ -39,13 +39,8 @@ export default class SearchTableForm extends React.Component {
 
     render() {
         return <SchemaForm
-<<<<<<< HEAD
             actions={this.state.actions}
             effects={($, { setFieldState, getFieldState }) => {
-=======
-            actions={ this.state.actions }
-            effects={ ($, { setFieldState, getFieldState }) => {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
                 $("onFormInit").subscribe(() => {
                     setFieldState('field_' + this.props.form_index, state => {
@@ -57,15 +52,12 @@ export default class SearchTableForm extends React.Component {
                     setFieldState(name, state => {
                         console.log(state, name, operator_list)
                         state.props.enum = operator_list
-<<<<<<< HEAD
                         for(var k=0;k<operator_list.length;k++){
                             if(operator_list[k].value=='like'){
                                 state.value='like'
                             }
                         }
                         
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     })
                 }
 
@@ -77,7 +69,6 @@ export default class SearchTableForm extends React.Component {
                         }
                     })
                 }
-<<<<<<< HEAD
                 let contentfield='vset_'+this.props.form_index
                 $('savevalue',contentfield).subscribe(()=>{
                     this.props.onOk()
@@ -93,12 +84,6 @@ export default class SearchTableForm extends React.Component {
                 })
                 let field = 'field_' + this.props.form_index
                 
-=======
-
-
-                let field = 'field_' + this.props.form_index
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 $('onFieldChange', field)
                     .pipe(
                         withLatestFrom($('onChangeOption')),
@@ -113,7 +98,6 @@ export default class SearchTableForm extends React.Component {
                         let formCfg = toJS(this.props.formCfg)
 
                         let operator = 'operator_' + this.props.form_index
-<<<<<<< HEAD
 
                         let keys = Object.keys(formCfg)
                         let type = ''
@@ -127,13 +111,6 @@ export default class SearchTableForm extends React.Component {
                         
 
                         switch (type) {
-=======
-                        if (!formCfg[state.value]) {
-                            return;
-                        }
-
-                        switch (formCfg[state.value].type) {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             case 'string':
                                 setEnum(operator, this.props.operation_list.string)
 
@@ -144,24 +121,16 @@ export default class SearchTableForm extends React.Component {
                                 setType('vset_' + this.props.form_index, 'number')
                                 break
                             case 'date':
-<<<<<<< HEAD
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                 setEnum(operator, this.props.operation_list.date)
                                 setType('vset_' + this.props.form_index, 'date')
                                 break
                             default:
-<<<<<<< HEAD
                                 console.log()
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                                 setEnum(operator, this.props.operation_list.other)
                                 setType('vset_' + this.props.form_index, 'string')
                         }
                     })
 
-<<<<<<< HEAD
             }}
             labelCol={8}
             wrapperCol={16}
@@ -199,41 +168,6 @@ export default class SearchTableForm extends React.Component {
                             dispatch('savevalue', option)
                         }
                     })}
-=======
-            } }
-            labelCol={ 8 }
-            wrapperCol={ 16 }
-        >
-            <FormItemGrid gutter={ 3 } cols={ [8, 8, 8] }>
-                <Field
-                    type="string"
-                    title="搜索字段"
-                    name={ 'field_' + this.props.form_index }
-                    default='id'
-                    required
-                    enum={ this.props.field_list }
-                    x-effect={ dispatch => ({
-                        onChange(value, type, option) {
-                            dispatch('onChangeOption', option)
-                        }
-                    }) }
-                />
-
-                <Field
-                    type="string"
-                    title="搜索条件"
-                    required
-                    name={ 'operator_' + this.props.form_index }
-                    default='='
-
-                />
-                <Field
-                    type="string"
-                    title="内容"
-                    name={ 'vset_' + this.props.form_index }
-                    required
-                    default={ null }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 />
             </FormItemGrid>
         </SchemaForm>

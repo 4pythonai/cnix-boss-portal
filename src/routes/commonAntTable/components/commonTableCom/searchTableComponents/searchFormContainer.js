@@ -69,11 +69,8 @@ export default class SearchFormContainer extends React.Component {
     }
 
     componentDidMount() {
-<<<<<<< HEAD
 
         console.log(this.props)
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.getFieldList()
     }
 
@@ -125,17 +122,10 @@ export default class SearchFormContainer extends React.Component {
         submitData.map(item => {
             query_cfg.lines = { ...query_cfg.lines, ...item }
         })
-<<<<<<< HEAD
         this.props.setCurrentPage(1)
         this.props.setQueryCfg(submitData)
         this.props.rowSelectChange([],[])
         this.props.listData()
-=======
-
-        this.props.setQueryCfg(query_cfg)
-
-        this.props.refreshTable()
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.props.hideModal()
     }
 
@@ -170,10 +160,7 @@ export default class SearchFormContainer extends React.Component {
                         operation_list={this.state.operation_list}
                         formCfg={this.props.formCfg.properties.group_all.properties}
                         field_list={this.getFieldList()}
-<<<<<<< HEAD
                         onOk={this.props.onOk}
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                         form_index={item.inner_order}></SearchTableForm>
                 })
             }

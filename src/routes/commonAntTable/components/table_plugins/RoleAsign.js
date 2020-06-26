@@ -26,11 +26,7 @@ export default class RoleAsign extends React.Component {
     }
 
     init() {
-<<<<<<< HEAD
         if(this.props.commonTableStore.selectedRows.length==1){
-=======
-        if(this.props.commonTableStore.selectedRows.length!=0){
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             this.setState({
                 checkedList: [],
                 visible: true
@@ -38,11 +34,7 @@ export default class RoleAsign extends React.Component {
             pmStore.getAllRoles()
             this.getUserRoles()
         }else{
-<<<<<<< HEAD
             message.error('请选择一个用户')
-=======
-            message.error('请选择用户')
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
         
     }
@@ -54,10 +46,7 @@ export default class RoleAsign extends React.Component {
     }
     // 获取用户角色
     async getUserRoles(){
-<<<<<<< HEAD
         console.log(1235,this.props.commonTableStore.selectedRows)
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let params = { data: {id:this.props.commonTableStore.selectedRows[0].id}, method: 'POST' };
         let res = await api.user.getUserRoles(params);
         if (res.code == 200) {

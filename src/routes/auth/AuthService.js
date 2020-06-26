@@ -49,11 +49,7 @@ export default class AuthService {
 
         let res = await api.user.login_qrscan(params)
         if (res.code == 401) {
-<<<<<<< HEAD
             message.error('登陆失败,请确认您有登录权限！', 2.5)
-=======
-            message.error('登陆失败，请确认您有登录权限！', 2.5)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             return;
         }
 
@@ -62,7 +58,6 @@ export default class AuthService {
             this.afterLogin(res)
 
         }
-<<<<<<< HEAD
     }  
 
 
@@ -70,14 +65,6 @@ export default class AuthService {
         message.loading('登录成功,准备工作环境 ', 1.1, () => {
             navigationStore.saveSessionBadge(res.info);
             navigationStore.setBadge(res.info);
-=======
-    }
-
-
-    afterLogin(res) {
-        message.loading('登录成功,准备工作环境', 1.1, () => {
-            navigationStore.change_badge_num(res);
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             userStore.setUserProfile(res.profile);
             userStore.setToken(res.token);
             hashHistory.push('/home')
@@ -96,20 +83,12 @@ export default class AuthService {
         let token = userStore.getToken() // 
 
         if (token === null) {
-<<<<<<< HEAD
             message.info('登陆过期,请重新登录', 2.5)
-=======
-            message.error('登陆过期,请重新登录', 2.5)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             return false;
         }
 
         if (this.isTokenExpired(token)) {
-<<<<<<< HEAD
             message.info('登陆过期,请重新登录', 2.5)
-=======
-            message.error('登陆过期,请重新登录', 2.5)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             return false;
         }
 

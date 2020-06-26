@@ -54,29 +54,17 @@ class userStore {
 
     @action setToken(token) {
         localStorage.setItem('token', token)  // 防止刷新丢失token
-<<<<<<< HEAD
         sessionStorage.setItem('token', token)
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.token = token
     }
 
     @action getToken() {
-<<<<<<< HEAD
         return sessionStorage.getItem('token')
         // if (this.token) {
         //     return this.token
         // } else {
         //     return localStorage.getItem('token')
         // }
-=======
-
-        if (this.token) {
-            return this.token
-        } else {
-            return localStorage.getItem('token')
-        }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 

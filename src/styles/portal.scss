@@ -18,11 +18,7 @@
 
 .commonTable .react-resizable-handle {
   position: absolute;
-<<<<<<< HEAD
   width: 20px;
-=======
-  width: 10px;
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
   height: 100%;
   bottom: 0;
   right: -5px;
@@ -52,11 +48,7 @@
 }
 
 // antd table 默认不换行
-<<<<<<< HEAD
 .commonTable .ant-table-bordered .ant-table-thead > tr > th,.commonTable .ant-table-bordered .ant-table-tbody > tr > td {
-=======
-.ant-table-bordered .ant-table-thead > tr > th, .ant-table-bordered .ant-table-tbody > tr > td {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
   border-right: 1px solid #e8e8e8;
   width: auto;
   white-space: nowrap;
@@ -64,20 +56,13 @@
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 .marginRihgt10 {
   margin-right: 10px;
 }
 
 .flex_wrapper {
   margin: 10px 15px;
-<<<<<<< HEAD
   min-height:600px;
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
   border: 1px solid #ccc;
 }
 
@@ -171,7 +156,6 @@ header.ant-layout-header {
 }
 
 
-<<<<<<< HEAD
 .menuWrapper_inner {
     margin:40px;
     width:600px;
@@ -181,8 +165,6 @@ header.ant-layout-header {
   }
   
   
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
 .ant-menu-item-selected {
@@ -296,7 +278,6 @@ header.ant-layout-header {
 .form_value_node .search_input {
 	border-bottom-right-radius: 0;
 	border-top-right-radius   : 0;
-<<<<<<< HEAD
 }
 
 
@@ -311,6 +292,4 @@ header.ant-layout-header {
 .jOePSe{
   height: auto !important;
   min-height: 32px
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 }

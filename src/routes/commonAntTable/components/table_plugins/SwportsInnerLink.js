@@ -20,22 +20,14 @@ export default class SwportsInnerLink extends React.Component {
                     },
                     "properties": {
                         "switchid": {
-<<<<<<< HEAD
                             "type": "AssocSelectSimple",
-=======
-                            "type": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "title": "交换机1",
                             "required": false,
                             "x-visible": true,
                             "enum": [
 
                             ],
-<<<<<<< HEAD
                             "x-component": "AssocSelectSimple",
-=======
-                            "x-component": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "x-props": {
                                 "level": "1",
                                 "query_cfg": {
@@ -54,22 +46,14 @@ export default class SwportsInnerLink extends React.Component {
                             }
                         },
                         "swportid": {
-<<<<<<< HEAD
                             "type": "AssocSelectSimple",
-=======
-                            "type": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "title": "端口1",
                             "required": false,
                             "x-visible": true,
                             "enum": [
 
                             ],
-<<<<<<< HEAD
                             "x-component": "AssocSelectSimple",
-=======
-                            "x-component": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "x-props": {
                                 "level": "2",
                                 "query_cfg": {
@@ -88,22 +72,14 @@ export default class SwportsInnerLink extends React.Component {
                         },
 
                         "switchid2": {
-<<<<<<< HEAD
                             "type": "AssocSelectSimple",
-=======
-                            "type": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "title": "交换机2",
                             "required": false,
                             "x-visible": true,
                             "enum": [
 
                             ],
-<<<<<<< HEAD
                             "x-component": "AssocSelectSimple",
-=======
-                            "x-component": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "x-props": {
                                 "level": "1",
                                 "query_cfg": {
@@ -123,22 +99,14 @@ export default class SwportsInnerLink extends React.Component {
                         },
 
                         "swportid2": {
-<<<<<<< HEAD
                             "type": "AssocSelectSimple",
-=======
-                            "type": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "title": "端口2",
                             "required": false,
                             "x-visible": true,
                             "enum": [
 
                             ],
-<<<<<<< HEAD
                             "x-component": "AssocSelectSimple",
-=======
-                            "x-component": "assocselect",
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             "x-props": {
                                 "level": "2",
                                 "query_cfg": {
@@ -218,7 +186,6 @@ export default class SwportsInnerLink extends React.Component {
     }
 
     render() {
-<<<<<<< HEAD
         
         console.log(this.props)
         
@@ -229,15 +196,6 @@ export default class SwportsInnerLink extends React.Component {
             title="端口内联"
             ref='commonModalRef'
             layoutcfg={ 2 }
-=======
-        return <CommonModal
-            height="1000"
-            width="900"
-            footer={ null }
-            title="端口内联"
-            ref='commonModalRef'
-            layoutcfg={ this.props.commonTableStore.layoutcfg }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         >
             <CommonTableForm
                 as_virtual={ this.props.as_virtual }

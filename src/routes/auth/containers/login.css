@@ -173,12 +173,7 @@ h1.error {
 }
 
 .img-right-side, .txt-left-side {
-<<<<<<< HEAD
     flex: 1;
-=======
-    flex-basis: 50%;
-    -webkit-flex-basis: 50%;
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     box-sizing: border-box;
     text-align: center;
 }
@@ -402,11 +397,7 @@ input.checked {
         line-height: 24px;
         margin-bottom: 48px;
     }
-<<<<<<< HEAD
     #loginbtn {
-=======
-    button[type=submit] {
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         padding: 14px 20px;
         margin: 42px 0px 18px;
     }

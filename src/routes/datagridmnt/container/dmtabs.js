@@ -7,7 +7,6 @@ import TriggerList from './trigger/triggerList'
 import Fieldmanager from './fieldmanager'
 import GridEDitor from './gridEditor'
 import AddDatagrid from './gridAdder'
-<<<<<<< HEAD
 import Gridreferino from './gridreferino'
 import Gridinfo from './gridinfo'
 import Tablesort from './tablesort'
@@ -19,9 +18,6 @@ import { observer, inject } from "mobx-react";
 
 @inject("dmStore")
 @observer
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 export default class Dmtabs extends React.Component {
 
     constructor(props) {
@@ -66,7 +62,6 @@ export default class Dmtabs extends React.Component {
                 key: 'tab6',
                 tab: '字段管理',
             },
-<<<<<<< HEAD
             {
                 key: 'tab7',
                 tab: '表格排序',
@@ -82,8 +77,6 @@ export default class Dmtabs extends React.Component {
 
 
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         ];
 
         const contentList = {
@@ -92,7 +85,6 @@ export default class Dmtabs extends React.Component {
             tab3: <ButtonCfg />,
             tab4: <TriggerAdder />,
             tab5: <TriggerList />,
-<<<<<<< HEAD
             tab6: <Fieldmanager
                 setMaintableColumns={this.props.dmStore.setMaintableColumns}
                 batchUpdateFieldCfg={this.props.dmStore.batchUpdateFieldCfg}
@@ -114,15 +106,11 @@ export default class Dmtabs extends React.Component {
             tab9: <Gridinfo />,
 
 
-=======
-            tab6: <Fieldmanager />,
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         };
 
 
         return (
             <Card
-<<<<<<< HEAD
                 style={{ width: '100%' }}
                 tabList={tabList}
                 activeTabKey={this.state.key}
@@ -131,16 +119,6 @@ export default class Dmtabs extends React.Component {
                 }}
             >
                 {contentList[this.state.key]}
-=======
-                style={ { width: '100%' } }
-                tabList={ tabList }
-                activeTabKey={ this.state.key }
-                onTabChange={ key => {
-                    this.onTabChange(key, 'key');
-                } }
-            >
-                { contentList[this.state.key] }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             </Card>
         );
     }

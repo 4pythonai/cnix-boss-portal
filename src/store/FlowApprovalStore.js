@@ -11,23 +11,16 @@ class FlowApprovalStore {
 
     }
 
-<<<<<<< HEAD
     @observable preventRepeatClick = false
 
     @observable readonly = ''
 
     @observable flowFormCfg = null
     @observable relatedFlowFormCfg = []
-=======
-    @observable readonly = ''
-
-    @observable flowFormCfg = null
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     // 启动流程： y  下一步： n
     @observable init_node = 'n'
 
-<<<<<<< HEAD
     //弹框
     @observable visible = false
 
@@ -36,26 +29,16 @@ class FlowApprovalStore {
 
     @observable voucherVisible = false
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     // 资源操作button组
     @observable button_res_group_cfg = [];
 
 
-<<<<<<< HEAD
     // 流程启动id
     @observable uuid = '';
 
     @observable transactid = '';
 
-=======
-    @observable progressImgUrl = ''
-
-    // 流程启动id
-    @observable uuid = '';
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     @observable paperno = ''
 
     // 下一个审批人
@@ -83,11 +66,7 @@ class FlowApprovalStore {
 
 
         this.uuid = '';
-<<<<<<< HEAD
         this.transactid = '';
-=======
-        this.progressImgUrl = ''
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.processDefinitionKey = 'ABC';
         this.paperno = ''
         this.originTreeData = {}
@@ -111,7 +90,6 @@ class FlowApprovalStore {
 
     @action setActCode = actcode => this.actcode = actcode
 
-<<<<<<< HEAD
     @action hideModal = () => this.visible = false
 
     @action cancelcombineModal = () => this.combineVisible = false
@@ -121,9 +99,6 @@ class FlowApprovalStore {
     @action showvoucherMOdal = () => this.voucherVisible = true
 
     @action cancelvoucherMOdal = () => this.voucherVisible = false
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action setReadonly = readonly => this.readonly = readonly
 
@@ -132,19 +107,13 @@ class FlowApprovalStore {
         let params = {
             data: {
                 processKey: this.processDefinitionKey,
-<<<<<<< HEAD
                 transactid: this.transactid,
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 init_node: this.init_node,
                 uuid: this.uuid,
                 readonly: this.readonly,
                 nodeKey: this.nodeKey,
                 actcode: this.actcode,
-<<<<<<< HEAD
                 role_code: sessionStorage.getItem("role_code")
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             },
             method: 'POST'
         };
@@ -159,7 +128,6 @@ class FlowApprovalStore {
         message.error('获取流程表单配置失败');
     }
 
-<<<<<<< HEAD
     @action setRelatedFlowFormCfg = async () => {
         let para = { uuid: this.uuid, pk: this.processDefinitionKey }
         let res = await api.bpm.getReleatedFlowInfo({ data: para, method: 'POST' });
@@ -169,9 +137,6 @@ class FlowApprovalStore {
 
         }
     }
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action setInitNode = init_node => this.init_node = init_node
 
@@ -184,13 +149,10 @@ class FlowApprovalStore {
     // 设置uuid
     @action setUuid = uuid => this.uuid = uuid
 
-<<<<<<< HEAD
     @action setTransactid = tid => this.transactid = tid
 
 
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     @action
     setFlowProcessStatus = status => this.FlowProcessStatus = status
@@ -211,29 +173,19 @@ class FlowApprovalStore {
             event.persist()
             // event.stopPropagation()
         }
-<<<<<<< HEAD
         this.preventRepeatClick = true;
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         let data = {
             processDefinitionKey: this.processDefinitionKey,
             starter: sessionStorage.getItem("user"),
             uuid: this.uuid,
             strategy: this.strategy,
-<<<<<<< HEAD
             role_code: sessionStorage.getItem("role_code"),
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             ...submitData
         }
         let params = { data: data, method: 'POST' };
         let res = await api.bpm.startProcess(params);
-<<<<<<< HEAD
         this.preventRepeatClick = false;
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (res.code == 200) {
             //启动成功, 跳转到已办
             message.success(res.message + ',跳转到已办')
@@ -268,10 +220,7 @@ class FlowApprovalStore {
 
     @action
     nextStep = async (event, submitData) => {
-<<<<<<< HEAD
         this.preventRepeatClick = true;
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (event) {
             // event.stopPropagation()
             event.persist()
@@ -284,10 +233,7 @@ class FlowApprovalStore {
             starter: sessionStorage.getItem("user"),
             uuid: this.uuid,
             strategy: this.strategy,
-<<<<<<< HEAD
             role_code: sessionStorage.getItem("role_code"),
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             ...submitData
         };
 
@@ -297,7 +243,6 @@ class FlowApprovalStore {
             // 提交成功，退回列表页
             hashHistory.goBack()
         }
-<<<<<<< HEAD
         this.preventRepeatClick = false;
     }
 
@@ -529,17 +474,6 @@ class FlowApprovalStore {
     @action
     terminateProcess = async (event, submitData) => {
         this.preventRepeatClick = true;
-=======
-
-    }
-
-
-
-    // 终止流程 //terminateProcess
-    @action
-    terminateProcess = async (event, submitData) => {
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (event) {
             // event.stopPropagation()
             event.persist()
@@ -557,11 +491,7 @@ class FlowApprovalStore {
         if (res.code == 200) {
             hashHistory.goBack()
         }
-<<<<<<< HEAD
         this.preventRepeatClick = false;
-=======
-        // 
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
@@ -574,10 +504,7 @@ class FlowApprovalStore {
     // 退回发起人
     @action returnToStart = async (event, submitData) => {
         // event.stopPropagation();
-<<<<<<< HEAD
         this.preventRepeatClick = true;
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         event.persist()
         let data = {
             action: 'reject',
@@ -593,11 +520,7 @@ class FlowApprovalStore {
             hashHistory.goBack()
         }
         this.clearNextUser()
-<<<<<<< HEAD
         this.preventRepeatClick = false;
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
 
 
@@ -606,11 +529,7 @@ class FlowApprovalStore {
     @action returnToPrev = async (event, submitData) => {
         // event.stopPropagation();
         event.persist()
-<<<<<<< HEAD
         this.preventRepeatClick = true;
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let data = {
             action: 'regresses',
             processDefinitionKey: this.processDefinitionKey,
@@ -625,11 +544,7 @@ class FlowApprovalStore {
             hashHistory.goBack()
         }
         this.clearNextUser()
-<<<<<<< HEAD
         this.preventRepeatClick = false;
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
     }
@@ -640,10 +555,7 @@ class FlowApprovalStore {
     // 归档
     @action ArchivingProcess = async (event, submitData) => {
         event.persist()
-<<<<<<< HEAD
         this.preventRepeatClick = true;
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let params = {
             data: {
                 note: this.note,
@@ -662,10 +574,7 @@ class FlowApprovalStore {
             hashHistory.goBack()
         }
         this.clearNextUser()
-<<<<<<< HEAD
         this.preventRepeatClick = false;
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
     }
 
@@ -680,7 +589,6 @@ class FlowApprovalStore {
         // e.persist()
         this.uuid = record.uuid
         this.processDefinitionKey = record.process_key;
-<<<<<<< HEAD
         let res = await api.bpm.getActivityDiagram({ data: {}, method: 'POST' });
         if (res.code == 200) {
             hashHistory.push({
@@ -693,36 +601,16 @@ class FlowApprovalStore {
             });
         }
 
-=======
-        this.progressImgUrl = `${api.bpm.progressImgUrl}/${record.uuid}&${this.processDefinitionKey}?date=` + new Date()
-        hashHistory.push({
-            pathname: 'flow/flowProgress',
-            state: {
-                progressImgUrl: this.progressImgUrl,
-                uuid: record.uuid,
-                processDefinitionKey: record.process_key
-            }
-        });
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
     }
 
 
-<<<<<<< HEAD
     // 获取流程记录 
     // 注： 流程记录组件不再使用，cui
     @action
     async getFlowRecords() {
 
-=======
-    // 获取流程记录
-    @action
-    async getFlowRecords() {
-
-        console.log()
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let params = {
             data: {
                 processDefinitionKey: this.processDefinitionKey,
@@ -731,11 +619,6 @@ class FlowApprovalStore {
             method: 'POST'
         };
         let res = await api.bpm.getFlowRecords(params);
-<<<<<<< HEAD
-
-=======
-        console.log('流程记录')
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (res.code == '200') {
             this.paperno = res.data.paperno;
             this.flowRecords = res.data.records;
@@ -792,12 +675,9 @@ class FlowApprovalStore {
 
     // 非起始节点策略
     @action getStrategyByUuidAndPKey = async params => {
-<<<<<<< HEAD
         if (params.data.processDefinitionKey === 'ABC') {
             return;
         }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         params.method = 'POST';
         let res = await api.bpm.getStrategyByUuidAndPKey(params);
         this.setStrategy(res.data.strategy);
@@ -815,12 +695,9 @@ class FlowApprovalStore {
     // // 根据UUID获取下一步候选组或人集合? 这都什么命名方式.....
     @action
     async getNextGroupsAndUsersOrLike(params) {
-<<<<<<< HEAD
         if (!params.data.uuid) {
             return;
         }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         params.method = 'GET'
         //调用流程引擎
         let res = await api.bpm.getNextGroupsAndUsersOrLike(params);

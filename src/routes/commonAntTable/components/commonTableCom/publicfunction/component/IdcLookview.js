@@ -241,20 +241,12 @@ export default class IdcLookview extends React.Component {
                 okButtonProps={{ disabled: true }}
                 cancelButtonProps={{ disabled: true }}
             >
-<<<<<<< HEAD
                 <div style={{ height: '650px' }}>
-=======
-                <div style={{ height: '550px' }}>
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                     <div style={{ width: '20%', float: 'left', borderRight: 'solid 1px #ccc', height: '100%', overflowY: 'scroll' }}>
                         <SearchTree {...treeProps}></SearchTree>
                     </div>
                     <div style={{ width: '80%', float: 'right', height: '100%', textAlign: 'center' }}>
-<<<<<<< HEAD
                         <div style={{ height: '180px', borderBottom: 'solid 1px #ccc' }}>
-=======
-                        <div style={{ height: '160px', borderBottom: 'solid 1px #ccc' }}>
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                             <div style={{marginBottom:'20px',textAlign:'left',paddingLeft:'50px'}}><span style={{marginRight:'20px',fontWeight:'bold'}}>机柜总数:</span>{countTotal}</div>
                             <div style={{marginBottom:'20px',textAlign:'left',paddingLeft:'50px'}}><span style={{marginRight:'20px',fontWeight:'bold'}}>租赁状态:</span>{getDataTitles}</div>
                             <div style={{marginBottom:'20px',textAlign:'left',paddingLeft:'50px'}}><span style={{marginRight:'20px',fontWeight:'bold'}}>机柜资产归属:</span>{getownerTypeData}</div>

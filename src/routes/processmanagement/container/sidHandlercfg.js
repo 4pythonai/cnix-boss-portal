@@ -2,11 +2,7 @@ import React from 'react'
 import CommonTable from '../../../routes/commonAntTable/components/commonTableCom/commonTable'
 
 
-<<<<<<< HEAD
 import { Form, Input, Divider, Card, Select, Row, Radio, Col, Button, message, TextArea, } from 'antd';
-=======
-import { Form, Input, Divider, Card, Select, Row, Col, Button, message, TextArea, } from 'antd';
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 import api from '../../../api/api'
 import { observable, reaction, action, autorun, computed } from "mobx";
 
@@ -59,31 +55,13 @@ class SideHandlercfg extends React.Component {
 
         let query_cfg = null
         if (pk.length > 0) {
-<<<<<<< HEAD
             query_cfg = { count: 1, lines: { and_or_0: "and", field_0: "processkey", operator_0: "=", vset_0: pk } }
-=======
-            query_cfg = { count: 1, lines: { and_or_0: "and", field_0: "process_key", operator_0: "=", vset_0: pk } }
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         }
         await this.tbref.current.setTableCompomentQueryCfg(query_cfg)
         await this.tbref.current.listData()
     }
 
 
-<<<<<<< HEAD
-=======
-    // async refreshCurrentcfg(pk) {
-
-    //     if (this.tbref.current) {
-    //         let query_cfg = { count: 1, lines: { and_or_0: "and", field_0: "process_key", operator_0: "=", vset_0: pk } }
-    //         await this.tbref.current.setTableCompomentQueryCfg(query_cfg)
-    //         await this.tbref.current.listData()
-    //     }
-    // }
-
-
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
     addNodeHander = e => {
@@ -107,12 +85,8 @@ class SideHandlercfg extends React.Component {
                         data: obj,
                         method: 'POST'
                     };
-<<<<<<< HEAD
 
                     let res = api.bpm.addBossProcessNodeHandler(params)
-=======
-                    let res = api.bpm.insertBossProcess(params)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 }
             } else {
                 message.error("请检查输入项", 0.5)
@@ -154,7 +128,6 @@ class SideHandlercfg extends React.Component {
                 />
 
                 <Form onSubmit={ this.addNodeHander }>
-<<<<<<< HEAD
                     <Form.Item label="前置/后置">
                         { getFieldDecorator('handlertype', {
                             rules: [{ required: true, message: '选择类型' }],
@@ -165,8 +138,6 @@ class SideHandlercfg extends React.Component {
                             </Radio.Group>,
                         ) }
                     </Form.Item>
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 
                     <Form.Item label="选择流程节点">

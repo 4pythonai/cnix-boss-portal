@@ -2,27 +2,19 @@ import CommonTableForm from '../commonTableCom/commonTableForm';
 import React from 'react'
 import { message } from 'antd'
 import CommonModal from '../commonTableCom/commonModal'
-<<<<<<< HEAD
 import navigationStore from '@/store/navigationStore'
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
 import api from '@/api/api'
 
 export default class TableEditCom extends React.Component {
     constructor(props) {
         super(props)
-<<<<<<< HEAD
-=======
-        this.init = this.init.bind(this)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
     }
     state = {
         visible: false,
     }
 
 
-<<<<<<< HEAD
     init = async ()=>  {
         if (this.props.commonTableStore.selectedRows.length != 1) {
             message.error("请选择1条数据.")
@@ -30,15 +22,6 @@ export default class TableEditCom extends React.Component {
         }
 
         console.log(11111111111111111111111,this.props.commonTableStore.selectedRows[0])
-=======
-    init() {
-        if (this.props.commonTableStore.selectedRows.length != 1) {
-            message.error("请从列表选择选择一条数据！")
-            return;
-        }
-
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
 
         let _tmprec = this.props.commonTableStore.selectedRows[0]
 
@@ -49,7 +32,6 @@ export default class TableEditCom extends React.Component {
                 canstart = true;
             }
 
-<<<<<<< HEAD
             if (_tmprec.flowstatus == '未提交' || _tmprec.flowstatus == '撤回' || _tmprec.flowstatus == '已退回') {
                 canstart = true;
             }else {
@@ -61,30 +43,22 @@ export default class TableEditCom extends React.Component {
                 if (json.code == 200) {
                     json.data == 'y' ? canstart = true : canstart = false
                 }
-=======
-            if (_tmprec.flowstatus == '未启动') {
-                canstart = true;
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             }
         } else {
             canstart = true;
 
         }
 
-<<<<<<< HEAD
         if(_tmprec.hasOwnProperty('ghost_author') && _tmprec.ghost_author != sessionStorage.getItem('user')){
             message.error('不是自己的数据不能编辑');
             return;
         }
         
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (!canstart) {
             message.error('流程已经启动,不能编辑.');
             return;
         }
 
-<<<<<<< HEAD
 
 
 
@@ -94,8 +68,6 @@ export default class TableEditCom extends React.Component {
 
 
 
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.refs.commonModalRef.showModal()
         this.props.commonTableStore.setTableAction('edit_table')
 
@@ -107,7 +79,6 @@ export default class TableEditCom extends React.Component {
     }
 
     saveFormData = (fmdata, changeValue, as_virtual, optionType) => {
-<<<<<<< HEAD
         if (fmdata.customerid && fmdata.customerid != '') {
             fmdata.customerAddr = fmdata.customerid.split('-')[1]
             fmdata.customerid = fmdata.customerid.split('-')[0]
@@ -122,9 +93,6 @@ export default class TableEditCom extends React.Component {
             }
             
         }
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let data = {
             actcode: this.props.commonTableStore.action_code,
             rawdata: fmdata
@@ -146,43 +114,23 @@ export default class TableEditCom extends React.Component {
     }
 
     updateVirtualData = fmdata => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let id = this.props.commonTableStore.selectedRowKeys[0]
         let index = this.props.commonTableStore.dataSource.findIndex(item => item.id == id)
         fmdata.id = id
         fmdata = this.getGhostData(fmdata);
         let dataSource = [...this.props.commonTableStore.dataSource]
         dataSource[index] = { ...fmdata }
-<<<<<<< HEAD
-=======
-        console.log('查看数据', dataSource)
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         this.props.commonTableStore.setDataSource(dataSource)
 
     }
 
 
     updateDateApi = async fmdata => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         let id = this.props.commonTableStore.selectedRowKeys[0]
         fmdata.rawdata.id = id
         let params = { data: fmdata, method: 'POST' };
         params.updateurl = this.props.commonTableStore.curd.updateurl;
         let json = await api.curd.updateData(params);
-<<<<<<< HEAD
-=======
-        console.log('编辑数据,返回结果--->')
-
-        console.log(json)
-
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
         if (json.code == 200) {
             this.props.refreshTable();
         }
@@ -190,11 +138,7 @@ export default class TableEditCom extends React.Component {
 
     render() {
         return <CommonModal
-<<<<<<< HEAD
             height="500px"
-=======
-
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
             footer={ null }
             title="编辑"
             ref='commonModalRef'
@@ -206,10 +150,7 @@ export default class TableEditCom extends React.Component {
                 optionType='edit'
                 hideModal={ () => this.hideModal() }
                 onChange={ this.props.onChange }
-<<<<<<< HEAD
                 referinfo={ this.props.commonTableStore.referinfo }
-=======
->>>>>>> 16482705d48c1725f42552d58acdbf73fea41778
                 formCfg={ this.props.commonTableStore.formCfg }
                 layoutcfg={ this.props.commonTableStore.layoutcfg }
                 staticformcfg={ this.props.commonTableStore.staticformcfg }
