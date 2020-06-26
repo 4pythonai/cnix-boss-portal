@@ -1,4 +1,4 @@
-import CommonTableForm from '../commonTableCom/commonTableForm';
+import CommonTableFormSimple from '../commonTableCom/commonTableFormSimple';
 import React from 'react'
 import { observer, inject } from "mobx-react";
 import CommonModal from '../commonTableCom/commonModal'
@@ -234,7 +234,7 @@ export default class IPBatchadd extends React.Component {
             
             
         >
-            <CommonTableForm
+            <CommonTableFormSimple
                 as_virtual={ this.props.as_virtual }
                 editable={ true }
                 optionType='add'

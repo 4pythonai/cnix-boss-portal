@@ -14,11 +14,10 @@ import {
 const actions = createFormActions()
 
 const CommonTableForm = props => {
-
     let formCfg = toJS(props.formCfg)
     let layoutcfg = props.layoutcfg
     let formnum = []
-    const [state, setState, value] = useState({ editable: props.editable })
+     const [state, setState, value] = useState({ editable: props.editable })
 
     if (!formCfg) {
         return null
@@ -35,13 +34,9 @@ const CommonTableForm = props => {
         formCfg.properties.group_all['x-props'].gutter = 10
 
     }
+    
     if (props.optionType == 'add' || props.optionType == 'edit') {
-         
-
-        return <div className={ layoutcfg == 2 ? "addmodal" : layoutcfg == 3 ? 'addmodalt' : '' }>
-
-             
-
+        return <div style={ { width: "1000px" } } >
             <SchemaForm
                 value={ value }
                 initialValues={ state.value }
@@ -59,7 +54,21 @@ const CommonTableForm = props => {
 
                         $('onFormInit').subscribe(async () => {
                             hide('id');
-                            hide('transactid');
+                            // hide('maincontent')
+                            for (let key in formCfg.properties.group_all.properties) {
+                                let item = formCfg.properties.group_all.properties[key];
+
+                                if (item['x-props'] && item['x-props'].query_cfg && item['x-props'].query_cfg.level) {
+                                    setFieldState(key, state => {
+                                        state.props["x-props"].commonTableStore = props.commonTableStore;
+                                    });
+                                }
+                            }
+
+
+                        })
+
+                        $("onFormInit").subscribe(() => {
                             setState({
                                 value: props.optionType == 'edit'
                                     ?
@@ -67,26 +76,16 @@ const CommonTableForm = props => {
                                     :
                                     {}
                             })
+                        });
 
-                            for (let newkey in formCfg.properties.group_all.properties) {
-                                let newitem = formCfg.properties.group_all.properties[newkey];
+                        $('onFormMount').subscribe(async () => {
 
-                                for (let key in newitem.properties) {
-                                    let item = newitem.properties[key];
-
-                                    setFieldState(key, state => {
-                                        state.props["x-props"].commontablestore = props.commonTableStore;
-                                        state.props["x-props"].action_code = props.dataGridcode;
-                                        state.props["x-props"].actions = actions;
-                                        state.props["x-props"].schema = formCfg;
-                                    });
-                                }
-                            }
                         })
+
                     }
                 }
-                labelCol={ layoutcfg == '2' ? 9 : layoutcfg == '3' ? 9 : 8 }
-                wrapperCol={ layoutcfg == '2' ? 15 : layoutcfg == '3' ? 10 : 15 }
+                labelCol={ layoutcfg == '2' ? 7 : 8 }
+                wrapperCol={ layoutcfg == '2' ? 17 : 15 }
             >
                 <div style={ { textAlign: 'center' } }>
                     <Button type="primary" htmlType="button" className="marginRihgt10" onClick={ async event => {

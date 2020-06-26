@@ -6,14 +6,7 @@ import api from '@/api/api'
 export default class AssocSelect extends React.Component {
     constructor(props) {
         super(props)
-        
-        console.log('AssocSelect')
-        console.log('----------------------------')
-        
-        console.log(props)
-        console.log('----------------------------')
-        
-        
+
         this.store = props.commontablestore
         this.state = {
             optionValue: null,

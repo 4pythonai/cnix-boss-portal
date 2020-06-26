@@ -1,4 +1,4 @@
-import CommonTableForm from '../commonTableCom/commonTableForm';
+import CommonTableFormSimple from '../commonTableCom/commonTableFormSimple';
 import React from 'react'
 import { observer, inject } from "mobx-react";
 import CommonModal from '../commonTableCom/commonModal'
@@ -197,8 +197,8 @@ export default class SwportsInnerLink extends React.Component {
             ref='commonModalRef'
             layoutcfg={ 2 }
         >
-            <CommonTableForm
-                as_virtual={ this.props.as_virtual }
+            <CommonTableFormSimple
+                as_virtual={ this.props.as_virtual }    
                 editable={ true }
                 optionType='add'
                 onChange={ this.props.onChange }
