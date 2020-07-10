@@ -16,10 +16,7 @@ import '../home.scss'
 
 
 // import './navbar.scss';
-
-import Bossreport from  './bossreport'
-
-
+ 
 
 
 export default class home extends React.Component {

@@ -8,8 +8,7 @@
 // }
 
 
-
-let root_url ='http://114.113.88.2';
+let root_url ='http://157.119.174.2';
 
 
 let  port = '8502';

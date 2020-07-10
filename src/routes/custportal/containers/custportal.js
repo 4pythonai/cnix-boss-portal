@@ -18,13 +18,12 @@ export default class custportal extends React.Component {
 
                 <Divider />
 
-
-                <a href="http://114.113.88.2:2200/#/login" target="_blank" rel="noopener noreferrer">客户portal</a>
+                <a href="http://157.119.174.2:2200/#/login" target="_blank" rel="noopener noreferrer">客户portal</a>
                 <br />  <br />
 
-                <a href="http://114.113.88.2:8502/v2/log" target="_blank" rel="noopener noreferrer">系统日志</a>
+                <a href="http://157.119.174.2:8502/v2/log" target="_blank" rel="noopener noreferrer">系统日志</a>
                 <br />  <br />
-                <a href="http://114.113.88.2:3000/#/?contract=IBM1" target="_blank" rel="noopener noreferrer">IBM1调试界面</a>
+                <a href="http://157.119.174.2:3000/#/?contract=IBM1" target="_blank" rel="noopener noreferrer">IBM1调试界面</a>
 
 
 
