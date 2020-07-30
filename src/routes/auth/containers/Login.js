@@ -130,7 +130,7 @@ export default class Login extends React.Component {
             <div className="w3layouts-two-grids">
                 <div className="mid-class">
                     <div className="txt-left-side">
-                        <h2> 手机号登录（CNIX.666</h2>
+                        <h2> 手机号登录（CNIX.777)</h2>
 
                         <form action="#" method="post">
                             <div className="form-left-to-w3l">
