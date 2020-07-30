@@ -1,22 +1,12 @@
-//controller和基础路径配置
 
-// if (process.env.NODE_ENV === 'docker') {
-//     var root_url = 'http://127.0.0.1';
-// } else {
-//     var root_url = 'http://portal.sinnet.com.cn';
-
-// }
+let root_url = 'http://157.119.174.2';
 
 
-let root_url ='http://157.119.174.2';
+let port = '8502';
 
 
-let  port = '8502';
-
- 
 
 
-const version_1 = 'v1';
 const version_2 = 'v2';
 
 
@@ -47,7 +37,6 @@ const controller = {
 }
 
 export {
-    version_1,
     version_2,
     root_url,
     port,

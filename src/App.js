@@ -18,17 +18,16 @@ moment.locale('zh-cn');
 import { routes } from './routes/routes.js'
 
 //检查网络是否链接
-if(navigator.onLine){
-    console.log('onLine')
-  }else{
-    message.error('网络链接失败！请检查网络！',5)
-  }
+if (navigator.onLine) {
+} else {
+    message.error('网络链接失败！请检查网络！', 5)
+}
 
 export default class App extends React.Component {
     constructor(props) {
         super(props)
     }
- 
+
     render() {
         return (
             <ConfigProvider locale={ zhCN }>

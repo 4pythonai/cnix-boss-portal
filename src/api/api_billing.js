@@ -6,6 +6,8 @@ const api_root = `${ root_url }:${ port }/${ version_2 }`
 
 export default class billing {
     static apis = {
+
+        //收款合同
         billtest: params => http(params, `${ api_root }/Billing/billtest`),
         saveBill: params => http(params, `${ api_root }/Billing/saveBill`),
         transferContract: params => http(params, `${ api_root }/App/transferContract`),
@@ -16,8 +18,20 @@ export default class billing {
         saveCombinedBill: params => http(params, `${ api_root }/Billing/saveCombinedBill`),
         getPaperInfoById: params => http(params, `${ api_root }/Billing/getPaperInfoById`),
         getZones: params => http(params, `${ api_root }/Billing/getZones`),
-        
-        
+
+
+        //客户使用采购资源的计费情况
+
+
+
+
+
+
+
+
+
+
+
     }
 }
 
