@@ -130,12 +130,12 @@ export default class Login extends React.Component {
             <div className="w3layouts-two-grids">
                 <div className="mid-class">
                     <div className="txt-left-side">
-                        <h2> 手机号登录（CNIX）</h2>
-                        
+                        <h2> 手机号登录（CNIX.inc）</h2>
+
                         <form action="#" method="post">
                             <div className="form-left-to-w3l">
                                 <span className="fa fa-envelope-o" aria-hidden="true"></span>
-                                <input type="mobile"  id="boss_mobile" name="mobile" placeholder="手机号" onChange={ this.handleChange } required="" />
+                                <input type="mobile" id="boss_mobile" name="mobile" placeholder="手机号" onChange={ this.handleChange } required="" />
                                 <div className="clear"></div>
                             </div>
                             <div className="form-left-to-w3l ">
