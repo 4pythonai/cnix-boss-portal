@@ -1,7 +1,7 @@
 import CommonTableForm from '../commonTableCom/commonTableForm';
 import React from 'react'
 import { observer, inject } from "mobx-react";
-import {message} from 'antd';
+import { message } from 'antd';
 import CommonModal from '../commonTableCom/commonModal'
 import navigationStore from '@/store/navigationStore'
 import api from '@/api/api'
@@ -19,7 +19,7 @@ export default class TableAddCom extends React.Component {
     init(btncode) {
         console.log('button_code', this.props.parentTable.state.button_code)
         // console.log(btncode)
-        
+
         this.props.commonTableStore.rowSelectChange([], [])
         this.refs.commonModalRef.showModal()
         this.props.commonTableStore.setTableAction('add_table')
@@ -55,7 +55,10 @@ export default class TableAddCom extends React.Component {
         if (json.code == 200) {
             await this.props.refreshTable()
             // 新增之后自动跳转到启动流程页面
-             if (navigationStore.currentMenu.process_key != "" && navigationStore.currentMenu.process_key != null) {
+            if (navigationStore.currentMenu.process_key != "" && navigationStore.currentMenu.process_key != null) {
+
+                console.log(navigationStore)
+
                 let data = {
                     process_key: navigationStore.currentMenu.process_key,
                     uuid: json.data.uuid,
@@ -63,7 +66,7 @@ export default class TableAddCom extends React.Component {
                     page_source: 'detail', // IDC合同专用 ISP合同专用
                     readonly: false,
                     init_node: 'y',
-                    contract_no: json.data.contract_no?json.data.contract_no:''
+                    contract_no: json.data.contract_no ? json.data.contract_no : ''
                 }
                 // FlowApprovalStore.setInitNode('y');
                 hashHistory.push({ pathname: `flow/FlowForm`, state: data });
@@ -82,23 +85,23 @@ export default class TableAddCom extends React.Component {
 
 
         }
-        if(this.props.commonTableStore.action_code=='after_sales_technical_support'||this.props.commonTableStore.action_code=='boss_reverse_dn_resolution'||this.props.commonTableStore.action_code=='boss_web_traffic_monitoring'){
-            if(fmdata.contractno!=undefined){
+        if (this.props.commonTableStore.action_code == 'after_sales_technical_support' || this.props.commonTableStore.action_code == 'boss_reverse_dn_resolution' || this.props.commonTableStore.action_code == 'boss_web_traffic_monitoring') {
+            if (fmdata.contractno != undefined) {
                 fmdata.customername = fmdata.contractno.split('-')[1]
-            fmdata.customeraddr = fmdata.contractno.split('-')[2]
-            fmdata.contractno = fmdata.contractno.split('-')[0]
-            }
-            
-        }
-        if(this.props.commonTableStore.action_code=='boss_idc_isp_retreat_line'||this.props.commonTableStore.action_code=='idc_network_close_order'){
-             if(fmdata.contractno!=undefined){
-                 if(fmdata.contractno.split('-')[1]==''){
-                     message.error('请选择收费项')
-                     return
-                 }
-                 fmdata.chagredataId=fmdata.contractno.split('-')[1]
+                fmdata.customeraddr = fmdata.contractno.split('-')[2]
                 fmdata.contractno = fmdata.contractno.split('-')[0]
-            
+            }
+
+        }
+        if (this.props.commonTableStore.action_code == 'boss_idc_isp_retreat_line' || this.props.commonTableStore.action_code == 'idc_network_close_order') {
+            if (fmdata.contractno != undefined) {
+                if (fmdata.contractno.split('-')[1] == '') {
+                    message.error('请选择收费项')
+                    return
+                }
+                fmdata.chagredataId = fmdata.contractno.split('-')[1]
+                fmdata.contractno = fmdata.contractno.split('-')[0]
+
             }
         }
         let data = {

@@ -134,9 +134,9 @@ const CommonTableForm = props => {
 
         return <div className={ layoutcfg == 2 ? "addmodal" : layoutcfg == 3 ? 'addmodalt' : '' }>
 
-            { props.referinfo.length > 0 && props.referinfo.map((item, key) =>
+            {/* { props.referinfo.length > 0 && props.referinfo.map((item, key) =>
                 <ReferpluginCom key={ key } { ...item } layoutcfg={ layoutcfg } />
-            ) }
+            ) } */}
 
             <SchemaForm
                 value={ value }
