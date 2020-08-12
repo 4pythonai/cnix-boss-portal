@@ -152,7 +152,7 @@ export default class Login extends React.Component {
                         </form>
                         <div className="w3layouts_more-buttn">
                             <h3>使用过程中需要帮助?
-                    <a href="#/docs">查看文档DOC
+                    <a href="#/docs">查看文档DOC...
                     </a>
                             </h3>
                         </div>
