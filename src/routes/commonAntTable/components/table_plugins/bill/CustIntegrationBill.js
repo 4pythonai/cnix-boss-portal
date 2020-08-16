@@ -80,7 +80,7 @@ export default class CustIntegrationBill extends React.Component {
             panels.push(
 
                 <Panel key={ index } header={ '合同号:' + one.contract_no + '费用:' + one.total_summary } >
-                    <OneContractBillReportCom key={ index } onlyShowTimeLine="yes" howSaveBillBtn="no" OneContractBillingStore={ one } />
+                    <OneContractBillReportCom key={ index } onlyShowTimeLine="yes" howSaveBillBtn="no" billjson={ one } />
                 </Panel >
             )
         }

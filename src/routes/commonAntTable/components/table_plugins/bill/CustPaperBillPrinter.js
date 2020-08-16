@@ -9,17 +9,17 @@ import { observer, inject } from "mobx-react";
 import api from '@/api/api'
 import { toJS } from 'mobx'
 import { randomString } from '@/utils/tools'
-import OneContractBillingStore from "./OneContractBillingStore"
 import DevicePort from './DevicePort'
 import styles from './paper_bill_style.scss'
 
 
+@inject("billingSummaryStore")
 
 @observer
 export default class CustPaperBillPrinter extends React.Component {
     constructor(props) {
         super(props)
-        this.store = OneContractBillingStore
+        this.store = props.billingSummaryStore
         this.init = this.init.bind(this)
     }
 
@@ -273,7 +273,7 @@ export default class CustPaperBillPrinter extends React.Component {
             width: 1200,
             destroyOnClose: true,
             ref: "billrpt",
-            title: '账单详情',
+            title: '账单打印',
             bodyStyle: {
                 width: 1200,
                 height: "auto",
@@ -365,7 +365,7 @@ export default class CustPaperBillPrinter extends React.Component {
                                                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>联系人:{ this.state.zone.contact } { this.state.zone.mobile }  </div>
                                                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>主页:{ "http://www.cnix.com.cn" }</div>
 
-                                                {/* <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客服联系电话:{ "40012345678" }</div> */}
+                                                {/* <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客服联系电话:{ "40012345678" }</div> */ }
                                             </td>
 
                                         </tr>

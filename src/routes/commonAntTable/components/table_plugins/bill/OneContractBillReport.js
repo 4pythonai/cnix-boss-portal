@@ -20,7 +20,7 @@ export default class OneContractBillReport extends React.Component {
     state = {
         checkpassed: false,
         visible: false,
-        billstore: null,
+        billjson: {},
         toal_check_errors: []
     }
 
@@ -32,15 +32,16 @@ export default class OneContractBillReport extends React.Component {
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
         let params = { method: 'GET', data: { "contract_no": current_row.contract_no } }
         let json = await api.billing.billtest(params);
+        console.log('----------------->' + current_row.contract_no);
+
         console.log(json);
-        console.log(json.success);
 
         if (json.success == 'false') {
 
             this.setState({ visible: true, checkpassed: false, toal_check_errors: json.toal_check_errors })
 
         } else {
-            this.setState({ visible: true, checkpassed: true, billstore: json })
+            this.setState({ visible: true, checkpassed: true, billjson: json })
         }
 
 
@@ -53,7 +54,7 @@ export default class OneContractBillReport extends React.Component {
             width: 1200,
             destroyOnClose: true,
             ref: "billrpt",
-            title: '账单',
+            title: '手工出账单:',
             bodyStyle: {
                 width: 1200,
                 height: "auto",
@@ -78,11 +79,14 @@ export default class OneContractBillReport extends React.Component {
 
 
     render() {
-        console.log('will render.....')
+
+        console.log('将要渲染')
+
+
         let modalProps = this.getModalProps();
         if (this.state.checkpassed) {
             return <Modal { ...modalProps }>
-                <OneContractBillReportCom onlyShowTimeLine="no" showSaveBillBtn="yes" OneContractBillingStore={ this.state.billstore } />
+                <OneContractBillReportCom onlyShowTimeLine="no" showSaveBillBtn="yes" billjson={ this.state.billjson } />
             </Modal >
         } else {
             return <Modal { ...modalProps }>

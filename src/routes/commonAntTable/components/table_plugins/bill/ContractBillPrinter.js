@@ -5,15 +5,15 @@ import { observer, inject } from "mobx-react";
 import api from '@/api/api'
 import { toJS } from 'mobx'
 import { randomString } from '@/utils/tools'
-import OneContractBillingStore from "./OneContractBillingStore"
 import DevicePort from './DevicePort'
 
+@inject("billingSummaryStore")
 
 @observer
 export default class ContractBillPrinter extends React.Component {
     constructor(props) {
         super(props)
-        this.store = OneContractBillingStore
+        this.store = props.billingSummaryStore
         this.init = this.init.bind(this)
     }
 
@@ -129,7 +129,7 @@ export default class ContractBillPrinter extends React.Component {
             width: 1200,
             destroyOnClose: true,
             ref: "billrpt",
-            title: '账单详情',
+            title: '合同账单详情',
             bodyStyle: {
                 width: 1200,
                 height: "auto",

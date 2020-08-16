@@ -4,15 +4,21 @@ import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Check
 import { observer, inject } from "mobx-react";
 import api from '@/api/api'
 import { toJS } from 'mobx'
-import OneContractBillingStore from "./OneContractBillingStore"
 
+@inject("billingSummaryStore")
 
 @observer
 export default class OneContractBillReportCom extends React.Component {
     constructor(props) {
         super(props)
-        this.store = OneContractBillingStore
-        this.incomoe_json = props.OneContractBillingStore
+
+        console.log(props)
+        // debugger
+
+        this.store = props.billingSummaryStore
+
+        this.billjson = props.billjson
+
         this.showSaveBillBtn = props.showSaveBillBtn
         this.onlyShowTimeLine = props.onlyShowTimeLine
     }
@@ -26,7 +32,7 @@ export default class OneContractBillReportCom extends React.Component {
 
 
     componentWillMount() {
-        this.store.setBillingData(this.incomoe_json)
+        this.store.setBillingData(this.billjson)
         this.setState({ visible: true })
     }
 
@@ -262,25 +268,6 @@ export default class OneContractBillReportCom extends React.Component {
     }
 
 
-    getModalProps() {
-        return {
-            width: 1200,
-            destroyOnClose: true,
-            ref: "billrpt",
-            title: '账单',
-            bodyStyle: {
-                width: 1200,
-                height: "auto",
-                overflow: 'auto',
-                bottom: 0
-            },
-            cancelText: '取消',
-            okText: "确定",
-            visible: this.state.visible,
-            onOk: this.saveFormData,
-            onCancel: () => this.onCancel()
-        }
-    }
 
 
     rowSelection = {
@@ -297,7 +284,9 @@ export default class OneContractBillReportCom extends React.Component {
 
 
     render() {
-        console.log('will render.....')
+
+
+
         return <div>
             <div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客户名称:{ this.store.cust.customer_name }</div>
@@ -306,16 +295,17 @@ export default class OneContractBillReportCom extends React.Component {
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>月租金:{ this.store.contract.monthly_fee }元</div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同起始:{ this.store.contract.contract_start }</div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同终止:{ this.store.contract.contract_end }</div>
-                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>周期性费用合计:{ this.store.cycleFee_summary }元</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>周期性费用合计:{ this.store.cyclefee_summary }元</div>
+                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>一次性费用合计:{ this.store.onetimefee_summary }元</div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用合计:{ this.store.total_summary }元</div>
                 {
-                    this.showSaveBillBtn == 'yes' ? <Button onClick={ event => this.saveBill(event) }>保存账单</Button> : ''
+                    this.showSaveBillBtn == 'yes' ? <Button onClick={ event => this.saveBill(event) }>保存账单[已生成账单不会被覆盖]</Button> : ''
                 }
 
                 {
                     this.onlyShowTimeLine !== 'yes' ?
                         <div>
-                            <Divider orientation="left">周期性账单-按产品</Divider>
+                            <Divider orientation="left">周期性账单-按产品(cycle_store)</Divider>
                             <Table
                                 dataSource={ this.store.cycle_store }
                                 rowKey="id"
@@ -328,7 +318,7 @@ export default class OneContractBillReportCom extends React.Component {
                         : ''
                 }
 
-                <Divider orientation="left">周期性账单-按账期</Divider>
+                <Divider orientation="left">周期性账单-按账期(contract_timeline)</Divider>
                 <Table
 
                     dataSource={ this.store.contract_timeline }

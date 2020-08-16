@@ -8,8 +8,8 @@ class billingSummaryStore {
     @observable cust = {};
     @observable contract = {}
     @observable contract_timeline = []
-    @observable cycleFee_summary = 0;
-    @observable onetimeFee_summary = 0;
+    @observable cyclefee_summary = 0;
+    @observable onetimefee_summary = 0;
     @observable total_summary = 0;
     @observable big_total_summary = 0;
 
@@ -31,11 +31,16 @@ class billingSummaryStore {
     @action setBillingData = data => {
         console.log('费用数据--->', data)
         // 设置计费数据
-        this.cycle_store = data.billing_store.cycle_store;
-        this.onetime_store = data.billing_store.onetime_store;
+
+
+        this.cycle_store = data.cycle_store;
+        this.onetime_store = data.onetime_store;
+
+
+
         this.contract_timeline = data.contract_timeline
-        this.cycleFee_summary = data.cyclefee_summary;
-        this.onetimeFee_summary = data.onetimefee_summary;
+        this.cyclefee_summary = data.cyclefee_summary;
+        this.onetimefee_summary = data.onetimefee_summary;
         this.total_summary = data.total_summary;
         this.cust = data.cust
         this.contract = data.contract

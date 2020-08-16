@@ -15,6 +15,8 @@ const routes = {
         require("./profile").default,
         require("./permissionManage").default,
         require("./custportal").default,
+        require("./report").default,
+
     ]
 };
 

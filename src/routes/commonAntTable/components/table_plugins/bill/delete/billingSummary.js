@@ -3,13 +3,15 @@ import { observer, inject } from "mobx-react";
 import { Table, Divider } from 'antd';
 
 
-@inject("OneContractBillingStore")
+@inject("billingSummaryStore")
 
 @observer
 export default class BillingSummary extends React.Component {
     constructor(props) {
         super();
-        this.store = props.OneContractBillingStore
+        alert(111)
+        this.store = props.billingSummaryStore
+
     }
     componentWillUnmount() {
         this.store.clear()
@@ -137,8 +139,8 @@ export default class BillingSummary extends React.Component {
         return (
             <div>
 
-                <div style={ { fontWeight: 'bold' } }>周期性费用合计:{ this.store.cycleFee_summary }元</div>
-                <div style={ { fontWeight: 'bold' } }>一次性费用合计:{ this.store.onetimeFee_summary }元</div>
+                <div style={ { fontWeight: 'bold' } }>周期性费用合计:{ this.store.cyclefee_summary }元</div>
+                <div style={ { fontWeight: 'bold' } }>一次性费用合计:{ this.store.onetimefee_summary }元</div>
                 <div style={ { fontWeight: 'bold' } }>费用合计:{ this.store.total_summary }元</div>
 
                 <Divider orientation="left" >周期性费用详情</Divider>

@@ -6,7 +6,6 @@ import api from '@/api/api'
 import pmStore from '@/store/pmStore'
 import { toJS } from 'mobx'
 import { randomString } from '@/utils/tools'
-import billingSummaryStore from "./billingSummaryStore"
 import DevicePort from './DevicePort'
 
 
@@ -15,7 +14,6 @@ export default class PortTpl extends React.Component {
     constructor(props) {
         super(props)
         console.log(props)
-        // this.store = new billingSummaryStore
         this.init = this.init.bind(this)
     }
 
@@ -27,7 +25,6 @@ export default class PortTpl extends React.Component {
 
     componentDidMount() {
 
-        billingSummaryStore.clear()
 
 
     }

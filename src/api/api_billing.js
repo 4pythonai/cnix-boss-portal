@@ -24,7 +24,10 @@ export default class billing {
 
 
 
+        // 应收报表
 
+
+        getShouldPay: params => http(params, `${ api_root }/Billing/getShouldPay`),
 
 
 

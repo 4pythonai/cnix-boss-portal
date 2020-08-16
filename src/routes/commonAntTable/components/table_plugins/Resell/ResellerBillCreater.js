@@ -11,7 +11,6 @@ import { randomString } from '@/utils/tools'
 export default class ResellerBillCreater extends React.Component {
     constructor(props) {
         super(props)
-        // this.store = OneContractBillingStore
         this.init = this.init.bind(this)
     }
 

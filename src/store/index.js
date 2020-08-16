@@ -5,7 +5,9 @@ import permissionManageStore from './permissionManageStore'
 import pmStore from './pmStore'
 import dmStore from './dmStore'
 
-import billingSummaryStore from './billingSummaryStore'
+import billingSummaryStore from '@/routes/commonAntTable/components/table_plugins/bill/billingSummaryStore'
+
+
 import associateSelectStore from './associateSelectStore'
 
 import triggerlineStore from '../routes/datagridmnt/container/trigger/triggerlineStore'
