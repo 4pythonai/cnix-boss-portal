@@ -1,6 +1,6 @@
 import React from 'react'
 import { Select } from 'antd';
-import { Table, Divider, Tag } from 'antd';
+import { Table, Divider, Button, Modal, Tag } from 'antd';
 import api from '@/api/api'
 const { Option } = Select;
 
@@ -10,7 +10,9 @@ export default class MonthlyShouldGet extends React.Component {
     }
 
     state = {
+        excelModal: false,
         tabletitle: '',
+        excelMsg: {},
         reportrows: [],
     }
 
@@ -43,6 +45,12 @@ export default class MonthlyShouldGet extends React.Component {
                 dataIndex: 'ID',
                 key: 'ID',
             },
+            {
+                title: '年度',
+                dataIndex: 'year',
+                key: 'year',
+            },
+
             {
                 title: '客户名称',
                 dataIndex: 'customer_name',
@@ -115,6 +123,50 @@ export default class MonthlyShouldGet extends React.Component {
     }
 
 
+    async exportExcel(actcode) {
+
+        console.log(this)
+        this.setState({ excelModal: true })
+        let params = {
+            data: {
+                actcode: 'MonthlyShouldGet',
+                role: sessionStorage.getItem("role_code"),
+                user: sessionStorage.getItem("user")
+            },
+            method: 'POST'
+        }
+        console.log(params)
+
+
+        let res = await api.activity.exportExcel(params)
+
+        if (res.code == 200) {
+            this.setState({
+                excelMsg: res.data
+            })
+            // this..showModal()
+        }
+
+    }
+
+
+    handleOk = e => {
+        console.log(e);
+        this.setState({
+            excelModal: false,
+        });
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            excelModal: false,
+        });
+    };
+
+
+
+
 
     render() {
         let columns = this.getColumns()
@@ -151,8 +203,27 @@ export default class MonthlyShouldGet extends React.Component {
                         <Option value="2024">2024</Option>
 
                     </Select>
+
+                    <Button onClick={ event => this.exportExcel(event) }>导出Excel</Button>
+
+
+
                 </div>
-                <Table title={ () => { return <div style={ { marginLeft: '800px' } }><h2>{ tabletitle } </h2></div> } }
+                <Modal
+                    visible={ this.state.excelModal }
+                    title={ '导出Excel' }
+                    onOk={ this.handleOk }
+                    onCancel={ this.handleCancel }
+                    width={ 800 }
+
+                >
+
+                    <a href={ this.state.excelMsg.url }>{ '点击下载 ' }</a>
+
+
+                </Modal >
+
+                <Table rowKey={ 'ID' } title={ () => { return <div style={ { marginLeft: '800px' } }><h2>{ tabletitle } </h2></div> } }
                     columns={ columns } pagination={ pagination } dataSource={ data } />
             </div>
         )
