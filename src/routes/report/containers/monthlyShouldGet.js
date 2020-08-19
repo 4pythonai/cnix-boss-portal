@@ -13,16 +13,32 @@ export default class MonthlyShouldGet extends React.Component {
         excelModal: false,
         tabletitle: '',
         excelMsg: {},
+        year: 0,
+        region: '',
         reportrows: [],
     }
 
-    onChange = async (value) => {
+    onChangeyear = async (value) => {
         this.setState({
-            tabletitle: value + '年应收报表'
+            year: value
+        })
+
+    }
+
+    onChangeregion = async (value) => {
+        this.setState({
+            region: value
+        })
+    }
+
+    generageReport = async () => {
+        this.setState({
+            tabletitle: this.state.year + '年' + this.state.region + '年应收报表'
         })
         let params = {
             data: {
-                year: value
+                year: this.state.year,
+                region: this.state.region
             },
             method: 'POST'
         }
@@ -56,6 +72,12 @@ export default class MonthlyShouldGet extends React.Component {
                 dataIndex: 'customer_name',
                 key: 'customer_name',
             },
+            {
+                title: '[1-12月合计]',
+                dataIndex: 'm_total',
+                key: 'm_total',
+            },
+
             {
                 title: '1月应收',
                 dataIndex: 'm1',
@@ -186,7 +208,7 @@ export default class MonthlyShouldGet extends React.Component {
                         style={ { width: 200 } }
                         placeholder="选择年份"
                         optionFilterProp="children"
-                        onChange={ this.onChange }
+                        onChange={ this.onChangeyear }
                         filterOption={ (input, option) =>
                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                         }
@@ -201,8 +223,22 @@ export default class MonthlyShouldGet extends React.Component {
                         <Option value="2022">2022</Option>
                         <Option value="2023">2023</Option>
                         <Option value="2024">2024</Option>
-
                     </Select>
+
+
+                    <Select
+                        showSearch
+                        style={ { width: 200 } }
+                        placeholder="选择地区"
+                        optionFilterProp="children"
+                        onChange={ this.onChangeregion }
+                    >
+                        <Option value="北京">北京</Option>
+                        <Option value="广州">广州</Option>
+                    </Select>
+
+
+                    <Button onClick={ event => this.generageReport() }>生成报表</Button>
 
                     <Button onClick={ event => this.exportExcel(event) }>导出Excel</Button>
 
