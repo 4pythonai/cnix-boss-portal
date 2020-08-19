@@ -235,6 +235,8 @@ export default class MonthlyShouldGet extends React.Component {
                     >
                         <Option value="北京">北京</Option>
                         <Option value="广州">广州</Option>
+                        <Option value="测试">测试</Option>
+
                     </Select>
 
 
