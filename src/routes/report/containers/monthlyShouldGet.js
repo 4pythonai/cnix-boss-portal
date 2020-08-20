@@ -2,6 +2,8 @@ import React from 'react'
 import { Select } from 'antd';
 import { Table, Divider, Button, Modal, Tag } from 'antd';
 import api from '@/api/api'
+import ExportJsonExcel from "js-export-excel"
+
 const { Option } = Select;
 
 export default class MonthlyShouldGet extends React.Component {
@@ -15,47 +17,7 @@ export default class MonthlyShouldGet extends React.Component {
         excelMsg: {},
         year: 0,
         region: '',
-        reportrows: [],
-    }
-
-    onChangeyear = async (value) => {
-        this.setState({
-            year: value
-        })
-
-    }
-
-    onChangeregion = async (value) => {
-        this.setState({
-            region: value
-        })
-    }
-
-    generageReport = async () => {
-        this.setState({
-            tabletitle: this.state.year + '年' + this.state.region + '年应收报表'
-        })
-        let params = {
-            data: {
-                year: this.state.year,
-                region: this.state.region
-            },
-            method: 'POST'
-        }
-
-        let res = await api.billing.getShouldPay(params)
-        if (res.code == 200) {
-
-            console.log(res)
-            this.setState({
-                reportrows: res.reportrows
-            })
-        }
-    }
-
-
-    getColumns = () => {
-        const columns = [
+        columns: [
             {
                 title: 'ID',
                 dataIndex: 'ID',
@@ -139,37 +101,73 @@ export default class MonthlyShouldGet extends React.Component {
                 key: 'm12',
             },
 
-        ];
-
-        return columns;
+        ],
+        reportrows: [],
     }
 
+    onChangeyear = async (value) => {
+        this.setState({
+            year: value
+        })
 
-    async exportExcel(actcode) {
+    }
 
-        console.log(this)
-        this.setState({ excelModal: true })
+    onChangeregion = async (value) => {
+        this.setState({
+            region: value
+        })
+    }
+
+    generageReport = async () => {
+        this.setState({
+            tabletitle: this.state.year + '年' + this.state.region + '年应收报表'
+        })
         let params = {
             data: {
-                actcode: 'MonthlyShouldGet',
-                role: sessionStorage.getItem("role_code"),
-                user: sessionStorage.getItem("user")
+                year: this.state.year,
+                region: this.state.region
             },
             method: 'POST'
         }
-        console.log(params)
 
-
-        let res = await api.activity.exportExcel(params)
-
+        let res = await api.billing.getShouldPay(params)
         if (res.code == 200) {
-            this.setState({
-                excelMsg: res.data
-            })
-            // this..showModal()
-        }
 
+            console.log(res)
+            this.setState({
+                reportrows: res.reportrows
+            })
+        }
     }
+
+
+
+
+    handleExport = () => {
+
+        const reportrows = this.state.reportrows
+        const { columns } = this.state;      // 需要放在state里边,Table，Columns
+        const option = {};
+
+        option.fileName = 'excel';
+        option.datas = [
+            {
+                sheetData: reportrows.map(item => {
+                    const result = {};
+                    columns.forEach(c => {
+                        result[c.dataIndex] = item[c.dataIndex];
+                    });
+                    return result;
+                }),
+                sheetName: 'ExcelName',     // Excel文件名称
+                sheetFilter: columns.map(item => item.dataIndex),
+                sheetHeader: columns.map(item => item.title),
+                columnWidths: columns.map(() => 10),
+            },
+        ];
+        const toExcel = new ExportJsonExcel(option);
+        toExcel.saveExcel();
+    };
 
 
     handleOk = e => {
@@ -191,7 +189,7 @@ export default class MonthlyShouldGet extends React.Component {
 
 
     render() {
-        let columns = this.getColumns()
+        let columns = this.state.columns
         let tabletitle = this.state.tabletitle
         let data = this.state.reportrows
         var pagination = {
@@ -224,8 +222,6 @@ export default class MonthlyShouldGet extends React.Component {
                         <Option value="2023">2023</Option>
                         <Option value="2024">2024</Option>
                     </Select>
-
-
                     <Select
                         showSearch
                         style={ { width: 200 } }
@@ -236,16 +232,9 @@ export default class MonthlyShouldGet extends React.Component {
                         <Option value="北京">北京</Option>
                         <Option value="广州">广州</Option>
                         <Option value="测试">测试</Option>
-
                     </Select>
-
-
                     <Button onClick={ event => this.generageReport() }>生成报表</Button>
-
-                    <Button onClick={ event => this.exportExcel(event) }>导出Excel</Button>
-
-
-
+                    <Button onClick={ this.handleExport }> 导出excel表格 </Button>
                 </div>
                 <Modal
                     visible={ this.state.excelModal }
@@ -253,12 +242,8 @@ export default class MonthlyShouldGet extends React.Component {
                     onOk={ this.handleOk }
                     onCancel={ this.handleCancel }
                     width={ 800 }
-
                 >
-
                     <a href={ this.state.excelMsg.url }>{ '点击下载 ' }</a>
-
-
                 </Modal >
 
                 <Table rowKey={ 'ID' } title={ () => { return <div style={ { marginLeft: '800px' } }><h2>{ tabletitle } </h2></div> } }
