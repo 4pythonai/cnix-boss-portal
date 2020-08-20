@@ -149,7 +149,7 @@ export default class MonthlyShouldGet extends React.Component {
         const { columns } = this.state;      // 需要放在state里边,Table，Columns
         const option = {};
 
-        option.fileName = 'excel';
+        option.fileName = this.state.tabletitle
         option.datas = [
             {
                 sheetData: reportrows.map(item => {
