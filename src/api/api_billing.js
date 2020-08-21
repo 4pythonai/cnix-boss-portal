@@ -28,10 +28,7 @@ export default class billing {
 
 
         getShouldPay: params => http(params, `${ api_root }/Billing/getShouldPay`),
-
-
-
-
+        getOwnedReport: params => http(params, `${ api_root }/Billing/getOwnedReport`),
 
 
 

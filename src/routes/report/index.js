@@ -15,9 +15,9 @@ export default {
         },
 
         {
-            path: 'prodreport',
+            path: 'custOwned',
             getComponent(nextState, cb) {
-                import('./containers/prodreport').then((m) => {
+                import('./containers/custOwned').then((m) => {
                     cb(null, m.default)
                 })
             }
