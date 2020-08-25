@@ -6,7 +6,7 @@ import ExportJsonExcel from "js-export-excel"
 
 const { Option } = Select;
 
-export default class CustOwned extends React.Component {
+export default class custOwned extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -24,38 +24,92 @@ export default class CustOwned extends React.Component {
                 key: 'ID',
             },
             {
+                title: '年度',
+                dataIndex: 'year',
+                key: 'year',
+            },
+
+            {
                 title: '客户名称',
                 dataIndex: 'customer_name',
                 key: 'customer_name',
             },
             {
-                title: '[账单金额]',
-                dataIndex: 'period_money',
-                key: 'period_money',
+                title: '[1-12月合计]',
+                dataIndex: 'm_total',
+                key: 'm_total',
             },
 
             {
-                title: '调整金额',
-                dataIndex: 'adjust_money',
-                key: 'adjust_money',
+                title: '1月欠费',
+                dataIndex: 'm1',
+                key: 'm1',
             },
             {
-                title: '实际应收金额',
-                dataIndex: 'actual_money',
-                key: 'actual_money',
+                title: '2月欠费',
+                dataIndex: 'm2',
+                key: 'm2',
             },
             {
-                title: '已销账',
-                dataIndex: 'payment_amount',
-                key: 'payment_amount',
+                title: '3月欠费',
+                dataIndex: 'm3',
+                key: 'm3',
             },
             {
-                title: '欠费金额',
-                dataIndex: 'owned_money',
-                key: 'owned_money',
-            }
+                title: '4月欠费',
+                dataIndex: 'm4',
+                key: 'm4',
+            },
+            {
+                title: '5月欠费',
+                dataIndex: 'm5',
+                key: 'm5',
+            },
+            {
+                title: '6月欠费',
+                dataIndex: 'm6',
+                key: 'm6',
+            },
+            {
+                title: '7月欠费',
+                dataIndex: 'm7',
+                key: 'm7',
+            },
+            {
+                title: '8月欠费',
+                dataIndex: 'm8',
+                key: 'm8',
+            },
+            {
+                title: '9月欠费',
+                dataIndex: 'm9',
+                key: 'm9',
+            },
+            {
+                title: '10月欠费',
+                dataIndex: 'm10',
+                key: 'm10',
+            },
+            {
+                title: '11月欠费',
+                dataIndex: 'm11',
+                key: 'm11',
+            },
+            {
+                title: '12月欠费',
+                dataIndex: 'm12',
+                key: 'm12',
+            },
+
         ],
-        Ownedrows: [],
+        reportrows: [],
+    }
+
+    onChangeyear = async (value) => {
+        this.setState({
+            year: value
+        })
+
     }
 
     onChangeregion = async (value) => {
@@ -66,21 +120,22 @@ export default class CustOwned extends React.Component {
 
     generageReport = async () => {
         this.setState({
-            tabletitle: this.state.region + '客户欠费报表'
+            tabletitle: this.state.year + '年' + this.state.region + '欠费情况'
         })
         let params = {
             data: {
-                // region: this.state.region
+                year: this.state.year,
+                region: this.state.region
             },
             method: 'POST'
         }
 
-        let res = await api.billing.getOwnedReport(params)
+        let res = await api.billing.getShouldPay(params)
         if (res.code == 200) {
 
             console.log(res)
             this.setState({
-                Ownedrows: res.Ownedrows
+                reportrows: res.reportrows
             })
         }
     }
@@ -90,14 +145,14 @@ export default class CustOwned extends React.Component {
 
     handleExport = () => {
 
-        const Ownedrows = this.state.Ownedrows
+        const reportrows = this.state.reportrows
         const { columns } = this.state;      // 需要放在state里边,Table，Columns
         const option = {};
 
         option.fileName = this.state.tabletitle
         option.datas = [
             {
-                sheetData: Ownedrows.map(item => {
+                sheetData: reportrows.map(item => {
                     const result = {};
                     columns.forEach(c => {
                         result[c.dataIndex] = item[c.dataIndex];
@@ -136,18 +191,38 @@ export default class CustOwned extends React.Component {
     render() {
         let columns = this.state.columns
         let tabletitle = this.state.tabletitle
-        let data = this.state.Ownedrows
+        let data = this.state.reportrows
         var pagination = {
-            total: this.state.Ownedrows.length,
+            total: this.state.reportrows.length,
             pageSize: 30
         };
 
 
         return (
             <div className="custServiceContent">
-                <div style={ { display: 'flex', paddingLeft: '100px' } }> <h4>选择地区</h4> &nbsp;&nbsp;&nbsp;
-
-                     {/* <Select
+                <div style={ { display: 'flex', paddingLeft: '100px' } }> <h4>选择年份</h4> &nbsp;&nbsp;&nbsp;
+                    <Select
+                        showSearch
+                        style={ { width: 200 } }
+                        placeholder="选择年份"
+                        optionFilterProp="children"
+                        onChange={ this.onChangeyear }
+                        filterOption={ (input, option) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        }
+                    >
+                        <Option value="2015">2015</Option>
+                        <Option value="2016">2016</Option>
+                        <Option value="2017">2017</Option>
+                        <Option value="2018">2018</Option>
+                        <Option value="2019">2019</Option>
+                        <Option value="2020">2020</Option>
+                        <Option value="2021">2021</Option>
+                        <Option value="2022">2022</Option>
+                        <Option value="2023">2023</Option>
+                        <Option value="2024">2024</Option>
+                    </Select>
+                    <Select
                         showSearch
                         style={ { width: 200 } }
                         placeholder="选择地区"
@@ -158,7 +233,6 @@ export default class CustOwned extends React.Component {
                         <Option value="广州">广州</Option>
                         <Option value="测试">测试</Option>
                     </Select>
-                */}
                     <Button onClick={ event => this.generageReport() }>生成报表</Button>
                     <Button onClick={ this.handleExport }> 导出excel表格 </Button>
                 </div>
