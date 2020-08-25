@@ -23,6 +23,15 @@ export default {
             }
         },
 
+        {
+            path: 'custPayed',
+            getComponent(nextState, cb) {
+                import('./containers/custPayed').then((m) => {
+                    cb(null, m.default)
+                })
+            }
+        },
+
 
 
     ]

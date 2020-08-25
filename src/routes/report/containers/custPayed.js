@@ -6,7 +6,7 @@ import ExportJsonExcel from "js-export-excel"
 
 const { Option } = Select;
 
-export default class CustOwned extends React.Component {
+export default class CustPayed extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -120,7 +120,7 @@ export default class CustOwned extends React.Component {
 
     generageReport = async () => {
         this.setState({
-            tabletitle: this.state.year + '年' + this.state.region + '欠费情况'
+            tabletitle: this.state.year + '年' + this.state.region + '结算情况'
         })
         let params = {
             data: {
@@ -130,7 +130,7 @@ export default class CustOwned extends React.Component {
             method: 'POST'
         }
 
-        let res = await api.billing.getOwnedReport(params)
+        let res = await api.billing.getPayedReport(params)
         if (res.code == 200) {
 
             console.log(res)
