@@ -1,11 +1,3 @@
-import { root_url, port, controller, processRoot, version_2 } from './api_config/base_config'
-import http from './http'
-
-const api_root = `${ root_url }:${ port }/${ version_2 }`
-
-export { api_root }
-
-
 import device from './api_device'
 import processmanager from './api_processmanager'
 import activity from './api_activity'
@@ -18,6 +10,17 @@ import customer from './api_customer'
 import activityRecord from './api_activityRecord'
 import billing from './api_billing'
 import network from './api_network'
+import report from './api_report'
+
+
+import { root_url, port, controller, version_2 } from './api_config/base_config'
+import http from './http'
+
+const api_root = `${ root_url }:${ port }/${ version_2 }`
+
+export { api_root }
+
+
 
 
 
@@ -45,7 +48,7 @@ export default class api {
 
 
     }
-    
+
     static equipmentMaterial = {
         addEquipmentMaterial: (params) => http(params, `${ api_root }/${ controller.equipmentMaterial }/addEquipmentMaterial`),
         deleteEquipmentMaterial: (params) => http(params, `${ api_root }/${ controller.equipmentMaterial }/deleteEquipmentMaterial`),
@@ -82,12 +85,12 @@ export default class api {
         updateOpp: (params) => http(params, `${ api_root }/${ controller.sales }/updateOpp`),
     }
 
- 
-   
 
 
 
- 
+
+
+
 }
 
 
@@ -97,9 +100,10 @@ api.activity = activity.apis
 api.curd = curd.apis
 api.auth = auth.apis
 api.bpm = bpm.apis
- api.permission = permission.apis
+api.permission = permission.apis
 api.user = user.apis
 api.customer = customer.apis
 api.activityRecord = activityRecord.apis
 api.billing = billing.apis
 api.network = network.apis
+api.report = report.apis

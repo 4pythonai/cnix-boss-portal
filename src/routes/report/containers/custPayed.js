@@ -1,15 +1,12 @@
 import React from 'react'
 import { Select } from 'antd';
-import { Table, Divider, Button, Modal, Tag } from 'antd';
+import { Table, Button, Modal } from 'antd';
 import api from '@/api/api'
 import ExportJsonExcel from "js-export-excel"
 
 const { Option } = Select;
 
 export default class CustPayed extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     state = {
         excelModal: false,
@@ -130,8 +127,8 @@ export default class CustPayed extends React.Component {
             method: 'POST'
         }
 
-        let res = await api.billing.getPayedReport(params)
-        if (res.code == 200) {
+        let res = await api.report.getPayedReport(params)
+        if (res.code === 200) {
 
             console.log(res)
             this.setState({

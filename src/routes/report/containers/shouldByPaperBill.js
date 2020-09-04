@@ -6,7 +6,7 @@ import ExportJsonExcel from "js-export-excel"
 
 const { Option } = Select;
 
-export default class MonthlyShouldGet extends React.Component {
+export default class ShouldByPaperBill extends React.Component {
 
     state = {
         excelModal: false,
@@ -117,7 +117,7 @@ export default class MonthlyShouldGet extends React.Component {
 
     generageReport = async () => {
         this.setState({
-            tabletitle: this.state.year + '年' + this.state.region + '年应收报表(基于合同账单)'
+            tabletitle: this.state.year + '年' + this.state.region + '年应收报表(基于客户账单)'
         })
         let params = {
             data: {
@@ -127,7 +127,7 @@ export default class MonthlyShouldGet extends React.Component {
             method: 'POST'
         }
 
-        let res = await api.report.getShouldPay(params)
+        let res = await api.report.getShouldPayByPaperBill(params)
         if (res.code === 200) {
 
             console.log(res)

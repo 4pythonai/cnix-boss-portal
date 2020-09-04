@@ -1,15 +1,13 @@
 import React from 'react'
 import { Select } from 'antd';
-import { Table, Divider, Button, Modal, Tag } from 'antd';
+import { Table, Button, Modal } from 'antd';
 import api from '@/api/api'
 import ExportJsonExcel from "js-export-excel"
 
 const { Option } = Select;
 
 export default class CustOwned extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+
 
     state = {
         excelModal: false,
@@ -120,7 +118,7 @@ export default class CustOwned extends React.Component {
 
     generageReport = async () => {
         this.setState({
-            tabletitle: this.state.year + '年' + this.state.region + '欠费情况'
+            tabletitle: this.state.year + '年' + this.state.region + '欠费情况(基于合同账单)'
         })
         let params = {
             data: {
@@ -130,8 +128,8 @@ export default class CustOwned extends React.Component {
             method: 'POST'
         }
 
-        let res = await api.billing.getOwnedReport(params)
-        if (res.code == 200) {
+        let res = await api.report.getOwnedReport(params)
+        if (res.code === 200) {
 
             console.log(res)
             this.setState({

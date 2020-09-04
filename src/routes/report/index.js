@@ -32,6 +32,29 @@ export default {
             }
         },
 
+        {
+            path: 'shouldByPaperBill',
+            getComponent(nextState, cb) {
+                import('./containers/shouldByPaperBill').then((m) => {
+                    cb(null, m.default)
+                })
+            }
+        },
+
+        {
+            path: 'MRR',
+            getComponent(nextState, cb) {
+                import('./containers/MRR').then((m) => {
+                    cb(null, m.default)
+                })
+            }
+        },
+
+
+
+
+
+
 
 
     ]
