@@ -6,7 +6,7 @@ import ExportJsonExcel from "js-export-excel"
 
 const { Option } = Select;
 
-export default class ShouldByPaperBill extends React.Component {
+export default class ReportByPaperBillOwned extends React.Component {
 
     state = {
         excelModal: false,
@@ -38,62 +38,62 @@ export default class ShouldByPaperBill extends React.Component {
             },
 
             {
-                title: '1月应收',
+                title: '1月欠费',
                 dataIndex: 'm1',
                 key: 'm1',
             },
             {
-                title: '2月应收',
+                title: '2月欠费',
                 dataIndex: 'm2',
                 key: 'm2',
             },
             {
-                title: '3月应收',
+                title: '3月欠费',
                 dataIndex: 'm3',
                 key: 'm3',
             },
             {
-                title: '4月应收',
+                title: '4月欠费',
                 dataIndex: 'm4',
                 key: 'm4',
             },
             {
-                title: '5月应收',
+                title: '5月欠费',
                 dataIndex: 'm5',
                 key: 'm5',
             },
             {
-                title: '6月应收',
+                title: '6月欠费',
                 dataIndex: 'm6',
                 key: 'm6',
             },
             {
-                title: '7月应收',
+                title: '7月欠费',
                 dataIndex: 'm7',
                 key: 'm7',
             },
             {
-                title: '8月应收',
+                title: '8月欠费',
                 dataIndex: 'm8',
                 key: 'm8',
             },
             {
-                title: '9月应收',
+                title: '9月欠费',
                 dataIndex: 'm9',
                 key: 'm9',
             },
             {
-                title: '10月应收',
+                title: '10月欠费',
                 dataIndex: 'm10',
                 key: 'm10',
             },
             {
-                title: '11月应收',
+                title: '11月欠费',
                 dataIndex: 'm11',
                 key: 'm11',
             },
             {
-                title: '12月应收',
+                title: '12月欠费',
                 dataIndex: 'm12',
                 key: 'm12',
             },
@@ -117,17 +117,19 @@ export default class ShouldByPaperBill extends React.Component {
 
     generageReport = async () => {
         this.setState({
-            tabletitle: this.state.year + '年' + this.state.region + '年应收报表(基于客户账单)'
+            tabletitle: this.state.year + '年' + this.state.region + '年欠费报表(基于客户账单)'
         })
         let params = {
             data: {
                 year: this.state.year,
-                region: this.state.region
+                region: this.state.region,
+                mode: 'owned',
+
             },
             method: 'POST'
         }
 
-        let res = await api.report.getShouldPayByPaperBill(params)
+        let res = await api.report.reportByPaperBill(params)
         if (res.code === 200) {
 
             console.log(res)

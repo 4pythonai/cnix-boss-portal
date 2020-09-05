@@ -123,12 +123,14 @@ export default class CustOwned extends React.Component {
         let params = {
             data: {
                 year: this.state.year,
-                region: this.state.region
+                region: this.state.region,
+                mmrflag: false,
+                mode: 'owned'
             },
             method: 'POST'
         }
 
-        let res = await api.report.getOwnedReport(params)
+        let res = await api.report.reportByContractBill(params)
         if (res.code === 200) {
 
             console.log(res)

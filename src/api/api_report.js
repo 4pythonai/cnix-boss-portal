@@ -6,18 +6,15 @@ const api_root = `${ root_url }:${ port }/${ version_2 }`
 
 export default class report {
     static apis = {
-
-        // 应收报表
-
-
-        getShouldPay: params => http(params, `${ api_root }/Report/getShouldPay`),
-        getOwnedReport: params => http(params, `${ api_root }/Report/getOwnedReport`),
-        getPayedReport: params => http(params, `${ api_root }/Report/getPayedReport`),
-
+        // 应收/已收/欠费
 
         // 根据客户账单
-        getShouldPayByPaperBill: params => http(params, `${ api_root }/Report/getShouldPayByPaperBill`),
-        getMRRReport: params => http(params, `${ api_root }/Report/getMRRReport`),
+        reportByPaperBill: params => http(params, `${ api_root }/Report/reportByPaperBill`),
+
+
+        // 根据合同账单
+        reportByContractBill: params => http(params, `${ api_root }/Report/reportByContractBill`),
+
 
 
 
