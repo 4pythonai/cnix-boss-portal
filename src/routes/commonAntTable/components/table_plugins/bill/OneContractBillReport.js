@@ -26,12 +26,12 @@ export default class OneContractBillReport extends React.Component {
 
     async init() {
         if (this.props.commonTableStore.selectedRowKeys.length == 0) {
-            message.error('请选择一条数据');
+            message.error('请选择一个合同');
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
         let params = { method: 'GET', data: { "contract_no": current_row.contract_no } }
-        let json = await api.billing.billtest(params);
+        let json = await api.billing.billByContract(params);
         console.log('----------------->' + current_row.contract_no);
 
         console.log(json);

@@ -7,8 +7,14 @@ const api_root = `${ root_url }:${ port }/${ version_2 }`
 export default class billing {
     static apis = {
 
-        //收款合同
-        billtest: params => http(params, `${ api_root }/Billing/billtest`),
+
+        // 按照合同进行计费
+        billByContract: params => http(params, `${ api_root }/Billing/billByContract`),
+
+        // 按照客户进行计费
+        billByCust: params => http(params, `${ api_root }/Billing/billByCust`),
+
+
         saveBill: params => http(params, `${ api_root }/Billing/saveBill`),
         transferContract: params => http(params, `${ api_root }/App/transferContract`),
         prepareBills: params => http(params, `${ api_root }/Billing/prepareBills`),

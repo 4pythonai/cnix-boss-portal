@@ -29,12 +29,12 @@ export default class CustIntegrationBill extends React.Component {
 
     async init() {
         if (this.props.commonTableStore.selectedRowKeys.length == 0) {
-            message.error('请选择一条数据');
+            message.error('请选择一个客户');
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
         let params = { method: 'GET', data: { "custid": current_row.id } }
-        let json = await api.billing.billtest(params);
+        let json = await api.billing.billByCust(params);
         console.log(json)
 
         this.setState({ visible: true, big_total_summary: json.big_total_summary, cust: json.cust, IntegrationStore: json, united_results: json.united_results })
