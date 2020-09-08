@@ -12,6 +12,8 @@ export default class OneContractBillReportCom extends React.Component {
     constructor(props) {
         super(props)
 
+        alert('OneContractBillReportCom')
+
         console.log(props)
         // debugger
 
@@ -147,9 +149,9 @@ export default class OneContractBillReportCom extends React.Component {
             },
 
             {
-                title: '费用合计',
-                dataIndex: 'row_summary',
-                key: 'row_summary'
+                title: '资源费用合计',
+                dataIndex: 'item_total_fee',
+                key: 'item_total_fee'
             }, {
                 title: '备注',
                 dataIndex: 'memo',
