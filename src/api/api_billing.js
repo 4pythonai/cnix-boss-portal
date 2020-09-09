@@ -24,10 +24,8 @@ export default class billing {
         saveCombinedBill: params => http(params, `${ api_root }/Billing/saveCombinedBill`),
         getPaperInfoById: params => http(params, `${ api_root }/Billing/getPaperInfoById`),
         getZones: params => http(params, `${ api_root }/Billing/getZones`),
-
-
-        //客户使用采购资源的计费情况
-
+        getContractRelatedResources: params => http(params, `${ api_root }/Billing/getContractRelatedResources`),
+        savePaperBillLocateYearMonth: params => http(params, `${ api_root }/Billing/savePaperBillLocateYearMonth`),
 
 
     }

@@ -11,27 +11,15 @@ import { toJS } from 'mobx'
 export default class OneContractBillReportCom extends React.Component {
     constructor(props) {
         super(props)
-
-        alert('OneContractBillReportCom')
-
-        console.log(props)
-        // debugger
-
         this.store = props.billingSummaryStore
-
         this.billjson = props.billjson
-
         this.showSaveBillBtn = props.showSaveBillBtn
         this.onlyShowTimeLine = props.onlyShowTimeLine
     }
 
-
     state = {
         visible: false,
     }
-
-
-
 
     componentWillMount() {
         this.store.setBillingData(this.billjson)
@@ -286,9 +274,6 @@ export default class OneContractBillReportCom extends React.Component {
 
 
     render() {
-
-
-
         return <div>
             <div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客户名称:{ this.store.cust.customer_name }</div>

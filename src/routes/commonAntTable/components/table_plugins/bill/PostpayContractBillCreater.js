@@ -10,7 +10,7 @@ import OneContractBillReportCom from "./OneContractBillReportCom"
 
 
 @observer
-export default class OneContractBillReport extends React.Component {
+export default class PostpayContractBillCreater extends React.Component {
     constructor(props) {
         super(props)
         this.init = this.init.bind(this)
@@ -30,6 +30,15 @@ export default class OneContractBillReport extends React.Component {
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
+
+        //billingoption
+
+        if (current_row.billingoption !== '后付') {
+            message.error('请选择一个后付合同');
+            return;
+        }
+
+
         let params = { method: 'GET', data: { "contract_no": current_row.contract_no } }
         let json = await api.billing.billByContract(params);
         console.log('----------------->' + current_row.contract_no);
@@ -54,7 +63,7 @@ export default class OneContractBillReport extends React.Component {
             width: 1200,
             destroyOnClose: true,
             ref: "billrpt",
-            title: '手工出账单:',
+            title: '手工出账单[后付]:',
             bodyStyle: {
                 width: 1200,
                 height: "auto",
