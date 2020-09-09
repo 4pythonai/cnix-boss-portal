@@ -84,6 +84,13 @@ export default class ContractRelatedResources extends React.Component {
                 dataIndex: 'frameprice',
                 key: 'frameprice',
             },
+
+            {
+                title: '资源价格(占用)',
+                dataIndex: 'resprice',
+                key: 'resprice',
+            },
+
             {
                 title: '备注',
                 dataIndex: 'memo',
