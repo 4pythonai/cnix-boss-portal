@@ -58,7 +58,7 @@ export default class ContractRelatedResources extends React.Component {
                 key: 'resid',
             },
             {
-                title: '产品分类',
+                title: '产品子类',
                 dataIndex: 'sub_category',
                 key: 'sub_category',
             },

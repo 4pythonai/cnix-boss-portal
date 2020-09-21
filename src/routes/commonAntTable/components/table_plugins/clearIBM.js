@@ -1,7 +1,6 @@
 import api from '@/api/api'
-import React from 'react'
 
-import { Modal, Popconfirm, message } from 'antd'
+import { Modal, message } from 'antd'
 const { confirm } = Modal;
 
 
@@ -12,7 +11,7 @@ var clearIBM = {
             method: 'POST'
         };
         console.log(params);
-        let json = await api.bpm.clear_ibm_net_usage(params);
+        let json = await api.network.clear_ibm_net_usage(params);
         message.info(json.message)
     },
 
