@@ -8,3 +8,6 @@ package-lock.json
 /.cache
 ./README.md
 ./购买模板/*
+**/购买模板
+
+

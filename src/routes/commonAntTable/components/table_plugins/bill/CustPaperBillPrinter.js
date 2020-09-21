@@ -123,7 +123,7 @@ export default class CustPaperBillPrinter extends React.Component {
         const cols = [
 
             {
-                title: '产品分类',
+                title: '产品子类',
                 className: "small_table",
                 dataIndex: 'sub_category',
                 key: 'sub_category',

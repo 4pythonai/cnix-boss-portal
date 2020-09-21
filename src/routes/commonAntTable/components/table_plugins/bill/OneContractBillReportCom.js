@@ -116,7 +116,7 @@ export default class OneContractBillReportCom extends React.Component {
                 key: 'id'
             },
             {
-                title: '资源名称',
+                title: '产品子类',
                 dataIndex: 'sub_category',
                 key: 'sub_category'
             },
@@ -201,7 +201,7 @@ export default class OneContractBillReportCom extends React.Component {
                 key: '_end',
             },
             {
-                title: '产品分类',
+                title: '产品子类',
                 dataIndex: 'sub_category',
                 key: 'sub_category',
             },
