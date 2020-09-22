@@ -1,5 +1,5 @@
 import React from 'react'
-import { Select } from 'antd';
+import { Select, Input } from 'antd';
 import { Table, Button, Modal } from 'antd';
 import api from '@/api/api'
 import ExportJsonExcel from "js-export-excel"
@@ -13,6 +13,7 @@ export default class MRR extends React.Component {
         tabletitle: '',
         excelMsg: {},
         year: 0,
+        contract_no: '',
         region: '',
         columns: [
             {
@@ -124,6 +125,7 @@ export default class MRR extends React.Component {
                 year: this.state.year,
                 region: this.state.region,
                 mmrflag: true,
+                contract_no: this.state.contract_no,
                 mode: 'shouldpay',
             },
             method: 'POST'
@@ -185,6 +187,12 @@ export default class MRR extends React.Component {
 
 
 
+    selectContractno(a, b) {
+        this.setState({
+            contract_no: a.target.value,
+        });
+    }
+
 
 
     render() {
@@ -199,10 +207,10 @@ export default class MRR extends React.Component {
 
         return (
             <div className="custServiceContent">
-                <div style={ { display: 'flex', paddingLeft: '100px' } }> <h4>选择年份</h4> &nbsp;&nbsp;&nbsp;
+                <div style={ { width: "900px", justifyContent: 'space-between', display: 'flex', paddingLeft: '100px' } }>
                     <Select
                         showSearch
-                        style={ { width: 200 } }
+                        style={ { width: 140 } }
                         placeholder="选择年份"
                         optionFilterProp="children"
                         onChange={ this.onChangeyear }
@@ -232,6 +240,17 @@ export default class MRR extends React.Component {
                         <Option value="广州">广州</Option>
                         <Option value="测试">测试</Option>
                     </Select>
+                    <div style={ { width: '220px' } }
+                    >
+                        <Input
+                            style={ { width: '200' } }
+                            placeholder="请输入合同号,留空为所有"
+                            onChange={ (event) =>
+                                this.selectContractno(event, "")
+                            }
+                            onPressEnter={ this.handleOk }
+                        ></Input>
+                    </div>
                     <Button onClick={ event => this.generageReport() }>生成报表</Button>
                     <Button onClick={ this.handleExport }> 导出excel表格 </Button>
                 </div>
