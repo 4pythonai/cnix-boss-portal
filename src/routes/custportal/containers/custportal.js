@@ -1,6 +1,5 @@
 import React from 'react'
-import { Table, Divider, Tag, Button } from 'antd';
-import navigationStore from '@/store/navigationStore'
+import { Divider } from 'antd';
 
 export default class custportal extends React.Component {
     render() {
