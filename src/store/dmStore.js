@@ -7,7 +7,6 @@ class dmStore {
         autorun(() => {
 
             if (this.current_actcode) {
-                // this.initAll_v2()
                 this.initAll()
 
             }
@@ -29,52 +28,6 @@ class dmStore {
     @observable relatedtableColumns = []
     @observable relatedtable = []
 
-
-    @action initAll_v2 = () => {
-
-        console.log(this.current_actcode)
-
-        let _current_code = this.current_actcode
-        let _that = this
-
-        var request = {
-
-
-            getAllGrids: async function _getAllGrids() {
-
-                let params = { data: {} }
-                let json = await api.activity.getPortalDataGrids(params);
-                return json.data;
-            },
-
-
-            getActCols: async function _getActCols() {
-
-                let params = { method: 'POST', data: { "actcode": _current_code } }
-                let json = await api.activity.getActCols(params);
-                return json.data
-            },
-
-        };
-
-
-
-        Promise.all([request.getAllGrids(), request.getActCols()]).then(
-            (result) => {
-                console.log(this)
-                console.log(_that)
-                console.log(result)
-
-                this.dataGrids = result[0];
-                this.maintableColumns = result[1]
-
-            }
-
-        )
-
-
-
-    }
 
 
     @action setRelatedtable = table => {

@@ -1558,7 +1558,7 @@ itemid	routes/commonAntTable/components/table_plugins/NodeAssignPlugin.js	/^    
 json	api/http.js	/^        json: params ? params.data : '' $/;"	r
 json	components/Uform_extends/fileuploader.js	/^            var json=JSON.stringify(data)$/;"	r
 json	components/Uform_extends/fileuploader.js	/^          var json = JSON.stringify(filelistt)$/;"	r
-json	routes/datagridmnt/container/trigger/triggerlineStore.js	/^        let json = await api.processmanager.getTableCols(params);$/;"	r
+json	routes/datagridmnt/container/trigger/triggerlineStore.js	/^        let json = await api.processmanager.(params);$/;"	r
 json	store/FlowApprovalStore.js	/^        let json = await api.activity.getFlowFormCfg(params);$/;"	r
 json	store/FlowApprovalStore.js	/^        let json = await api.bpm.getAllResourceButtonByKey(params);$/;"	r
 json	store/commonTableStore.js	/^        let json = await api.curd.addData(params);$/;"	r
@@ -1575,7 +1575,7 @@ json	store/dmStore.js	/^        let json = await api.activity.saveTriggerGroup(p
 json	store/dmStore.js	/^        let json = await api.processmanager.getAllBiztable(params);$/;"	r
 json	store/dmStore.js	/^        let json = await api.processmanager.getAllPlugins(params);$/;"	r
 json	store/oppStore.js	/^        let json = await api.opportunity.getAllChance(params);$/;"	r
-json	store/pmStore.js	/^            let json = await api.processmanager.getTableCols(params);$/;"	r
+json	store/pmStore.js	/^            let json = await api.processmanager.(params);$/;"	r
 json	store/pmStore.js	/^        let json = await api.bpm.getAllNodeName(params);$/;"	r
 json	store/pmStore.js	/^        let json = await api.processmanager.getAllBiztable(params);$/;"	r
 json	store/pmStore.js	/^        let json = await api.processmanager.getAllPlugins(params);$/;"	r

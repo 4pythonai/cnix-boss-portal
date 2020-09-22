@@ -34,6 +34,8 @@ class commonTableStore {
 
     @observable layoutcfg = null
 
+    @observable tips = null
+
     @observable staticformcfg = null
 
     @observable selectType = null
@@ -70,7 +72,7 @@ class commonTableStore {
         this.schmeForm.push(obj)
     }
 
-    @action registerDropDown(key,obj){
+    @action registerDropDown(key, obj) {
         this.dropdownRef[key] = obj
     }
 
@@ -192,6 +194,10 @@ class commonTableStore {
 
 
     @action setlayoutCfg = layoutcfg => this.layoutcfg = layoutcfg;
+    @action setTips = tips => this.tips = tips;
+
+
+
 
     @action setstaticformcfg = staticformcfg => this.staticformcfg = staticformcfg;
 

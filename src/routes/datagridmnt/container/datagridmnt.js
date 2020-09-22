@@ -161,10 +161,17 @@ export default class datagridmnt extends React.Component {
 
         const columns = [
             {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+            },
+
+            {
                 title: '操作',
+                key: 'xcodes',
                 render: (text, record) => {
                     return (
-                        <div style={ { width: "350px" } }>
+                        <div style={ { display: 'flex' } }>
                             <Popconfirm
                                 title="确定删除此Acttion_code?"
                                 icon={ <Icon type="api" style={ { color: 'red' } } /> }
@@ -181,16 +188,9 @@ export default class datagridmnt extends React.Component {
                             <Button size="small" type="button" onClick={ () => this.onClick(record.activity_code, 'flow_template') }>工作流模板</Button>
                             <Button size="small" type="button" onClick={ () => this.onClick(record.activity_code, 'curd_template') }>CURD</Button>
                             <Button size="small" type="button" onClick={ () => this.onClick(record.activity_code, 'reset') }>重置</Button>
-
-
                         </div>
                     )
                 }
-            },
-            {
-                title: 'ID',
-                dataIndex: 'id',
-                key: 'id',
             },
             {
                 title: 'ActionCode',
@@ -198,11 +198,11 @@ export default class datagridmnt extends React.Component {
                 key: 'ActionCode',
                 ...this.getColumnSearchProps('activity_code'),
             },
+
             {
                 title: '名称',
                 dataIndex: 'grid_title',
                 key: 'grid_title',
-                width: 200,
                 ...this.getColumnSearchProps('grid_title'),
             },
             {
@@ -215,6 +215,7 @@ export default class datagridmnt extends React.Component {
                 title: '多选',
                 dataIndex: 'multiple',
                 key: 'multiple',
+
             },
             {
                 title: 'geturl',
@@ -239,11 +240,13 @@ export default class datagridmnt extends React.Component {
                 title: '布局',
                 dataIndex: 'layoutcfg',
                 key: 'layoutcfg',
-                width: 200
             },
 
-
-
+            {
+                title: 'Tips',
+                dataIndex: 'tips',
+                key: 'tips',
+            },
         ];
 
 
@@ -259,7 +262,6 @@ export default class datagridmnt extends React.Component {
                             }) }
                             rowKey={ record => record.id }
                             size="small"
-                            scroll={ { x: '1900px' } }
                             columns={ columns }
                             rowSelection={ rowSelection }
                             dataSource={ dataGrids } />

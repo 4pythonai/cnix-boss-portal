@@ -69,7 +69,7 @@ class pmStore {
 
     @action getMainTableCols = async () => {
 
-        if (this.maintable == '') {
+        if (this.maintable === '') {
             this.maintableColumns = []
         } else {
 
@@ -86,7 +86,7 @@ class pmStore {
 
     @action getRelatedTableCols = async () => {
 
-        if (this.relatedtable == '') {
+        if (this.relatedtable === '') {
             this.relatedtableColumns = []
         } else {
             console.log('getRelatedTableCols')

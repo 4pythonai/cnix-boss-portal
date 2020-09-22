@@ -34,7 +34,8 @@ export default class activity {
         batchUpdateFieldCfg: params => http(params, `${ api_root }/${ controller.activity }/batchUpdateFieldCfg`),
         syncAllconfig: params => http(params, `${ api_root }/${ controller.activity }/syncAllconfig`),
         //表格排序接口
-        saveActCodeColumnOrder:params => http(params, `${ api_root }/${ controller.activity }/saveActCodeColumnOrder`)
+        saveActCodeColumnOrder: params => http(params, `${ api_root }/${ controller.activity }/saveActCodeColumnOrder`),
+        saveTips: params => http(params, `${ api_root }/${ controller.activity }/saveTips`)
 
 
 

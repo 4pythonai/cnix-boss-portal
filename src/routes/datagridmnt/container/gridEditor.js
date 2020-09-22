@@ -1,8 +1,8 @@
 import React from 'react'
-import CommonTable from '../../../routes/commonAntTable/components/commonTableCom/commonTable'
 import { Form, Row, Col, Input, Card, Select, Button, message, AutoComplete, Switch } from 'antd';
 import api from '../../../api/api'
 import { observer, inject } from "mobx-react";
+import Editor from '@/components/Uform_extends/wangeditor'
 
 
 const { Option } = Select;
@@ -17,7 +17,8 @@ class GridEditor extends React.Component {
 
     state = {
         query_cfg_field: '',
-        query_cfg_value: ''
+        query_cfg_value: '',
+        activity_tips: '',
     };
 
     componentDidUpdate() {
@@ -32,11 +33,31 @@ class GridEditor extends React.Component {
         this.setState({ query_cfg_value: value })
     }
 
+    setTipsValue = (content) => {
+        console.log(content);
+        this.setState({ activity_tips: content })
+    }
+
+    saveOverrideTips = () => {
+        if (this.dmstore.current_actcode === '') {
+            message.error('请选择一个DataGrid');
+            return;
+        }
+
+        if (this.state.activity_tips === '') {
+            message.error('请设置Tips');
+            return;
+        }
+        let params = { method: 'POST', data: { "actcode": this.dmstore.current_actcode, "tips": this.state.activity_tips } }
+        console.log(params)
+        api.activity.saveTips(params);
+    }
+
+
+
 
     setFieldQuery = (a, b, c) => {
-        console.log(a);
-        console.log(b);
-        console.log(c);
+
 
         this.setState({ query_cfg_field: a })
 
@@ -44,13 +65,10 @@ class GridEditor extends React.Component {
     }
 
     resetQueryCfg = async () => {
-        if (this.dmstore.current_actcode == '') {
+        if (this.dmstore.current_actcode === '') {
             message.error('请选择一个DataGrid');
             return;
         }
-
-        let params = { method: 'POST', data: { "actcode": this.dmstore.current_actcode } }
-        let json = await api.activity.resetQueryCfg(params);
     }
 
 
@@ -58,33 +76,24 @@ class GridEditor extends React.Component {
 
     saveOverrideQueryCfg = () => {
 
-        if (this.dmstore.current_actcode == '') {
+        if (this.dmstore.current_actcode === '') {
             message.error('请选择一个DataGrid');
             return;
         }
 
-        if (this.state.query_cfg_field == '') {
+        if (this.state.query_cfg_field === '') {
             message.error('请选择一个字段');
             return;
         }
 
-        if (this.state.query_cfg_value == '') {
+        if (this.state.query_cfg_value === '') {
             message.error('请设置参数值');
             return;
         }
-
-
-
-
         let params = { method: 'POST', data: { "actcode": this.dmstore.current_actcode, "query_cfg_field": this.state.query_cfg_field, query_cfg_value: this.state.query_cfg_value } }
-
         console.log(params)
         api.activity.saveOverrideQueryCfg(params);
     }
-
-
-
-
 
 
 
@@ -96,7 +105,7 @@ class GridEditor extends React.Component {
             if (!err) {
 
                 values.portaluse = "y"
-                values.multiple = values.multiple == true ? '' : 'n';
+                values.multiple = values.multiple === true ? '' : 'n';
                 let params = {
                     data: values,
                     method: 'POST'
@@ -187,7 +196,7 @@ class GridEditor extends React.Component {
                         <Form.Item label="多选">
                             { getFieldDecorator('multiple', {
                                 valuePropName: 'checked',
-                                initialValue: this.dmstore.currentObj.multiple == 'n' ? false : true,
+                                initialValue: this.dmstore.currentObj.multiple === 'n' ? false : true,
                                 rules: [{ required: false, message: '多选' }],
                             })(<Switch style={ { marginLeft: '10px' } } checkedChildren="y" unCheckedChildren="n" />) }
 
@@ -258,9 +267,6 @@ class GridEditor extends React.Component {
                             ) }
                         </Form.Item>
                         </Col>
-
-
-
                     </Row>
 
                     <Form.Item>
@@ -320,19 +326,40 @@ class GridEditor extends React.Component {
                         </Col>
                     </Row>
                 </div >
-                
-                
-                
+
+
+                <div style={ { padding: "20px", marginBottom: "10px", border: "1px solid #343434" } }>
+                    <Row>
+                        <Col span={ 2 }>
+                            Tips
+                        </Col>
+
+                        <Col span={ 6 }>
+                            <Editor style={ { minWidth: '800px' } } onChange={ event => this.setTipsValue(event) } default={ this.dmstore.currentObj.tips } />
+                        </Col>
+
+                    </Row>
+                    <Button style={ { marginLeft: "130px", marginTop: '20px' } } type="default" onClick={ () => this.saveOverrideTips() }  >
+                        保存
+                        </Button>
+
+                    <br />
+
+                </div >
+
+
+
+
                 <div style={ { padding: "20px", marginBottom: "10px", border: "1px solid #343434" } }>
                     <br />
                     <Row>
-                    <Col span={ 6 }>
-                            <div style={{width:'800px',color:'red'}}>是否根据作者字段筛选(缺省只要含有author字段,则会根据作者字段筛选,如果设置为n,则强制不筛选,使用
-                            场景为: 工作量填写记录,后期的节点可以查看前期填写的记录,请到nanx_activity直接修改. ):    <Input.TextArea style={ { minWidth: '800px' } }  value={ this.dmstore.currentObj.checkauthor } />   </div>
+                        <Col span={ 6 }>
+                            <div style={ { width: '800px', color: 'red' } }>是否根据作者字段筛选(缺省只要含有author字段,则会根据作者字段筛选,如果设置为n,则强制不筛选,使用
+                            场景为: 工作量填写记录,后期的节点可以查看前期填写的记录,请到nanx_activity直接修改. ):    <Input.TextArea style={ { minWidth: '800px' } } value={ this.dmstore.currentObj.checkauthor } />   </div>
                         </Col>
                     </Row>
-                    
-                    
+
+
                 </div >
             </Card>
         );

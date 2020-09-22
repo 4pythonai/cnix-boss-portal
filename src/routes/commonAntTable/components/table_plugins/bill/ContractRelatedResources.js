@@ -1,11 +1,8 @@
 
 import React from 'react'
-import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
-import { observer, inject } from "mobx-react";
+import { Modal, message, Table } from 'antd';
 import api from '@/api/api'
 import { toJS } from 'mobx'
-import { randomString } from '@/utils/tools'
-import DevicePort from './DevicePort'
 
 export default class ContractRelatedResources extends React.Component {
     constructor(props) {
@@ -19,13 +16,13 @@ export default class ContractRelatedResources extends React.Component {
     }
 
     async init() {
-        if (this.props.commonTableStore.selectedRowKeys.length == 0) {
+        if (this.props.commonTableStore.selectedRowKeys.length === 0) {
             message.error('请选择一个合同');
             return;
         }
 
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-        let params = { method: 'GET', data: { "contract_no": current_row.contract_no } }
+        let params = { method: 'POST', data: { "contract_no": current_row.contract_no } }
         let json = await api.billing.getContractRelatedResources(params);
         if (json.code === 200) {
             this.setState({ visible: true, resources: json.resources })
@@ -35,7 +32,7 @@ export default class ContractRelatedResources extends React.Component {
     }
 
 
-    onCancel = (e, f) => {
+    onCancel = () => {
         this.setState({
             visible: false
         })
@@ -43,7 +40,7 @@ export default class ContractRelatedResources extends React.Component {
 
 
 
-    createTableByRows = (rowstr) => {
+    createTableByRows = () => {
 
         if (!this.state.visible) {
             return;
@@ -63,9 +60,9 @@ export default class ContractRelatedResources extends React.Component {
                 key: 'sub_category',
             },
             {
-                title: '产品名称',
-                dataIndex: 'prodname',
-                key: 'prodname',
+                title: '产品全称',
+                dataIndex: 'full_product_name',
+                key: 'full_product_name',
             },
             {
                 title: '资源详情',

@@ -23,7 +23,7 @@ export default class CommonTable extends React.Component {
         this.commonTableStore = new commonTableStore()
 
         this.state = {
-            buttonremark:'false',
+            buttonremark: 'false',
             button_code: '',
             buttonUsedComponent: null,
             columns: [],
@@ -71,9 +71,9 @@ export default class CommonTable extends React.Component {
         }
         await this.setState({
             search_query_cfg: null
-        }, () => { 
-            if(this.commonTableStore.action_code!='contract_enquiry_list'){
-            this.listData()
+        }, () => {
+            if (this.commonTableStore.action_code != 'contract_enquiry_list') {
+                this.listData()
             }
         })
     }
@@ -97,7 +97,7 @@ export default class CommonTable extends React.Component {
 
         if (res.code == 200) {
 
-
+            console.log(res.data)
 
 
 
@@ -107,6 +107,9 @@ export default class CommonTable extends React.Component {
             this.commonTableStore.setReferinfo(res.data.referinfo);
 
             this.commonTableStore.setlayoutCfg(res.data.layoutcfg);
+
+            this.commonTableStore.setTips(res.data.tips);
+
 
             if (res.data.staticformcfg) {
                 this.commonTableStore.setstaticformcfg(res.data.staticformcfg);
@@ -207,7 +210,7 @@ export default class CommonTable extends React.Component {
         if (json.code == 200) {
             this.commonTableStore.setDataSource(json.data);
             this.commonTableStore.setTotal(json.total)
-            this.rowSelectChange([],[])
+            this.rowSelectChange([], [])
         }
 
     }
@@ -248,8 +251,8 @@ export default class CommonTable extends React.Component {
         }
 
         return this.commonTableStore.TableButtonsJson.map((item, index) => {
-            if(this.commonTableStore.action_code=='IDCReceiveContract'&&this.state.buttonremark=='false'&&index>5){
-                    return
+            if (this.commonTableStore.action_code == 'IDCReceiveContract' && this.state.buttonremark == 'false' && index > 5) {
+                return
             }
             return <Button
                 key={ index }
@@ -262,18 +265,18 @@ export default class CommonTable extends React.Component {
         })
     }
 
-    getMoreButton(){
-        if(this.commonTableStore.action_code=='IDCReceiveContract'&&this.state.buttonremark=='false'){
-            return <Button style={{color:'#409eff',cursor:'pointer'}} onClick={()=>this.changeButtonremark('true')}>更多按钮</Button>
+    getMoreButton() {
+        if (this.commonTableStore.action_code == 'IDCReceiveContract' && this.state.buttonremark == 'false') {
+            return <Button style={ { color: '#409eff', cursor: 'pointer' } } onClick={ () => this.changeButtonremark('true') }>更多按钮</Button>
         }
-        if(this.commonTableStore.action_code=='IDCReceiveContract'&&this.state.buttonremark=='true'){
-            return <Button style={{color:'#409eff',cursor:'pointer'}} onClick={()=>this.changeButtonremark('false')}>收起按钮</Button>
+        if (this.commonTableStore.action_code == 'IDCReceiveContract' && this.state.buttonremark == 'true') {
+            return <Button style={ { color: '#409eff', cursor: 'pointer' } } onClick={ () => this.changeButtonremark('false') }>收起按钮</Button>
         }
-        
+
     }
-    changeButtonremark(e){
+    changeButtonremark(e) {
         this.setState({
-            buttonremark:e
+            buttonremark: e
         })
     }
     getButtonHandler(event, item) {
@@ -490,7 +493,7 @@ export default class CommonTable extends React.Component {
 
 
     getSearchCom = () => {
-        let contract_action_code_arr = ['rec_pay_and_termination_1', 'rec_pay_and_termination_2', 'rec_pay_and_termination_3', 'contract_enquiry', 'effective_boss_idc_contract_receive', 'effective_boss_idc_contract_pay','contract_enquiry_list']
+        let contract_action_code_arr = ['rec_pay_and_termination_1', 'rec_pay_and_termination_2', 'rec_pay_and_termination_3', 'contract_enquiry', 'effective_boss_idc_contract_receive', 'effective_boss_idc_contract_pay', 'contract_enquiry_list']
         if (contract_action_code_arr.includes(this.props.action_code)) {
             return <SearchContract
                 query_cfg={ this.state.query_cfg }
@@ -500,7 +503,7 @@ export default class CommonTable extends React.Component {
                 setQueryCfg={ this.setTableCompomentQueryCfg }
             />
         }
-         
+
     }
 
     // 后台设置查看自己还是全部的数据
@@ -548,13 +551,13 @@ export default class CommonTable extends React.Component {
                 { this.getSearchCom() }
                 { this.renderButtons() }
                 { this.getFilterButton() }
-                {this.getMoreButton()}
+                { this.getMoreButton() }
 
             </div>
 
 
 
-            <Table size={this.props.size?'small':'default'} key={ this.props.action_code } className="commonTable" components={ this.getTableComponents() } { ...tableProps } />
+            <Table size={ this.props.size ? 'small' : 'default' } key={ this.props.action_code } className="commonTable" components={ this.getTableComponents() } { ...tableProps } />
 
         </div>
         )

@@ -2,6 +2,9 @@ import CommonTableForm from '../commonTableCom/commonTableForm';
 import React from 'react'
 import { observer, inject } from "mobx-react";
 import { message } from 'antd';
+
+import { Card, Table, Button, Select, Collapse } from 'antd';
+
 import CommonModal from '../commonTableCom/commonModal'
 import navigationStore from '@/store/navigationStore'
 import api from '@/api/api'
@@ -85,25 +88,9 @@ export default class TableAddCom extends React.Component {
 
 
         }
-        if (this.props.commonTableStore.action_code == 'after_sales_technical_support' || this.props.commonTableStore.action_code == 'boss_reverse_dn_resolution' || this.props.commonTableStore.action_code == 'boss_web_traffic_monitoring') {
-            if (fmdata.contractno != undefined) {
-                fmdata.customername = fmdata.contractno.split('-')[1]
-                fmdata.customeraddr = fmdata.contractno.split('-')[2]
-                fmdata.contractno = fmdata.contractno.split('-')[0]
-            }
 
-        }
-        if (this.props.commonTableStore.action_code == 'boss_idc_isp_retreat_line' || this.props.commonTableStore.action_code == 'idc_network_close_order') {
-            if (fmdata.contractno != undefined) {
-                if (fmdata.contractno.split('-')[1] == '') {
-                    message.error('请选择收费项')
-                    return
-                }
-                fmdata.chagredataId = fmdata.contractno.split('-')[1]
-                fmdata.contractno = fmdata.contractno.split('-')[0]
 
-            }
-        }
+
         let data = {
             actcode: this.props.commonTableStore.action_code,
             rawdata: fmdata
@@ -118,13 +105,24 @@ export default class TableAddCom extends React.Component {
     }
 
     render() {
+
+        let tips = this.props.commonTableStore.tips
+
         return <CommonModal
             height="500px"
             footer={ null }
-            title="新增"
+            title="新增记录"
             ref='commonModalRef'
             layoutcfg={ this.props.commonTableStore.layoutcfg }
         >
+            {
+                tips ? <Card title="帮助信息" style={ { marginBottom: '12px' } }>
+                    <p dangerouslySetInnerHTML={ { __html: tips } }>
+                    </p>
+
+                </Card>
+                    : ''
+            }
 
 
 
@@ -143,6 +141,6 @@ export default class TableAddCom extends React.Component {
                 commonTableStore={ this.props.commonTableStore }
                 saveFormData={ this.saveFormData.bind(this) }
             />
-        </CommonModal>
+        </CommonModal >
     }
 }
