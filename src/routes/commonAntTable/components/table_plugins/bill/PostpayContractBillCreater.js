@@ -74,7 +74,12 @@ export default class PostpayContractBillCreater extends React.Component {
             okText: "确定",
             visible: this.state.visible,
             onOk: this.saveFormData,
-            onCancel: () => this.onCancel()
+            footer: [<Button key="back" onClick={ this.onCancel }>
+                关闭
+            </Button>,],
+            onCancel: () => this.onCancel(),
+
+
         }
     }
 

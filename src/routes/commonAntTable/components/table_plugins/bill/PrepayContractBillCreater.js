@@ -69,11 +69,15 @@ export default class PrepayContractBillCreater extends React.Component {
                 overflow: 'auto',
                 bottom: 0
             },
-            cancelText: '取消',
-            okText: "确定",
+            okText: "关闭",
             visible: this.state.visible,
             onOk: this.saveFormData,
-            onCancel: () => this.onCancel()
+            footer: [<Button key="back" onClick={ this.onCancel }>
+                关闭
+            </Button>,],
+            onCancel: () => this.onCancel(),
+
+
         }
     }
 
