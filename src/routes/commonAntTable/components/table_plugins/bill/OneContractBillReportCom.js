@@ -286,7 +286,7 @@ export default class OneContractBillReportCom extends React.Component {
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>一次性费用合计:{ this.store.onetimefee_summary }元</div>
                 <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用合计:{ this.store.total_summary }元</div>
                 {
-                    this.showSaveBillBtn == 'yes' ? <Button onClick={ event => this.saveBill(event) }>保存账单[已生成账单不会被覆盖]</Button> : ''
+                    this.showSaveBillBtn == 'yes' ? <Button type="primary" icon="cloud-download" onClick={ event => this.saveBill(event) }>保存账单[已生成账单不会被覆盖]</Button> : ''
                 }
 
                 {
