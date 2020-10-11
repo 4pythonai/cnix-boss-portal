@@ -7,65 +7,52 @@ const api_root = `${ root_url }:${ port }/${ version_2 }`
 export default class permission {
     static apis = {
 
-        getRoleMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getRoleMenuList`),
+        getRoleMenuList: (params) => http(params, `${ api_root }/Permission/getRoleMenuList`),
         // 根据角色获取用户
-        getUserByRole: (params) => http(params, `${ api_root }/${ controller.permission }/getUserByRole`),
+        getUserByRole: (params) => http(params, `${ api_root }/Permission/getUserByRole`),
 
-        getAllMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getAllMenuList`),
-        getTreeMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getTreeMenuList`),
+        getAllMenuList: (params) => http(params, `${ api_root }/Permission/getAllMenuList`),
+        getTreeMenuList: (params) => http(params, `${ api_root }/Permission/getTreeMenuList`),
         // 分配菜单（添加、取消）
-        saveMenuPermission: (params) => http(params, `${ api_root }/${ controller.permission }/saveMenuPermissions`),
-        getRoleButtonList: (params) => http(params, `${ api_root }/${ controller.permission }/getRoleButtonList`),
-        getAllButtonList: (params) => http(params, `${ api_root }/${ controller.permission }/getAllButtonList`),
+        saveMenuPermission: (params) => http(params, `${ api_root }/Permission/saveMenuPermissions`),
+        getRoleButtonList: (params) => http(params, `${ api_root }/Permission/getRoleButtonList`),
+        getAllButtonList: (params) => http(params, `${ api_root }/Permission/getAllButtonList`),
         // 分配按钮（添加、取消）
-        saveButtonPermissions: (params) => http(params, `${ api_root }/${ controller.permission }/saveButtonPermissions`),
+        saveButtonPermissions: (params) => http(params, `${ api_root }/Permission/saveButtonPermissions`),
         // 获取分配的二级菜单和按钮
-        getSecondMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getSecondMenuList`),
+        getSecondMenuList: (params) => http(params, `${ api_root }/Permission/getSecondMenuList`),
         // 获取已分配的一级菜单
 
-        getFirstMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getFirstMenuList`),
-        // getFirstMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getMenuList`),
+        getFirstMenuList: (params) => http(params, `${ api_root }/Permission/getFirstMenuList`),
+        // getFirstMenuList: (params) => http(params, `${ api_root }/Permission/getMenuList`),
 
 
         //getMenuList
 
 
         // 获取角色列表
-        getRoleList: (params) => http(params, `${ api_root }/${ controller.permission }/getRoleList`),
+        getRoleList: (params) => http(params, `${ api_root }/Permission/getRoleList`),
         // 新增角色
-        addRole: (params) => http(params, `${ api_root }/${ controller.permission }/addRole`),
+        addRole: (params) => http(params, `${ api_root }/Permission/addRole`),
         // 编辑角色
-        updateRole: (params) => http(params, `${ api_root }/${ controller.permission }/updateRole`),
+        updateRole: (params) => http(params, `${ api_root }/Permission/updateRole`),
         // 删除角色
-        deleteRoleRow: (params) => http(params, `${ api_root }/${ controller.permission }/deleteRole`),
+        deleteRoleRow: (params) => http(params, `${ api_root }/Permission/deleteRole`),
 
-
-        // 获取按钮列表
-        getButtonList: (params) => http(params, `${ api_root }/${ controller.permission }/getButtonList`),
-        // 新增按钮
-        addButton: (params) => http(params, `${ api_root }/${ controller.permission }/addButton`),
-        // 编辑按钮
-        updateButton: (params) => http(params, `${ api_root }/${ controller.permission }/updateButton`),
-        // 删除按钮
-        deleteButtonRow: (params) => http(params, `${ api_root }/${ controller.permission }/deleteButton`),
-
+    
 
         // 获取菜单列表
-        getMenuList: (params) => http(params, `${ api_root }/${ controller.permission }/getMenuList`),
+        getMenuList: (params) => http(params, `${ api_root }/Permission/getMenuList`),
         // 新增菜单
-        addMenu: (params) => http(params, `${ api_root }/${ controller.permission }/addMenu`),
+        addMenu: (params) => http(params, `${ api_root }/Permission/addMenu`),
         // 编辑菜单
-        updateMenu: (params) => http(params, `${ api_root }/${ controller.permission }/updateMenu`),
-        // 删除菜单
-        deleteMenuRow: (params) => http(params, `${ api_root }/${ controller.permission }/deleteMenu`),
-
-        getButtonByMenuIdAndRole: params => http(params, `${ api_root }/${ controller.permission }/getButtonByMenuIdAndRole`),
-
-        getTableColumnUi: params => http(params, `${ api_root }/${ controller.permission }/getTableColumnUi`),
+        updateMenu: (params) => http(params, `${ api_root }/Permission/updateMenu`),
+     
+      
+         
+        getUserInformationByMenuId: params => http(params, `${ api_root }/Permission/getUserInformationByMenuId`),
         
-        getUserInformationByMenuId: params => http(params, `${ api_root }/${ controller.permission }/getUserInformationByMenuId`),
-        
-        getRoleByMenuId: params => http(params, `${ api_root }/${ controller.permission }/getRoleByMenuId`),
+        getRoleByMenuId: params => http(params, `${ api_root }/Permission/getRoleByMenuId`),
 
     }
 
