@@ -10,9 +10,9 @@ export default class curd {
         deleteData: params => http(params, `${ api_root }/${ params.delurl }`),
         updateData: params => http(params, `${ api_root }/${ params.updateurl }`),
         addData: params => http(params, `${ api_root }/${ params.addurl }`),
-        batchUpdate: params => http(params, `${ api_root }/${ controller.curd }/batchData`),
-        getTableData: params => http(params, `${ api_root }/${ controller.curd }/getTableData`),
+        batchUpdate: params => http(params, `${ api_root }/Curd/batchData`),
+        getTableData: params => http(params, `${ api_root }/Curd/getTableData`),
         //获取部门
-        getDept: params => http(params, `${ api_root }/curd/listData`)
+        getDept: params => http(params, `${ api_root }/Curd/listData`)
     }
 }

@@ -24,13 +24,7 @@ export default class permission {
         // 获取已分配的一级菜单
 
         getFirstMenuList: (params) => http(params, `${ api_root }/Permission/getFirstMenuList`),
-        // getFirstMenuList: (params) => http(params, `${ api_root }/Permission/getMenuList`),
-
-
-        //getMenuList
-
-
-        // 获取角色列表
+         // 获取角色列表
         getRoleList: (params) => http(params, `${ api_root }/Permission/getRoleList`),
         // 新增角色
         addRole: (params) => http(params, `${ api_root }/Permission/addRole`),

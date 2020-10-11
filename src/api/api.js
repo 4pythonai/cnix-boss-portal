@@ -11,31 +11,18 @@ import activityRecord from './api_activityRecord'
 import billing from './api_billing'
 import network from './api_network'
 import report from './api_report'
-
-
+import button from './api_button'
 import { root_url, port, controller, version_2 } from './api_config/base_config'
 import http from './http'
-
 const api_root = `${ root_url }:${ port }/${ version_2 }`
-
 export { api_root }
 
 
-
-
-
-
 export default class api {
-
     static organization = {
-        orgTree: params => http(params, `${ api_root }/${ controller.organization }/orgTree`),
-        getDeptMembers: params => http(params, `${ api_root }/${ controller.organization }/getDeptMembers`),
+        orgTree: params => http(params, `${ api_root }/Organization/orgTree`),
+        getDeptMembers: params => http(params, `${ api_root }/Organization/getDeptMembers`),
     }
-
- 
-
-
-
 
     static cabinet_api = {
         // 获取机柜数据
@@ -45,37 +32,9 @@ export default class api {
 
 
     }
-
-    static equipmentMaterial = {
-    }
-
-
-
-
-
-
-    static button = {
-        insertButton: (params) => http(params, `${ api_root }/${ controller.button }/insertButton`),
-        deleteButton: (params) => http(params, `${ api_root }/${ controller.button }/deleteButtonById`),
-        updateButton: (params) => http(params, `${ api_root }/${ controller.button }/updateButtonById`),
-        getButtonList: (params) => http(params, `${ api_root }/${ controller.button }/getButtonListLikeNameOrButtonCodeMethod`),
-        addmenuButton: (params) => http(params, `${ api_root }/${ controller.button }/addButtonAndActionCodeConnect`)
-    }
-
- 
-    static opportunity = {
- 
-     }
-
-
-
-
-
-
-
 }
 
-
+api.button=button.apis
 api.device_api = device.apis
 api.processmanager = processmanager.apis
 api.activity = activity.apis
