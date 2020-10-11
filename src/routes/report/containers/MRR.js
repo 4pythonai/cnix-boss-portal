@@ -16,6 +16,13 @@ export default class MRR extends React.Component {
       reportrows: _rptrows
     });
   }
+  
+  setTitle= (_title)=> {
+    this.setState({
+      tabletitle: _title
+    });
+  }
+
 
   state = {
     excelModal: false,
@@ -131,6 +138,8 @@ export default class MRR extends React.Component {
              title='年应收报表(MRR/基于合同账单/拆分到月)'
              apiurl= {api.report.reportByContractBill} 
              reportrowsHander={this.reportrowsHander}
+             setTitle={this.setTitle}
+
         />
         <Table rowKey={'ID'} title={() => {return <div style={{marginLeft: '800px'}}><h2>{tabletitle} </h2></div>}}
           columns={columns} pagination={pagination} dataSource={data} />

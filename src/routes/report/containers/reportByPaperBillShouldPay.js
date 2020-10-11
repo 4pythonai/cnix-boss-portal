@@ -1,15 +1,8 @@
 import React from 'react'
-import {Select} from 'antd';
-import {Table,Button,Modal} from 'antd';
+import {Table} from 'antd';
 import api from '@/api/api'
-import ExportJsonExcel from "js-export-excel"
 import ReportHeader from './reportHeader'
-
-const {Option} = Select;
-
 export default class ReportByPaperBillShouldPay extends React.Component {
-
-
 
   constructor(props) {
     super(props)
@@ -21,6 +14,14 @@ export default class ReportByPaperBillShouldPay extends React.Component {
       reportrows: _rptrows
     });
   }
+  
+  setTitle= (_title)=> {
+    this.setState({
+      tabletitle: _title
+    });
+  }
+
+  
   state = {
     excelModal: false,
     tabletitle: '',
@@ -134,6 +135,7 @@ export default class ReportByPaperBillShouldPay extends React.Component {
           apiurl={api.report.reportByPaperBill}
           reportrowsHander={this.reportrowsHander}
           title='年已结算报表(基于客户账单)'
+          setTitle={this.setTitle}
         />
 
 

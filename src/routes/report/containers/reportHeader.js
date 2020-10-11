@@ -79,6 +79,8 @@ export default class ReportHeader extends React.Component {
     if(res.code === 200) {
       console.log(res)
       this.props.reportrowsHander(res.reportrows)
+      this.props.setTitle(this.state.tabletitle)
+      
       this.setState({
         reportrows: res.reportrows
       })

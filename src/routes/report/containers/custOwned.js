@@ -17,6 +17,11 @@ export default class CustOwned extends React.Component {
     });
   }
 
+  setTitle= (_title)=> {
+    this.setState({
+      tabletitle: _title
+    });
+  }
 
 
   state = {
@@ -138,6 +143,7 @@ export default class CustOwned extends React.Component {
           mode={'owned'}
           apiurl={api.report.reportByContractBill}
           reportrowsHander={this.reportrowsHander}
+          setTitle={this.setTitle}
           title='欠费情况'
         />
 

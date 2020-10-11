@@ -17,6 +17,12 @@ export default class CustPayed extends React.Component {
   }
 
 
+  setTitle= (_title)=> {
+    this.setState({
+      tabletitle: _title
+    });
+  }
+  
   state = {
     excelModal: false,
     tabletitle: '',
@@ -137,6 +143,7 @@ export default class CustPayed extends React.Component {
           mode={'payed'}
           apiurl={api.report.reportByContractBill}
           reportrowsHander={this.reportrowsHander}
+          setTitle={this.setTitle}
           title='结算情况'
         />
 

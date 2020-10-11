@@ -15,6 +15,13 @@ export default class ReportByPaperBillPayed extends React.Component {
       reportrows: _rptrows
     });
   }
+  
+  setTitle= (_title)=> {
+    this.setState({
+      tabletitle: _title
+    });
+  }
+
 
 
 
@@ -132,6 +139,7 @@ export default class ReportByPaperBillPayed extends React.Component {
           mode={'payed'}
           apiurl={api.report.reportByPaperBill}
           reportrowsHander={this.reportrowsHander}
+          setTitle={this.setTitle}
           title= '年已结算报表(基于客户账单)' 
         />
 
