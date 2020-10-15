@@ -141,7 +141,7 @@ export default class ReportByPaperBillShouldPay extends React.Component {
 
 
 
-        <Table rowKey={'ID'} title={() => {return <div style={{marginLeft: '800px'}}><h2>{tabletitle} </h2></div>}}
+        <Table rowKey={'ID'} title={() => {return <div style={{marginLeft: '500px'}}><h2>{tabletitle} </h2></div>}}
           columns={columns} pagination={pagination} dataSource={data} />
       </div>
     )

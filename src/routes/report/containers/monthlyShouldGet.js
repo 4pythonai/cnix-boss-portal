@@ -135,7 +135,7 @@ export default class MonthlyShouldGet extends React.Component {
           setTitle={this.setTitle}
           title='年应收报表(基于合同账单)'
         />
-        <Table rowKey={'ID'} title={() => {return <div style={{marginLeft: '800px'}}><h2>{tabletitle} </h2></div>}}
+        <Table rowKey={'ID'} title={() => {return <div style={{marginLeft: '500px'}}><h2>{tabletitle} </h2></div>}}
           columns={columns} pagination={pagination} dataSource={data} />
       </div>
     )

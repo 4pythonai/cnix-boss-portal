@@ -141,7 +141,7 @@ export default class ReportByPaperBillOwned extends React.Component {
           title='年欠费报表(基于客户账单)'
         />
 
-        <Table rowKey={'ID'} title={() => {return <div style={{marginLeft: '800px'}}><h2>{tabletitle} </h2></div>}}
+        <Table rowKey={'ID'} title={() => {return <div style={{marginLeft: '500px'}}><h2>{tabletitle} </h2></div>}}
           columns={columns} pagination={pagination} dataSource={data} />
       </div>
     )

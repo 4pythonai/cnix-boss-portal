@@ -2,9 +2,7 @@ import React from 'react'
 import {Select,Input,message} from 'antd';
 import {Button,Modal} from 'antd';
 import ExportJsonExcel from "js-export-excel"
-
 const {Option} = Select;
-
 export default class ReportHeader extends React.Component {
 
   constructor(props) {
@@ -185,7 +183,7 @@ export default class ReportHeader extends React.Component {
             ></Input>
           </div>
           <Button onClick={event => this.generageReport()}>生成报表</Button>
-          <Button onClick={this.handleExport}> 导出excel表格 </Button>
+          <Button onClick={this.handleExport}> 导出Excel表格 </Button>
         </div>
         <Modal
           visible={this.state.excelModal}
