@@ -123,8 +123,8 @@ export default class OneContractBillReportCom extends React.Component {
       },
       {
         title: '产品子类',
-        dataIndex: 'sub_category',
-        key: 'sub_category'
+        dataIndex: 'sub_category_name',
+        key: 'sub_category_name'
       },
       {
         title: '资源详情',
@@ -141,7 +141,6 @@ export default class OneContractBillReportCom extends React.Component {
         dataIndex: 'price',
         key: 'price'
       },
-
       {
         title: '资源费用合计',
         dataIndex: 'item_total_fee',
@@ -151,7 +150,6 @@ export default class OneContractBillReportCom extends React.Component {
         dataIndex: 'memo',
         key: 'memo'
       }
-
     ];
   }
 
@@ -208,8 +206,8 @@ export default class OneContractBillReportCom extends React.Component {
       },
       {
         title: '产品子类',
-        dataIndex: 'sub_category',
-        key: 'sub_category',
+        dataIndex: 'sub_category_name',
+        key: 'sub_category_name',
       },
 
       {

@@ -72,8 +72,8 @@ export default class ResellerBillViewer extends React.Component {
             },
             {
                 title: '产品子类',
-                dataIndex: 'sub_category',
-                key: 'sub_category',
+                dataIndex: 'sub_category_name',
+                key: 'sub_category_name',
             },
 
             {

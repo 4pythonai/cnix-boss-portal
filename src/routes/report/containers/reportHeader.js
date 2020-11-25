@@ -47,7 +47,7 @@ export default class ReportHeader extends React.Component {
     this.props.reportrowsHander([])
 
     this.setState({
-      reportrows:[],
+      reportrows: [],
       tabletitle: this.state.year + '年' + this.state.region + this.props.title
     })
 
@@ -57,8 +57,8 @@ export default class ReportHeader extends React.Component {
       contract_no: this.state.contract_no,
       mode: this.props.mode
     }
-    
-    if( parseInt(this.state.year)< 2015 ){
+
+    if(parseInt(this.state.year) < 2015) {
       message.info('必须选择年份');
       return false
     }
@@ -78,7 +78,7 @@ export default class ReportHeader extends React.Component {
       console.log(res)
       this.props.reportrowsHander(res.reportrows)
       this.props.setTitle(this.state.tabletitle)
-      
+
       this.setState({
         reportrows: res.reportrows
       })
@@ -170,6 +170,7 @@ export default class ReportHeader extends React.Component {
             <Option value="北京">北京</Option>
             <Option value="广州">广州</Option>
             <Option value="测试">测试</Option>
+            <Option value="DEBUG">DEBUG</Option>
           </Select>
           <div style={{width: '220px'}}
           >

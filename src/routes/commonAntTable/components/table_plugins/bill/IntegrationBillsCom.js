@@ -110,9 +110,9 @@ export default class IntegrationBillsCom extends React.Component {
                 key: '_end',
             },
             {
-                title: '产品子类',
-                dataIndex: 'sub_category',
-                key: 'sub_category',
+                title: '产品',
+                dataIndex: 'product_name',
+                key: 'product_name',
             },
 
             {
