@@ -120,13 +120,16 @@ export default class CustPaperBillPrinter extends React.Component {
     // 资源使用日志
     expandedLog = (record, index, indent, expanded) => {
         let resource_logs = record.resource_logs //该参数是从父表格带过来的key
+        
+        console.log( resource_logs  );
+        
         const cols = [
 
             {
-                title: '产品子类',
+                title: '产品',
                 className: "small_table",
-                dataIndex: 'sub_category_name',
-                key: 'sub_category_name',
+                dataIndex: 'product_name',
+                key: 'product_name',
             },
 
             {
@@ -168,12 +171,15 @@ export default class CustPaperBillPrinter extends React.Component {
                 key: 'memo'
             }
         ]
+        
+                 
 
         return (
             <Table
                 columns={ cols }
                 rowKey="reactkey"
                 rowClassName={ "small_table" }
+                //  dataSource={ [] }
                 dataSource={ record.resource_logs }
                 pagination={ false }
             />
@@ -185,7 +191,8 @@ export default class CustPaperBillPrinter extends React.Component {
 
     // 每个合同账单的循环列表
     CreateContractBillItem = (rowstr) => {
-
+        
+         
         if (!this.state.visible) {
             return;
         }
@@ -193,7 +200,8 @@ export default class CustPaperBillPrinter extends React.Component {
         let row = JSON.parse(rowstr)
         let newrow = JSON.stringify(row)
         newrow = JSON.parse(newrow)
-
+        
+         
 
         let num = 0
         for (var j = 0; j < newrow.length; j++) {
@@ -270,12 +278,12 @@ export default class CustPaperBillPrinter extends React.Component {
 
     getModalProps() {
         return {
-            width: 1200,
+            width: 1600,
             destroyOnClose: true,
             ref: "billrpt",
             title: '账单打印',
             bodyStyle: {
-                width: 1200,
+                width: 1600,
                 height: "auto",
                 overflow: 'auto',
                 bottom: 0
