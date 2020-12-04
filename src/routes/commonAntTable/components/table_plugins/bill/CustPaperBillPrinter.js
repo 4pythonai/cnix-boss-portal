@@ -278,12 +278,12 @@ export default class CustPaperBillPrinter extends React.Component {
 
     getModalProps() {
         return {
-            width: 1600,
+            width: 1400,
             destroyOnClose: true,
             ref: "billrpt",
             title: '账单打印',
             bodyStyle: {
-                width: 1600,
+                width: 1400,
                 height: "auto",
                 overflow: 'auto',
                 bottom: 0

@@ -158,12 +158,7 @@ export default class Login extends React.Component {
                         </div>
 
                     </div>
-                    <div className="img-right-side">
-                        <h3>BOSS小程序扫码登录</h3>
-                        <p>安装了BOSS微信小程序的同事,可以扫码进行登录,微信扫码/钉钉扫码/APP扫码登录正在开发部署中</p>
-                        <Qrimg transaction_id={ this.state.transaction_id } />
-                    </div>
-                </div>
+                 </div>
                 <Modal
                     title="选择角色："
                     onOk={ this.handleOk.bind(this) }
