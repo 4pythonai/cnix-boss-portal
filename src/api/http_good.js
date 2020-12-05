@@ -73,7 +73,7 @@ const http = (params, url) => {
             }).catch(error => {
                 console.log(error)
                 hideloading()
-                message.error({ content: '服务器维护，请稍后再试', key: "errorKey", duration: 10 })
+                message.error({ content: 'Request Failer,Try later', key: "errorKey", duration: 10 })
 
             })
     })

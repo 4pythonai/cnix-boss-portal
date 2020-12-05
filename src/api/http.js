@@ -26,9 +26,7 @@ const http = (params, url) => {
     url = method == 'GET' ? getUrl(url, params) : url;
     return new Promise((resolve, reject) => {
 
-        console.log("http 请求>>>>>>>" + url)
         message.loading({ content: '处理中...', duration: 0 })
-        // let hideloading = message.loading({ content: '正在加载数据...', key: loadingKey, duration: 0 })
         let hideloading = function() {
             message.destroy()
         }
@@ -73,7 +71,7 @@ const http = (params, url) => {
             }).catch(error => {
                 console.log(error)
                 hideloading()
-                message.error({ content: '服务器维护，请稍后再试', key: "errorKey", duration: 10 })
+                message.error({ content: 'Request Failer,Try later', key: "errorKey", duration: 10 })
 
             })
     })

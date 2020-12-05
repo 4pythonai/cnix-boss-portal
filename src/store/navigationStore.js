@@ -82,10 +82,10 @@ class navigationStore {
     @action setBossTitle = (staff_name)=> {
         let ele = document.getElementById('bossTitle');
         if(staff_name){
-            ele.innerHTML = 'CNIX-BOSS系统/'+ staff_name
+            ele.innerHTML = 'AdminPanel/'+ staff_name
             return
         }
-        ele.innerHTML = 'CNIX-BOSS系统'
+        ele.innerHTML = 'AdminPanel'
     }
 
     // @action
