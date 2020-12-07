@@ -85,10 +85,10 @@
   }
   form input:focus {
     background-color: white;
-    width: 300px;
-    color: #53e3a6;
-  }
-  form button {
+    
+   }
+ 
+   form button {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;

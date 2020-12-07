@@ -144,7 +144,7 @@ export default class Login extends React.Component {
         return (
             <div className="wrapper">
                 <div className="container">
-                    <h1>Welcome</h1>
+                    <h1 style={{fontWeight: '200'}}>Welcome</h1>
                     <form className="form">
                         <input type="mobile" id="boss_mobile" name="mobile" placeholder="手机号" onChange={this.handleChange} required="" />
                         <input type="password" id="boss_pwd" name="password" placeholder="密码" onChange={this.handleChange} required="" />
