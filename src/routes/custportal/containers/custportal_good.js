@@ -18,18 +18,18 @@ export default class custportal extends React.Component {
                     </tbody>
                 </table>
 
-                <Divider />
+                <Divider /> 
 
-                <a href="http://157.119.174.2:5500/" target="_blank" rel="noopener noreferrer">客户portal</a>
+                <a href="http://103.151.148.2:5500/" target="_blank" rel="noopener noreferrer">客户portal</a>
                 <br />  <br />
 
-                <a href="http://157.119.174.2:8502/v2/log" target="_blank" rel="noopener noreferrer">系统日志(server)</a>
+                <a href="http://103.151.148.2:8502/v2/log" target="_blank" rel="noopener noreferrer">系统日志(server)</a>
                 <br />  <br />
 
-                <a href="http://127.0.0.1:8502/v2/log" target="_blank" rel="noopener noreferrer">系统日志(local)</a>
+                <a href="http://103.151.148.2/v2/log" target="_blank" rel="noopener noreferrer">系统日志(local)</a>
                 <br />  <br />
 
-                <a href="http://157.119.174.2:3000/#/?contract=IBM1" target="_blank" rel="noopener noreferrer">IBM1调试界面</a>
+                <a href="http://103.151.148.2:3000/#/?contract=IBM1" target="_blank" rel="noopener noreferrer">IBM1调试界面</a>
 
 
                 <Timeline>
