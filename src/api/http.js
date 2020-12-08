@@ -2,8 +2,8 @@ import request from 'then-request'
 import AuthService from '@//routes/auth/AuthService'
 import userStore from '@/store/userStore'
 import navigationStore from '@/store/navigationStore'
-import { hashHistory } from 'react-router'
-import { message } from 'antd'
+import {hashHistory} from 'react-router'
+import {message} from 'antd'
 
 message.config({
     top: 20,
@@ -14,7 +14,7 @@ message.config({
 const loadingKey = 'loading'
 const resKey = 'reponse'
 window.hideMsgArr = []
-const http = (params, url) => {
+const http = (params,url) => {
 
     const headers = setHeader();
     const options = {
@@ -23,20 +23,20 @@ const http = (params, url) => {
     }
     const method = (params && params.method) ? params.method : 'GET';
 
-    url = method == 'GET' ? getUrl(url, params) : url;
-    return new Promise((resolve, reject) => {
+    url = method == 'GET' ? getUrl(url,params) : url;
+    return new Promise((resolve,reject) => {
 
-        message.loading({ content: '处理中...', duration: 0 })
+        message.loading({content: '处理中...',duration: 0})
         let hideloading = function() {
             message.destroy()
         }
 
-        request(method, url, { headers, ...options })
+        request(method,url,{headers,...options})
             .then(res => {
-                if (res.statusCode == 401) {
+                if(res.statusCode == 401) {
                     hashHistory.push('/login')
                     hideloading()
-                    message.error(JSON.parse(res.body).message, 3)
+                    message.error(JSON.parse(res.body).message,3)
                     userStore.clearToken()
                     sessionStorage.clear();
                     navigationStore.clear()
@@ -45,33 +45,36 @@ const http = (params, url) => {
                 }
                 let data = JSON.parse(res.body)
 
-                if (data.msg) {
+                if(data.msg) {
                     data.message = data.msg
                 }
 
 
-                if (data.code == 200) {
+                if(data.code == 200) {
                     hideloading()
-                    data.message && message.success({ content: data.message, key: resKey, duration: 2 });
+                    if(data.hasOwnProperty("hidemessage")) {
+                    } else {
+                        data.message && message.success({content: data.message,key: resKey,duration: 2});
+                    }
                     resolve(data)
-                } else if (data.code == 401) {
+                } else if(data.code == 401) {
                     hideloading()
-                    message.success({ content: data.message ? data.message : '您没有权限操作！', key: resKey, duration: 2 })
+                    message.success({content: data.message ? data.message : '您没有权限操作！',key: resKey,duration: 2})
                     resolve(data)
-                } else if (data.code == 500) {
+                } else if(data.code == 500) {
                     hideloading()
-                    message.error({ content: data.message ? data.message : '请求出错', key: resKey, duration: 2 })
+                    message.error({content: data.message ? data.message : '请求出错',key: resKey,duration: 2})
                     resolve(data)
                 } else {
                     hideloading()
-                    data.message && message.error({ content: data.message, key: resKey, duration: 2 });
+                    data.message && message.error({content: data.message,key: resKey,duration: 2});
                     resolve(data)
                 }
 
             }).catch(error => {
                 console.log(error)
                 hideloading()
-                message.error({ content: 'Request Failer,Try later', key: "errorKey", duration: 10 })
+                message.error({content: 'Request Failer,Try later',key: "errorKey",duration: 10})
 
             })
     })
@@ -82,7 +85,7 @@ const checkTimeOut = () => {
     let postBeofreAuth = new AuthService();
     let token = postBeofreAuth.getToken()
 
-    if (!postBeofreAuth.loggedIn() && postBeofreAuth.isTokenExpired(token)) {
+    if(!postBeofreAuth.loggedIn() && postBeofreAuth.isTokenExpired(token)) {
         postBeofreAuth.logout()
         return true;
     }
@@ -98,9 +101,9 @@ const setHeader = () => {
     return headers;
 }
 
-const getUrl = (url, params) => {
+const getUrl = (url,params) => {
     let data = params ? params.data : ''
-    if (data == '') {
+    if(data == '') {
         return url
     }
     url += '/?';

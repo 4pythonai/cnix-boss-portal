@@ -4,6 +4,7 @@ import {Modal,message,Checkbox,Input,Button,Progress} from 'antd';
 import {observer,inject} from "mobx-react";
 import api from '@/api/api'
 import {toJS} from 'mobx'
+import request from 'then-request'
 import {randomString} from '@/utils/tools'
 import DevicePort from './DevicePort'
 
@@ -14,20 +15,62 @@ export default class OneKeyCostBill extends React.Component {
         super(props)
         this.init = this.init.bind(this)
         this.onekeyfunction = this.onekeyfunction.bind(this)
+        this.tick = this.tick.bind(this)
     }
 
 
     state = {
         checkpassed: false,
         visible: false,
-        percent:0.0,
+        percent: 0.0,
+        uuid: '',
+        secondsElapsed: 0,
     }
 
     async init() {
 
-        this.setState({visible: true})
+        this.setState({visible: true,secondsElapsed: 0})
+        this.interval = setInterval(() => this.tick(),1000);
 
     }
+
+    async tick() {
+        if(this.state.visible && !this.state.uuid == '') {
+
+            let that=this
+            let token_from_userStore = sessionStorage.getItem('token')
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token_from_userStore
+            }
+
+            request('GET','http://127.0.0.1:8502/v2/Billing/percentComputer?uuid=' + this.state.uuid,{headers: headers,json: {}}).getBody('utf8').then(JSON.parse).done(function(res) {
+                console.log(res);
+                if(res.code == 500) {
+                    clearInterval(that.interval);
+                }
+                
+                if(res.total==res.done){
+                    clearInterval(that.interval);
+                }
+                
+                let percent= ((res.done/res.total)*100).toFixed(2)
+                that.setState({percent: percent })
+
+                
+                
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+        this.setState({visible: true,secondsElapsed: 0})
+
+    }
+
+
 
     create_UUID() {
         var dt = new Date().getTime();
@@ -43,6 +86,7 @@ export default class OneKeyCostBill extends React.Component {
     async onekeyfunction() {
         this.setState({visible: true})
         let uuid = this.create_UUID()
+        this.setState({uuid: uuid})
         let params = {method: 'GET',data: {uuid: uuid}}
         let json = await api.billing.OneKeyCostBill(params);
         if(json.success == 'false') {
@@ -50,7 +94,6 @@ export default class OneKeyCostBill extends React.Component {
         } else {
             this.setState({visible: true,checkpassed: true,billjson: json})
         }
-
     }
 
 
@@ -94,15 +137,10 @@ export default class OneKeyCostBill extends React.Component {
                 <Button key="back" onClick={this.onekeyfunction}>
                     点击开始执行
                 </Button>
-
-
-
                 <div>
-                    <Progress strokeLinecap="square" percent={  this.state.percent   } />
+                    <Progress strokeLinecap="square" percent={this.state.percent} />
                 </div>
-             </div>
+            </div>
         </Modal >
     }
-
-
 }

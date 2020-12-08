@@ -29,8 +29,7 @@ export default class billing {
     // IBM1 合同测试接口
     testIBM: params => http(params,`${api_root}/Billing/testIBM`),
     OneKeyCostBill: params => http(params,`${api_root}/Billing/OneKeyCostBill`),
- 
-    
+    percentComputer:params => http(params,`${api_root}/Billing/percentComputer`),
   }
 }
 
