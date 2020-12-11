@@ -65,17 +65,8 @@ export default class BillSettlement extends React.Component {
 
             message.error('本条流水已经用尽')
         }
-
-
-
-
     }
-
-
-
-
-
-
+ 
     getModalProps() {
         return {
             width: 1200,

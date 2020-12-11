@@ -20,8 +20,6 @@ export default class CustIntegrationBillBuilder extends React.Component {
 
 
     state = {
-
-
         all_bills: [],
         visible: false,
         cust: {},
@@ -31,13 +29,11 @@ export default class CustIntegrationBillBuilder extends React.Component {
 
     async init() {
         if (this.props.commonTableStore.selectedRowKeys.length == 0) {
-            message.error('请选择一条数据');
+            message.error('请选择一个客户');
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
         this.setState({ custid: current_row.id })
-
-
         let params = { method: 'GET', data: { "custid": current_row.id } }
         let json = await api.billing.getUnUsedBills(params);
         console.log(json)
@@ -87,7 +83,6 @@ export default class CustIntegrationBillBuilder extends React.Component {
     }
 
     generatePanel() {
-
         let divs = []
         divs.push(
             <div key={ "AAA" }>
@@ -98,9 +93,7 @@ export default class CustIntegrationBillBuilder extends React.Component {
     }
 
 
-
     render() {
-
         let modalProps = this.getModalProps();
         return <Modal { ...modalProps }>
             <div>
