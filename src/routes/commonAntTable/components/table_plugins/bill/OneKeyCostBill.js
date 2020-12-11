@@ -52,8 +52,6 @@ export default class OneKeyCostBill extends React.Component {
             }
             
             console.log(api_root)
-            
-
             request('GET', api_root+'/Billing/percentComputer?uuid=' + this.state.uuid,{headers: headers,json: {}}).getBody('utf8').then(JSON.parse).done(function(res) {
                 console.log(res);
                 if(res.code == 500) {
