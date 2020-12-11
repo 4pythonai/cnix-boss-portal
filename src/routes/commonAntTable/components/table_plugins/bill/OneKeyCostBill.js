@@ -9,6 +9,12 @@ import {randomString} from '@/utils/tools'
 import DevicePort from './DevicePort'
 
 
+import { root_url, port, controller, version_2 } from '@/api/api_config/base_config'
+const api_root = `${ root_url }:${ port }/${ version_2 }`
+export { api_root }
+
+
+
 @observer
 export default class OneKeyCostBill extends React.Component {
     constructor(props) {
@@ -44,8 +50,11 @@ export default class OneKeyCostBill extends React.Component {
                 'Content-Type': 'application/json',
                 'Authorization': token_from_userStore
             }
+            
+            console.log(api_root)
+            
 
-            request('GET','http://127.0.0.1:8502/v2/Billing/percentComputer?uuid=' + this.state.uuid,{headers: headers,json: {}}).getBody('utf8').then(JSON.parse).done(function(res) {
+            request('GET', api_root+'/Billing/percentComputer?uuid=' + this.state.uuid,{headers: headers,json: {}}).getBody('utf8').then(JSON.parse).done(function(res) {
                 console.log(res);
                 if(res.code == 500) {
                     clearInterval(that.interval);
