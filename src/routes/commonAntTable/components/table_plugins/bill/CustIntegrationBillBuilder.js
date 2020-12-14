@@ -59,7 +59,7 @@ export default class CustIntegrationBillBuilder extends React.Component {
             width: 1200,
             destroyOnClose: true,
             ref: "billrpt",
-            title: '生成合并账单',
+            title: '生成客户账单',
             bodyStyle: {
                 width: 1200,
                 height: "auto",

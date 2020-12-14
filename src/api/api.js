@@ -12,6 +12,8 @@ import billing from './api_billing'
 import network from './api_network'
 import report from './api_report'
 import button from './api_button'
+import tools from './api_tools'
+
 import { root_url, port, controller, version_2 } from './api_config/base_config'
 import http from './http'
 const api_root = `${ root_url }:${ port }/${ version_2 }`
@@ -48,3 +50,5 @@ api.activityRecord = activityRecord.apis
 api.billing = billing.apis
 api.network = network.apis
 api.report = report.apis
+api.tools = tools.apis
+
