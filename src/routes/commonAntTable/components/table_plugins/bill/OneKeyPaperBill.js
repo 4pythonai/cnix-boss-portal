@@ -36,7 +36,7 @@ export default class OneKeyPaperBill extends React.Component {
     }
 
     async onekeyfunction() {
-        this.setState({visible: true})
+        this.setState({visible: true,execute_report: []})
         let params = {method: 'POST'}
         let json = await api.billing.OneKeyPaperBill(params);
         console.log(json.execute_report)

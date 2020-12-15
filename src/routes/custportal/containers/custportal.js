@@ -16,7 +16,7 @@ export default class custportal extends React.Component {
     }
 
     async syncCostVsPaperIDs() {
-        this.setState({visible: true})
+        this.setState({visible: true,errbills: []})
         let params = {method: 'POST'}
         let json = await api.tools.syncCostVsPaperIDs(params);
         console.log(json.errbills)
@@ -82,9 +82,6 @@ export default class custportal extends React.Component {
                 <br />  <br />
 
                 <a href="http://103.151.148.2:3000/#/?contract=IBM1" target="_blank" rel="noopener noreferrer">IBM1调试界面</a>
-
-
-
 
             </div>
 
