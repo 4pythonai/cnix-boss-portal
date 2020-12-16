@@ -15,9 +15,9 @@ import PortLine from './PortLine'
 export default class PortTpl extends React.Component {
     constructor(props) {
         super(props)
+        this.init = this.init.bind(this)
         this.DeleteLine = this.DeleteLine.bind(this)
         this.generate_Displayports = this.generate_Displayports.bind(this)
-        this.init = this.init.bind(this)
         this.statics = this.statics.bind(this)
     }
 
@@ -37,10 +37,14 @@ export default class PortTpl extends React.Component {
         if(this.props.commonTableStore.selectedRowKeys.length == 0) {
             message.error('请选择一个交换机');
             return;
+        } else {
+            let current_row = toJS(this.props.commonTableStore.selectedRows[0])
+            console.log(current_row)
+            this.setState({visible: true,lines: []})
+
         }
-        let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-        console.log(current_row)
-        this.setState({visible: true,lines: []})
+
+
     }
 
     onCancel() {
@@ -234,9 +238,8 @@ export default class PortTpl extends React.Component {
 
     deviceInfo() {
         let currentrow = toJS(this.props.commonTableStore.selectedRows[0])
-
-        let dev_id_title = '设备信息:ID=' + currentrow.id;
         if(currentrow) {
+            let dev_id_title = '设备信息:ID=' + currentrow.id;
             return (
                 <Descriptions title={dev_id_title} bordered>
                     <Descriptions.Item label="设备名称">{currentrow.devname}</Descriptions.Item>
