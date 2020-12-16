@@ -208,6 +208,8 @@ export default class PortLine extends React.Component {
                         <Select.Option key='XE' value='XE'>XE</Select.Option>
                         <Select.Option key='10GE' value='10GE'>10GE</Select.Option>
                         <Select.Option key='25GE' value='25GE'>25GE</Select.Option>
+                        <Select.Option key='40GE' value='40GE'>40GE</Select.Option>
+                        <Select.Option key='100GE' value='100GE'>100GE</Select.Option>
 
                     </Select>
                 </Col>

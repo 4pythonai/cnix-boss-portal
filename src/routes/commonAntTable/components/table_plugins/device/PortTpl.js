@@ -35,11 +35,11 @@ export default class PortTpl extends React.Component {
 
     async init() {
         if(this.props.commonTableStore.selectedRowKeys.length == 0) {
-            message.error('请选择一条数据');
+            message.error('请选择一个交换机');
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-
+        console.log(current_row)
         this.setState({visible: true,lines: []})
     }
 
@@ -295,7 +295,7 @@ export default class PortTpl extends React.Component {
             onOk={() => this.SavePortsHandler()}
             destroyOnClose={true}
             width={1400}
-            title="端口模板管理" >
+            title="批量添加端口" >
             <div>
                 {this.deviceInfo()}
             </div>
