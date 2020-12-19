@@ -1,32 +1,33 @@
-import React from 'react'
-import {Divider,Button,Table} from 'antd';
-import api from '@/api/api'
-import {Timeline,Icon} from 'antd';
+import React from 'react';
+import { Divider, Button, Table } from 'antd';
+import api from '@/api/api';
+import { Timeline, Icon } from 'antd';
 
 
 export default class custportal extends React.Component {
 
     constructor(props) {
-        super(props)
-        this.syncCostVsPaperIDs = this.syncCostVsPaperIDs.bind(this)
+        super(props);
+        this.sync_contractbillids_vs_paperbill_ids = this.sync_contractbillids_vs_paperbill_ids.bind(this);
     }
 
     state = {
         errbills: []
     }
 
-    async syncCostVsPaperIDs() {
-        this.setState({visible: true,errbills: []})
-        let params = {method: 'POST'}
-        let json = await api.tools.syncCostVsPaperIDs(params);
-        console.log(json.errbills)
-        this.setState({errbills: json.errbills})
+    async sync_contractbillids_vs_paperbill_ids() {
+        this.setState({ visible: true, errbills: [] });
+        const params = { method: 'POST' };
+        const json = await api.tools.sync_contractbillids_vs_paperbill_ids(params);
+        console.log(json.errbills);
+        this.setState({ errbills: json.errbills });
     }
 
 
     render() {
 
-        const cols = [{
+        const cols = [
+{
             title: '客户账单ID',
             dataIndex: 'paperid',
             key: 'paperid'
@@ -36,13 +37,13 @@ export default class custportal extends React.Component {
             dataIndex: 'billids_str',
             key: 'billids_str'
         }
-        ]
+        ];
 
         return (
-            <div style={{margin: '100px'}}>
+            <div style={{ margin: '100px' }}>
 
                 <Divider />
-                <Button key="back" onClick={this.syncCostVsPaperIDs}>
+                <Button key="back" onClick={this.sync_contractbillids_vs_paperbill_ids}>
                     同步合同账单与客户账单关系
                 </Button>
 
@@ -85,6 +86,6 @@ export default class custportal extends React.Component {
 
             </div>
 
-        )
+        );
     }
 }

@@ -1,20 +1,20 @@
 // 客户集成账单.
-import React from 'react'
+import React from 'react';
 import { Modal, Collapse, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
 import { observer, inject } from "mobx-react";
-import api from '@/api/api'
-import { toJS } from 'mobx'
-import { randomString } from '@/utils/tools'
+import api from '@/api/api';
+import { toJS } from 'mobx';
+import { randomString } from '@/utils/tools';
 const { Panel } = Collapse;
-import OneContractBillReportCom from "./OneContractBillReportCom"
+import OneContractBillReportCom from "./OneContractBillReportCom";
 
 
 @observer
 export default class CustIntegrationBill extends React.Component {
     constructor(props) {
-        super(props)
-        console.log(props)
-        this.init = this.init.bind(this)
+        super(props);
+        console.log(props);
+        this.init = this.init.bind(this);
 
     }
 
@@ -32,12 +32,12 @@ export default class CustIntegrationBill extends React.Component {
             message.error('请选择一个客户');
             return;
         }
-        let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-        let params = { method: 'GET', data: { "custid": current_row.id } }
-        let json = await api.billing.billByCust(params);
-        console.log(json)
+        const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
+        const params = { method: 'GET', data: { "custid": current_row.id } };
+        const json = await api.billing.billByCust(params);
+        console.log(json);
 
-        this.setState({ visible: true, big_total_summary: json.big_total_summary, cust: json.cust, IntegrationStore: json, united_results: json.united_results })
+        this.setState({ visible: true, big_total_summary: json.big_total_summary, cust: json.cust, IntegrationStore: json, united_results: json.united_results });
 
     }
 
@@ -45,7 +45,7 @@ export default class CustIntegrationBill extends React.Component {
     onCancel = (e, f) => {
         this.setState({
             visible: false
-        })
+        });
     }
 
     getModalProps() {
@@ -64,41 +64,35 @@ export default class CustIntegrationBill extends React.Component {
             okText: "确定",
             visible: this.state.visible,
             onCancel: () => this.onCancel()
-        }
+        };
     }
 
     generatePanel() {
 
 
-
-        let united_results = this.state.united_results
-        let panels = []
+        const { united_results } = this.state;
+        const panels = [];
 
         for (let index = 0; index < united_results.length; index++) {
 
-            let one = united_results[index]
+            const one = united_results[index];
             panels.push(
 
                 <Panel key={ index } header={ '合同号:' + one.contract_no + '费用:' + one.total_summary } >
                     <OneContractBillReportCom key={ index } onlyShowTimeLine="yes" howSaveBillBtn="no" billjson={ one } />
                 </Panel >
-            )
+            );
         }
 
         return panels;
 
 
-
-
-
-
     }
 
 
-
     render() {
-        console.log('  客户集成账单.....')
-        let modalProps = this.getModalProps();
+        console.log('  客户集成账单.....');
+        const modalProps = this.getModalProps();
         return <Modal { ...modalProps }>
             <div>
 
@@ -119,6 +113,6 @@ export default class CustIntegrationBill extends React.Component {
                 </Collapse>
 
             </div >
-        </Modal >
+        </Modal >;
     }
 }

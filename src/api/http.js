@@ -1,118 +1,174 @@
-import request from 'then-request'
-import AuthService from '@//routes/auth/AuthService'
-import userStore from '@/store/userStore'
-import navigationStore from '@/store/navigationStore'
-import {hashHistory} from 'react-router'
-import {message} from 'antd'
+import request from 'then-request';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-message.config({
-    top: 20,
-    maxCount: 100,
-});
+import userStore from '@/store/userStore';
+import navigationStore from '@/store/navigationStore';
+import { hashHistory } from 'react-router';
+import { message, Alert } from 'antd';
 
+message.config({ top: 20, maxCount: 100 });
 
-const loadingKey = 'loading'
-const resKey = 'reponse'
-window.hideMsgArr = []
-const http = (params,url) => {
+const setHeader = () => {
+    const token_from_userStore = userStore.getToken();
+    const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: token_from_userStore
+    };
+    return headers;
+};
 
+const getUrl = (url, params) => {
+    const data = params ? params.data : '';
+    if (data === '') {
+        return url;
+    }
+    let fixed_url = url + '/?';
+
+    const paramsArray = [];
+    // 拼接参数
+    Object.keys(data).forEach((key) => paramsArray.push(key + '=' + data[key]));
+    fixed_url += paramsArray.join('&');
+    return fixed_url;
+};
+
+const resKey = 'reponse';
+window.hideMsgArr = [];
+const http = (params, url) => {
     const headers = setHeader();
     const options = {
         mode: 'cors',
         json: params ? params.data : ''
+    };
+    const method = params && params.method ? params.method : 'GET';
+
+    let fixed_url = '';
+    if (method === 'GET' || method === 'get') {
+        fixed_url = getUrl(url, params);
+    } else {
+        fixed_url = url;
     }
-    const method = (params && params.method) ? params.method : 'GET';
 
-    url = method == 'GET' ? getUrl(url,params) : url;
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
+        message.loading({ content: '处理中...', duration: 0 });
+        const hideloading = () => {
+            message.destroy();
+        };
 
-        message.loading({content: '处理中...',duration: 0})
-        let hideloading = function() {
-            message.destroy()
-        }
-
-        request(method,url,{headers,...options})
-            .then(res => {
-                if(res.statusCode == 401) {
-                    hashHistory.push('/login')
-                    hideloading()
-                    message.error(JSON.parse(res.body).message,3)
-                    userStore.clearToken()
+        request(method, fixed_url, {
+            headers,
+            ...options
+        }).
+            then((res) => {
+                if (res.statusCode === 401) {
+                    hashHistory.push('/login');
+                    hideloading();
+                    message.error(JSON.parse(res.body).message, 3);
+                    userStore.clearToken();
                     sessionStorage.clear();
-                    navigationStore.clear()
-                    navigationStore.setBossTitle(null)
+                    navigationStore.clear();
+                    navigationStore.setBossTitle(null);
                     return;
                 }
-                let data = JSON.parse(res.body)
 
-                if(data.msg) {
-                    data.message = data.msg
-                }
+                let data = {};
 
+                if (res) {
+                    try {
+                        data = JSON.parse(res.body);
+                    } catch (e) {
+                        hideloading();
+                        const alert_key = Math.random().
+                            toString(36).
+                            substring(7);
 
-                if(data.code == 200) {
-                    hideloading()
-                    if(data.hasOwnProperty("hidemessage")) {
-                    } else {
-                        data.message && message.success({content: data.message,key: resKey,duration: 2});
+                        // return <div style={{padding: '10px'}} dangerouslySetInnerHTML={{ __html: this.state.xinfo}}></div>
+                        console.log(res.body);
+                        const alertmsg =
+                            <div>
+                                无法解析后台返回的数据:
+                                <div
+                                    style={{ padding: '10px' }}
+                                    dangerouslySetInnerHTML={{
+                                        __html: res.body
+                                    }}></div>
+                            </div>;
+                        ReactDOM.render(
+                            <Alert
+                                message=""
+                                key={alert_key}
+                                closable
+                                description={alertmsg}
+                                type="info"
+                                closeText="关闭警告"
+                            />,
+                            document.getElementById('app_global_err')
+                        );
+
+                        return;
                     }
-                    resolve(data)
-                } else if(data.code == 401) {
-                    hideloading()
-                    message.success({content: data.message ? data.message : '您没有权限操作！',key: resKey,duration: 2})
-                    resolve(data)
-                } else if(data.code == 500) {
-                    hideloading()
-                    message.error({content: data.message ? data.message : '请求出错',key: resKey,duration: 2})
-                    resolve(data)
-                } else {
-                    hideloading()
-                    data.message && message.error({content: data.message,key: resKey,duration: 2});
-                    resolve(data)
                 }
 
-            }).catch(error => {
-                console.log(error)
-                hideloading()
-                message.error({content: 'Request Failer,Try later',key: "errorKey",duration: 10})
+                if (data.msg) {
+                    data.message = data.msg;
+                }
 
-            })
-    })
-}
+                if (data.code === 200) {
+                    hideloading();
 
+                    if (!Reflect.ownKeys(data).indexOf('hidemessage') >= 0) {
+                        if (data.message) {
+                            message.success({
+                                content: data.message,
+                                key: resKey,
+                                duration: 2
+                            });
+                        }
+                    }
+                    resolve(data);
+                } else if (data.code === 401) {
+                    hideloading();
+                    message.success({
+                        content: data.message
+                            ? data.message
+                            : '您没有权限操作！',
+                        key: resKey,
+                        duration: 2
+                    });
+                    resolve(data);
+                } else if (data.code === 500) {
+                    hideloading();
+                    message.error({
+                        content: data.message ? data.message : '请求出错',
+                        key: resKey,
+                        duration: 2
+                    });
+                    resolve(data);
+                } else {
+                    hideloading();
 
-const checkTimeOut = () => {
-    let postBeofreAuth = new AuthService();
-    let token = postBeofreAuth.getToken()
+                    if (data.message) {
+                        message.error({
+                            content: data.message,
+                            key: resKey,
+                            duration: 2
+                        });
+                    }
+                    resolve(data);
+                }
+            }).
+            catch((error) => {
+                console.log(error);
+                hideloading();
+                message.error({
+                    content: 'Request Failer,Try later',
+                    key: 'errorKey',
+                    duration: 10
+                });
+                reject(error);
+            });
+    });
+};
 
-    if(!postBeofreAuth.loggedIn() && postBeofreAuth.isTokenExpired(token)) {
-        postBeofreAuth.logout()
-        return true;
-    }
-}
-
-const setHeader = () => {
-    let token_from_userStore = userStore.getToken()
-    const headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': token_from_userStore
-    }
-    return headers;
-}
-
-const getUrl = (url,params) => {
-    let data = params ? params.data : ''
-    if(data == '') {
-        return url
-    }
-    url += '/?';
-
-    let paramsArray = [];
-    //拼接参数  
-    Object.keys(data).forEach(key => paramsArray.push(key + '=' + data[key]))
-    url += paramsArray.join('&')
-    return url
-}
-
-export default http
+export default http;

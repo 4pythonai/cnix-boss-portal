@@ -1,18 +1,16 @@
 // 账单组件
-import React from 'react'
-import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
-import { observer, inject } from "mobx-react";
-import api from '@/api/api'
-import { toJS } from 'mobx'
-
-
+import React from 'react';
+import { message, Table, Divider, Button } from 'antd';
+import { observer } from "mobx-react";
+import api from '@/api/api';
+ 
 
 @observer
 export default class IntegrationBillsCom extends React.Component {
     constructor(props) {
-        super(props)
-        this.bills = props.bills
-        this.custid = props.custid
+        super(props);
+        this.bills = props.bills;
+        this.custid = props.custid;
     }
 
 
@@ -24,16 +22,16 @@ export default class IntegrationBillsCom extends React.Component {
 
     saveCombinedBill = async (e) => {
 
-        let dataSend = { custid: this.custid, selectedRows: this.state.selectedRows }
-        let params = { data: dataSend, method: 'POST' };
-        let json = await api.billing.saveCombinedBill(params);
-        console.log(json)
-        if (json.code == 200) {
-            message.success(json.msg)
+        const dataSend = { custid: this.custid, selectedRows: this.state.selectedRows };
+        const params = { data: dataSend, method: 'POST' };
+        const json = await api.billing.saveCombinedBill(params);
+        console.log(json);
+        if (json.code === 200) {
+            message.success(json.msg);
         } else {
-            message.error(json.msg)
+            message.error(json.msg);
         }
-        this.props.updateParentVisible(false)
+        this.props.updateParentVisible(false);
     }
 
 
@@ -96,8 +94,7 @@ export default class IntegrationBillsCom extends React.Component {
     }
 
     expandedLog = (record, index, indent, expanded) => {
-        let resource_logs = record.resource_logs //该参数是从父表格带过来的key
-        const cols = [
+         const cols = [
 
             {
                 title: '起',
@@ -137,7 +134,7 @@ export default class IntegrationBillsCom extends React.Component {
                 dataIndex: 'memo',
                 key: 'memo'
             }
-        ]
+        ];
 
         return (
             <Table
@@ -151,32 +148,27 @@ export default class IntegrationBillsCom extends React.Component {
     };
 
 
-
-
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('选择的数据rows: ', selectedRows);
 
-            this.setState({ selectedRows: selectedRows })
+            this.setState({ selectedRows: selectedRows });
 
         },
-        onSelect: (record, selected, selectedRows) => {
-            console.log(toJS(record));
-        },
+        
+        
         onSelectAll: (selected, selectedRows, changeRows) => {
             console.log(selected, selectedRows, changeRows);
         },
     }
 
 
-
-
     render() {
-        console.log('will render.....')
+        console.log('will render.....');
         return <div>
             <div>
 
-                <Button onClick={ event => this.saveCombinedBill(event) }>保存合并账单</Button>
+                <Button onClick={ (event) => this.saveCombinedBill(event) }>保存合并账单</Button>
                 <Divider orientation="left">未付款账单</Divider>
                 <Table
                     dataSource={ this.bills }
@@ -188,6 +180,6 @@ export default class IntegrationBillsCom extends React.Component {
                     rowSelection={ this.rowSelection }
                 />
             </div >
-        </div >
+        </div >;
     }
 }

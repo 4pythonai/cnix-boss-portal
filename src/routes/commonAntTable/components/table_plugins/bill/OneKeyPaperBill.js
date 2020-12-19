@@ -1,55 +1,56 @@
+import React from 'react';
+import { Modal, Table, Radio, Button } from 'antd';
+import { observer } from 'mobx-react';
+import api from '@/api/api';
 
-import React from 'react'
-import {Modal,Table,message,Checkbox,Input,Button,Progress} from 'antd';
-import {observer,inject} from "mobx-react";
-import api from '@/api/api'
-import {toJS} from 'mobx'
-import request from 'then-request'
-import {randomString} from '@/utils/tools'
-import DevicePort from './DevicePort'
-
-
-import {root_url,port,controller,version_2} from '@/api/api_config/base_config'
-const api_root = `${root_url}:${port}/${version_2}`
-export {api_root}
-
-
+import { root_url, port, version_2 } from '@/api/api_config/base_config';
+const api_root = `${ root_url }:${ port }/${ version_2 }`;
+export { api_root };
 
 @observer
 export default class OneKeyPaperBill extends React.Component {
     constructor(props) {
-        super(props)
-        this.init = this.init.bind(this)
-        this.onekeyfunction = this.onekeyfunction.bind(this)
+        super(props);
+        this.init = this.init.bind(this);
+        this.onekeyfunction = this.onekeyfunction.bind(this);
+        this.onChangeContractBillrange = this.onChangeContractBillrange.bind(this);
     }
-
 
     state = {
         checkpassed: false,
         visible: false,
-        execute_report: []
-    }
+        execute_report: [],
+        contractbillrange: ''
+    };
 
-    async init() {
-        this.setState({visible: true})
-
+    init() {
+        this.setState({ visible: true });
     }
 
     async onekeyfunction() {
-        this.setState({visible: true,execute_report: []})
-        let params = {method: 'POST'}
-        let json = await api.billing.OneKeyPaperBill(params);
-        console.log(json.execute_report)
-        this.setState({execute_report: json.execute_report})
+        this.setState({
+            visible: true,
+            execute_report: []
+        });
+
+        const params = {
+            method: 'POST',
+            data: {
+                contractbillrange: this.state.contractbillrange
+            }
+        };
+        console.log('before click');
+        console.log(params);
+        const json = await api.billing.OneKeyPaperBill(params);
+        console.log(json.execute_report);
+        this.setState({ execute_report: json.execute_report });
     }
-
-
 
     getModalProps() {
         return {
             width: 700,
             destroyOnClose: true,
-            title: '一键出客户账单',
+            title: '一键生成客户账单',
             bodyStyle: {
                 width: 700,
                 height: 500,
@@ -57,26 +58,31 @@ export default class OneKeyPaperBill extends React.Component {
                 bottom: 0
             },
             cancelText: '取消',
-            okText: "确定",
+            okText: '确定',
             visible: this.state.visible,
             onOk: () => this.onCancel(),
-            footer: [<Button key="back" onClick={this.onCancel}>
-                关闭
-            </Button>,],
-            onCancel: () => this.onCancel(),
-        }
+            footer: [
+                <Button key="back" onClick={this.onCancel}>
+                    关闭
+                </Button>
+            ],
+            onCancel: () => this.onCancel()
+        };
     }
 
+    onChangeContractBillrange = (e) => {
+        console.log(e);
+        this.setState({ contractbillrange: e.target.value });
+    };
 
     getReportColumn() {
-
-
         return [
             {
                 title: '客户名称',
                 dataIndex: 'customer_name',
                 key: 'customer_name'
-            },{
+            },
+            {
                 title: '地区',
                 dataIndex: 'zone',
                 key: 'zone'
@@ -90,38 +96,65 @@ export default class OneKeyPaperBill extends React.Component {
                 title: '错误信息',
                 dataIndex: 'message',
                 key: 'message'
-            },
-
+            }
         ];
     }
 
-
-    onCancel = (e,f) => {
-        this.setState({
-            visible: false
-        })
-    }
-
+    onCancel = () => {
+        this.setState({ visible: false });
+    };
 
     render() {
+        const modalProps = this.getModalProps();
+        return (
+            <Modal {...modalProps}>
+                <div stye={{ display: 'flex' }}>
+                    <Radio.Group
+                        onChange={this.onChangeContractBillrange}
+                        value={this.state.contractbillrange}>
+                        <div>
+                            <Radio value={'北京_后付_月付'}>
+                                北京后付(月付)
+                            </Radio>
+                            <Radio value={'广州_后付_月付'}>
+                                广州后付(月付)
+                            </Radio>
+                        </div>
+                        <hr />
+                        <Radio value={'北京_预付_年付'}>北京预付(年付)</Radio>
+                        <Radio value={'北京_预付_半年付'}>
+                            北京预付(半年付)
+                        </Radio>
+                        <Radio value={'北京_预付_季付'}>北京预付(季付)</Radio>
+                        <Radio value={'北京_预付_月付'}>北京预付(月付)</Radio>
+                        <Radio value={'广州_预付_年付'}>广州预付(年付)</Radio>
+                        <Radio value={'广州_预付_半年付'}>
+                            广州预付(半年付)
+                        </Radio>
 
-        let modalProps = this.getModalProps();
-        return <Modal {...modalProps}>
-            <div>
-                <Button key="back" onClick={this.onekeyfunction}>
-                    点击开始执行
-                </Button>
+                        <Radio value={'广州_预付_季付'}>广州预付(季付)</Radio>
 
-                <br /><br />
+                        <Radio value={'广州_预付_月付'}>广州预付(月付)</Radio>
+                    </Radio.Group>
 
-                <Table
-                    dataSource={this.state.execute_report}
-                    rowKey="uuid"
-                    columns={this.getReportColumn()}
-                    pagination={false}
-                    size="small"
-                />
-            </div>
-        </Modal >
+                    <br />
+                    <br />
+                    <Button key="back" onClick={this.onekeyfunction}>
+                        一键生成客户账单
+                    </Button>
+
+                    <br />
+                    <br />
+
+                    <Table
+                        dataSource={this.state.execute_report}
+                        rowKey="uuid"
+                        columns={this.getReportColumn()}
+                        pagination={false}
+                        size="small"
+                    />
+                </div>
+            </Modal>
+        );
     }
 }

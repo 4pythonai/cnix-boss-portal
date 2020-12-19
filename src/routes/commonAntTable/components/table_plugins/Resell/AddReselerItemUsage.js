@@ -1,17 +1,15 @@
 
-import React from 'react'
-import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
-import { observer, inject } from "mobx-react";
-import api from '@/api/api'
-import { toJS } from 'mobx'
-import { randomString } from '@/utils/tools'
-
+import React from 'react';
+import { Modal, message ,Table } from 'antd';
+import { observer } from "mobx-react";
+ import { toJS } from 'mobx';
+ 
 
 @observer
 export default class AddReselerItemUsage extends React.Component {
     constructor(props) {
-        super(props)
-        this.init = this.init.bind(this)
+        super(props);
+        this.init = this.init.bind(this);
     }
 
 
@@ -19,45 +17,35 @@ export default class AddReselerItemUsage extends React.Component {
         visible: false,
     }
 
-    async init() {
+      init() {
 
 
-        if (this.props.commonTableStore.selectedRowKeys.length == 0) {
+        if (this.props.commonTableStore.selectedRowKeys.length === 0) {
             message.error('请选择一条资源计费信息');
             return;
         }
-        let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-        console.log(current_row)
+        const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
+        console.log(current_row);
 
-        if (current_row.restype == 'IP' || current_row.restype == '带宽' || current_row.restype == 'U位') {
-            this.setState({ visible: true })
-            this.setState(current_row)
+        if (current_row.restype == 'IP' || current_row.restype === '带宽' || current_row.restype === 'U位') {
+            this.setState({ visible: true });
+            this.setState(current_row);
 
         } else {
-
             message.info('只有[带宽,IP,U位]才能录入资源计费信息,其他资源无需录入.');
-
-
         }
 
 
-
     }
 
 
-    onCancel = (e, f) => {
+    onCancel = () => {
         this.setState({
             visible: false
-        })
+        });
     }
 
-
-
-
-
-
-
-
+ 
     getModalProps() {
         return {
             width: 1200,
@@ -75,22 +63,17 @@ export default class AddReselerItemUsage extends React.Component {
             visible: this.state.visible,
 
             onCancel: () => this.onCancel()
-        }
+        };
     }
 
 
-
-
-
-
     render() {
-        let modalProps = this.getModalProps();
+        const modalProps = this.getModalProps();
         return <Modal { ...modalProps }>
             <div>
 
 
-
             </div >
-        </Modal >
+        </Modal >;
     }
 }
