@@ -1,33 +1,37 @@
 import React from 'react';
 import { Divider, Button, Table } from 'antd';
 import api from '@/api/api';
-import { Timeline, Icon } from 'antd';
+ 
 
-
-export default class custportal extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.sync_contractbillids_vs_paperbill_ids = this.sync_contractbillids_vs_paperbill_ids.bind(this);
-    }
+export default class Toolpage extends React.Component {
+ 
 
     state = {
-        errbills: []
+        errbills: [],
+        dupreport: '',
     }
 
-    async sync_contractbillids_vs_paperbill_ids() {
+      sync_contractbillids_vs_paperbill_ids=async () => {
         this.setState({ visible: true, errbills: [] });
         const params = { method: 'POST' };
         const json = await api.tools.sync_contractbillids_vs_paperbill_ids(params);
         console.log(json.errbills);
         this.setState({ errbills: json.errbills });
     }
+    
+    
+      check_dup_contractbillids_used= async () => {
+        this.setState({ visible: true, errbills: [] });
+        const params = { method: 'POST' };
+        const json = await api.tools.check_dup_contractbillids_used(params);
+        this.setState({ dupreport: json.dupreport });
+    }
 
 
     render() {
 
         const cols = [
-{
+        {
             title: '客户账单ID',
             dataIndex: 'paperid',
             key: 'paperid'
@@ -43,7 +47,7 @@ export default class custportal extends React.Component {
             <div style={{ margin: '100px' }}>
 
                 <Divider />
-                <Button key="back" onClick={this.sync_contractbillids_vs_paperbill_ids}>
+                <Button key="sync" onClick={this.sync_contractbillids_vs_paperbill_ids}>
                     同步合同账单与客户账单关系
                 </Button>
 
@@ -58,16 +62,26 @@ export default class custportal extends React.Component {
                     size="small"
                 />
 
-
+                <Divider style={{ color: "red" }}/>
+                
+                
+                <Button key="checkdup" onClick={this.check_dup_contractbillids_used}>
+                    检查重复使用的合同账单ID
+                </Button>
+                <br/>
+                <br/>
+                 
+                <div>{this.state.dupreport }</div>
+            
                 <Divider />
-
+                
                 <h3>测试数据:</h3>
                 <Divider />
                 <table>
                     <tbody>
-                        <tr><td>公司IBM</td><td>ID:164</td></tr>
-                        <tr><td>合同IBM1</td><td>ID:184</td></tr>
-                        <tr><td>合同IBM2</td><td>ID:216</td></tr>
+                        <tr key={1}><td>公司IBM</td><td>ID:164</td></tr>
+                        <tr key={2}><td>合同IBM1</td><td>ID:184</td></tr>
+                        <tr key={3}><td>合同IBM2</td><td>ID:216</td></tr>
                     </tbody>
                 </table>
 

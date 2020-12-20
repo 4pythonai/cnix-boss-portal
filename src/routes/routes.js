@@ -2,7 +2,7 @@
 const routes = {
     path: "/",
 
-    indexRoute: {onEnter: (nextState,replace) => replace("/home")},
+    indexRoute: { onEnter: (nextState, replace) => replace("/home") },
     childRoutes: [
         require("./home").default,
         require("./auth").default,
@@ -14,7 +14,7 @@ const routes = {
         require("./settings").default,
         require("./profile").default,
         require("./permissionManage").default,
-        require("./custportal").default,
+        require("./Toolpage").default,
         require("./report").default,
         require("./BillingDebuger").default,
         require("./applog").default,
@@ -25,5 +25,5 @@ const routes = {
 
 export {
     routes
-}
+};
 
