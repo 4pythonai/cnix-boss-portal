@@ -1,5 +1,5 @@
-let root_url = 'http://127.0.0.1';
-let port = '8502';
+const root_url = 'http://127.0.0.1';
+const port = '8502';
 const version_2 = 'v2';
 const controller = {
     sales_api: 'sales_api',
@@ -25,12 +25,12 @@ const controller = {
     address: 'address',
     resourcesOrder: 'ResourcesOrder',
     notify: 'notify'
-}
+};
 
 export {
     version_2,
     root_url,
     port,
     controller
-}
+};
 

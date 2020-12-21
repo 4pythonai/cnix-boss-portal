@@ -13,7 +13,11 @@ export default class OneKeyPaperBill extends React.Component {
         super(props);
         this.init = this.init.bind(this);
         this.onekeyfunction = this.onekeyfunction.bind(this);
-        this.onChangeContractBillrange = this.onChangeContractBillrange.bind(this);
+        this.onChangeContractBillrange = this.onChangeContractBillrange.bind( this );
+        
+        this.delete_onekeybills = this.delete_onekeybills.bind( this );
+         
+        
     }
 
     state = {
@@ -39,10 +43,23 @@ export default class OneKeyPaperBill extends React.Component {
                 contractbillrange: this.state.contractbillrange
             }
         };
-        console.log('before click');
-        console.log(params);
         const json = await api.billing.OneKeyPaperBill(params);
-        console.log(json.execute_report);
+        this.setState({ execute_report: json.execute_report });
+    }
+
+    async delete_onekeybills() {
+        this.setState({
+            visible: true,
+            execute_report: []
+        });
+
+        const params = {
+            method: 'POST',
+            data: {
+                contractbillrange: this.state.contractbillrange
+            }
+        };
+        const json = await api.billing.delete_onekeybills(params);
         this.setState({ execute_report: json.execute_report });
     }
 
@@ -141,6 +158,10 @@ export default class OneKeyPaperBill extends React.Component {
                     <br />
                     <Button key="back" onClick={this.onekeyfunction}>
                         一键生成客户账单
+                    </Button>
+
+                    <Button key="back" onClick={this.delete_onekeybills}>
+                        批量删除记录
                     </Button>
 
                     <br />
