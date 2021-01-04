@@ -59,8 +59,8 @@ const http = (params, url) => {
         request(method, fixed_url, {
             headers,
             ...options
-        }).
-            then((res) => {
+        })
+            .then((res) => {
                 if (res.statusCode === 401) {
                     hashHistory.push('/login');
                     hideloading();
@@ -79,13 +79,13 @@ const http = (params, url) => {
                         data = JSON.parse(res.body);
                     } catch (e) {
                         hideloading();
-                        const alert_key = Math.random().
-                            toString(36).
-                            substring(7);
+                        const alert_key = Math.random()
+                            .toString(36)
+                            .substring(7);
 
                         // return <div style={{padding: '10px'}} dangerouslySetInnerHTML={{ __html: this.state.xinfo}}></div>
                         console.log(res.body);
-                        const alertmsg =
+                        const alertmsg = (
                             <div>
                                 无法解析后台返回的数据:
                                 <div
@@ -93,7 +93,8 @@ const http = (params, url) => {
                                     dangerouslySetInnerHTML={{
                                         __html: res.body
                                     }}></div>
-                            </div>;
+                            </div>
+                        );
                         ReactDOM.render(
                             <Alert
                                 message=""
@@ -157,8 +158,8 @@ const http = (params, url) => {
                     }
                     resolve(data);
                 }
-            }).
-            catch((error) => {
+            })
+            .catch((error) => {
                 console.log(error);
                 hideloading();
                 message.error({

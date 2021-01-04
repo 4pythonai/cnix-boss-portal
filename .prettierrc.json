@@ -1,10 +1,14 @@
 {
-    "tabWidth": 4,
+    "tabWidth": 2,
+    "printWidth": 200,
     "useTabs": false,
     "endOfLine": "auto",
     "singleQuote": true,
     "semi": true,
     "trailingComma": "none",
     "bracketSpacing": true,
+    "JSXBrackets": true,
+    "eslintIntegration": true,
+    "arrowParens": "always",
     "jsxBracketSameLine": true
 }
