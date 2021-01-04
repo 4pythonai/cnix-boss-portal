@@ -158,10 +158,6 @@ export default class OneKeyContractBill extends React.Component {
             点击开始执行
           </Button>
 
-          <Button key="msg" onClick={this.Msg}>
-            Msg
-          </Button>
-
           <div>
             <Progress strokeLinecap="square" percent={this.state.percent} />
           </div>
