@@ -285,7 +285,8 @@ export default class CustPaperBillPrinter extends React.Component {
           style={{
             marginBottom: '5px',
             marginLeft: '145px',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
           }}>
           <h1>账单编号:{this.state.paperinfo.paperno}</h1>
         </div>
@@ -293,7 +294,9 @@ export default class CustPaperBillPrinter extends React.Component {
           style={{
             marginBottom: '5px',
             marginLeft: '10px',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            color: 'black',
+            fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
           }}>
           总金额:{this.state.paperinfo.total_money}
         </div>
@@ -301,7 +304,9 @@ export default class CustPaperBillPrinter extends React.Component {
           style={{
             marginBottom: '5px',
             marginLeft: '10px',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            color: 'black',
+            fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
           }}>
           账单创建时间:
           {this.state.paperinfo.createdate}
@@ -309,8 +314,8 @@ export default class CustPaperBillPrinter extends React.Component {
         <Divider />
         {this.show_ab_info()}
         <Divider />
-        <div style={{ margin: '10px' }}>
-          {' '}
+
+        <div style={{ fontFamily: '"Microsoft YaHei", 微软雅黑, monospace', margin: '10px' }}>
           费用明细:
           <br />
         </div>
@@ -321,7 +326,7 @@ export default class CustPaperBillPrinter extends React.Component {
 
   show_ab_info = () => {
     return (
-      <div style={{ marginLeft: '10px' }}>
+      <div style={{ color: 'black', marginLeft: '10px', fontFamily: '"Microsoft YaHei", 微软雅黑, monospace' }}>
         <table>
           <tbody>
             <tr>
