@@ -183,23 +183,27 @@ export default class CustPaperBillPrinter extends React.Component {
       {
         title: '合同号',
         dataIndex: 'contract_no',
-        key: 'contract_no'
+        key: 'contract_no',
+        width: '140px'
       },
       {
         title: '账期开始',
         dataIndex: 'periodstart',
-        key: 'periodstart'
+        key: 'periodstart',
+        width: '150px'
       },
       {
         title: '账期结束',
         dataIndex: 'periodend',
-        key: 'periodend'
+        key: 'periodend',
+        width: '150px'
       },
 
       {
         title: '账期金额',
         dataIndex: 'period_money',
-        key: 'period_money'
+        key: 'period_money',
+        width: '156px'
       },
       {
         title: '调整金额',
