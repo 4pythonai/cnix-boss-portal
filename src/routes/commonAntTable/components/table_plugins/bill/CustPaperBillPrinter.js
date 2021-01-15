@@ -1,13 +1,15 @@
 // PDF pdf  客户账单打印功能
-import React from 'react';
+
+/* eslint-disable */
+
+import api from '@/api/api';
+import { Button, Divider, message, Modal, Select, Table } from 'antd';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { Modal, message, Table, Divider, Select, Button } from 'antd';
-
-import { observer, inject } from 'mobx-react';
-import api from '@/api/api';
 import { toJS } from 'mobx';
-
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import './paper_bill_style.scss';
 @inject('billingSummaryStore')
 @observer
 export default class CustPaperBillPrinter extends React.Component {
@@ -23,11 +25,11 @@ export default class CustPaperBillPrinter extends React.Component {
     paperinfo: {},
     custinfo: {},
     zones: [],
-    zone: null //
+    zone: null
   };
 
   async init() {
-    if (this.props.commonTableStore.selectedRowKeys.length == 0) {
+    if (this.props.commonTableStore.selectedRowKeys.length === 0) {
       message.error('请选择一个账单');
       return;
     }
@@ -49,7 +51,7 @@ export default class CustPaperBillPrinter extends React.Component {
     console.log(this.state);
   }
 
-  onCancel = (e, f) => {
+  onCancel = () => {
     this.setState({
       visible: false
     });
@@ -104,67 +106,61 @@ export default class CustPaperBillPrinter extends React.Component {
   // 资源使用日志
   expandedLog = (record, index, indent, expanded) => {
     const { resource_logs } = record;
-
-    console.log(resource_logs);
-
     const cols = [
       {
         title: '产品',
         className: 'small_table',
         dataIndex: 'product_name',
-        key: 'product_name'
+        key: 'product_name',
+        width: '100px'
       },
 
       {
         title: '资源明细',
         className: 'small_table',
         dataIndex: 'network_text',
-        key: 'network_text'
+        key: 'network_text',
+        width: '340px'
       },
       {
         title: '起',
         className: 'small_table',
         dataIndex: '_begin',
-        key: '_begin'
+        key: '_begin',
+        width: '80px'
       },
       {
         title: '止',
         className: 'small_table',
-
         dataIndex: '_end',
-        key: '_end'
+        key: '_end',
+        width: '80px'
       },
       {
         title: '价格',
         className: 'small_table',
         dataIndex: 'price',
-        key: 'price'
+        key: 'price',
+        width: '70px'
       },
 
       {
         title: '费用',
         className: 'small_table',
         dataIndex: 'shouldpay',
-        key: 'shouldpay'
+        key: 'shouldpay',
+        width: '70px'
       },
       {
         title: '备注',
         className: 'small_table',
         dataIndex: 'memo',
-        key: 'memo'
+        key: 'memo',
+        width: '200px'
       }
     ];
 
-    return (
-      <Table
-        columns={cols}
-        rowKey="reactkey"
-        rowClassName={'small_table'}
-        //  dataSource={ [] }
-        dataSource={record.resource_logs}
-        pagination={false}
-      />
-    );
+    return <Table columns={cols} rowKey="reactkey" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
   };
 
   // 每个合同账单的循环列表
@@ -264,21 +260,182 @@ export default class CustPaperBillPrinter extends React.Component {
     };
   }
 
-  async handleZoneChange(value, now) {
+  async handleZoneChange(value) {
     console.log(`selected ${value}`);
-
-    const obj = null;
     let found = null;
-
-    console.log(this.state.zones);
-
-    console.log(now);
-
-    found = this.state.zones.find((element) => element.id == value);
-    console.log(found);
+    found = this.state.zones.find((element) => element.id === value);
     await this.setState({ zone: found });
-    console.log(this.state);
   }
+
+  // 要打印的主体内容
+
+  show_main_content = () => {
+    return (
+      <div
+        style={{
+          paddingLeft: '15px',
+          paddingTop: '15px'
+        }}
+        ref="pdf">
+        <div
+          style={{
+            marginBottom: '5px',
+            marginLeft: '145px',
+            fontWeight: 'bold'
+          }}>
+          <h1>账单编号:{this.state.paperinfo.paperno}</h1>
+        </div>
+        <div
+          style={{
+            marginBottom: '5px',
+            marginLeft: '10px',
+            fontWeight: 'bold'
+          }}>
+          总金额:{this.state.paperinfo.total_money}
+        </div>
+        <div
+          style={{
+            marginBottom: '5px',
+            marginLeft: '10px',
+            fontWeight: 'bold'
+          }}>
+          账单创建时间:
+          {this.state.paperinfo.createdate}
+        </div>
+        <Divider />
+        {this.show_ab_info()}
+        <Divider />
+        <div style={{ margin: '10px' }}>
+          {' '}
+          费用明细:
+          <br />
+        </div>
+        {this.CreateContractBillItem(this.state.paperinfo.billsjson)}
+      </div>
+    );
+  };
+
+  show_ab_info = () => {
+    return (
+      <div style={{ marginLeft: '10px' }}>
+        <table>
+          <tbody>
+            <tr>
+              <td style={{ width: '565px' }}>
+                {' '}
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  客户名称:
+                  {this.state.custinfo.customer_name}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  纳税识别号:
+                  {this.state.custinfo.tax_no}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  客户地址:
+                  {this.state.custinfo.address}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  联系电话:
+                  {this.state.custinfo.phone}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  开户银行:
+                  {this.state.custinfo.open_bank}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  银行帐号:
+                  {this.state.custinfo.bank_account}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  Email:
+                  {this.state.custinfo.email}
+                </div>
+              </td>
+              <td style={{ width: '565px' }}>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  收款公司:
+                  {this.state.zone.company}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  开户银行:
+                  {this.state.zone.bank}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  银行帐号:
+                  {this.state.zone.bankcode}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  发票类型:
+                  {this.state.zone.invocietype}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  联系人:
+                  {this.state.zone.contact} {this.state.zone.mobile}{' '}
+                </div>
+                <div
+                  style={{
+                    marginBottom: '5px',
+                    fontWeight: 'bold'
+                  }}>
+                  主页:
+                  {'http://www.cnix.com.cn'}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  };
 
   render() {
     const modalProps = this.getModalProps();
@@ -307,168 +464,7 @@ export default class CustPaperBillPrinter extends React.Component {
               ))}
             </Select>
           )}
-          {this.state.zone && this.state.zone.id ? (
-            <div>
-              <div
-                style={{
-                  paddingLeft: '10px',
-                  paddingTop: '15px'
-                }}
-                ref="pdf">
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    marginLeft: '145px',
-                    fontWeight: 'bold'
-                  }}>
-                  <h1>账单编号:{this.state.paperinfo.paperno}</h1>
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  总金额:{this.state.paperinfo.total_money}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  账单创建时间:
-                  {this.state.paperinfo.createdate}
-                </div>
-                <Divider />
-
-                <table>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '565px' }}>
-                        {' '}
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          客户名称:
-                          {this.state.custinfo.customer_name}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          纳税识别号:
-                          {this.state.custinfo.tax_no}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          客户地址:
-                          {this.state.custinfo.address}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          联系电话:
-                          {this.state.custinfo.phone}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          开户银行:
-                          {this.state.custinfo.open_bank}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          银行帐号:
-                          {this.state.custinfo.bank_account}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          Email:
-                          {this.state.custinfo.email}
-                        </div>
-                      </td>
-                      <td style={{ width: '565px' }}>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          收款公司:
-                          {this.state.zone.company}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          开户银行:
-                          {this.state.zone.bank}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          银行帐号:
-                          {this.state.zone.bankcode}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          发票类型:
-                          {this.state.zone.invocietype}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          联系人:
-                          {this.state.zone.contact} {this.state.zone.mobile}{' '}
-                        </div>
-                        <div
-                          style={{
-                            marginBottom: '5px',
-                            fontWeight: 'bold'
-                          }}>
-                          主页:
-                          {'http://www.cnix.com.cn'}
-                        </div>
-
-                        {/* <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>客服联系电话:{ "40012345678" }</div> */}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <Divider />
-                <div style={{ margin: '10px' }}>
-                  {' '}
-                  费用明细:
-                  <br />
-                </div>
-                {this.CreateContractBillItem(this.state.paperinfo.billsjson)}
-              </div>
-            </div>
-          ) : (
-            <div>请选择节点 </div>
-          )}
+          {this.state.zone && this.state.zone.id ? this.show_main_content() : <div>请选择节点 </div>}
         </div>
       </Modal>
     );

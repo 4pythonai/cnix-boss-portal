@@ -1,15 +1,19 @@
 .small_table 
 {
-font-size: 13px;
+font-size: 12px;
 font-weight:normal;
-color: #2F2F2F ;
+color:black ;
 }
 
+
+tr.ant-table-expanded-row, tr.ant-table-expanded-row:hover{
+  background:white;
+}
 
 .big_table 
 {
 font-size: 14px;
 font-weight: bold;
-color:green;
+color:black;
 
 }
