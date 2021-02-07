@@ -1,5 +1,5 @@
-import { Modal, message, Upload, Icon, Button } from 'antd';
-import { observer } from 'mobx-react';
+import {Modal,message,Upload,Icon,Button} from 'antd';
+import {observer} from 'mobx-react';
 import api from '@/api/api';
 import React from 'react';
 
@@ -15,7 +15,7 @@ export default class UploadBankExcel extends React.Component {
   };
 
   init() {
-    this.setState({ visible: true });
+    this.setState({visible: true});
   }
 
   onCancel = () => {
@@ -24,23 +24,23 @@ export default class UploadBankExcel extends React.Component {
     });
   };
 
-  getPdfURL = () => {
+  getExcelUrl = () => {
     const that = this;
     const props = {
       name: 'file',
-      action: api.curd.upload,
+      action: api.filehandler.uploadBankExcel,
       accept: 'application/vnd.ms-excel',
       headers: {
         Authorization: localStorage.getItem('token')
       },
       onChange(info) {
         console.log(info);
-        if (info.file.status === 'done') {
-          message.success(`${ info.file.name } 上传成功！`);
+        if(info.file.status === 'done') {
+          message.success(`${info.file.name} 上传成功！`);
           console.log(that.props.commonTableStore);
           that.props.refreshTable();
-        } else if (info.file.status === 'error') {
-          message.error(`${ info.file.name } 上传失败！`);
+        } else if(info.file.status === 'error') {
+          message.error(`${info.file.name} 上传失败！`);
         }
       }
     };
@@ -70,7 +70,7 @@ export default class UploadBankExcel extends React.Component {
     return (
       <Modal {...modalProps}>
         <div>
-          <Upload {...this.getPdfURL()} showUploadList={false}>
+          <Upload {...this.getExcelUrl()} showUploadList={false}>
             <Button>
               <Icon type="upload" /> 选择银行流水文件
             </Button>
