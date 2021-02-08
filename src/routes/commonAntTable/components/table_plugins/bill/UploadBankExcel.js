@@ -34,13 +34,22 @@ export default class UploadBankExcel extends React.Component {
         Authorization: localStorage.getItem('token')
       },
       onChange(info) {
+        console.log('上传结果');
         console.log(info);
+
+        if(info.file.status === 'error') {
+          message.success(`${info.file.name} 上传失败！`);
+        }
+
         if(info.file.status === 'done') {
-          message.success(`${info.file.name} 上传成功！`);
-          console.log(that.props.commonTableStore);
-          that.props.refreshTable();
-        } else if(info.file.status === 'error') {
-          message.error(`${info.file.name} 上传失败！`);
+          if(info.file.response.code === 200) {
+            message.success(`${info.file.name} 上传成功！`);
+            that.props.refreshTable();
+          }
+
+          if(info.file.response.code === 500) {
+            message.error(info.file.response.msg,10);
+          }
         }
       }
     };
@@ -70,10 +79,16 @@ export default class UploadBankExcel extends React.Component {
     return (
       <Modal {...modalProps}>
         <div>
+
+          <div>重复上传文件会导致数据库"数据重复错误"</div>
+          <div>"文件名"+"交易时间"必须唯一</div>
+
+          <br />
+
           <Upload {...this.getExcelUrl()} showUploadList={false}>
             <Button>
               <Icon type="upload" /> 选择银行流水文件
-            </Button>
+                        </Button>
           </Upload>
         </div>
       </Modal>
