@@ -1,26 +1,23 @@
 import { Modal, Descriptions, message, InputNumber, Table, Icon, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
-import { observer, inject } from "mobx-react";
-import api from '@/api/api'
-import { toJS } from 'mobx'
+import { observer, inject } from 'mobx-react';
+import api from '@/api/api';
+import { toJS } from 'mobx';
 import React, { useState } from 'react';
 import { registerFormField, connect } from '@uform/antd';
 import reqwest from 'reqwest';
 
-
-
 @observer
 export default class Settlementdetail extends React.Component {
     constructor(props) {
-        super(props)
-        this.init = this.init.bind(this)
+        super(props);
+        this.init = this.init.bind(this);
     }
-
 
     state = {
         visible: false,
         logs: [],
-        bankitemid: 0,
-    }
+        bankitemid: 0
+    };
 
     async init() {
         if (this.props.commonTableStore.selectedRowKeys.length <= 0) {
@@ -28,25 +25,22 @@ export default class Settlementdetail extends React.Component {
             return;
         }
 
-        let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-        this.setState({ bankitemid: current_row.id })
-        let params = { method: 'POST', data: { "itemid": current_row.id } }
+        let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
+        this.setState({ bankitemid: current_row.id });
+        let params = { method: 'POST', data: { itemid: current_row.id } };
         let json = await api.billing.settlementdetail(params);
-        console.log(json)
-        this.setState({ ...json })
-        this.setState({ visible: true })
+        console.log(json);
+        this.setState({ ...json });
+        this.setState({ visible: true });
     }
 
-
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     onCancel = (e, f) => {
         this.setState({
             visible: false
-        })
-    }
-
+        });
+    };
 
     getModalProps() {
         return {
@@ -55,54 +49,61 @@ export default class Settlementdetail extends React.Component {
             title: '销账明细',
             bodyStyle: {
                 width: 1200,
-                height: "auto",
+                height: 'auto',
                 overflow: 'auto',
                 bottom: 0
             },
             cancelText: '取消',
-            okText: "确定",
+            okText: '确定',
             visible: this.state.visible,
             onCancel: () => this.onCancel()
-        }
+        };
     }
-
-
 
     getColumns() {
         return [
             {
                 title: 'ID',
                 dataIndex: 'key',
-                key: 'key',
+                key: 'key'
             },
             {
                 title: '合同号',
                 dataIndex: 'contract_no',
-                key: 'contract_no',
+                key: 'contract_no'
+            },
+            {
+                title: '账期开始',
+                dataIndex: 'periodstart',
+                key: 'periodstart'
             },
 
+            {
+                title: '账期结束',
+                dataIndex: 'periodend',
+                key: 'periodend'
+            },
+            {
+                title: '操作日期',
+                dataIndex: 'payment_date',
+                key: 'payment_date'
+            },
             {
                 title: '销账费用',
                 dataIndex: 'payment_amount',
                 key: 'payment_amount'
-            },
-
-
+            }
         ];
     }
 
     render() {
         let modalProps = this.getModalProps();
-        return <Modal { ...modalProps }>
-
-
-            <br /><br />
-            <Table
-                dataSource={ this.state.logs }
-                columns={ this.getColumns() }
-                pagination={ false }
-                size="small"
-            />
-        </Modal >
+        return (
+            <Modal {...modalProps}>
+                <br />
+                <br />
+                <Table dataSource={this.state.logs} columns={this.getColumns()} pagination={false} size="small" />
+            </Modal>
+        );
     }
 }
