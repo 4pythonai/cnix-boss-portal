@@ -68,28 +68,17 @@ export default class Settlementdetail extends React.Component {
                 key: 'key'
             },
             {
-                title: '合同号',
-                dataIndex: 'contract_no',
-                key: 'contract_no'
+                title: '客户账单编号',
+                dataIndex: 'paperno',
+                key: 'paperno'
             },
             {
-                title: '账期开始',
-                dataIndex: 'periodstart',
-                key: 'periodstart'
-            },
-
-            {
-                title: '账期结束',
-                dataIndex: 'periodend',
-                key: 'periodend'
+                title: '账单费用',
+                dataIndex: 'total_money',
+                key: 'total_money'
             },
             {
-                title: '操作日期',
-                dataIndex: 'payment_date',
-                key: 'payment_date'
-            },
-            {
-                title: '销账费用',
+                title: '已销账',
                 dataIndex: 'payment_amount',
                 key: 'payment_amount'
             }

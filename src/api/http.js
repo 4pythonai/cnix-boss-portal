@@ -1,174 +1,135 @@
 import request from 'then-request';
-import React from 'react';
-import ReactDOM from 'react-dom';
-
+import AuthService from '@//routes/auth/AuthService';
 import userStore from '@/store/userStore';
 import navigationStore from '@/store/navigationStore';
-import {hashHistory} from 'react-router';
-import {message,Alert} from 'antd';
+import { hashHistory } from 'react-router';
+import { message } from 'antd';
 
-message.config({top: 20,maxCount: 100});
+message.config({
+    top: 20,
+    maxCount: 100
+});
 
-const setHeader = () => {
-  const token_from_userStore = userStore.getToken();
-  const headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: token_from_userStore
-  };
-  return headers;
-};
-
-const getUrl = (url,params) => {
-  const data = params ? params.data : '';
-  if(data === '') {
-    return url;
-  }
-  let fixed_url = url + '/?';
-
-  const paramsArray = [];
-  // 拼接参数
-  Object.keys(data).forEach((key) => paramsArray.push(key + '=' + data[key]));
-  fixed_url += paramsArray.join('&');
-  return fixed_url;
-};
-
+const loadingKey = 'loading';
 const resKey = 'reponse';
 window.hideMsgArr = [];
-const http = (params,url) => {
-  const headers = setHeader();
-  const options = {
-    mode: 'cors',
-    json: params ? params.data : ''
-  };
-  const method = params && params.method ? params.method : 'GET';
-
-  let fixed_url = '';
-  if(method === 'GET' || method === 'get') {
-    fixed_url = getUrl(url,params);
-  } else {
-    fixed_url = url;
-  }
-
-  return new Promise((resolve,reject) => {
-    message.loading({content: '事务处理中...',duration: 0});
-    const hideloading = () => {
-      message.destroy();
+const http = (params, url) => {
+    const headers = setHeader();
+    const options = {
+        mode: 'cors',
+        json: params ? params.data : ''
     };
+    const method = params && params.method ? params.method : 'GET';
 
-    request(method,fixed_url,{
-      headers,
-      ...options
-    })
-      .then((res) => {
-        if(res.statusCode === 401) {
-          hashHistory.push('/login');
-          hideloading();
-          message.error(JSON.parse(res.body).message,3);
-          userStore.clearToken();
-          sessionStorage.clear();
-          navigationStore.clear();
-          navigationStore.setBossTitle(null);
-          return;
-        }
+    url = method == 'GET' ? getUrl(url, params) : url;
+    return new Promise((resolve, reject) => {
+        console.log('http 请求>>>>>>>' + url);
+        message.loading({ content: '处理中...', duration: 0 });
+        // let hideloading = message.loading({ content: '正在加载数据...', key: loadingKey, duration: 0 })
+        const hideloading = function () {
+            message.destroy();
+        };
 
-        let data = {};
+        request(method, url, { headers, ...options })
+            .then((res) => {
+                if (res.statusCode == 401) {
+                    hashHistory.push('/login');
+                    hideloading();
+                    message.error(JSON.parse(res.body).message, 3);
+                    userStore.clearToken();
+                    sessionStorage.clear();
+                    navigationStore.clear();
+                    navigationStore.setBossTitle(null);
+                    return;
+                }
+                const data = JSON.parse(res.body);
 
-        if(res) {
-          try {
-            data = JSON.parse(res.body);
-            console.log("后台解析完的数据",data);
-          } catch(e) {
-            hideloading();
-            const alert_key = Math.random()
-              .toString(36)
-              .substring(7);
+                if (data.msg) {
+                    data.message = data.msg;
+                }
 
-            const alertmsg = (
-              <div>
-                无法解析后台返回的数据:
-                <div
-                  style={{padding: '10px'}}
-                  dangerouslySetInnerHTML={{
-                    __html: res.body
-                  }}></div>
-              </div>
-            );
-            ReactDOM.render(
-              <Alert
-                message=""
-                key={alert_key}
-                closable
-                description={alertmsg}
-                type="info"
-                closeText="关闭警告"
-              />,
-              document.getElementById('app_global_err')
-            );
-
-            return;
-          }
-        }
-
-        if(data.msg) {
-          data.message = data.msg;
-        }
-
-        if(data.code === 200) {
-          hideloading();
-
-          if(!Reflect.ownKeys(data).indexOf('hidemessage') >= 0) {
-            if(data.message) {
-              message.success({
-                content: data.message,
-                key: resKey,
-                duration: 2
-              });
-            }
-          }
-          resolve(data);
-        } else if(data.code === 401) {
-          hideloading();
-          message.success({
-            content: data.message
-              ? data.message
-              : '您没有权限操作！',
-            key: resKey,
-            duration: 2
-          });
-          resolve(data);
-        } else if(data.code === 500) {
-          hideloading();
-          message.error({
-            content: data.message ? data.message : '请求出错',
-            key: resKey,
-            duration: 2
-          });
-          resolve(data);
-        } else {
-          hideloading();
-
-          if(data.message) {
-            message.error({
-              content: data.message,
-              key: resKey,
-              duration: 2
+                if (data.code == 200) {
+                    hideloading();
+                    data.message &&
+                        message.success({
+                            content: data.message,
+                            key: resKey,
+                            duration: 2
+                        });
+                    resolve(data);
+                } else if (data.code == 401) {
+                    hideloading();
+                    message.success({
+                        content: data.message
+                            ? data.message
+                            : '您没有权限操作！',
+                        key: resKey,
+                        duration: 2
+                    });
+                    resolve(data);
+                } else if (data.code == 500) {
+                    hideloading();
+                    message.error({
+                        content: data.message ? data.message : '请求出错',
+                        key: resKey,
+                        duration: 2
+                    });
+                    resolve(data);
+                } else {
+                    hideloading();
+                    data.message &&
+                        message.error({
+                            content: data.message,
+                            key: resKey,
+                            duration: 2
+                        });
+                    resolve(data);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                hideloading();
+                message.error({
+                    content: 'Request Failer,Try later',
+                    key: 'errorKey',
+                    duration: 10
+                });
             });
-          }
-          resolve(data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        hideloading();
-        message.error({
-          content: 'Request Failer,Try later',
-          key: 'errorKey',
-          duration: 10
-        });
-        reject(error);
-      });
-  });
+    });
+};
+
+const checkTimeOut = () => {
+    const postBeofreAuth = new AuthService();
+    const token = postBeofreAuth.getToken();
+
+    if (!postBeofreAuth.loggedIn() && postBeofreAuth.isTokenExpired(token)) {
+        postBeofreAuth.logout();
+        return true;
+    }
+};
+
+const setHeader = () => {
+    const token_from_userStore = userStore.getToken();
+    const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: token_from_userStore
+    };
+    return headers;
+};
+
+const getUrl = (url, params) => {
+    const data = params ? params.data : '';
+    if (data == '') {
+        return url;
+    }
+    url += '/?';
+
+    const paramsArray = [];
+    // 拼接参数
+    Object.keys(data).forEach((key) => paramsArray.push(key + '=' + data[key]));
+    url += paramsArray.join('&');
+    return url;
 };
 
 export default http;

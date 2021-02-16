@@ -1,20 +1,15 @@
-import { Modal, Descriptions, message, InputNumber, Table, Icon, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
-import { observer, inject } from "mobx-react";
-import api from '@/api/api'
-import { toJS } from 'mobx'
-import React, { useState } from 'react';
-import { registerFormField, connect } from '@uform/antd';
-import reqwest from 'reqwest';
-
-
+import { Modal, message, Table, Button } from 'antd';
+import { observer } from 'mobx-react';
+import api from '@/api/api';
+import { toJS } from 'mobx';
+import React from 'react';
 
 @observer
 export default class BillSettlement extends React.Component {
     constructor(props) {
-        super(props)
-        this.init = this.init.bind(this)
+        super(props);
+        this.init = this.init.bind(this);
     }
-
 
     state = {
         visible: false,
@@ -23,8 +18,8 @@ export default class BillSettlement extends React.Component {
         moneyleft: 0,
         moneyfrombank: 0,
         unsettledbills: [],
-        bankitemid: 0,
-    }
+        bankitemid: 0
+    };
 
     async init() {
         if (this.props.commonTableStore.selectedRowKeys.length <= 0) {
@@ -32,41 +27,34 @@ export default class BillSettlement extends React.Component {
             return;
         }
 
-        let current_row = toJS(this.props.commonTableStore.selectedRows[0])
-        this.setState({ bankitemid: current_row.id })
-        let params = { method: 'POST', data: { "itemid": current_row.id } }
+        let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
+        this.setState({ bankitemid: current_row.id });
+        let params = { method: 'POST', data: { itemid: current_row.id } };
         let json = await api.billing.prepareBills(params);
-        console.log(json)
-        this.setState({ ...json })
-        this.setState({ visible: true })
+        console.log(json);
+        this.setState({ ...json });
+        this.setState({ visible: true });
     }
 
-
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     onCancel = (e, f) => {
         this.setState({
             visible: false
-        })
-    }
+        });
+    };
 
-
-    saveSettlement = async () => {
-
-
+    saveNewSettlement = async () => {
         if (this.state.moneyleft > 0) {
-            console.log(this.state)
-            let params = { method: 'POST', data: { itemid: this.state.bankitemid, bills: this.state.unsettledbills } }
-            let json = await api.billing.saveSettlement(params);
-            console.log(json)
-
+            console.log(this.state);
+            let params = { method: 'POST', data: { itemid: this.state.bankitemid, bills: this.state.unsettledbills } };
+            let json = await api.billing.saveNewSettlement(params);
+            console.log(json);
         } else {
-
-            message.error('本条流水已经用尽')
+            message.error('本条流水已经用尽');
         }
-    }
- 
+    };
+
     getModalProps() {
         return {
             width: 1200,
@@ -74,53 +62,35 @@ export default class BillSettlement extends React.Component {
             title: '销账',
             bodyStyle: {
                 width: 1200,
-                height: "auto",
+                height: 'auto',
                 overflow: 'auto',
                 bottom: 0
             },
             cancelText: '取消',
-            okText: "确定",
+            okText: '确定',
             visible: this.state.visible,
             onCancel: () => this.onCancel()
-        }
+        };
     }
-
-
 
     getColumns() {
         return [
             {
                 title: 'ID',
                 dataIndex: 'id',
-                key: 'id',
-            },
-            {
-                title: '合同号',
-                dataIndex: 'contract_no',
-                key: 'contract_no',
-            },
-            {
-                title: '账期',
-                dataIndex: 'counter',
-                key: 'counter'
+                key: 'id'
             },
 
             {
-                title: '起',
-                dataIndex: 'periodstart',
-                key: 'periodstart',
-            },
-
-            {
-                title: '止',
-                dataIndex: 'periodend',
-                key: 'periodend',
+                title: '客户账单编号',
+                dataIndex: 'paperno',
+                key: 'paperno'
             },
 
             {
                 title: '账单费用',
-                dataIndex: 'period_money',
-                key: 'period_money'
+                dataIndex: 'total_money',
+                key: 'total_money'
             },
 
             {
@@ -135,7 +105,7 @@ export default class BillSettlement extends React.Component {
                 key: 'unsettled'
             },
             {
-                title: '本次结',
+                title: '本次拟结',
                 dataIndex: 'newsettled',
                 key: 'newsettled'
             }
@@ -144,23 +114,26 @@ export default class BillSettlement extends React.Component {
 
     render() {
         let modalProps = this.getModalProps();
-        return <Modal { ...modalProps }>
-            <div>
-                客户名称: { this.state.custname } <br />
-                流水金额: { this.state.moneyfrombank } <br />
-                已使用: { this.state.alreadyused }<br />
-                剩余: { this.state.moneyleft }<br />
-            </div >
-            <br /><br />
-            未结清账单:    <Button style={ { marginLeft: '1000px' } } type="danger" onClick={ event => this.saveSettlement(event) }>保存账单</Button>
-
-            <br /><br />
-            <Table
-                dataSource={ this.state.unsettledbills }
-                columns={ this.getColumns() }
-                pagination={ false }
-                size="small"
-            />
-        </Modal >
+        return (
+            <Modal {...modalProps}>
+                <div>
+                    客户名称: {this.state.custname} <br />
+                    流水金额: {this.state.moneyfrombank} <br />
+                    已使用: {this.state.alreadyused}
+                    <br />
+                    剩余: {this.state.moneyleft}
+                    <br />
+                </div>
+                <br />
+                <br />
+                未结清账单列表:
+                <Button style={{ marginLeft: '1000px' }} type="danger" onClick={(event) => this.saveNewSettlement(event)}>
+                    保存账单
+                </Button>
+                <br />
+                <br />
+                <Table dataSource={this.state.unsettledbills} columns={this.getColumns()} pagination={false} size="small" />
+            </Modal>
+        );
     }
 }
