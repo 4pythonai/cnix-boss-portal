@@ -1,46 +1,28 @@
 // 账单组件
-import React from 'react'
-import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
-import { observer, inject } from "mobx-react";
-import api from '@/api/api'
-import { toJS } from 'mobx'
-
-
+import React from 'react';
+import { Table, Divider, Button } from 'antd';
+import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 
 @observer
 export default class IntegrationBillsCom extends React.Component {
     constructor(props) {
-        super(props)
-        this.bills = props.bills
-    }
-    state = {
-        visible: false,
+        super(props);
+        this.bills = props.bills;
     }
 
     componentWillMount() {
-        this.setState({ visible: true })
+        this.setState({ visible: true });
     }
-
-
-    onCancel = (e, f) => {
-        this.setState({
-            visible: false
-        })
-    }
-
 
     saveCombinedBill = async (e) => {
-
         // let params = { data: this.store, method: 'POST' };
         // let json = await api.billing.saveCombinedBill(params);
         // console.log(json)
-
-    }
-
+    };
 
     getColumnsCycleByContractTimelime() {
         return [
-
             {
                 title: '账单ID',
                 dataIndex: 'id',
@@ -92,34 +74,31 @@ export default class IntegrationBillsCom extends React.Component {
                 dataIndex: 'memo',
                 key: 'memo'
             }
-
         ];
     }
 
     expandedLog = (record, index, indent, expanded) => {
-        let resource_logs = record.resource_logs //该参数是从父表格带过来的key
         const cols = [
-
             {
                 title: '起',
                 dataIndex: '_begin',
-                key: '_begin',
+                key: '_begin'
             },
             {
                 title: '止',
                 dataIndex: '_end',
-                key: '_end',
+                key: '_end'
             },
             {
                 title: '产品子类',
                 dataIndex: 'sub_category_name',
-                key: 'sub_category_name',
+                key: 'sub_category_name'
             },
 
             {
                 title: '资源明细',
                 dataIndex: 'network_text',
-                key: 'network_text',
+                key: 'network_text'
             },
             {
                 title: '价格',
@@ -138,84 +117,43 @@ export default class IntegrationBillsCom extends React.Component {
                 dataIndex: 'memo',
                 key: 'memo'
             }
-        ]
+        ];
 
-        return (
-            <Table
-                columns={ cols }
-                rowKey="reactkey"
-                dataSource={ record.resource_logs }
-                pagination={ false }
-
-            />
-        );
+        return <Table columns={cols} rowKey="reactkey" dataSource={record.resource_logs} pagination={false} />;
     };
-
-    getModalProps() {
-        return {
-            width: 1200,
-            destroyOnClose: true,
-            ref: "billrpt",
-            title: '账单',
-            bodyStyle: {
-                width: 1200,
-                height: "auto",
-                overflow: 'auto',
-                bottom: 0
-            },
-            cancelText: '取消',
-            okText: "确定",
-            visible: this.state.visible,
-            onOk: this.saveFormData,
-            onCancel: () => this.onCancel()
-        }
-    }
-
 
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`选择的数据Keys: ${ selectedRowKeys }`);
+            console.log(`选择的数据Keys: ${selectedRowKeys}`);
             console.log('选择的数据rows: ', selectedRows);
-
-
         },
         onSelect: (record, selected, selectedRows) => {
             console.log(toJS(record));
         },
         onSelectAll: (selected, selectedRows, changeRows) => {
             console.log(selected, selectedRows, changeRows);
-        },
-    }
-
-
-
+        }
+    };
 
     render() {
-        console.log('will render.....')
-        return <div>
+        console.log('will render.....');
+        return (
             <div>
+                <div>
+                    <Button onClick={(event) => this.saveCombinedBill(event)}>保存合并账单</Button>
 
-
-
-                <Button onClick={ event => this.saveCombinedBill(event) }>保存合并账单</Button>
-
-
-                <Divider orientation="left">未付款账单</Divider>
-                <Table
-
-                    dataSource={ this.bills }
-                    rowKey="id"
-                    columns={ this.getColumnsCycleByContractTimelime() }
-                    pagination={ false }
-                    size="small"
-                    expandedRowRender={ this.expandedLog }
-                    rowSelection={ this.rowSelection }
-
-                />
-
-
-
-            </div >
-        </div >
+                    <Divider orientation="left">未付款账单</Divider>
+                    <Table
+                        dataSource={this.bills}
+                        rowKey="id"
+                        columns={this.getColumnsCycleByContractTimelime()}
+                        pagination={false}
+                        size="small"
+                        expandedRowRender={this.expandedLog}
+                        rowSelection={this.rowSelection}
+                    />
+                </div>
+            </div>
+        );
     }
 }
