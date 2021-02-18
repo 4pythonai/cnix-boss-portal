@@ -3,7 +3,6 @@ import React from 'react';
 import { Table, Divider, Button } from 'antd';
 import { observer, inject } from 'mobx-react';
 import api from '@/api/api';
-import { toJS } from 'mobx';
 
 @inject('billingSummaryStore')
 @observer
@@ -173,7 +172,6 @@ export default class OneContractBillReportCom extends React.Component {
     }
 
     expandedLog = (record, index, indent, expanded) => {
-        let resource_logs = record.resource_logs; //该参数是从父表格带过来的key
         const cols = [
             {
                 title: '起',
@@ -216,33 +214,6 @@ export default class OneContractBillReportCom extends React.Component {
         ];
 
         return <Table columns={cols} rowKey="reactkey" dataSource={record.resource_logs} pagination={false} />;
-    };
-
-    getColumnsOnetime() {
-        return [
-            {
-                title: '费用名称',
-                dataIndex: 'costName',
-                key: 'costName'
-            },
-            {
-                title: '费用',
-                dataIndex: 'price',
-                key: 'price'
-            }
-        ];
-    }
-
-    rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        onSelect: (record, selected, selectedRows) => {
-            console.log(toJS(record));
-        },
-        onSelectAll: (selected, selectedRows, changeRows) => {
-            console.log(selected, selectedRows, changeRows);
-        }
     };
 
     render() {
