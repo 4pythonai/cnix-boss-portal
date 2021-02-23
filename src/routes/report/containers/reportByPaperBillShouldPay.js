@@ -127,6 +127,7 @@ export default class ReportByPaperBillShouldPay extends React.Component {
                 <ReportHeader
                     columns={columns}
                     mode={'shouldpay'}
+                    type={'paperbill'}
                     apiurl={api.report.reportByPaperBill}
                     reportrowsHander={this.reportrowsHander}
                     title="年应收报表(基于客户账单)"
