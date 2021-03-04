@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import api from '@/api/api';
 
 import { root_url, port, version_2 } from '@/api/api_config/base_config';
-const api_root = `${ root_url }:${ port }/${ version_2 }`;
+const api_root = `${root_url}:${port}/${version_2}`;
 export { api_root };
 
 @observer
@@ -13,11 +13,9 @@ export default class OneKeyPaperBill extends React.Component {
         super(props);
         this.init = this.init.bind(this);
         this.onekeyfunction = this.onekeyfunction.bind(this);
-        this.onChangeContractBillrange = this.onChangeContractBillrange.bind( this );
-        
-        this.delete_onekeybills = this.delete_onekeybills.bind( this );
-         
-        
+        this.onChangeContractBillrange = this.onChangeContractBillrange.bind(this);
+
+        this.delete_onekeybills = this.delete_onekeybills.bind(this);
     }
 
     state = {
@@ -126,32 +124,29 @@ export default class OneKeyPaperBill extends React.Component {
         return (
             <Modal {...modalProps}>
                 <div stye={{ display: 'flex' }}>
-                    <Radio.Group
-                        onChange={this.onChangeContractBillrange}
-                        value={this.state.contractbillrange}>
-                        <div>
-                            <Radio value={'北京_后付_月付'}>
-                                北京后付(月付)
-                            </Radio>
-                            <Radio value={'广州_后付_月付'}>
-                                广州后付(月付)
-                            </Radio>
-                        </div>
-                        <hr />
-                        <Radio value={'北京_预付_年付'}>北京预付(年付)</Radio>
-                        <Radio value={'北京_预付_半年付'}>
-                            北京预付(半年付)
-                        </Radio>
-                        <Radio value={'北京_预付_季付'}>北京预付(季付)</Radio>
+                    <Radio.Group onChange={this.onChangeContractBillrange} value={this.state.contractbillrange}>
                         <Radio value={'北京_预付_月付'}>北京预付(月付)</Radio>
-                        <Radio value={'广州_预付_年付'}>广州预付(年付)</Radio>
-                        <Radio value={'广州_预付_半年付'}>
-                            广州预付(半年付)
-                        </Radio>
+                        <Radio value={'北京_预付_季付'}>北京预付(季付)</Radio>
+                        <Radio value={'北京_预付_半年付'}>北京预付(半年付)</Radio>
+                        <Radio value={'北京_预付_年付'}>北京预付(年付)</Radio>
+                        <br />
+                        <br />
 
-                        <Radio value={'广州_预付_季付'}>广州预付(季付)</Radio>
-
+                        <Radio value={'北京_后付_月付'}>北京后付(月付)</Radio>
+                        <Radio value={'北京_后付_季付'}>北京后付(季付)</Radio>
+                        <Radio value={'北京_后付_半年付'}>北京后付(半年付)</Radio>
+                        <br />
+                        <br />
                         <Radio value={'广州_预付_月付'}>广州预付(月付)</Radio>
+                        <Radio value={'广州_预付_季付'}>广州预付(季付)</Radio>
+                        <Radio value={'广州_预付_半年付'}>广州预付(半年付)</Radio>
+                        <Radio value={'广州_预付_年付'}>广州预付(年付)</Radio>
+                        <br />
+                        <br />
+
+                        <Radio value={'广州_后付_月付'}>广州后付(月付)</Radio>
+                        <Radio value={'广州_后付_季付'}>广州后付(季付)</Radio>
+                        <Radio value={'广州_后付_半年付'}>广州后付(半年付)</Radio>
                     </Radio.Group>
 
                     <br />
@@ -167,13 +162,7 @@ export default class OneKeyPaperBill extends React.Component {
                     <br />
                     <br />
 
-                    <Table
-                        dataSource={this.state.execute_report}
-                        rowKey="uuid"
-                        columns={this.getReportColumn()}
-                        pagination={false}
-                        size="small"
-                    />
+                    <Table dataSource={this.state.execute_report} rowKey="uuid" columns={this.getReportColumn()} pagination={false} size="small" />
                 </div>
             </Modal>
         );
