@@ -1,15 +1,13 @@
 import React from 'react';
-import { Modal, message } from 'antd'
-import api from '@/api/api'
+import { Modal, message } from 'antd';
+import api from '@/api/api';
 const { confirm } = Modal;
 
 export default class DeleteData extends React.Component {
     constructor(props) {
-        super(props)
-        this.init = this.init.bind(this)
+        super(props);
+        this.init = this.init.bind(this);
     }
-
-
 
     async init() {
         if (this.props.commonTableStore.selectedRowKeys.length <= 0) {
@@ -17,15 +15,11 @@ export default class DeleteData extends React.Component {
             return;
         }
 
-
-        //this.props.commonTableStore.selectedRowKeys[0])
-
-        let _tmprec = this.props.commonTableStore.selectedRows[0]
+        let _tmprec = this.props.commonTableStore.selectedRows[0];
 
         let canstart = false;
         if (_tmprec.hasOwnProperty('flowstatus')) {
-
-            if (_tmprec.flowstatus == null || _tmprec.flowstatus.trim() == "") {
+            if (_tmprec.flowstatus == null || _tmprec.flowstatus.trim() == '') {
                 canstart = true;
             }
 
@@ -35,16 +29,14 @@ export default class DeleteData extends React.Component {
             if (_tmprec.flowstatus == '已退回') {
                 canstart = true;
             }
-            if(_tmprec.flowstatus == '撤回'){
-                canstart = true
+            if (_tmprec.flowstatus == '撤回') {
+                canstart = true;
             }
         } else {
             canstart = true;
-
         }
-        console.log('99'+ _tmprec.ghost_author + '*****' + sessionStorage.getItem('user') + '&&&&&')
-        
-        if(_tmprec.hasOwnProperty('ghost_author') && _tmprec.ghost_author != sessionStorage.getItem('user')){
+
+        if (_tmprec.hasOwnProperty('ghost_author') && _tmprec.ghost_author != sessionStorage.getItem('user')) {
             message.error('不是自己的数据不能删除');
             return;
         }
@@ -54,10 +46,6 @@ export default class DeleteData extends React.Component {
             return;
         }
 
-        
-
-
-
         confirm({
             title: '你确定要删出这条记录么?',
             content: '删除后将无法恢复',
@@ -65,9 +53,7 @@ export default class DeleteData extends React.Component {
             okType: 'danger',
             cancelText: '取消',
             onOk: () => {
-
-                console.log(this.props)
-
+                console.log(this.props);
 
                 if (this.props.as_virtual == 'y') {
                     this.deleteVirtualData();
@@ -75,26 +61,23 @@ export default class DeleteData extends React.Component {
                     return;
                 }
 
-                this.deleteData()
+                this.deleteData();
             },
             onCancel: () => {
-                console.log(this.props)
-
-            },
+                console.log(this.props);
+            }
         });
-
     }
 
     deleteVirtualData = () => {
         let tempArr = [];
-        this.props.commonTableStore.dataSource.map(item => {
+        this.props.commonTableStore.dataSource.map((item) => {
             if (item.id != this.props.commonTableStore.selectedRowKeys[0]) {
                 tempArr.push(item);
             }
-        })
-        this.props.commonTableStore.setDataSource(tempArr)
-    }
-
+        });
+        this.props.commonTableStore.setDataSource(tempArr);
+    };
 
     async deleteData() {
         let params = {
@@ -108,12 +91,11 @@ export default class DeleteData extends React.Component {
         let json = await api.curd.deleteData(params);
 
         if (json.code == 200) {
-            this.props.refreshTable()
+            this.props.refreshTable();
         }
     }
 
-
     render() {
-        return null
+        return null;
     }
 }
