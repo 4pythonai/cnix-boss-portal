@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import { Select, Input } from 'antd';
+import { Modal, Button } from 'antd';
+
 import api from '@/api/api';
 import 'antd/dist/antd.css';
 import SpecBandWidth from './SpecBandWidth';
@@ -11,10 +13,12 @@ import SpecCabinet from './SpecCabinet';
 import SpecJumper from './SpecJumper';
 import SpecCable from './SpecCable';
 import SpecUloc from './SpecUloc';
-
+import { SpecField } from './SpecField';
 const { Option } = Select;
 
 export default function BuyinCodeMnt(props) {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [fidldMsg, setFidldMsg] = useState('');
     const [category, setCategory] = useState('带宽');
     const [prodname, setProdname] = useState('');
     const [vendor, setVendor] = useState('');
@@ -22,7 +26,9 @@ export default function BuyinCodeMnt(props) {
 
     const childRef = useRef();
 
-    // const titleRef = useRef();
+    const handleHide = () => {
+        setIsModalVisible(false);
+    };
 
     const fetchData = async () => {
         console.log('向接口发起请求');
@@ -102,9 +108,40 @@ export default function BuyinCodeMnt(props) {
         console.log(e.target.value);
     }
 
-    const handleOnClick = () => {
-        childRef.current.returnvalue();
-        console.log(category, prodname, vendor);
+    const saveBuyin = () => {
+        const specValues = childRef.current.returnvalue();
+
+        if (prodname === '' || prodname === undefined) {
+            setIsModalVisible(true);
+            setFidldMsg('请填写产品名称');
+            return;
+        }
+
+        if (vendor === '' || vendor === undefined) {
+            setIsModalVisible(true);
+            setFidldMsg('请选择供应商');
+            return;
+        }
+
+        if (specValues === undefined) {
+            setIsModalVisible(true);
+            setFidldMsg('请填写规格');
+            return;
+        }
+
+        let checkfailed = false;
+
+        SpecField[category].map((fieldname, index, array) => {
+            if (specValues?.[fieldname] === undefined) {
+                setIsModalVisible(true);
+                setFidldMsg(fieldname + ' 不能为空');
+                checkfailed = true;
+            }
+        });
+
+        if (!checkfailed) {
+            alert('保存产品数据');
+        }
     };
 
     return (
@@ -145,9 +182,12 @@ export default function BuyinCodeMnt(props) {
             <div style={{ margin: '10px' }}>
                 产品规格/{category}:{getSpecDiv()}
             </div>
-            <button style={{ marginLeft: '400px' }} type="primary" onClick={handleOnClick}>
+            <button style={{ marginLeft: '400px' }} type="primary" onClick={saveBuyin}>
                 保存
             </button>
+            <Modal destroyOnClose={true} title="提示" visible={isModalVisible} onOk={handleHide} onCancel={handleHide}>
+                <p>{fidldMsg}</p>
+            </Modal>
         </div>
     );
 }

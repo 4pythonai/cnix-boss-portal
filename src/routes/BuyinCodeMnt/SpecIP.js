@@ -18,7 +18,7 @@ const SpecIP = forwardRef((props, ref) => {
         <div style={{ backgroundColor: '#F2F3F4', width: '845px', margin: '10px' }}>
             <br />
             &nbsp;&nbsp; 运营商:&nbsp;
-            <Select defaultValue="北京电信" style={{ width: 120 }} onChange={handleFieldChange.bind(this, '运营商')}>
+            <Select defaultValue="" style={{ width: 120 }} onChange={handleFieldChange.bind(this, '运营商')}>
                 <Option value="北京电信">北京电信</Option>
                 <Option value="北京移动">北京移动</Option>
                 <Option value="北京联通">北京联通</Option>
@@ -29,17 +29,17 @@ const SpecIP = forwardRef((props, ref) => {
                 <Option value="长宽">长宽</Option>
             </Select>
             &nbsp;&nbsp;&nbsp;&nbsp;属性:&nbsp;
-            <Select defaultValue="运营商" style={{ width: 120 }} onChange={handleFieldChange.bind(this, '属性')}>
+            <Select defaultValue="" style={{ width: 120 }} onChange={handleFieldChange.bind(this, '属性')}>
                 <Option value="运营商">运营商</Option>
                 <Option value="第三方">第三方</Option>
             </Select>
             &nbsp;&nbsp;&nbsp;&nbsp;路由穿透:&nbsp;
-            <Select defaultValue="固定带宽" style={{ width: 120 }} onChange={handleFieldChange.bind(this, '路由穿透')}>
+            <Select defaultValue="" style={{ width: 120 }} onChange={handleFieldChange.bind(this, '路由穿透')}>
                 <Option value="非穿透">非穿透</Option>
                 <Option value="穿透">穿透</Option>
             </Select>
             &nbsp;&nbsp;&nbsp;&nbsp;ICP备案:&nbsp;
-            <Select defaultValue="不支持" style={{ width: 120 }} onChange={handleFieldChange.bind(this, 'ICP备案')}>
+            <Select defaultValue="" style={{ width: 120 }} onChange={handleFieldChange.bind(this, 'ICP备案')}>
                 <Option value="不支持">不支持</Option>
                 <Option value="支持">支持</Option>
             </Select>

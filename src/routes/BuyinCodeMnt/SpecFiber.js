@@ -24,7 +24,7 @@ const SpecFiber = forwardRef((props, ref) => {
             &nbsp;&nbsp;&nbsp;&nbsp;Z端名称:&nbsp;
             <Input style={{ width: 120 }} placeholder="Z端名称" onChange={handleFieldChange.bind(this, 'Z端名称')} />
             &nbsp;&nbsp;&nbsp;&nbsp;Z端具体位置:&nbsp;
-            <Input style={{ width: 120 }} placeholder="A端名称" onChange={handleFieldChange.bind(this, 'Z端具体位置')} />
+            <Input style={{ width: 120 }} placeholder="Z端具体位置" onChange={handleFieldChange.bind(this, 'Z端具体位置')} />
             <br /> <br />
             &nbsp;&nbsp;&nbsp;&nbsp;备注:&nbsp;
             <Input style={{ width: '784px' }} placeholder="备注" onChange={handleFieldChange.bind(this, '备注')} />
