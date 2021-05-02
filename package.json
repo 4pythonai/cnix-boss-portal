@@ -59,6 +59,7 @@
         "qrcode.react": "^0.9.3",
         "rc-queue-anim": "^1.8.2",
         "react": "^16.9.0",
+        "react-antd-treetable": "^1.0.3",
         "react-app-polyfill": "^1.0.3",
         "react-dev-utils": "^9.0.4",
         "react-dnd": "^11.1.3",
