@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-
 import { Select, Input } from 'antd';
-import { Modal, Button } from 'antd';
+import { Modal, message } from 'antd';
 
 import api from '@/api/api';
 import 'antd/dist/antd.css';
@@ -108,7 +107,7 @@ export default function BuyinCodeMnt(props) {
         console.log(e.target.value);
     }
 
-    const saveBuyin = () => {
+    const saveBuyin = async () => {
         const specValues = childRef.current.returnvalue();
 
         if (prodname === '' || prodname === undefined) {
@@ -129,18 +128,33 @@ export default function BuyinCodeMnt(props) {
             return;
         }
 
-        let checkfailed = false;
+        let checksuccess = true;
 
         SpecField[category].map((fieldname, index, array) => {
             if (specValues?.[fieldname] === undefined) {
                 setIsModalVisible(true);
                 setFidldMsg(fieldname + ' 不能为空');
-                checkfailed = true;
+                checksuccess = false;
             }
         });
 
-        if (!checkfailed) {
+        if (checksuccess) {
+            console.log(specValues);
+            console.log(specValues);
+            console.log(category);
+            console.log(prodname);
+            console.log(vendor);
+
             alert('保存产品数据');
+            const saveobj = {
+                specValues: specValues,
+                category: category,
+                prodname: prodname,
+                vendor: vendor
+            };
+
+            let params = { method: 'POST', data: saveobj };
+            await api.buyin.saveBuyInProd(params);
         }
     };
 

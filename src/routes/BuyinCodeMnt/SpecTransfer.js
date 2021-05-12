@@ -9,7 +9,6 @@ const SpecTransfer = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         returnvalue() {
-            console.log(localobj);
             return localobj;
         }
     }));

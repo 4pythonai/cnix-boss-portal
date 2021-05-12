@@ -3,13 +3,11 @@ import { Select, Input } from 'antd';
 import 'antd/dist/antd.css';
 import { useFormFields } from './hooksLib';
 
-const { Option } = Select;
 const SpecCable = forwardRef((props, ref) => {
     const [localobj, handleFieldChange] = useFormFields(props.specdetail);
 
     useImperativeHandle(ref, () => ({
         returnvalue() {
-            console.log(localobj);
             return localobj;
         }
     }));

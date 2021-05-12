@@ -10,7 +10,6 @@ message.config({
     maxCount: 100
 });
 
-const loadingKey = 'loading';
 const resKey = 'reponse';
 window.hideMsgArr = [];
 const http = (params, url) => {
@@ -60,9 +59,7 @@ const http = (params, url) => {
                 } else if (data.code == 401) {
                     hideloading();
                     message.success({
-                        content: data.message
-                            ? data.message
-                            : '您没有权限操作！',
+                        content: data.message ? data.message : '您没有权限操作！',
                         key: resKey,
                         duration: 2
                     });
