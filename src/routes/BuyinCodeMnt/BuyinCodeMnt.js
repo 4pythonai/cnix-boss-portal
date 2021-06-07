@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Select, Input } from 'antd';
-import { Modal, message } from 'antd';
+import { Modal } from 'antd';
 
 import api from '@/api/api';
 import 'antd/dist/antd.css';
@@ -12,7 +12,9 @@ import SpecCabinet from './SpecCabinet';
 import SpecJumper from './SpecJumper';
 import SpecCable from './SpecCable';
 import SpecUloc from './SpecUloc';
+import SpecOneTime from './SpecOneTime';
 import { SpecField } from './SpecField';
+
 const { Option } = Select;
 
 export default function BuyinCodeMnt(props) {
@@ -86,6 +88,10 @@ export default function BuyinCodeMnt(props) {
 
         if (category === '跳线') {
             const Spec2 = <SpecJumper ref={childRef} />;
+            return Spec2;
+        }
+        if (category === '一次性费用') {
+            const Spec2 = <SpecOneTime ref={childRef} />;
             return Spec2;
         }
     };
@@ -192,6 +198,9 @@ export default function BuyinCodeMnt(props) {
                 })}
             </Select>
             <br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;月单价:&nbsp;
+            <Input onChange={handleChangeProdname} style={{ width: '130px' }} placeholder="价格" />
             <br />
             <div style={{ margin: '10px' }}>
                 产品规格/{category}:{getSpecDiv()}

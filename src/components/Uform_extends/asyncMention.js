@@ -1,6 +1,6 @@
 import React from 'react';
-import { registerFormField, connect } from '@uform/react'
-import { Input, Mentions } from 'antd'
+import { registerFormField, connect } from '@uform/react';
+import { Mentions } from 'antd';
 
 import debounce from 'lodash/debounce';
 
@@ -14,31 +14,31 @@ class AsyncMention extends React.Component {
     state = {
         search: '',
         loading: false,
-        users: [],
-    }
+        users: []
+    };
 
-    onSearch = search => {
+    onSearch = (search) => {
         this.setState({ search, loading: !!search, users: [] });
 
         this.loadGithubUsers(search);
-    }
+    };
 
     onSelect = (optionProps, prefix) => {
-        console.log(optionProps, prefix)
-    }
+        console.log(optionProps, prefix);
+    };
 
     async loadGithubUsers(key) {
         if (!key) {
             this.setState({
-                users: [],
+                users: []
             });
             return;
         }
 
-        let params = { data: {searchKey: key}, method: 'POST' }
-        let res = await this.props.mentionListApi(params)
+        let params = { data: { searchKey: key }, method: 'POST' };
+        let res = await this.props.mentionListApi(params);
 
-        if(res.code != 200) return;
+        if (res.code != 200) return;
 
         const { search } = this.state;
 
@@ -46,21 +46,20 @@ class AsyncMention extends React.Component {
 
         this.setState({
             users: res.data.slice(0, 10),
-            loading: false,
+            loading: false
         });
     }
 
-    onChange = (text)=> {
-        console.log(text,'onchange')
-    }
+    onChange = (text) => {
+        console.log(text, 'onchange');
+    };
 
-    validateSearch = (text, props)=> {
-        console.log('validateSearch',text,props)
-    }
-
+    validateSearch = (text, props) => {
+        console.log('validateSearch', text, props);
+    };
 
     render() {
-        console.log(this.state.users)
+        console.log(this.state.users);
         return (
             <Mentions
                 style={{ width: '100%' }}
@@ -70,23 +69,19 @@ class AsyncMention extends React.Component {
                 onChange={this.onChange}
                 // validateSearch={this.validateSearch}
             >
-                {
-                    this.state.users.length == 0
-                        ?
-                        null
-                        :
-                        this.state.users.map((item, index) => (
-                            <Option key={index} userid={item.id} children={item.id} value={item.staff_name} className="antd-demo-dynamic-option">
-                                {item.staff_name+`(${item.department})`}
-                            </Option>
-                        ))
-                }
+                {this.state.users.length == 0
+                    ? null
+                    : this.state.users.map((item, index) => (
+                          <Option key={index} userid={item.id} children={item.id} value={item.staff_name} className="antd-demo-dynamic-option">
+                              {item.staff_name + `(${item.department})`}
+                          </Option>
+                      ))}
             </Mentions>
-        )
+        );
     }
 }
 
 registerFormField(
     'asyncMention',
-    connect()(props => <AsyncMention {...props} />)
-)
+    connect()((props) => <AsyncMention {...props} />)
+);
