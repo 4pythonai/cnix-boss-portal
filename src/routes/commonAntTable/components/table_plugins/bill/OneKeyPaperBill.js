@@ -155,10 +155,6 @@ export default class OneKeyPaperBill extends React.Component {
                         一键生成客户账单
                     </Button>
 
-                    <Button key="back" onClick={this.delete_onekeybills}>
-                        批量删除记录
-                    </Button>
-
                     <br />
                     <br />
 
