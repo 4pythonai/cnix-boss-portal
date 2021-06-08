@@ -84,6 +84,6 @@ export default class api_contract {
         // 获取真正的processkey and uuid
         ReceiveContractPaper: (params) => http(params, `${api_root}/${controller.contract_api}/ReceiveContractPaper`),
 
-        getWarn: (params) => http(params, `${api_root}/${controller.contract_api}/getWarn`)
+        setWarn: (params) => http(params, `${api_root}/Contract/setWarn`)
     };
 }

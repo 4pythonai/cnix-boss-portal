@@ -3,14 +3,16 @@ const port = '8502';
 const version_2 = 'v2';
 const controller = {
     sales_api: 'sales_api',
+    Contract: 'Contract',
     contract_api: 'contract_api',
+
     cabinet_api: 'cabinet_api',
     menu_api: 'menu_api',
     bpm: 'bpm',
     process: 'process',
-    startTask: "start_work",
-    cabinet: "sinnet_tree_plugin",
-    resitemui: "resitemui",
+    startTask: 'start_work',
+    cabinet: 'sinnet_tree_plugin',
+    resitemui: 'resitemui',
     permission: 'permission',
     equipmentMaterial: 'equipmentMaterial',
     completion: 'completion',
@@ -27,10 +29,4 @@ const controller = {
     notify: 'notify'
 };
 
-export {
-    version_2,
-    root_url,
-    port,
-    controller
-};
-
+export { version_2, root_url, port, controller };
