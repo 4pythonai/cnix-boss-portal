@@ -17,8 +17,10 @@ const routes = {
         require('./report').default,
         require('./BillingDebuger').default,
         require('./BuyinCodeMnt').default,
-        require('./applog').default
+        require('./applog').default,
+        require('./BuyinReport').default
     ]
 };
 
+console.log(routes);
 export { routes };

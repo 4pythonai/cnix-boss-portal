@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Input, DatePicker, Button, Table } from 'antd';
-import moment from 'moment';
-
 import api from '@/api/api';
 
 export default function PayBuyinInner(props) {

@@ -32,6 +32,8 @@ export default class billing {
         // 保存采购合同账单的付款记录
         SaveBuyInBillPayment: (params) => http(params, `${api_root}/BillingBuyIn/SaveBuyInBillPayment`),
         getUnPayedBuyInBills: (params) => http(params, `${api_root}/BillingBuyIn/getUnPayedBuyInBills`),
-        BatchSetBankItemStatus: (params) => http(params, `${api_root}/Billing/BatchSetBankItemStatus`)
+        BatchSetBankItemStatus: (params) => http(params, `${api_root}/Billing/BatchSetBankItemStatus`),
+        GetBuyInPayPlan: (params) => http(params, `${api_root}/BillingBuyIn/GetBuyInPayPlan`),
+        GetBuyOwned: (params) => http(params, `${api_root}/BillingBuyIn/GetBuyOwned`)
     };
 }
