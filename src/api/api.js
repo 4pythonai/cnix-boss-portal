@@ -15,6 +15,7 @@ import button from './api_button';
 import tools from './api_tools';
 import filehandler from './api_file';
 import buyin from './api_buyin';
+import api_contract from './api_contract';
 
 import { root_url, port, version_2 } from './api_config/base_config';
 import http from './http';
@@ -52,3 +53,4 @@ api.report = report.apis;
 api.tools = tools.apis;
 api.filehandler = filehandler.apis;
 api.buyin = buyin.apis;
+api.contract = api_contract.apis;

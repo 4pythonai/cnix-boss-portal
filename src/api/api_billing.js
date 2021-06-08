@@ -31,6 +31,7 @@ export default class billing {
         OneKeyBuyInContractBill: (params) => http(params, `${api_root}/BillingBuyIn/OneKeyBuyInContractBill`),
         // 保存采购合同账单的付款记录
         SaveBuyInBillPayment: (params) => http(params, `${api_root}/BillingBuyIn/SaveBuyInBillPayment`),
-        getUnPayedBuyInBills: (params) => http(params, `${api_root}/BillingBuyIn/getUnPayedBuyInBills`)
+        getUnPayedBuyInBills: (params) => http(params, `${api_root}/BillingBuyIn/getUnPayedBuyInBills`),
+        BatchSetBankItemStatus: (params) => http(params, `${api_root}/Billing/BatchSetBankItemStatus`)
     };
 }
