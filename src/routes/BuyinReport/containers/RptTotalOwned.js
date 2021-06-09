@@ -1,39 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Table, Button } from 'antd';
+import api from '@/api/api';
 
 export default function RptTotalOwned(props) {
-    const [fundobj, setFundobj] = useState([]);
+    const [payplan, setPayplan] = useState([]);
+    const [total, setTotal] = useState(0);
 
-    const getInputDatas = async () => {
-        // const httpobj = await props.apis.methods.list_fund_paybacks({});
-        // console.log('返回的结果', httpobj);
-        // setFundobj(httpobj);
+    const getPayPlan = async () => {
+        setPayplan([]);
+        setTotal(0);
+        const params = { data: {}, method: 'POST' };
+        const httpobj = await api.billing.GetBuyOwned(params);
+        console.log('返回的结果', httpobj);
+        setPayplan(httpobj.rows);
+        setTotal(httpobj.total);
     };
-
-    useEffect(() => {
-        getInputDatas();
-    }, []);
 
     const columns = [
         {
-            name: '基金名称',
-            selector: 'fund_type',
-            sortable: true,
-            width: '400px'
+            title: '供应商名称',
+            dataIndex: 'vendorname',
+            key: 'vendorname'
         },
         {
-            name: '截至日期',
-            selector: 'tilldate',
-            sortable: true,
-            width: '400px'
-        },
-
-        {
-            name: '金额',
-            selector: 'money',
-            sortable: true,
-            width: '400px'
+            title: '费用',
+            dataIndex: 'subtotal',
+            key: 'subtotal'
         }
     ];
 
-    return <div style={{ margin: '10px' }}>总欠费</div>;
+    return (
+        <div style={{ margin: '10px' }}>
+            <span style={{ marginLeft: '10px' }} />
+            <Button onClick={(event) => getPayPlan(event)}>获取数据</Button>
+            <br />
+            <br />
+            <span>总未付款(人民币): {total}元 </span>
+            <br />
+            <Table columns={columns} rowKey="reactkey" dataSource={payplan} pagination={false} />
+        </div>
+    );
 }
