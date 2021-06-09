@@ -8,12 +8,15 @@ import api from '@/api/api';
 export default function MainPrinterCom(props) {
     console.log(props);
     const [zone, setZone] = useState({});
-
+    const buttonRef = useRef('print-button');
     const getZone = async () => {
         let params = { method: 'POST', data: { paper_id: props.paper_id } };
         const httpobj = await api.billing.getZone(params);
         if (httpobj.zone) {
             setZone(httpobj.zone);
+            setTimeout(() => {
+                downloadpdf(pdfEL.current, pdfname);
+            }, 100);
         }
     };
 
@@ -26,7 +29,7 @@ export default function MainPrinterCom(props) {
     return (
         <div>
             <div>
-                <Button style={{ marginTop: '10px ' }} type="primary" onClick={() => downloadpdf(pdfEL.current, pdfname)}>
+                <Button ref={buttonRef} name="print" style={{ marginTop: '10px ' }} type="primary" onClick={() => downloadpdf(pdfEL.current, pdfname)}>
                     下载PDF
                 </Button>
                 <br />
