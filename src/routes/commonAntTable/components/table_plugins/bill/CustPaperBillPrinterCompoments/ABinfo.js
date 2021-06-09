@@ -105,8 +105,17 @@ export default function ABinfo(props) {
                                     fontWeight: 'bold'
                                 }}>
                                 联系人:
-                                {props.zone.contact_person} {props.zone.contact_mobile}
+                                {props.zone.contact_person}
                             </div>
+                            <div
+                                style={{
+                                    marginBottom: '5px',
+                                    fontWeight: 'bold'
+                                }}>
+                                联系电话:
+                                {props.zone.contact_mobile}
+                            </div>
+
                             <div
                                 style={{
                                     marginBottom: '5px',

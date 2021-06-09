@@ -1,4 +1,3 @@
-import api from '@/api/api';
 import { Divider, message, Modal } from 'antd';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
@@ -15,9 +14,7 @@ export default class CustPaperBillPrinterDebug extends React.Component {
 
     state = {
         visible: false,
-        paper_id: 0,
-        paperinfo: {},
-        custinfo: {}
+        paper_id: 0
     };
 
     async init() {
@@ -32,13 +29,8 @@ export default class CustPaperBillPrinterDebug extends React.Component {
             paper_id: current_rec.id
         });
 
-        const params = { method: 'GET', data: { paperid: current_rec.id } };
-        const json = await api.billing.getPaperInfoById(params);
-        console.log(json);
         this.setState({
-            visible: true,
-            custinfo: json.custinfo,
-            paperinfo: json.paperinfo
+            visible: true
         });
     }
 
@@ -75,7 +67,7 @@ export default class CustPaperBillPrinterDebug extends React.Component {
                 <div>
                     <Divider />
 
-                    <MainPrinterCom paper_id={this.state.paper_id} custinfo={this.state.custinfo} paperinfo={this.state.paperinfo} />
+                    <MainPrinterCom paper_id={this.state.paper_id} />
                 </div>
             </Modal>
         );

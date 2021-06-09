@@ -3,8 +3,6 @@ import React from 'react';
 import '../paper_bill_style.scss';
 
 export default function ContractBillPrinterCom(props) {
-    // 资源使用日志
-
     const expandedLog = (record, index, indent, expanded) => {
         const cols = [
             {
@@ -60,7 +58,7 @@ export default function ContractBillPrinterCom(props) {
             }
         ];
 
-        return <Table columns={cols} rowKey="reactkey" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
+        return <Table columns={cols} defaultExpandAllRows={true} rowKey="reactkey" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
     };
 
     const cols = [
@@ -113,24 +111,10 @@ export default function ContractBillPrinterCom(props) {
         }
     ];
 
-    const getNewRow = (rowstr) => {
-        const row = JSON.parse(rowstr);
-        let newrow = JSON.stringify(row);
-        newrow = JSON.parse(newrow);
-
-        let num = 0;
-        for (let j = 0; j < newrow.length; j++) {
-            num++;
-            newrow[j].key = num;
-        }
-
-        return newrow;
-    };
-
     return (
         <div>
             <Table
-                dataSource={getNewRow(props.newrow)}
+                dataSource={props.billrows}
                 columns={cols}
                 size="small"
                 rowClassName={'big_table'}
