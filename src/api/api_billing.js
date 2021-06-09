@@ -20,6 +20,7 @@ export default class billing {
         saveCombinedBill: (params) => http(params, `${api_root}/Billing/saveCombinedBill`),
         getPaperInfoById: (params) => http(params, `${api_root}/Billing/getPaperInfoById`),
         getZones: (params) => http(params, `${api_root}/Billing/getZones`),
+        getZone: (params) => http(params, `${api_root}/Billing/getZone`),
         getContractRelatedResources: (params) => http(params, `${api_root}/Billing/getContractRelatedResources`),
         savePaperBillLocateYearMonth: (params) => http(params, `${api_root}/Billing/savePaperBillLocateYearMonth`),
         // IBM1 合同测试接口
