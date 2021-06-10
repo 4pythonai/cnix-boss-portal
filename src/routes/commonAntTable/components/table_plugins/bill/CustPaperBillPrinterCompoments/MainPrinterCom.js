@@ -41,7 +41,7 @@ export default function MainPrinterCom(props) {
             setHasdata(true);
             setTimeout(() => {
                 downloadpdf(pdfEL.current, httpobj.paperinfo.paperno + '.pdf');
-            }, 100);
+            }, 900);
         }
     };
 
