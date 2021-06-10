@@ -15,6 +15,7 @@ export default function MainPrinterCom(props) {
     const buttonRef = useRef('print-button');
 
     const getZone = async () => {
+        setHasdata(false);
         if (props.paper_id === 0) {
             alert('REturn');
             return;
@@ -37,10 +38,10 @@ export default function MainPrinterCom(props) {
             }
 
             setBillrows(xrows);
+            setHasdata(true);
             setTimeout(() => {
                 downloadpdf(pdfEL.current, httpobj.paperinfo.paperno + '.pdf');
             }, 100);
-            setHasdata(true);
         }
     };
 
