@@ -2,7 +2,7 @@ import { Table } from 'antd';
 import React from 'react';
 import '../paper_bill_style.scss';
 
-export default function ContractBillPrinterCom(props) {
+export default function ContractBillWrapper(props) {
     const expandedLog = (record, index, indent, expanded) => {
         const cols = [
             {

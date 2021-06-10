@@ -2,7 +2,7 @@ import { Divider, Button } from 'antd';
 import ABinfo from './ABinfo';
 import { default as React, useRef, useEffect, useState } from 'react';
 import downloadpdf from './Pdfhelper';
-import ContractBillPrinterCom from './ContractBillPrinterCom';
+import ContractBillWrapper from './ContractBillWrapper';
 import api from '@/api/api';
 
 export default function MainPrinterCom(props) {
@@ -12,10 +12,14 @@ export default function MainPrinterCom(props) {
     const [paperinfo, setPaperinfo] = useState({});
     const [custinfo, setcustinfo] = useState({});
     const [billrows, setBillrows] = useState([]);
-    const [pdfname, setPdfname] = useState('');
     const buttonRef = useRef('print-button');
 
     const getZone = async () => {
+        if (props.paper_id === 0) {
+            alert('REturn');
+            return;
+        }
+
         let params = { method: 'POST', data: { paper_id: props.paper_id } };
         const httpobj = await api.billing.getZone(params);
         console.log(httpobj);
@@ -50,7 +54,7 @@ export default function MainPrinterCom(props) {
         return (
             <div>
                 <div>
-                    <Button ref={buttonRef} name="print" style={{ marginTop: '10px ' }} type="primary" onClick={() => downloadpdf(pdfEL.current, pdfname)}>
+                    <Button ref={buttonRef} name="print" style={{ marginTop: '10px ' }} type="primary" onClick={() => downloadpdf(pdfEL.current, paperinfo.paperno + '.pdf')}>
                         下载PDF
                     </Button>
                     <br />
@@ -103,7 +107,7 @@ export default function MainPrinterCom(props) {
                         <br />
                     </div>
 
-                    <ContractBillPrinterCom billrows={billrows} />
+                    <ContractBillWrapper billrows={billrows} />
                 </div>
             </div>
         );

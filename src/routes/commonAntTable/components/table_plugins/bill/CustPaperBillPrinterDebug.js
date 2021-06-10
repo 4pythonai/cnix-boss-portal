@@ -1,4 +1,4 @@
-import { Divider, message, Modal } from 'antd';
+import { Divider, message, Modal, Button } from 'antd';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -14,7 +14,8 @@ export default class CustPaperBillPrinterDebug extends React.Component {
 
     state = {
         visible: false,
-        paper_id: 0
+        paper_id: 0,
+        paper_ids: [11924, 11923, 11922]
     };
 
     async init() {
@@ -24,7 +25,6 @@ export default class CustPaperBillPrinterDebug extends React.Component {
         }
 
         const current_rec = toJS(this.props.commonTableStore.selectedRows[0]);
-
         this.setState({
             paper_id: current_rec.id
         });
@@ -38,6 +38,29 @@ export default class CustPaperBillPrinterDebug extends React.Component {
         this.setState({
             visible: false
         });
+    };
+
+    loopids = () => {
+        // this.state.paper_ids.forEach(async (element) => {
+        //     this.setState({
+        //         paper_id: element
+        //     });
+
+        //     return <MainPrinterCom paper_id={this.state.paper_id} />;
+        // });
+
+        (async () => {
+            const data = [11924, 11923, 11922];
+            data.forEach(async (e) => {
+                const i = await function () {
+                    this.setState({
+                        paper_id: e
+                    });
+                };
+                console.log(i);
+            });
+            console.log('this will print first');
+        })();
     };
 
     getModalProps() {
@@ -67,7 +90,9 @@ export default class CustPaperBillPrinterDebug extends React.Component {
                 <div>
                     <Divider />
 
+                    {/* <div> {this.state.paper_id}</div> */}
                     <MainPrinterCom paper_id={this.state.paper_id} />
+                    {/* <Button onClick={() => this.loopids()}> Loop </Button> */}
                 </div>
             </Modal>
         );
