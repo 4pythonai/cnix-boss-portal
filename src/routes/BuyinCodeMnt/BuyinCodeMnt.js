@@ -21,6 +21,7 @@ export default function BuyinCodeMnt(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [fidldMsg, setFidldMsg] = useState('');
     const [category, setCategory] = useState('带宽');
+    const [price, setPrice] = useState(0);
     const [prodname, setProdname] = useState('');
     const [vendor, setVendor] = useState('');
     const [vendors, setVendors] = useState([]);
@@ -113,6 +114,13 @@ export default function BuyinCodeMnt(props) {
         console.log(e.target.value);
     }
 
+    function handleChangePrice(e) {
+        console.log('价格:');
+        e.persist();
+        setPrice(e.target.value);
+        console.log(e.target.value);
+    }
+
     const saveBuyin = async () => {
         const specValues = childRef.current.returnvalue();
 
@@ -150,12 +158,14 @@ export default function BuyinCodeMnt(props) {
             console.log(category);
             console.log(prodname);
             console.log(vendor);
+            console.log(price);
 
             alert('保存产品数据');
             const saveobj = {
                 specValues: specValues,
                 category: category,
                 prodname: prodname,
+                price: price,
                 vendor: vendor
             };
 
@@ -200,7 +210,7 @@ export default function BuyinCodeMnt(props) {
             <br />
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;月单价:&nbsp;
-            <Input onChange={handleChangeProdname} style={{ width: '130px' }} placeholder="价格" />
+            <Input onChange={handleChangePrice} style={{ width: '130px' }} placeholder="价格" />
             <br />
             <div style={{ margin: '10px' }}>
                 产品规格/{category}:{getSpecDiv()}
