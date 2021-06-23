@@ -27,6 +27,9 @@ const SpecBandWidth = forwardRef((props, ref) => {
                 <Option value="广州联通">广州联通</Option>
                 <Option value="教育网">教育网</Option>
                 <Option value="长宽">长宽</Option>
+                <Option value="华为云">华为云</Option>
+                <Option value="河北联通">河北联通</Option>
+                <Option value="河北电信">河北电信</Option>
             </Select>
             &nbsp;&nbsp;&nbsp;&nbsp;分类:&nbsp;
             <Select defaultValue="" style={{ width: 120 }} id="分类" onChange={handleFieldChange.bind(this, '分类')}>
