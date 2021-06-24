@@ -1,7 +1,8 @@
-import React, { useImperativeHandle, forwardRef } from 'react';
+import React, { useImperativeHandle, useState, useEffect, forwardRef } from 'react';
 import { Select, Input } from 'antd';
 import 'antd/dist/antd.css';
 import { useFormFields } from './hooksLib';
+import api from '@/api/api';
 
 const { Option } = Select;
 const SpecIP = forwardRef((props, ref) => {
@@ -13,19 +14,34 @@ const SpecIP = forwardRef((props, ref) => {
         }
     }));
 
+    const [bandCarriers, setBandCarriers] = useState([]);
+
+    const fetchCarrier = async (e) => {
+        const res = await api.buyin.getBandWidthCarriers();
+        console.log('接口返回: ', res);
+
+        if (res && res.bandwidthcarriers) {
+            console.log(res.bandwidthcarriers);
+            setBandCarriers(res.bandwidthcarriers);
+        }
+    };
+
+    useEffect(() => {
+        fetchCarrier();
+    }, []);
+
+    const renderCarriers = () => {
+        const OPTs = [];
+        bandCarriers.map((item, key) => OPTs.push(<Option value={item.text}>{item.text}</Option>));
+        return OPTs;
+    };
+
     return (
         <div style={{ backgroundColor: '#F2F3F4', width: '845px', margin: '10px' }}>
             <br />
             &nbsp;&nbsp; 运营商:&nbsp;
             <Select defaultValue="" style={{ width: 120 }} onChange={handleFieldChange.bind(this, '运营商')}>
-                <Option value="北京电信">北京电信</Option>
-                <Option value="北京移动">北京移动</Option>
-                <Option value="北京联通">北京联通</Option>
-                <Option value="广州电信">广州电信</Option>
-                <Option value="广州移动">广州移动</Option>
-                <Option value="广州联通">广州联通</Option>
-                <Option value="教育网">教育网</Option>
-                <Option value="长宽">长宽</Option>
+                {renderCarriers()}
             </Select>
             &nbsp;&nbsp;&nbsp;&nbsp;属性:&nbsp;
             <Select defaultValue="" style={{ width: 120 }} onChange={handleFieldChange.bind(this, '属性')}>
