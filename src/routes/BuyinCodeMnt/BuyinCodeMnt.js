@@ -53,47 +53,47 @@ export default function BuyinCodeMnt(props) {
 
     const getSpecDiv = () => {
         if (category === '带宽') {
-            const Spec2 = <SpecBandWidth ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecBandWidth ref={childRef} />;
+            return SpecComponent;
         }
 
         if (category === 'IP地址') {
-            const Spec2 = <SpecIP ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecIP ref={childRef} />;
+            return SpecComponent;
         }
 
         if (category === '传输') {
-            const Spec2 = <SpecTransfer ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecTransfer ref={childRef} />;
+            return SpecComponent;
         }
 
         if (category === '光纤') {
-            const Spec2 = <SpecFiber ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecFiber ref={childRef} />;
+            return SpecComponent;
         }
 
         if (category === '机柜') {
-            const Spec2 = <SpecCabinet ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecCabinet ref={childRef} />;
+            return SpecComponent;
         }
 
         if (category === 'U位') {
-            const Spec2 = <SpecUloc ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecUloc ref={childRef} />;
+            return SpecComponent;
         }
 
         if (category === '引接缆') {
-            const Spec2 = <SpecCable ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecCable ref={childRef} />;
+            return SpecComponent;
         }
 
         if (category === '跳线') {
-            const Spec2 = <SpecJumper ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecJumper ref={childRef} />;
+            return SpecComponent;
         }
         if (category === '一次性费用') {
-            const Spec2 = <SpecOneTime ref={childRef} />;
-            return Spec2;
+            const SpecComponent = <SpecOneTime ref={childRef} />;
+            return SpecComponent;
         }
     };
 
