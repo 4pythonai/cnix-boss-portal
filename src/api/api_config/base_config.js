@@ -3,7 +3,9 @@ const port = '8000';
 const version_2 = 'v2';
 const controller = {
     sales_api: 'sales_api',
+    Contract: 'Contract',
     contract_api: 'contract_api',
+
     cabinet_api: 'cabinet_api',
     menu_api: 'menu_api',
     bpm: 'bpm',

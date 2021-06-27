@@ -20,6 +20,7 @@ export default class billing {
         saveCombinedBill: (params) => http(params, `${api_root}/Billing/saveCombinedBill`),
         getPaperInfoById: (params) => http(params, `${api_root}/Billing/getPaperInfoById`),
         getZones: (params) => http(params, `${api_root}/Billing/getZones`),
+        getZone: (params) => http(params, `${api_root}/Billing/getZone`),
         getContractRelatedResources: (params) => http(params, `${api_root}/Billing/getContractRelatedResources`),
         savePaperBillLocateYearMonth: (params) => http(params, `${api_root}/Billing/savePaperBillLocateYearMonth`),
         // IBM1 合同测试接口
@@ -27,6 +28,13 @@ export default class billing {
         OneKeyContractBill: (params) => http(params, `${api_root}/Billing/OneKeyContractBill`),
         OneKeyPaperBill: (params) => http(params, `${api_root}/Billing/OneKeyPaperBill`),
         delete_onekeybills: (params) => http(params, `${api_root}/Tools/delete_onekeybills`),
-        percentComputer: (params) => http(params, `${api_root}/Billing/percentComputer`)
+        percentComputer: (params) => http(params, `${api_root}/Billing/percentComputer`),
+        OneKeyBuyInContractBill: (params) => http(params, `${api_root}/BillingBuyIn/OneKeyBuyInContractBill`),
+        // 保存采购合同账单的付款记录
+        SaveBuyInBillPayment: (params) => http(params, `${api_root}/BillingBuyIn/SaveBuyInBillPayment`),
+        getUnPayedBuyInBills: (params) => http(params, `${api_root}/BillingBuyIn/getUnPayedBuyInBills`),
+        BatchSetBankItemStatus: (params) => http(params, `${api_root}/Billing/BatchSetBankItemStatus`),
+        GetBuyInPayPlan: (params) => http(params, `${api_root}/BillingBuyIn/GetBuyInPayPlan`),
+        GetBuyOwned: (params) => http(params, `${api_root}/BillingBuyIn/GetBuyOwned`)
     };
 }

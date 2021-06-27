@@ -1,26 +1,20 @@
 import React from 'react';
-import { Radio } from 'antd'
-import api from '@/api/api'
-
+import { Radio } from 'antd';
 
 export default class YesOrNo extends React.Component {
-    constructor(props) {
-
-        super(props)
-    }
-
-
-    onChange = e => {
-        this.props.getComponentValue(e.target.value)
+    onChange = (e) => {
+        // this.props.getComponentValue(e.target.value)
+        return 11;
     };
 
-
     render() {
-
         return (
-            <Radio.Group disabled={ this.props.editable?!(this.props.editable):false } onChange={ this.onChange } value={ this.props.value == '是' ? 'y' : this.props.value == '否' ? 'n' : this.props.value }>
-                <Radio value={ "y" }>是</Radio>
-                <Radio value={ "n" }>否</Radio>
+            <Radio.Group
+                disabled={this.props.editable ? !this.props.editable : false}
+                onChange={this.onChange}
+                value={this.props.value == '是' ? 'y' : this.props.value == '否' ? 'n' : this.props.value}>
+                <Radio value={'y'}>yes</Radio>
+                <Radio value={'n'}>No</Radio>
             </Radio.Group>
         );
     }
