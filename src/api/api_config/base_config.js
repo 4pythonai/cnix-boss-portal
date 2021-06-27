@@ -1,5 +1,5 @@
 const root_url = 'http://127.0.0.1';
-const port = '8502';
+const port = '8000';
 const version_2 = 'v2';
 const controller = {
     sales_api: 'sales_api',
@@ -8,9 +8,9 @@ const controller = {
     menu_api: 'menu_api',
     bpm: 'bpm',
     process: 'process',
-    startTask: "start_work",
-    cabinet: "sinnet_tree_plugin",
-    resitemui: "resitemui",
+    startTask: 'start_work',
+    cabinet: 'sinnet_tree_plugin',
+    resitemui: 'resitemui',
     permission: 'permission',
     equipmentMaterial: 'equipmentMaterial',
     completion: 'completion',
@@ -27,10 +27,4 @@ const controller = {
     notify: 'notify'
 };
 
-export {
-    version_2,
-    root_url,
-    port,
-    controller
-};
-
+export { version_2, root_url, port, controller };
