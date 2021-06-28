@@ -1,5 +1,4 @@
 # cnix-boss
-React-Boss-Portal,弃用ExtJs.
 
 
 ### docker
