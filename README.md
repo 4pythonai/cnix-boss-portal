@@ -14,10 +14,8 @@ apache2-php7
 portal:8503
 api:8502
 
-### Git地址
 
 https://github.com/tangyongjin/cnix-boss-portal
-
 https://github.com/tangyongjin/cnix-boss-portal-api
 
 
