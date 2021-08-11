@@ -26,17 +26,17 @@ export default class RoleAsign extends React.Component {
     }
 
     init() {
-        if(this.props.commonTableStore.selectedRows.length==1){
+        if (this.props.commonTableStore.selectedRows.length == 1) {
             this.setState({
                 checkedList: [],
                 visible: true
             })
             pmStore.getAllRoles()
             this.getUserRoles()
-        }else{
+        } else {
             message.error('请选择一个用户')
         }
-        
+
     }
 
     onCancel() {
@@ -45,13 +45,13 @@ export default class RoleAsign extends React.Component {
         })
     }
     // 获取用户角色
-    async getUserRoles(){
-        console.log(1235,this.props.commonTableStore.selectedRows)
-        let params = { data: {id:this.props.commonTableStore.selectedRows[0].id}, method: 'POST' };
+    async getUserRoles() {
+        console.log(1235, this.props.commonTableStore.selectedRows)
+        let params = { data: { id: this.props.commonTableStore.selectedRows[0].id }, method: 'POST' };
         let res = await api.user.getUserRoles(params);
         if (res.code == 200) {
-            var arr=[]
-            for(var i=0;i<res.data.length;i++){
+            var arr = []
+            for (var i = 0; i < res.data.length; i++) {
                 arr.push(Object.values(res.data[i])[0])
             }
             console.log(arr)
@@ -89,7 +89,7 @@ export default class RoleAsign extends React.Component {
             checkedList,
             indeterminate: !!checkedList.length && checkedList.length < this.state.nodeNames.length,
             checkAll: checkedList.length === this.state.nodeNames.length,
-        },()=>{console.log(this.state.checkedList)});
+        }, () => { console.log(this.state.checkedList) });
     };
 
     onCheckAllChange = e => {
@@ -115,13 +115,12 @@ export default class RoleAsign extends React.Component {
         let { selectedRows } = this.props.commonTableStore
 
         let allroles = pmStore.roleList
-        // console.log(898,allroles)
 
         return <Modal
-            visible={ this.state.visible }
-            onCancel={ () => this.onCancel() }
-            onOk={ () => this.SaveHandler() }
-            style={ { width: '400px' } }
+            visible={this.state.visible}
+            onCancel={() => this.onCancel()}
+            onOk={() => this.SaveHandler()}
+            style={{ width: '400px' }}
             title="用户角色分配" >
 
             <div>
@@ -129,14 +128,14 @@ export default class RoleAsign extends React.Component {
 
                 <br /><br />
                 <CheckboxGroup
-                    value={ this.state.checkedList }
-                    onChange={ this.onChange }>
+                    value={this.state.checkedList}
+                    onChange={this.onChange}>
 
                     {
                         allroles ?
                             allroles.map((item, index) => {
                                 return (
-                                    <Checkbox style={ { width: '180px', marginLeft: '10px' } } key={ index } value={ item.role_code }>{ item.role_name }</Checkbox>
+                                    <Checkbox style={{ width: '180px', marginLeft: '10px' }} key={index} value={item.role_code}>{item.role_name}</Checkbox>
                                 )
                             })
                             :
