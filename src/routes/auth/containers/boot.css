@@ -76,7 +76,7 @@
     display: block;
     text-align: center;
     font-size: 18px;
-    color: white;
+    color: rgb(14, 12, 12);
     -webkit-transition-duration: 0.25s;
             transition-duration: 0.25s;
   }
