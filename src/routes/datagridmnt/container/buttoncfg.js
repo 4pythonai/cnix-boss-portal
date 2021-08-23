@@ -75,7 +75,6 @@ class ButtonCfg extends React.Component {
     };
 
     render() {
-        // let xtitle = "设置按钮:" + this.dmstore.current_actcode + "/" + this.dmstore.current_actname
         let xtitle = '设置按钮:' + this.dmstore.current_actcode + '/' + this.dmstore.current_actname;
 
         return (

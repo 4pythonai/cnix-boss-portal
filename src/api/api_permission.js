@@ -39,7 +39,9 @@ export default class permission {
         updateMenu: (params) => http(params, `${api_root}/Permission/updateMenu`),
 
         getUserInformationByMenuId: (params) => http(params, `${api_root}/Permission/getUserInformationByMenuId`),
-
-        getRoleByMenuId: (params) => http(params, `${api_root}/Permission/getRoleByMenuId`)
+        getRoleByMenuId: (params) => http(params, `${api_root}/Permission/getRoleByMenuId`),
+        getBtnForbiddens: (params) => http(params, `${api_root}/Permission/getBtnForbiddens`),
+        getActRoleList: (params) => http(params, `${api_root}/Permission/getActRoleList`),
+        saveForbiddenBtns: (params) => http(params, `${api_root}/Permission/saveForbiddenBtns`)
     };
 }
