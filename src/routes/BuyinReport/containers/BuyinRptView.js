@@ -10,6 +10,8 @@ function callback(key) {
     console.log(key);
 }
 
+//TODO-明细渲染 json 到产品明细
+
 export default class BuyinRptView extends React.Component {
     render() {
         return (
@@ -20,9 +22,6 @@ export default class BuyinRptView extends React.Component {
                     </TabPane>
                     <TabPane tab="本月付款计划" key="2">
                         <RptPayPlan />
-                    </TabPane>
-                    <TabPane tab="DX" key="3">
-                        Content of Tab Pane 3
                     </TabPane>
                 </Tabs>
             </div>

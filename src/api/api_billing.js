@@ -35,6 +35,7 @@ export default class billing {
         getUnPayedBuyInBills: (params) => http(params, `${api_root}/BillingBuyIn/getUnPayedBuyInBills`),
         BatchSetBankItemStatus: (params) => http(params, `${api_root}/Billing/BatchSetBankItemStatus`),
         GetBuyInPayPlan: (params) => http(params, `${api_root}/BillingBuyIn/GetBuyInPayPlan`),
+        GetBuyInPayPlanDetail: (params) => http(params, `${api_root}/BillingBuyIn/GetBuyInPayPlanDetail`),
         GetBuyOwned: (params) => http(params, `${api_root}/BillingBuyIn/GetBuyOwned`)
     };
 }

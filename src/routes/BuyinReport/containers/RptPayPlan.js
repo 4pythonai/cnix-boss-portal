@@ -16,6 +16,13 @@ export default function RptPayPlan(props) {
         setPayplan(httpobj.rows);
         setTotal(httpobj.total);
     };
+    const getPayPlanDetail = async () => {
+        const params = { data: { period: period }, method: 'POST' };
+        const httpobj = await api.billing.GetBuyInPayPlanDetail(params);
+        console.log('返回的结果', httpobj);
+        setPayplan(httpobj.rows);
+        setTotal(httpobj.total);
+    };
 
     const columns = [
         {
@@ -36,7 +43,8 @@ export default function RptPayPlan(props) {
             <MonthPicker onChange={(e, str) => setPeriod(str)} placeholder="选择月份" />
 
             <span style={{ marginLeft: '10px' }} />
-            <Button onClick={(event) => getPayPlan(event)}>获取数据</Button>
+            <Button onClick={(event) => getPayPlan(event)}>获取汇总数据</Button>
+            <Button onClick={(event) => getPayPlanDetail(event)}>获取明细数据</Button>
             <br />
             <br />
             <span>付款计划(人民币): {total}元 </span>
