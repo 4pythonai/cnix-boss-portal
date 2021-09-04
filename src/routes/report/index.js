@@ -64,6 +64,15 @@ export default {
                     cb(null, m.default);
                 });
             }
+        },
+
+        {
+            path: 'reportByProductShouldPay',
+            getComponent(nextState, cb) {
+                import('./containers/reportByProductShouldPay').then((m) => {
+                    cb(null, m.default);
+                });
+            }
         }
     ]
 };
