@@ -12,6 +12,9 @@
 # production
 /build
 
+
+src/api/fake_api.js
+
 rootui-react/node_modules
 
 # misc

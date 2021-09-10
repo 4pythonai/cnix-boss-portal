@@ -19,9 +19,8 @@ import buyin from './api_buyin';
 import api_contract from './api_contract';
 import uuu from './api_uuu';
 
-import { root_url, port, version_2 } from './api_config/base_config';
+import { api_root } from './api_config/base_config';
 import http from './http';
-const api_root = `${root_url}:${port}/${version_2}`;
 export { api_root };
 export default class api {}
 
@@ -61,5 +60,7 @@ api.curd.listData = (params) => http(params, `${api_root}/${params.geturl}`);
 api.curd.deleteData = (params) => http(params, `${api_root}/${params.delurl}`);
 api.curd.updateData = (params) => http(params, `${api_root}/${params.updateurl}`);
 api.curd.addData = (params) => http(params, `${api_root}/${params.addurl}`);
+api.activity.getAssociateData = (params) => http(params, `${api_root}/${params.data.api}`);
+// ### getAssociateData: '/${params.data.api}
 
 console.log(api);

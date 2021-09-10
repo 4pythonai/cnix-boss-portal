@@ -1,5 +1,6 @@
 export default class network {
     static methods = {
+        Method123456: '/Network/saveBatchIP',
         saveBatchIP: '/Network/saveBatchIP',
         saveBatchODFPort: '/Network/saveBatchODFPort',
         getOdfsummary: '/Network/getOdfsummary',

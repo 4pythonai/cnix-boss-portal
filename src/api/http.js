@@ -1,5 +1,4 @@
 import request from 'then-request';
-import AuthService from '@/routes/auth/AuthService';
 import userStore from '@/store/userStore';
 import navigationStore from '@/store/navigationStore';
 import { hashHistory } from 'react-router';
@@ -93,16 +92,6 @@ const http = (params, url) => {
                 });
             });
     });
-};
-
-const checkTimeOut = () => {
-    const postBeofreAuth = new AuthService();
-    const token = postBeofreAuth.getToken();
-
-    if (!postBeofreAuth.loggedIn() && postBeofreAuth.isTokenExpired(token)) {
-        postBeofreAuth.logout();
-        return true;
-    }
 };
 
 const setHeader = () => {
