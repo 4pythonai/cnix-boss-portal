@@ -28,7 +28,6 @@ export default class billing {
         OneKeyContractBill: (params) => http(params, `${api_root}/Billing/OneKeyContractBill`),
         OneKeyPaperBill: (params) => http(params, `${api_root}/Billing/OneKeyPaperBill`),
         delete_onekeybills: (params) => http(params, `${api_root}/Tools/delete_onekeybills`),
-        percentComputer: (params) => http(params, `${api_root}/Billing/percentComputer`),
         OneKeyBuyInContractBill: (params) => http(params, `${api_root}/BillingBuyIn/OneKeyBuyInContractBill`),
         // 保存采购合同账单的付款记录
         SaveBuyInBillPayment: (params) => http(params, `${api_root}/BillingBuyIn/SaveBuyInBillPayment`),

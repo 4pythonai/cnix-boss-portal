@@ -2717,7 +2717,7 @@ pmstore	routes/processmanagement/container/referinfo.js	/^        this.pmstore =
 pmstore	routes/processmanagement/container/resarea.js	/^        this.pmstore = props.pmStore$/;"	r
 pmtabs.js	routes/processmanagement/container/pmtabs.js	1;"	F
 point	store/IDC_cfg_store.js	/^            let point = item.lastIndexOf('\/') + 1;$/;"	r
-port	api/api.js	/^import { root_url, port, controller, processRoot, version_2 } from '.\/api_config\/base_config'$/;"	r
+port	api/api.js	/^import { root_url, port,  processRoot, version_2 } from '.\/api_config\/base_config'$/;"	r
 port	api/api_config/base_config.js	/^    port,$/;"	r
 portaluse	routes/datagridmnt/container/gridAdder.js	/^                values.portaluse = 'y'$/;"	r
 position	routes/commonAntTable/components/table_plugins/clueTransferChance.js	/^        let position = form_cfg.findIndex(item => item.key == name);$/;"	r

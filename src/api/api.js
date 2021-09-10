@@ -1,3 +1,6 @@
+import { root_url, port, version_2 } from './api_config/base_config';
+import http from './http';
+
 import device from './api_device';
 import processmanager from './api_processmanager';
 import activity from './api_activity';
@@ -11,49 +14,49 @@ import activityRecord from './api_activityRecord';
 import billing from './api_billing';
 import network from './api_network';
 import sdwan from './api_sdwan';
-
 import report from './api_report';
 import button from './api_button';
 import tools from './api_tools';
 import filehandler from './api_file';
 import buyin from './api_buyin';
 import api_contract from './api_contract';
-
-import { root_url, port, version_2 } from './api_config/base_config';
-import http from './http';
+import uuu from './api_uuu';
 const api_root = `${root_url}:${port}/${version_2}`;
 export { api_root };
 
-export default class api {
-    static organization = {
-        orgTree: (params) => http(params, `${api_root}/Organization/orgTree`),
-        getDeptMembers: (params) => http(params, `${api_root}/Organization/getDeptMembers`)
-    };
+// api.button = button.apis;
+// api.device_api = device.apis;
+// api.processmanager = processmanager.apis;
+// api.activity = activity.apis;
+// api.curd = curd.apis;
+// api.auth = auth.apis;
+// api.bpm = bpm.apis;
+// api.permission = permission.apis;
+// api.user = user.apis;
+// api.customer = customer.apis;
+// api.activityRecord = activityRecord.apis;
+// api.billing = billing.apis;
+// api.network = network.apis;
+// api.sdwan = sdwan.apis;
+// api.report = report.apis;
+// api.tools = tools.apis;
+// api.filehandler = filehandler.apis;
+// api.buyin = buyin.apis;
+// api.contract = api_contract.apis;
 
-    static cabinet_api = {
-        // 获取机柜数据
-        getCabinetData: (params) => http(params, `${api_root}/Cabinet_api/getCabinetData`),
-        getCabinetTableData: (params) => http(params, `${api_root}/Cabinet_api/getCabinetDetails`)
-        // 获取机柜表格信息
-    };
-}
+export default class api {}
 
-api.button = button.apis;
-api.device_api = device.apis;
-api.processmanager = processmanager.apis;
-api.activity = activity.apis;
-api.curd = curd.apis;
-api.auth = auth.apis;
-api.bpm = bpm.apis;
-api.permission = permission.apis;
-api.user = user.apis;
-api.customer = customer.apis;
-api.activityRecord = activityRecord.apis;
-api.billing = billing.apis;
-api.network = network.apis;
-api.sdwan = sdwan.apis;
-api.report = report.apis;
-api.tools = tools.apis;
-api.filehandler = filehandler.apis;
-api.buyin = buyin.apis;
-api.contract = api_contract.apis;
+api.uuu = uuu;
+
+Object.keys(api).forEach((schema, index, array) => {
+    const methods = api[schema].methods;
+    console.log(methods);
+    Object.keys(methods).forEach((method, index, array) => {
+        console.log(method);
+        let url = methods[method];
+        console.log(url);
+        api[schema][method] = (params) => http(params, `${api_root}/${url}`);
+    });
+});
+
+console.log(api);

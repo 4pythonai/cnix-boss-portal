@@ -42,6 +42,9 @@ export default class permission {
         getRoleByMenuId: (params) => http(params, `${api_root}/Permission/getRoleByMenuId`),
         getBtnForbiddens: (params) => http(params, `${api_root}/Permission/getBtnForbiddens`),
         getActRoleList: (params) => http(params, `${api_root}/Permission/getActRoleList`),
-        saveForbiddenBtns: (params) => http(params, `${api_root}/Permission/saveForbiddenBtns`)
+        saveForbiddenBtns: (params) => http(params, `${api_root}/Permission/saveForbiddenBtns`),
+
+        orgTree: (params) => http(params, `${api_root}/Organization/orgTree`),
+        getDeptMembers: (params) => http(params, `${api_root}/Organization/getDeptMembers`)
     };
 }
