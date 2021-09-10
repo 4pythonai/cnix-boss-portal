@@ -1,15 +1,10 @@
-import { root_url, port, version_2 } from './api_config/base_config';
-import http from './http';
-
-const api_root = `${root_url}:${port}/${version_2}`;
-
 export default class button {
-    static apis = {
-        insertButton: (params) => http(params, `${api_root}/Button/insertButton`),
-        deleteButton: (params) => http(params, `${api_root}/Button/deleteButtonById`),
-        updateButton: (params) => http(params, `${api_root}/Button/updateButtonById`),
-        getButtonList: (params) => http(params, `${api_root}/Button/getButtonListLikeNameOrButtonCodeMethod`),
-        addmenuButton: (params) => http(params, `${api_root}/Button/addButtonAndActionCodeConnect`),
-        getBtnDetail: (params) => http(params, `${api_root}/Button/getBtnDetail`)
+    static methods = {
+        insertButton: '/Button/insertButton',
+        deleteButton: '/Button/deleteButtonById',
+        updateButton: '/Button/updateButtonById',
+        getButtonList: '/Button/getButtonListLikeNameOrButtonCodeMethod',
+        addmenuButton: '/Button/addButtonAndActionCodeConnect',
+        getBtnDetail: '/Button/getBtnDetail'
     };
 }

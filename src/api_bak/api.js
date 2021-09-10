@@ -1,3 +1,6 @@
+import { root_url, port, version_2 } from './api_config/base_config';
+import http from './http';
+
 import device from './api_device';
 import processmanager from './api_processmanager';
 import activity from './api_activity';
@@ -18,32 +21,31 @@ import filehandler from './api_file';
 import buyin from './api_buyin';
 import api_contract from './api_contract';
 import uuu from './api_uuu';
-
-import { root_url, port, version_2 } from './api_config/base_config';
-import http from './http';
 const api_root = `${root_url}:${port}/${version_2}`;
 export { api_root };
+
+// api.button = button.apis;
+// api.device_api = device.apis;
+// api.processmanager = processmanager.apis;
+// api.activity = activity.apis;
+// api.curd = curd.apis;
+// api.auth = auth.apis;
+// api.bpm = bpm.apis;
+// api.permission = permission.apis;
+// api.user = user.apis;
+// api.customer = customer.apis;
+// api.activityRecord = activityRecord.apis;
+// api.billing = billing.apis;
+// api.network = network.apis;
+// api.sdwan = sdwan.apis;
+// api.report = report.apis;
+// api.tools = tools.apis;
+// api.filehandler = filehandler.apis;
+// api.buyin = buyin.apis;
+// api.contract = api_contract.apis;
+
 export default class api {}
 
-api.button = button;
-api.device_api = device;
-api.processmanager = processmanager;
-api.activity = activity;
-api.curd = curd;
-api.auth = auth;
-api.bpm = bpm;
-api.permission = permission;
-api.user = user;
-api.customer = customer;
-api.activityRecord = activityRecord;
-api.billing = billing;
-api.network = network;
-api.sdwan = sdwan;
-api.report = report;
-api.tools = tools;
-api.filehandler = filehandler;
-api.buyin = buyin;
-api.contract = api_contract;
 api.uuu = uuu;
 
 Object.keys(api).forEach((schema, index, array) => {
@@ -56,10 +58,5 @@ Object.keys(api).forEach((schema, index, array) => {
         api[schema][method] = (params) => http(params, `${api_root}/${url}`);
     });
 });
-
-api.curd.listData = (params) => http(params, `${api_root}/${params.geturl}`);
-api.curd.deleteData = (params) => http(params, `${api_root}/${params.delurl}`);
-api.curd.updateData = (params) => http(params, `${api_root}/${params.updateurl}`);
-api.curd.addData = (params) => http(params, `${api_root}/${params.addurl}`);
 
 console.log(api);
