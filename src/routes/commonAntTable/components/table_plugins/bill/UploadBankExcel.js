@@ -1,7 +1,7 @@
 import { Modal, message, Upload, Spin, Icon, Button } from 'antd';
 import { observer } from 'mobx-react';
-import api from '@/api/api';
 import React from 'react';
+import { api_root } from '@/api/api_config/base_config';
 
 @observer
 export default class UploadBankExcel extends React.Component {
@@ -42,7 +42,7 @@ export default class UploadBankExcel extends React.Component {
         const that = this;
         const props = {
             name: 'file',
-            action: api.filehandler.uploadBankExcel,
+            action: `${api_root}/File/uploadBankExcel`,
             loading: true,
             accept: 'application/vnd.ms-excel',
             headers: {
