@@ -2,7 +2,8 @@ import React from 'react';
 import { Tabs } from 'antd';
 import RptTotalOwned from './RptTotalOwned';
 
-import RptPayPlan from './RptPayPlan';
+import RptPayPlanSummary from './RptPayPlanSummary';
+import RptPayPlanDetail from './RptPayPlanDetail';
 
 const { TabPane } = Tabs;
 
@@ -20,8 +21,11 @@ export default class BuyinRptView extends React.Component {
                     <TabPane tab="总欠费" key="1">
                         <RptTotalOwned />
                     </TabPane>
-                    <TabPane tab="本月付款计划" key="2">
-                        <RptPayPlan />
+                    <TabPane tab="本月付款计划(汇总)" key="2">
+                        <RptPayPlanSummary />
+                    </TabPane>
+                    <TabPane tab="本月付款计划(明细)" key="3">
+                        <RptPayPlanDetail />
                     </TabPane>
                 </Tabs>
             </div>

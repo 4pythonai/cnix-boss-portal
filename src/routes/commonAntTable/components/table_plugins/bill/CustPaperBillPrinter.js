@@ -1,7 +1,5 @@
 // PDF pdf  客户账单打印功能
 
-/* eslint-disable */
-
 import api from '@/api/api';
 import { Button, Divider, message, Modal, Select, Table } from 'antd';
 import html2canvas from 'html2canvas';
@@ -13,469 +11,468 @@ import './paper_bill_style.scss';
 @inject('billingSummaryStore')
 @observer
 export default class CustPaperBillPrinter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.store = props.billingSummaryStore;
-    this.init = this.init.bind(this);
-  }
-
-  state = {
-    visible: false,
-    paper_id: 0,
-    paperinfo: {},
-    custinfo: {},
-    zones: [],
-    zone: null
-  };
-
-  async init() {
-    if (this.props.commonTableStore.selectedRowKeys.length === 0) {
-      message.error('请选择一个账单');
-      return;
+    constructor(props) {
+        super(props);
+        this.store = props.billingSummaryStore;
+        this.init = this.init.bind(this);
     }
 
-    const current_rec = toJS(this.props.commonTableStore.selectedRows[0]);
-    const params = { method: 'GET', data: { paperid: current_rec.id } };
-    const json = await api.billing.getPaperInfoById(params);
-
-    console.log(json);
-
-    this.setState({
-      visible: true,
-      custinfo: json.custinfo,
-      paperinfo: json.paperinfo
-    });
-
-    const json_zone = await api.billing.getZones();
-    this.setState({ zones: json_zone.zones });
-    console.log(this.state);
-  }
-
-  onCancel = () => {
-    this.setState({
-      visible: false
-    });
-  };
-
-  downloadpdf = () => {
-    console.log(this.state.paperinfo.paperno);
-
-    html2canvas(this.refs.pdf, { scale: 2 }).then((canvas) => {
-      // 返回图片dataURL，参数：图片格式和清晰度(0-1)
-      const pageData = canvas.toDataURL('image/jpeg', 1.0);
-
-      const dims = {
-        a2: [1190.55, 1683.78],
-        a3: [841.89, 1190.55],
-        a4: [595.28, 841.89]
-      };
-      // 方向默认竖直，尺寸ponits，格式a2
-      const pdf = new jsPDF('', 'pt', 'a4');
-
-      const a4Width = dims.a4[0];
-      const a4Height = dims.a4[1];
-
-      const contentWidth = canvas.width,
-        contentHeight = canvas.height;
-
-      const pageHeight = (contentWidth / a4Width) * a4Height;
-      let leftHeight = contentHeight;
-      let position = 0;
-      const imgWidth = a4Width,
-        imgHeight = (a4Width / contentWidth) * contentHeight;
-
-      if (leftHeight < pageHeight) {
-        // addImage后两个参数控制添加图片的尺寸，此处将页面高度按照a4纸宽高比列进行压缩
-        pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
-      } else {
-        while (leftHeight > 0) {
-          pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight);
-          leftHeight -= pageHeight;
-          position -= a4Height;
-
-          if (leftHeight > 0) {
-            pdf.addPage();
-          }
-        }
-      }
-
-      pdf.save(this.state.paperinfo.paperno + '.pdf');
-    });
-  };
-
-  // 资源使用日志
-  expandedLog = (record, index, indent, expanded) => {
-    const { resource_logs } = record;
-    const cols = [
-      {
-        title: '产品',
-        className: 'small_table',
-        dataIndex: 'product_name',
-        key: 'product_name',
-        width: '100px'
-      },
-
-      {
-        title: '资源明细',
-        className: 'small_table',
-        dataIndex: 'network_text',
-        key: 'network_text',
-        width: '340px'
-      },
-      {
-        title: '起',
-        className: 'small_table',
-        dataIndex: '_begin',
-        key: '_begin',
-        width: '80px'
-      },
-      {
-        title: '止',
-        className: 'small_table',
-        dataIndex: '_end',
-        key: '_end',
-        width: '80px'
-      },
-      {
-        title: '价格',
-        className: 'small_table',
-        dataIndex: 'price',
-        key: 'price',
-        width: '70px'
-      },
-
-      {
-        title: '费用',
-        className: 'small_table',
-        dataIndex: 'shouldpay',
-        key: 'shouldpay',
-        width: '70px'
-      },
-      {
-        title: '备注',
-        className: 'small_table',
-        dataIndex: 'memo',
-        key: 'memo',
-        width: '200px'
-      }
-    ];
-
-    return <Table columns={cols} rowKey="reactkey" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
-  };
-
-  // 每个合同账单的循环列表
-  CreateContractBillItem = (rowstr) => {
-    if (!this.state.visible) {
-      return;
-    }
-
-    const row = JSON.parse(rowstr);
-    let newrow = JSON.stringify(row);
-    newrow = JSON.parse(newrow);
-
-    let num = 0;
-    for (let j = 0; j < newrow.length; j++) {
-      num++;
-      newrow[j].key = num;
-    }
-
-    const cols = [
-      {
-        title: '合同号',
-        dataIndex: 'contract_no',
-        key: 'contract_no',
-        width: '140px'
-      },
-      {
-        title: '账期开始',
-        dataIndex: 'periodstart',
-        key: 'periodstart',
-        width: '150px'
-      },
-      {
-        title: '账期结束',
-        dataIndex: 'periodend',
-        key: 'periodend',
-        width: '150px'
-      },
-
-      {
-        title: '账期金额',
-        dataIndex: 'period_money',
-        key: 'period_money',
-        width: '156px'
-      },
-      {
-        title: '调整金额',
-        dataIndex: 'adjust_money',
-        key: 'adjust_money'
-      },
-      {
-        title: '调整事项',
-        dataIndex: 'memo',
-        key: 'memo'
-      },
-
-      {
-        title: '实际金额',
-        dataIndex: 'actual_money',
-        key: 'actual_money'
-      },
-
-      {
-        title: '账单类型',
-        dataIndex: 'billtype',
-        key: 'billtype'
-      }
-    ];
-
-    return (
-      <div>
-        <Table
-          dataSource={newrow}
-          columns={cols}
-          size="small"
-          rowClassName={'big_table'}
-          defaultExpandAllRows={true}
-          pagination={false}
-          expandedRowRender={this.expandedLog}
-          style={{ marginBottom: '20px', marginLeft: '10px' }}
-        />
-      </div>
-    );
-  };
-
-  getModalProps() {
-    return {
-      width: 1400,
-      destroyOnClose: true,
-      ref: 'billrpt',
-      title: '账单打印',
-      bodyStyle: {
-        width: 1400,
-        height: 'auto',
-        overflow: 'auto',
-        bottom: 0
-      },
-      cancelText: '取消',
-      okText: '确定',
-      visible: this.state.visible,
-      onCancel: () => this.onCancel()
+    state = {
+        visible: false,
+        paper_id: 0,
+        paperinfo: {},
+        custinfo: {},
+        zones: [],
+        zone: null
     };
-  }
 
-  async handleZoneChange(value) {
-    console.log(`selected ${value}`);
-    let found = null;
-    found = this.state.zones.find((element) => element.id === value);
-    await this.setState({ zone: found });
-  }
+    async init() {
+        if (this.props.commonTableStore.selectedRowKeys.length === 0) {
+            message.error('请选择一个账单');
+            return;
+        }
 
-  // 要打印的主体内容
+        const current_rec = toJS(this.props.commonTableStore.selectedRows[0]);
+        const params = { method: 'GET', data: { paperid: current_rec.id } };
+        const json = await api.billing.getPaperInfoById(params);
 
-  show_main_content = () => {
-    return (
-      <div
-        style={{
-          paddingLeft: '15px',
-          paddingTop: '15px'
-        }}
-        ref="pdf">
-        <div
-          style={{
-            marginBottom: '5px',
-            marginLeft: '145px',
-            fontWeight: 'bold',
-            fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
-          }}>
-          <h1>账单编号:{this.state.paperinfo.paperno}</h1>
-        </div>
-        <div
-          style={{
-            marginBottom: '5px',
-            marginLeft: '10px',
-            fontWeight: 'bold',
-            color: 'black',
-            fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
-          }}>
-          总金额:{this.state.paperinfo.total_money}
-        </div>
-        <div
-          style={{
-            marginBottom: '5px',
-            marginLeft: '10px',
-            fontWeight: 'bold',
-            color: 'black',
-            fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
-          }}>
-          账单创建时间:
-          {this.state.paperinfo.createdate}
-        </div>
-        <Divider />
-        {this.show_ab_info()}
-        <Divider />
+        console.log(json);
 
-        <div style={{ fontFamily: '"Microsoft YaHei", 微软雅黑, monospace', margin: '10px' }}>
-          费用明细:
-          <br />
-        </div>
-        {this.CreateContractBillItem(this.state.paperinfo.billsjson)}
-      </div>
-    );
-  };
+        this.setState({
+            visible: true,
+            custinfo: json.custinfo,
+            paperinfo: json.paperinfo
+        });
 
-  show_ab_info = () => {
-    return (
-      <div style={{ color: 'black', marginLeft: '10px', fontFamily: '"Microsoft YaHei", 微软雅黑, monospace' }}>
-        <table>
-          <tbody>
-            <tr>
-              <td style={{ width: '565px' }}>
-                {' '}
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  客户名称:
-                  {this.state.custinfo.customer_name}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  纳税识别号:
-                  {this.state.custinfo.tax_no}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  客户地址:
-                  {this.state.custinfo.address}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  联系电话:
-                  {this.state.custinfo.phone}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  开户银行:
-                  {this.state.custinfo.open_bank}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  银行帐号:
-                  {this.state.custinfo.bank_account}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  Email:
-                  {this.state.custinfo.email}
-                </div>
-              </td>
-              <td style={{ width: '565px' }}>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  收款公司:
-                  {this.state.zone.company}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  开户银行:
-                  {this.state.zone.bank}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  银行帐号:
-                  {this.state.zone.bankcode}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  发票类型:
-                  {this.state.zone.invocietype}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  联系人:
-                  {this.state.zone.contact} {this.state.zone.mobile}{' '}
-                </div>
-                <div
-                  style={{
-                    marginBottom: '5px',
-                    fontWeight: 'bold'
-                  }}>
-                  主页:
-                  {'http://www.cnix.com.cn'}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  };
+        const json_zone = await api.billing.getZones();
+        this.setState({ zones: json_zone.zones });
+        console.log(this.state);
+    }
 
-  render() {
-    const modalProps = this.getModalProps();
-    const { Option } = Select;
-    const sourceList = this.state.zones;
+    onCancel = () => {
+        this.setState({
+            visible: false
+        });
+    };
 
-    return (
-      <Modal {...modalProps}>
-        <div>
-          <div>
-            <Button type="primary" onClick={this.downloadpdf}>
-              下载PDF
-            </Button>
-          </div>
+    downloadpdf = () => {
+        console.log(this.state.paperinfo.paperno);
 
-          <Divider />
+        html2canvas(this.refs.pdf, { scale: 2 }).then((canvas) => {
+            // 返回图片dataURL，参数：图片格式和清晰度(0-1)
+            const pageData = canvas.toDataURL('image/jpeg', 1.0);
 
-          {sourceList.length == 0 ? (
-            <span></span>
-          ) : (
-            <Select defaultValue={sourceList[0].zone} style={{ width: 140 }} onChange={this.handleZoneChange.bind(this)}>
-              {sourceList.map((item) => (
-                <Option value={item.id} key={item.id}>
-                  {item.zone}
-                </Option>
-              ))}
-            </Select>
-          )}
-          {this.state.zone && this.state.zone.id ? this.show_main_content() : <div>请选择节点 </div>}
-        </div>
-      </Modal>
-    );
-  }
+            const dims = {
+                a2: [1190.55, 1683.78],
+                a3: [841.89, 1190.55],
+                a4: [595.28, 841.89]
+            };
+            // 方向默认竖直，尺寸ponits，格式a2
+            const pdf = new jsPDF('', 'pt', 'a4');
+
+            const a4Width = dims.a4[0];
+            const a4Height = dims.a4[1];
+
+            const contentWidth = canvas.width,
+                contentHeight = canvas.height;
+
+            const pageHeight = (contentWidth / a4Width) * a4Height;
+            let leftHeight = contentHeight;
+            let position = 0;
+            const imgWidth = a4Width,
+                imgHeight = (a4Width / contentWidth) * contentHeight;
+
+            if (leftHeight < pageHeight) {
+                // addImage后两个参数控制添加图片的尺寸，此处将页面高度按照a4纸宽高比列进行压缩
+                pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
+            } else {
+                while (leftHeight > 0) {
+                    pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    leftHeight -= pageHeight;
+                    position -= a4Height;
+
+                    if (leftHeight > 0) {
+                        pdf.addPage();
+                    }
+                }
+            }
+
+            pdf.save(this.state.paperinfo.paperno + '.pdf');
+        });
+    };
+
+    // 资源使用日志
+    expandedLog = (record, index, indent, expanded) => {
+        const cols = [
+            {
+                title: '产品',
+                className: 'small_table',
+                dataIndex: 'product_name',
+                key: 'product_name',
+                width: '100px'
+            },
+
+            {
+                title: '资源明细',
+                className: 'small_table',
+                dataIndex: 'network_text',
+                key: 'network_text',
+                width: '340px'
+            },
+            {
+                title: '起',
+                className: 'small_table',
+                dataIndex: '_begin',
+                key: '_begin',
+                width: '80px'
+            },
+            {
+                title: '止',
+                className: 'small_table',
+                dataIndex: '_end',
+                key: '_end',
+                width: '80px'
+            },
+            {
+                title: '价格',
+                className: 'small_table',
+                dataIndex: 'price',
+                key: 'price',
+                width: '70px'
+            },
+
+            {
+                title: '费用',
+                className: 'small_table',
+                dataIndex: 'shouldpay',
+                key: 'shouldpay',
+                width: '70px'
+            },
+            {
+                title: '备注',
+                className: 'small_table',
+                dataIndex: 'memo',
+                key: 'memo',
+                width: '200px'
+            }
+        ];
+
+        return <Table columns={cols} rowKey="reactkey" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
+    };
+
+    // 每个合同账单的循环列表
+    CreateContractBillItem = (rowstr) => {
+        if (!this.state.visible) {
+            return;
+        }
+
+        const row = JSON.parse(rowstr);
+        let newrow = JSON.stringify(row);
+        newrow = JSON.parse(newrow);
+
+        let num = 0;
+        for (let j = 0; j < newrow.length; j++) {
+            num++;
+            newrow[j].key = num;
+        }
+
+        const cols = [
+            {
+                title: '合同号',
+                dataIndex: 'contract_no',
+                key: 'contract_no',
+                width: '140px'
+            },
+            {
+                title: '账期开始',
+                dataIndex: 'periodstart',
+                key: 'periodstart',
+                width: '150px'
+            },
+            {
+                title: '账期结束',
+                dataIndex: 'periodend',
+                key: 'periodend',
+                width: '150px'
+            },
+
+            {
+                title: '账期金额',
+                dataIndex: 'period_money',
+                key: 'period_money',
+                width: '156px'
+            },
+            {
+                title: '调整金额',
+                dataIndex: 'adjust_money',
+                key: 'adjust_money'
+            },
+            {
+                title: '调整事项',
+                dataIndex: 'memo',
+                key: 'memo'
+            },
+
+            {
+                title: '实际金额',
+                dataIndex: 'actual_money',
+                key: 'actual_money'
+            },
+
+            {
+                title: '账单类型',
+                dataIndex: 'billtype',
+                key: 'billtype'
+            }
+        ];
+
+        return (
+            <div>
+                <Table
+                    dataSource={newrow}
+                    columns={cols}
+                    size="small"
+                    rowClassName={'big_table'}
+                    defaultExpandAllRows={true}
+                    pagination={false}
+                    expandedRowRender={this.expandedLog}
+                    style={{ marginBottom: '20px', marginLeft: '10px' }}
+                />
+            </div>
+        );
+    };
+
+    getModalProps() {
+        return {
+            width: 1400,
+            destroyOnClose: true,
+            ref: 'billrpt',
+            title: '账单打印',
+            bodyStyle: {
+                width: 1400,
+                height: 'auto',
+                overflow: 'auto',
+                bottom: 0
+            },
+            cancelText: '取消',
+            okText: '确定',
+            visible: this.state.visible,
+            onCancel: () => this.onCancel()
+        };
+    }
+
+    async handleZoneChange(value) {
+        console.log(`selected ${value}`);
+        let found = null;
+        found = this.state.zones.find((element) => element.id === value);
+        await this.setState({ zone: found });
+    }
+
+    // 要打印的主体内容
+
+    show_main_content = () => {
+        return (
+            <div
+                style={{
+                    paddingLeft: '15px',
+                    paddingTop: '15px'
+                }}
+                ref="pdf">
+                <div
+                    style={{
+                        marginBottom: '5px',
+                        marginLeft: '145px',
+                        fontWeight: 'bold',
+                        fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
+                    }}>
+                    <h1>账单编号:{this.state.paperinfo.paperno}</h1>
+                </div>
+                <div
+                    style={{
+                        marginBottom: '5px',
+                        marginLeft: '10px',
+                        fontWeight: 'bold',
+                        color: 'black',
+                        fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
+                    }}>
+                    总金额:{this.state.paperinfo.total_money}
+                </div>
+                <div
+                    style={{
+                        marginBottom: '5px',
+                        marginLeft: '10px',
+                        fontWeight: 'bold',
+                        color: 'black',
+                        fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
+                    }}>
+                    账单创建时间:
+                    {this.state.paperinfo.createdate}
+                </div>
+                <Divider />
+                {this.show_ab_info()}
+                <Divider />
+
+                <div style={{ fontFamily: '"Microsoft YaHei", 微软雅黑, monospace', margin: '10px' }}>
+                    费用明细:
+                    <br />
+                </div>
+                {this.CreateContractBillItem(this.state.paperinfo.billsjson)}
+            </div>
+        );
+    };
+
+    show_ab_info = () => {
+        return (
+            <div style={{ color: 'black', marginLeft: '10px', fontFamily: '"Microsoft YaHei", 微软雅黑, monospace' }}>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style={{ width: '565px' }}>
+                                {' '}
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    客户名称:
+                                    {this.state.custinfo.customer_name}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    纳税识别号:
+                                    {this.state.custinfo.tax_no}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    客户地址:
+                                    {this.state.custinfo.address}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    联系电话:
+                                    {this.state.custinfo.phone}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    开户银行:
+                                    {this.state.custinfo.open_bank}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    银行帐号:
+                                    {this.state.custinfo.bank_account}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    Email:
+                                    {this.state.custinfo.email}
+                                </div>
+                            </td>
+                            <td style={{ width: '565px' }}>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    收款公司:
+                                    {this.state.zone.company}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    开户银行:
+                                    {this.state.zone.bank}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    银行帐号:
+                                    {this.state.zone.bankcode}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    发票类型:
+                                    {this.state.zone.invocietype}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    联系人:
+                                    {this.state.zone.contact} {this.state.zone.mobile}{' '}
+                                </div>
+                                <div
+                                    style={{
+                                        marginBottom: '5px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    主页:
+                                    {'http://www.cnix.com.cn'}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        );
+    };
+
+    render() {
+        const modalProps = this.getModalProps();
+        const { Option } = Select;
+        const sourceList = this.state.zones;
+
+        return (
+            <Modal {...modalProps}>
+                <div>
+                    <div>
+                        <Button type="primary" onClick={this.downloadpdf}>
+                            下载PDF
+                        </Button>
+                    </div>
+
+                    <Divider />
+
+                    {sourceList.length == 0 ? (
+                        <span></span>
+                    ) : (
+                        <Select defaultValue={sourceList[0].zone} style={{ width: 140 }} onChange={this.handleZoneChange.bind(this)}>
+                            {sourceList.map((item) => (
+                                <Option value={item.id} key={item.id}>
+                                    {item.zone}
+                                </Option>
+                            ))}
+                        </Select>
+                    )}
+                    {this.state.zone && this.state.zone.id ? this.show_main_content() : <div>请选择节点 </div>}
+                </div>
+            </Modal>
+        );
+    }
 }

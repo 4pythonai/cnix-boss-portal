@@ -38,6 +38,14 @@ export default {
                 });
             }
         },
+        {
+            path: 'IncomePrediction',
+            getComponent(nextState, cb) {
+                import('./containers/IncomePrediction').then((m) => {
+                    cb(null, m.default);
+                });
+            }
+        },
 
         {
             path: 'reportByPaperBillShouldPay',
