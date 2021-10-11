@@ -9,6 +9,9 @@ export default class report {
         reportByContractBill: '/Report/reportByContractBill',
 
         // 根据客户账单
-        reportByProductFromPaperBill: '/Report/reportByProductFromPaperBill'
+        reportByProductFromPaperBill: '/Report/reportByProductFromPaperBill',
+
+        //- 收入预测
+        reportByContractBillPrediction: '/Report/reportByContractBillPrediction'
     };
 }

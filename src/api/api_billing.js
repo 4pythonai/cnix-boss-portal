@@ -30,6 +30,8 @@ export default class billing {
         BatchSetBankItemStatus: '/Billing/BatchSetBankItemStatus',
         GetBuyInPayPlan: '/BillingBuyIn/GetBuyInPayPlan',
         GetBuyInPayPlanDetail: '/BillingBuyIn/GetBuyInPayPlanDetail',
-        GetBuyOwned: '/BillingBuyIn/GetBuyOwned'
+        GetBuyOwned: '/BillingBuyIn/GetBuyOwned',
+        //- 出所有的合同账单
+        OneKeyContractBillPrediction: '/Billing/OneKeyContractBillPrediction'
     };
 }

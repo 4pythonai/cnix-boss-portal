@@ -1,7 +1,10 @@
 import { Button, Input, message, Modal, Select } from 'antd';
 import ExportJsonExcel from 'js-export-excel';
 import React from 'react';
+import api from '@/api/api';
+import { v4 as uuidv4 } from 'uuid';
 const { Option } = Select;
+
 export default class ReportHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -85,10 +88,20 @@ export default class ReportHeader extends React.Component {
         }
     };
 
+    OneKeyContractBillPrediction = () => {
+        const uuid = uuidv4();
+        let params = {
+            data: {
+                uuid: uuid
+            },
+            method: 'POST'
+        };
+        api.billing.OneKeyContractBillPrediction(params);
+    };
+
     handleExport = () => {
         const reportrows = this.state.reportrows;
         const { columns } = this.props;
-        console.log(this.props);
         const option = {};
 
         option.fileName = this.state.tabletitle;
@@ -146,6 +159,10 @@ export default class ReportHeader extends React.Component {
                         <Option value="2022">2022</Option>
                         <Option value="2023">2023</Option>
                         <Option value="2024">2024</Option>
+                        <Option value="2025">2025</Option>
+                        <Option value="2026">2026</Option>
+                        <Option value="2027">2027</Option>
+                        <Option value="2028">2028</Option>
                     </Select>
                     <Select showSearch style={{ width: 200 }} placeholder="选择地区" optionFilterProp="children" onChange={this.onChangeregion}>
                         <Option value="北京">北京</Option>
@@ -160,6 +177,9 @@ export default class ReportHeader extends React.Component {
                             <Input style={{ width: '200' }} placeholder="请输入合同号,留空为所有" onChange={(event) => this.onChangeContractno(event, '')} onPressEnter={this.handleOk}></Input>
                         )}
                     </div>
+
+                    {this.props.hasOwnProperty('Prediction') ? <Button onClick={(event) => this.OneKeyContractBillPrediction()}>出全部合同账单</Button> : ''}
+
                     <Button onClick={(event) => this.generageReport()}>生成报表</Button>
                     <Button onClick={this.handleExport}> 导出Excel表格 </Button>
                 </div>

@@ -2,18 +2,32 @@ import React from 'react';
 import { Table } from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
-
+import { v4 as uuidv4 } from 'uuid';
 export default class IncomePrediction extends React.Component {
     constructor(props) {
         super(props);
         this.reportrowsHander = this.reportrowsHander.bind(this);
+        this.reportByContractBillPrediction = this.reportByContractBillPrediction.bind(this);
     }
 
     reportrowsHander(_rptrows) {
         this.setState({
+            uuid: '',
             reportrows: _rptrows
         });
     }
+
+    reportByContractBillPrediction = async () => {
+        const uuid = uuidv4();
+        let params = {
+            data: {
+                uuid: uuid
+            },
+            method: 'POST'
+        };
+
+        await api.report.reportByContractBillPrediction(params);
+    };
 
     setTitle = (_title) => {
         this.setState({
@@ -131,12 +145,18 @@ export default class IncomePrediction extends React.Component {
                     columns={columns}
                     mode={'shouldpay'}
                     type={'contractbill'}
-                    title="年应收报表(MRR/基于合同账单/拆分到月)"
-                    apiurl={api.report.reportByContractBill}
+                    Prediction={false}
+                    title="收入预测"
+                    apiurl={api.report.reportByContractBillPrediction}
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
                 />
-                <div style={{ margin: '20px 0 0 120px' }}>算法: 拷贝已经存在的合同账单到临时表,再重新生成所有的合同账单,(不考虑预付后付,取合同结束日期), 并以此为基础进行计算.</div>
+                <div style={{ margin: '20px 0 0 120px' }}>
+                    <ul>
+                        <li> 先全部模拟出账, OneKeyContractBillPrediction </li>
+                        <li> 算法: 拷贝已经存在的合同账单到临时表,再重新生成所有的合同账单,(不考虑预付后付,取合同结束日期), 并以此为基础进行计算.</li>
+                    </ul>
+                </div>
                 <Table
                     rowKey={'ID'}
                     title={() => {
