@@ -2,32 +2,18 @@ import React from 'react';
 import { Table } from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
-import { v4 as uuidv4 } from 'uuid';
+
 export default class IncomePrediction extends React.Component {
     constructor(props) {
         super(props);
         this.reportrowsHander = this.reportrowsHander.bind(this);
-        this.reportByContractBillPrediction = this.reportByContractBillPrediction.bind(this);
     }
 
     reportrowsHander(_rptrows) {
         this.setState({
-            uuid: '',
             reportrows: _rptrows
         });
     }
-
-    reportByContractBillPrediction = async () => {
-        const uuid = uuidv4();
-        let params = {
-            data: {
-                uuid: uuid
-            },
-            method: 'POST'
-        };
-
-        await api.report.reportByContractBillPrediction(params);
-    };
 
     setTitle = (_title) => {
         this.setState({
@@ -145,7 +131,7 @@ export default class IncomePrediction extends React.Component {
                     columns={columns}
                     mode={'shouldpay'}
                     type={'contractbill'}
-                    Prediction={false}
+                    Prediction={'Prediction'}
                     title="收入预测"
                     apiurl={api.report.reportByContractBillPrediction}
                     reportrowsHander={this.reportrowsHander}

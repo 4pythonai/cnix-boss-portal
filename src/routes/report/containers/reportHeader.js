@@ -92,7 +92,8 @@ export default class ReportHeader extends React.Component {
         const uuid = uuidv4();
         let params = {
             data: {
-                uuid: uuid
+                uuid: uuid,
+                type: 'Prediction' //- 收入预测的一键出账
             },
             method: 'POST'
         };
@@ -141,7 +142,7 @@ export default class ReportHeader extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ width: '900px', justifyContent: 'space-between', display: 'flex', paddingLeft: '100px' }}>
+                <div style={{ width: '1100px', justifyContent: 'space-between', display: 'flex', paddingLeft: '100px' }}>
                     <Select
                         showSearch
                         style={{ width: 140 }}
@@ -178,7 +179,7 @@ export default class ReportHeader extends React.Component {
                         )}
                     </div>
 
-                    {this.props.hasOwnProperty('Prediction') ? <Button onClick={(event) => this.OneKeyContractBillPrediction()}>出全部合同账单</Button> : ''}
+                    {this.props.hasOwnProperty('Prediction') ? <Button onClick={(event) => this.OneKeyContractBillPrediction()}>批量预出全部合同账单</Button> : ''}
 
                     <Button onClick={(event) => this.generageReport()}>生成报表</Button>
                     <Button onClick={this.handleExport}> 导出Excel表格 </Button>

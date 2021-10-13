@@ -31,7 +31,6 @@ export default class billing {
         GetBuyInPayPlan: '/BillingBuyIn/GetBuyInPayPlan',
         GetBuyInPayPlanDetail: '/BillingBuyIn/GetBuyInPayPlanDetail',
         GetBuyOwned: '/BillingBuyIn/GetBuyOwned',
-        //- 出所有的合同账单
-        OneKeyContractBillPrediction: '/Billing/OneKeyContractBillPrediction'
+        DEBUG: '/Billing/DEBUG'
     };
 }
