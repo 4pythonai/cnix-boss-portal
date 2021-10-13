@@ -88,7 +88,7 @@ export default class ReportHeader extends React.Component {
         }
     };
 
-    OneKeyContractBillPrediction = () => {
+    OneKeyContractBillPrediction = async () => {
         const uuid = uuidv4();
         let params = {
             data: {
@@ -97,7 +97,11 @@ export default class ReportHeader extends React.Component {
             },
             method: 'POST'
         };
-        api.billing.OneKeyContractBill(params);
+        let res = await api.billing.OneKeyContractBill(params);
+
+        if (res.code === 200) {
+            message.success(res.message);
+        }
     };
 
     handleExport = () => {

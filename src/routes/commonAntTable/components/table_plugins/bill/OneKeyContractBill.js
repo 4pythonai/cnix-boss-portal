@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Progress } from 'antd';
+import { Modal, Button, Progress, message } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
 import userStore from '@/store/userStore';
