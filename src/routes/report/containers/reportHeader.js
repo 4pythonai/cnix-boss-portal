@@ -97,7 +97,7 @@ export default class ReportHeader extends React.Component {
             },
             method: 'POST'
         };
-        api.billing.OneKeyContractBillPrediction(params);
+        api.billing.OneKeyContractBill(params);
     };
 
     handleExport = () => {

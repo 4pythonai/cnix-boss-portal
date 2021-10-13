@@ -100,7 +100,7 @@ export default class OneKeyContractBill extends React.Component {
         const sse = this.getReportPercent(uuid);
         this.setState({ uuid: uuid, percentEventSource: sse });
         const params = {
-            method: 'GET',
+            method: 'POST',
             data: {
                 uuid: uuid,
                 type: 'normal' //- 正常方式一键出合同账单
