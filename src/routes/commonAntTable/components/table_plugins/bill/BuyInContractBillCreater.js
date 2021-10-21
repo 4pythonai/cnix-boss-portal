@@ -75,8 +75,6 @@ export default class BuyInContractBillCreater extends React.Component {
     async onekeyfunction() {
         this.setState({ visible: true });
         const uuid = uuidv4();
-        // const sse = this.getReportPercent(uuid);
-        // this.setState({uuid: uuid,percentEventSource: sse});
         this.setState({ uuid: uuid });
 
         const params = {

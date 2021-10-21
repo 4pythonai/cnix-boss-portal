@@ -21,8 +21,11 @@ export default class billing {
         // IBM1 合同测试接口
         testIBM: '/Billing/testIBM',
         OneKeyContractBill: '/Billing/OneKeyContractBill',
+        prepareBuyInBills: '/Billing/prepareBuyInBills',
+
         OneKeyPaperBill: '/Billing/OneKeyPaperBill',
         delete_onekeybills: '/Tools/delete_onekeybills',
+        saveBuyinPayment: '/BillingBuyIn/saveBuyinPayment',
         OneKeyBuyInContractBill: '/BillingBuyIn/OneKeyBuyInContractBill',
         // 保存采购合同账单的付款记录
         SaveBuyInBillPayment: '/BillingBuyIn/SaveBuyInBillPayment',

@@ -35,6 +35,7 @@ export default function RptTotalOwned(props) {
             <Button onClick={(event) => getPayPlan(event)}>获取数据</Button>
             <br />
             <br />
+            <div>账单表格中payed字段为空则计为欠费</div>
             <span>总未付款(人民币): {total}元 </span>
             <br />
             <Table columns={columns} rowKey="reactkey" dataSource={payplan} pagination={false} />
