@@ -36,42 +36,6 @@ export default class BuyInContractBillCreater extends React.Component {
             this.state.percentEventSource.close();
         }
     }
-
-    getReportPercent(uuid) {
-        const ssurl = api_root + '/Billing/sse?uuid=' + uuid;
-        const token_from_userStore = userStore.getToken();
-        const EventSource = EventSourcePolyfill;
-        const percentEventSource = new EventSource(ssurl, {
-            headers: {
-                Authorization: token_from_userStore
-            },
-            heartbeatTimeout: 300000
-        });
-
-        percentEventSource.onmessage = (result) => {
-            console.log(result.data);
-            const serverobj = JSON.parse(result.data);
-            if (serverobj.row) {
-                const per = 100 * (parseInt(serverobj.row.done, 10) / parseInt(serverobj.row.total, 10)).toFixed(2);
-
-                this.setState({
-                    percent: per
-                });
-            }
-
-            if (serverobj.break === 'yes') {
-                percentEventSource.close();
-            }
-        };
-
-        percentEventSource.onerror = (err) => {
-            console.error('EventSource failed:', err);
-            percentEventSource.close();
-        };
-
-        return percentEventSource;
-    }
-
     async onekeyfunction() {
         this.setState({ visible: true });
         const uuid = uuidv4();
