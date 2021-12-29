@@ -9,16 +9,8 @@ export default function RptPayPlanDetail(props) {
     const [payplan, setPayplan] = useState([]);
     const [total, setTotal] = useState(0);
 
-    // const getPayPlan = async () => {
-    //     const params = { data: { period: period }, method: 'POST' };
-    //     const httpobj = await api.billing.GetBuyInPayPlan(params);
-    //     console.log('返回的结果', httpobj);
-    //     setPayplan(httpobj.rows);
-    //     setTotal(httpobj.total);
-    // };
-
     const getPayPlanDetail = async () => {
-        const params = { data: { period: period }, method: 'POST' };
+        const params = { data: { period: period, region: props.region }, method: 'POST' };
         const httpobj = await api.billing.GetBuyInPayPlanDetail(params);
         console.log('返回的结果', httpobj);
         setPayplan(httpobj.rows);

@@ -172,6 +172,7 @@ export default class ReportHeader extends React.Component {
                     <Select showSearch style={{ width: 200 }} placeholder="选择地区" optionFilterProp="children" onChange={this.onChangeregion}>
                         <Option value="北京">北京</Option>
                         <Option value="广州">广州</Option>
+                        <Option value="上海">上海</Option>
                         <Option value="测试">测试</Option>
                         <Option value="DEBUG">DEBUG</Option>
                     </Select>
