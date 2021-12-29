@@ -147,6 +147,21 @@ export default class OneKeyPaperBill extends React.Component {
                         <Radio value={'广州_后付_月付'}>广州后付(月付)</Radio>
                         <Radio value={'广州_后付_季付'}>广州后付(季付)</Radio>
                         <Radio value={'广州_后付_半年付'}>广州后付(半年付)</Radio>
+                        <br />
+                        <br />
+
+                        <Radio value={'上海_预付_月付'}>上海预付(月付)</Radio>
+                        <Radio value={'上海_预付_季付'}>上海预付(季付)</Radio>
+                        <Radio value={'上海_预付_半年付'}>上海预付(半年付)</Radio>
+                        <Radio value={'上海_预付_年付'}>上海预付(年付)</Radio>
+                        <br />
+                        <br />
+
+                        <Radio value={'上海_后付_月付'}>上海后付(月付)</Radio>
+                        <Radio value={'上海_后付_季付'}>上海后付(季付)</Radio>
+                        <Radio value={'上海_后付_半年付'}>上海后付(半年付)</Radio>
+                        <br />
+                        <br />
                     </Radio.Group>
 
                     <br />
