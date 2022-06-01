@@ -1,19 +1,19 @@
 
-export function splitDate(text){
-        if(!text){
-            return text
-        }
-        let arr = text.split(' ')
-        return arr[0]
+export function splitDate(text) {
+    if(!text) {
+        return text
     }
+    let arr = text.split(' ')
+    return arr[0]
+}
 
 export function randomString(string_length) {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 
     var randomstring = '';
-    for (var i = 0; i < string_length; i++) {
+    for(var i = 0;i < string_length;i++) {
         var rnum = Math.floor(Math.random() * chars.length);
-        randomstring += chars.substring(rnum, rnum + 1);
+        randomstring += chars.substring(rnum,rnum + 1);
     }
     return randomstring;
 }
@@ -21,7 +21,7 @@ export function randomString(string_length) {
 export function formattingParams(paramsString) {//格式化表单参数
     var theRequest = new Object();
     var paramsString = paramsString.split("&");
-    for (var i = 0; i < paramsString.length; i++) {
+    for(var i = 0;i < paramsString.length;i++) {
         theRequest[paramsString[i].split("=")[0]] = unescape(paramsString[i].split("=")[1]);
     }
 
@@ -44,34 +44,34 @@ export function newformatDate(now) {
     var hour = now.getHours();
     var minute = now.getMinutes();
     var second = now.getSeconds();
-    if (minute < 10) {
-      minute = "0" + minute;
+    if(minute < 10) {
+        minute = "0" + minute;
     }
-    if(hour<10){
-      hour="0"+hour
+    if(hour < 10) {
+        hour = "0" + hour
     }
-    if(second<10){
-      second="0"+second
+    if(second < 10) {
+        second = "0" + second
     }
     return (
-      year +
-      "-" +
-      month +
-      "-" +
-      date +
-      " " +
-      hour +
-      ":" +
-      minute +
-      ":" +
-      second
+        year +
+        "-" +
+        month +
+        "-" +
+        date +
+        " " +
+        hour +
+        ":" +
+        minute +
+        ":" +
+        second
     );
-  }
+}
 
 export function getMaxRowKey(data) {
     return data.length == 0 ?
         1 :
-        Math.max.apply(Math, data.map(item => item.key)) + 1
+        Math.max.apply(Math,data.map(item => item.key)) + 1
 }
 
 
@@ -92,26 +92,26 @@ export function getMaxRowKey(data) {
  * message: notify component
  **/
 
-export function validate(validateFields, data, message) {
-    for (let i = 0; i < validateFields.length; i++) {
+export function validate(validateFields,data,message) {
+    for(let i = 0;i < validateFields.length;i++) {
         let item = validateFields[i];
         let errorText = item.errorText ? item.errorText : item.title + '格式错误';
         let emptyText = item.emptyText ? item.emptyText : item.title + '不能为空！'
         // 非空验证
-        if ((data[item.key] === '' || data[item.key] === undefined) && item.require == 'yes') {
+        if((data[item.key] === '' || data[item.key] === undefined) && item.require == 'yes') {
             message.error(emptyText);
             return false;
         }
-        if ((data[item.key] instanceof Array) && item.require == 'yes' && data[item.key].length === 0) {
+        if((data[item.key] instanceof Array) && item.require == 'yes' && data[item.key].length === 0) {
             message.error(emptyText);
             return false;
         }
-        if (Object.prototype.toString.call(data[item.key])[1] === 'Object' && item.require == 'yes' && JSON.stringify(data[item.key]) === '{}') {
+        if(Object.prototype.toString.call(data[item.key])[1] === 'Object' && item.require == 'yes' && JSON.stringify(data[item.key]) === '{}') {
             message.error(emptyText);
             return false;
         }
         // 正则验证
-        if (item.reg && !item.reg.test(data[item.key])) {
+        if(item.reg && !item.reg.test(data[item.key])) {
             message.error(errorText);
             return false;
         }
@@ -128,3 +128,24 @@ export function shape() {
 
 }
 
+
+
+export function treeFunc(data) {
+    data.forEach(function(item) {
+        delete item.children;
+    });
+    var map = {};
+    data.forEach(function(item) {
+        map[item.key] = item;
+    });
+    var val = [];
+    data.forEach(function(item) {
+        var parent = map[item.parent_id];
+        if(parent) {
+            (parent.children || (parent.children = [])).push(item);
+        } else {
+            val.push(item);
+        }
+    });
+    return val;
+}

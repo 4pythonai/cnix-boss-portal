@@ -1,14 +1,14 @@
 import React from 'react';
-import { Modal, Button, Progress, message } from 'antd';
-import { observer } from 'mobx-react';
+import {Modal,Button,Progress,message} from 'antd';
+import {observer} from 'mobx-react';
 import api from '@/api/api';
 import userStore from '@/store/userStore';
-import { EventSourcePolyfill } from 'event-source-polyfill';
-import { v4 as uuidv4 } from 'uuid';
+import {EventSourcePolyfill} from 'event-source-polyfill';
+import {v4 as uuidv4} from 'uuid';
 
-import { root_url, port, version_2 } from '@/api/api_config/base_config';
+import {root_url,port,version_2} from '@/api/api_config/base_config';
 const api_root = `${root_url}:${port}/${version_2}`;
-export { api_root };
+export {api_root};
 
 @observer
 export default class OneKeyContractBill extends React.Component {
@@ -28,12 +28,12 @@ export default class OneKeyContractBill extends React.Component {
     };
 
     init() {
-        this.setState({ visible: true });
+        this.setState({visible: true});
     }
 
     componentWillUnmount() {
         console.log('componentWillUnmount');
-        if (this.state.percentEventSource) {
+        if(this.state.percentEventSource) {
             this.state.percentEventSource.close();
         }
     }
@@ -42,7 +42,7 @@ export default class OneKeyContractBill extends React.Component {
         const ssurl = api_root + '/Billing/sse?uuid=' + uuid;
         const token_from_userStore = userStore.getToken();
         const EventSource = EventSourcePolyfill;
-        const percentEventSource = new EventSource(ssurl, {
+        const percentEventSource = new EventSource(ssurl,{
             headers: {
                 Authorization: token_from_userStore
             },
@@ -52,21 +52,21 @@ export default class OneKeyContractBill extends React.Component {
         percentEventSource.onmessage = (result) => {
             console.log(result.data);
             const serverobj = JSON.parse(result.data);
-            if (serverobj.row) {
-                const per = 100 * (parseInt(serverobj.row.done, 10) / parseInt(serverobj.row.total, 10)).toFixed(2);
+            if(serverobj.row) {
+                const per = 100 * (parseInt(serverobj.row.done,10) / parseInt(serverobj.row.total,10)).toFixed(2);
 
                 this.setState({
                     percent: per
                 });
             }
 
-            if (serverobj.break === 'yes') {
+            if(serverobj.break === 'yes') {
                 percentEventSource.close();
             }
         };
 
         percentEventSource.onerror = (err) => {
-            console.error('EventSource failed:', err);
+            console.error('EventSource failed:',err);
             percentEventSource.close();
         };
 
@@ -74,10 +74,10 @@ export default class OneKeyContractBill extends React.Component {
     }
 
     Msg() {
-        const ssurl = 'http://localhost:8502/v2/Billing/sse2';
+        const ssurl = api_root + '/Billing/sse2';
         const token_from_userStore = userStore.getToken();
         const EventSource = EventSourcePolyfill;
-        const percentEventSource = new EventSource(ssurl, {
+        const percentEventSource = new EventSource(ssurl,{
             headers: {
                 Authorization: token_from_userStore
             },
@@ -95,10 +95,10 @@ export default class OneKeyContractBill extends React.Component {
     }
 
     async onekeyfunction() {
-        this.setState({ visible: true });
+        this.setState({visible: true});
         const uuid = uuidv4();
         const sse = this.getReportPercent(uuid);
-        this.setState({ uuid: uuid, percentEventSource: sse });
+        this.setState({uuid: uuid,percentEventSource: sse});
         const params = {
             method: 'POST',
             data: {
@@ -107,7 +107,7 @@ export default class OneKeyContractBill extends React.Component {
             }
         };
         const json = await api.billing.OneKeyContractBill(params);
-        if (json.success === 'no') {
+        if(json.success === 'no') {
             this.setState({
                 visible: true,
                 checkpassed: false,
@@ -147,7 +147,7 @@ export default class OneKeyContractBill extends React.Component {
     }
 
     onCancel = () => {
-        this.setState({ visible: false });
+        this.setState({visible: false});
     };
 
     render() {
