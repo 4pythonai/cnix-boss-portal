@@ -1,13 +1,14 @@
 // PDF pdf  客户账单打印功能
 
 import api from '@/api/api';
-import { Button, Divider, message, Modal, Select, Table } from 'antd';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import { toJS } from 'mobx';
-import { inject, observer } from 'mobx-react';
+import {Button,Divider,message,Modal,Select,Table} from 'antd';
+import {toJS} from 'mobx';
+import {inject,observer} from 'mobx-react';
 import React from 'react';
 import './paper_bill_style.scss';
+import ResTimeColumns from './columns/ResTimeColumns'
+import ABInfo from './ABInfo'
+import downloadpdf from '@/utils/Pdfhelper';
 @inject('billingSummaryStore')
 @observer
 export default class CustPaperBillPrinter extends React.Component {
@@ -27,13 +28,13 @@ export default class CustPaperBillPrinter extends React.Component {
     };
 
     async init() {
-        if (this.props.commonTableStore.selectedRowKeys.length === 0) {
+        if(this.props.commonTableStore.selectedRowKeys.length === 0) {
             message.error('请选择一个账单');
             return;
         }
 
         const current_rec = toJS(this.props.commonTableStore.selectedRows[0]);
-        const params = { method: 'GET', data: { paperid: current_rec.id } };
+        const params = {method: 'GET',data: {paperid: current_rec.id}};
         const json = await api.billing.getPaperInfoById(params);
 
         console.log(json);
@@ -45,7 +46,7 @@ export default class CustPaperBillPrinter extends React.Component {
         });
 
         const json_zone = await api.billing.getZones();
-        this.setState({ zones: json_zone.zones });
+        this.setState({zones: json_zone.zones});
         console.log(this.state);
     }
 
@@ -55,114 +56,15 @@ export default class CustPaperBillPrinter extends React.Component {
         });
     };
 
-    downloadpdf = () => {
-        console.log(this.state.paperinfo.paperno);
-
-        html2canvas(this.refs.pdf, { scale: 2 }).then((canvas) => {
-            // 返回图片dataURL，参数：图片格式和清晰度(0-1)
-            const pageData = canvas.toDataURL('image/jpeg', 1.0);
-
-            const dims = {
-                a2: [1190.55, 1683.78],
-                a3: [841.89, 1190.55],
-                a4: [595.28, 841.89]
-            };
-            // 方向默认竖直，尺寸ponits，格式a2
-            const pdf = new jsPDF('', 'pt', 'a4');
-
-            const a4Width = dims.a4[0];
-            const a4Height = dims.a4[1];
-
-            const contentWidth = canvas.width,
-                contentHeight = canvas.height;
-
-            const pageHeight = (contentWidth / a4Width) * a4Height;
-            let leftHeight = contentHeight;
-            let position = 0;
-            const imgWidth = a4Width,
-                imgHeight = (a4Width / contentWidth) * contentHeight;
-
-            if (leftHeight < pageHeight) {
-                // addImage后两个参数控制添加图片的尺寸，此处将页面高度按照a4纸宽高比列进行压缩
-                pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
-            } else {
-                while (leftHeight > 0) {
-                    pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight);
-                    leftHeight -= pageHeight;
-                    position -= a4Height;
-
-                    if (leftHeight > 0) {
-                        pdf.addPage();
-                    }
-                }
-            }
-
-            pdf.save(this.state.paperinfo.paperno + '.pdf');
-        });
-    };
 
     // 资源使用日志
-    expandedLog = (record, index, indent, expanded) => {
-        const cols = [
-            {
-                title: '产品',
-                className: 'small_table',
-                dataIndex: 'product_name',
-                key: 'product_name',
-                width: '100px'
-            },
-
-            {
-                title: '资源明细',
-                className: 'small_table',
-                dataIndex: 'network_text',
-                key: 'network_text',
-                width: '340px'
-            },
-            {
-                title: '起',
-                className: 'small_table',
-                dataIndex: '_begin',
-                key: '_begin',
-                width: '80px'
-            },
-            {
-                title: '止',
-                className: 'small_table',
-                dataIndex: '_end',
-                key: '_end',
-                width: '80px'
-            },
-            {
-                title: '价格',
-                className: 'small_table',
-                dataIndex: 'price',
-                key: 'price',
-                width: '70px'
-            },
-
-            {
-                title: '费用',
-                className: 'small_table',
-                dataIndex: 'shouldpay',
-                key: 'shouldpay',
-                width: '70px'
-            },
-            {
-                title: '备注',
-                className: 'small_table',
-                dataIndex: 'memo',
-                key: 'memo',
-                width: '200px'
-            }
-        ];
-
-        return <Table columns={cols} rowKey="reactkey" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
+    expandedLog = (record,index,indent,expanded) => {
+        return <Table columns={ResTimeColumns} rowKey="reactkey" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
     };
 
     // 每个合同账单的循环列表
     CreateContractBillItem = (rowstr) => {
-        if (!this.state.visible) {
+        if(!this.state.visible) {
             return;
         }
 
@@ -171,7 +73,7 @@ export default class CustPaperBillPrinter extends React.Component {
         newrow = JSON.parse(newrow);
 
         let num = 0;
-        for (let j = 0; j < newrow.length; j++) {
+        for(let j = 0;j < newrow.length;j++) {
             num++;
             newrow[j].key = num;
         }
@@ -236,7 +138,7 @@ export default class CustPaperBillPrinter extends React.Component {
                     defaultExpandAllRows={true}
                     pagination={false}
                     expandedRowRender={this.expandedLog}
-                    style={{ marginBottom: '20px', marginLeft: '10px' }}
+                    style={{marginBottom: '20px',marginLeft: '10px'}}
                 />
             </div>
         );
@@ -244,12 +146,12 @@ export default class CustPaperBillPrinter extends React.Component {
 
     getModalProps() {
         return {
-            width: 1400,
+            width: 1600,
             destroyOnClose: true,
             ref: 'billrpt',
             title: '账单打印',
             bodyStyle: {
-                width: 1400,
+                width: 1590,
                 height: 'auto',
                 overflow: 'auto',
                 bottom: 0
@@ -265,7 +167,7 @@ export default class CustPaperBillPrinter extends React.Component {
         console.log(`selected ${value}`);
         let found = null;
         found = this.state.zones.find((element) => element.id === value);
-        await this.setState({ zone: found });
+        await this.setState({zone: found});
     }
 
     // 要打印的主体内容
@@ -309,10 +211,11 @@ export default class CustPaperBillPrinter extends React.Component {
                     {this.state.paperinfo.createdate}
                 </div>
                 <Divider />
-                {this.show_ab_info()}
+
+                <ABInfo zone={this.state.zone} custinfo={this.state.custinfo} />
                 <Divider />
 
-                <div style={{ fontFamily: '"Microsoft YaHei", 微软雅黑, monospace', margin: '10px' }}>
+                <div style={{fontFamily: '"Microsoft YaHei", 微软雅黑, monospace',margin: '10px'}}>
                     费用明细:
                     <br />
                 </div>
@@ -321,138 +224,17 @@ export default class CustPaperBillPrinter extends React.Component {
         );
     };
 
-    show_ab_info = () => {
-        return (
-            <div style={{ color: 'black', marginLeft: '10px', fontFamily: '"Microsoft YaHei", 微软雅黑, monospace' }}>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td style={{ width: '565px' }}>
-                                {' '}
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    客户名称:
-                                    {this.state.custinfo.customer_name}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    纳税识别号:
-                                    {this.state.custinfo.tax_no}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    客户地址:
-                                    {this.state.custinfo.address}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    联系电话:
-                                    {this.state.custinfo.phone}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    开户银行:
-                                    {this.state.custinfo.open_bank}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    银行帐号:
-                                    {this.state.custinfo.bank_account}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    Email:
-                                    {this.state.custinfo.email}
-                                </div>
-                            </td>
-                            <td style={{ width: '565px' }}>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    收款公司:
-                                    {this.state.zone.company}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    开户银行:
-                                    {this.state.zone.bank}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    银行帐号:
-                                    {this.state.zone.bankcode}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    发票类型:
-                                    {this.state.zone.invocietype}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    联系人:
-                                    {this.state.zone.contact} {this.state.zone.mobile}{' '}
-                                </div>
-                                <div
-                                    style={{
-                                        marginBottom: '5px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    主页:
-                                    {'http://www.cnix.com.cn'}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        );
-    };
-
     render() {
         const modalProps = this.getModalProps();
-        const { Option } = Select;
+        const {Option} = Select;
         const sourceList = this.state.zones;
 
         return (
             <Modal {...modalProps}>
                 <div>
                     <div>
-                        <Button type="primary" onClick={this.downloadpdf}>
+                        <Button type="primary"
+                            onClick={() => downloadpdf(this.refs.pdf,this.state.paperinfo.paperno + '.pdf')}>
                             下载PDF
                         </Button>
                     </div>
@@ -462,7 +244,7 @@ export default class CustPaperBillPrinter extends React.Component {
                     {sourceList.length == 0 ? (
                         <span></span>
                     ) : (
-                        <Select defaultValue={sourceList[0].zone} style={{ width: 140 }} onChange={this.handleZoneChange.bind(this)}>
+                        <Select defaultValue={sourceList[0].zone} style={{width: 140}} onChange={this.handleZoneChange.bind(this)}>
                             {sourceList.map((item) => (
                                 <Option value={item.id} key={item.id}>
                                     {item.zone}

@@ -1,9 +1,9 @@
 // 账单组件
 import React from 'react';
-import { message, Table, Divider, Button } from 'antd';
-import { observer } from "mobx-react";
+import {message,Table,Divider,Button} from 'antd';
+import {observer} from "mobx-react";
 import api from '@/api/api';
- 
+
 
 @observer
 export default class IntegrationBillsCom extends React.Component {
@@ -22,11 +22,11 @@ export default class IntegrationBillsCom extends React.Component {
 
     saveCombinedBill = async (e) => {
 
-        const dataSend = { custid: this.custid, selectedRows: this.state.selectedRows };
-        const params = { data: dataSend, method: 'POST' };
+        const dataSend = {custid: this.custid,selectedRows: this.state.selectedRows};
+        const params = {data: dataSend,method: 'POST'};
         const json = await api.billing.saveCombinedBill(params);
         console.log(json);
-        if (json.code === 200) {
+        if(json.code === 200) {
             message.success(json.msg);
         } else {
             message.error(json.msg);
@@ -93,18 +93,18 @@ export default class IntegrationBillsCom extends React.Component {
         ];
     }
 
-    expandedLog = (record, index, indent, expanded) => {
-         const cols = [
+    expandedLog = (record,index,indent,expanded) => {
+        const cols = [
 
             {
                 title: '起',
-                dataIndex: '_begin',
-                key: '_begin',
+                dataIndex: 'periodstart',
+                key: 'periodstart',
             },
             {
                 title: '止',
-                dataIndex: '_end',
-                key: '_end',
+                dataIndex: 'periodend',
+                key: 'periodend',
             },
             {
                 title: '产品',
@@ -138,10 +138,10 @@ export default class IntegrationBillsCom extends React.Component {
 
         return (
             <Table
-                columns={ cols }
-                rowKey="reactkey"
-                dataSource={ record.resource_logs }
-                pagination={ false }
+                columns={cols}
+                rowKey="key"
+                dataSource={record.resource_logs}
+                pagination={false}
 
             />
         );
@@ -149,16 +149,16 @@ export default class IntegrationBillsCom extends React.Component {
 
 
     rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-            console.log('选择的数据rows: ', selectedRows);
+        onChange: (selectedRowKeys,selectedRows) => {
+            console.log('选择的数据rows: ',selectedRows);
 
-            this.setState({ selectedRows: selectedRows });
+            this.setState({selectedRows: selectedRows});
 
         },
-        
-        
-        onSelectAll: (selected, selectedRows, changeRows) => {
-            console.log(selected, selectedRows, changeRows);
+
+
+        onSelectAll: (selected,selectedRows,changeRows) => {
+            console.log(selected,selectedRows,changeRows);
         },
     }
 
@@ -168,16 +168,16 @@ export default class IntegrationBillsCom extends React.Component {
         return <div>
             <div>
 
-                <Button onClick={ (event) => this.saveCombinedBill(event) }>保存合并账单</Button>
+                <Button onClick={(event) => this.saveCombinedBill(event)}>保存合并账单</Button>
                 <Divider orientation="left">未付款账单</Divider>
                 <Table
-                    dataSource={ this.bills }
+                    dataSource={this.bills}
                     rowKey="id"
-                    columns={ this.getColumnsCycleByContractTimelime() }
-                    pagination={ false }
+                    columns={this.getColumnsCycleByContractTimelime()}
+                    pagination={false}
                     size="small"
-                    expandedRowRender={ this.expandedLog }
-                    rowSelection={ this.rowSelection }
+                    expandedRowRender={this.expandedLog}
+                    rowSelection={this.rowSelection}
                 />
             </div >
         </div >;

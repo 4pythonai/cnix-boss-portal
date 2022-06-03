@@ -1,8 +1,8 @@
 import React from 'react';
-import { Modal, message, Button } from 'antd';
-import { observer } from 'mobx-react';
+import {Modal,message,Button} from 'antd';
+import {observer} from 'mobx-react';
 import api from '@/api/api';
-import { toJS } from 'mobx';
+import {toJS} from 'mobx';
 import OneContractBillReportCom from './OneContractBillReportCom';
 
 @observer
@@ -20,7 +20,7 @@ export default class PostpayContractBillCreater extends React.Component {
     };
 
     async init() {
-        if (this.props.commonTableStore.selectedRowKeys.length == 0) {
+        if(this.props.commonTableStore.selectedRowKeys.length == 0) {
             message.error('请选择一个合同');
             return;
         }
@@ -28,32 +28,32 @@ export default class PostpayContractBillCreater extends React.Component {
 
         //billingoption
 
-        if (current_row.billingoption !== '后付') {
+        if(current_row.billingoption !== '后付') {
             message.error('请选择一个后付合同');
             return;
         }
 
-        let params = { method: 'GET', data: { contract_no: current_row.contract_no } };
-        let json = await api.billing.billByContract(params);
+        let params = {method: 'POST',data: {contract_no: current_row.contract_no}};
+        let json = await api.billing.SingleContractBill(params);
         console.log('----------------->' + current_row.contract_no);
 
         console.log(json);
 
-        if (json.success == 'false') {
-            this.setState({ visible: true, checkpassed: false, toal_check_errors: json.toal_check_errors });
+        if(json.success == 'false') {
+            this.setState({visible: true,checkpassed: false,toal_check_errors: json.toal_check_errors});
         } else {
-            this.setState({ visible: true, checkpassed: true, billjson: json });
+            this.setState({visible: true,checkpassed: true,billjson: json});
         }
     }
 
     getModalProps() {
         return {
-            width: 1200,
+            width: 1450,
             destroyOnClose: true,
             ref: 'billrpt',
             title: '手工出账单[后付]:',
             bodyStyle: {
-                width: 1200,
+                width: 1440,
                 height: 'auto',
                 overflow: 'auto',
                 bottom: 0
@@ -71,7 +71,7 @@ export default class PostpayContractBillCreater extends React.Component {
         };
     }
 
-    onCancel = (e, f) => {
+    onCancel = (e,f) => {
         this.setState({
             visible: false
         });
@@ -81,7 +81,7 @@ export default class PostpayContractBillCreater extends React.Component {
         console.log('将要渲染');
 
         let modalProps = this.getModalProps();
-        if (this.state.checkpassed) {
+        if(this.state.checkpassed) {
             return (
                 <Modal {...modalProps}>
                     <OneContractBillReportCom onlyShowTimeLine="no" showSaveBillBtn="yes" billjson={this.state.billjson} />

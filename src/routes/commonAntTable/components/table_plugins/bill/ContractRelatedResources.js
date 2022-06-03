@@ -1,8 +1,8 @@
 import React from 'react';
-import { Modal, message, Table } from 'antd';
+import {Modal,message,Table} from 'antd';
 import api from '@/api/api';
-import { toJS } from 'mobx';
-
+import {toJS} from 'mobx';
+import ResTimeColumns from './columns/ResTimeColumns'
 export default class ContractRelatedResources extends React.Component {
     constructor(props) {
         super(props);
@@ -14,18 +14,18 @@ export default class ContractRelatedResources extends React.Component {
     };
 
     async init() {
-        if (this.props.commonTableStore.selectedRowKeys.length === 0) {
+        if(this.props.commonTableStore.selectedRowKeys.length === 0) {
             message.error('请选择一个合同');
             return;
         }
 
         let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
-        let params = { method: 'POST', data: { contract_no: current_row.contract_no } };
+        let params = {method: 'POST',data: {contract_no: current_row.contract_no}};
         let json = await api.billing.getContractRelatedResources(params);
-        if (json.code === 200) {
-            this.setState({ visible: true, resources: json.resources });
+        if(json.code === 200) {
+            this.setState({visible: true,resources: json.resources});
         } else {
-            this.setState({ visible: true, resources: [] });
+            this.setState({visible: true,resources: []});
         }
     }
 
@@ -36,76 +36,14 @@ export default class ContractRelatedResources extends React.Component {
     };
 
     createTableByRows = () => {
-        if (!this.state.visible) {
+        if(!this.state.visible) {
             return;
         }
 
-        const cols = [
-            {
-                title: '资源项ID',
-                dataIndex: 'resid',
-                key: 'resid'
-            },
-            {
-                title: '产品子类',
-                dataIndex: 'sub_category',
-                key: 'sub_category'
-            },
-            {
-                title: '产品全称',
-                dataIndex: 'full_product_name',
-                key: 'full_product_name'
-            },
-            {
-                title: '资源详情',
-                dataIndex: 'network_text',
-                key: 'network_text'
-            },
-
-            {
-                title: '资源编号',
-                dataIndex: 'deliveryno',
-                key: 'deliveryno'
-            },
-            {
-                title: '计费开始时间',
-                dataIndex: 'billingdate',
-                key: 'billingdate'
-            },
-            {
-                title: '计费结束时间',
-                dataIndex: 'closedate',
-                key: 'closedate'
-            },
-
-            {
-                title: '备注',
-                dataIndex: 'meno',
-                key: 'meno'
-            },
-
-            {
-                title: '资源价格(框架)',
-                dataIndex: 'frameprice',
-                key: 'frameprice'
-            },
-
-            {
-                title: '资源价格(占用)',
-                dataIndex: 'resprice',
-                key: 'resprice'
-            },
-
-            {
-                title: '备注',
-                dataIndex: 'memo',
-                key: 'memo'
-            }
-        ];
-
+        let _cols = ResTimeColumns.filter(col => col.key !== 'fee');
         return (
             <div>
-                <Table dataSource={this.state.resources} columns={cols} size="small" style={{ marginBottom: '20px', marginLeft: '10px' }} />
+                <Table dataSource={this.state.resources} columns={_cols} size="small" style={{marginBottom: '20px',marginLeft: '10px'}} />
             </div>
         );
     };
@@ -134,8 +72,8 @@ export default class ContractRelatedResources extends React.Component {
         return (
             <Modal {...modalProps}>
                 <div>
-                    <div style={{ margin: '10px' }}>
-                        资源明细:
+                    <div style={{margin: '10px'}}>
+                        占用资源情况列表:
                         <br />
                     </div>
                     {this.createTableByRows()}

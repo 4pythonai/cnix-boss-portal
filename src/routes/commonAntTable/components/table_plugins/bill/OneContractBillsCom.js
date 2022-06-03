@@ -1,8 +1,8 @@
 // 账单组件
 import React from 'react';
-import { Table, Divider, Button } from 'antd';
-import { observer } from 'mobx-react';
-import { toJS } from 'mobx';
+import {Table,Divider,Button} from 'antd';
+import {observer} from 'mobx-react';
+import {toJS} from 'mobx';
 
 @observer
 export default class IntegrationBillsCom extends React.Component {
@@ -12,7 +12,7 @@ export default class IntegrationBillsCom extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({ visible: true });
+        this.setState({visible: true});
     }
 
     saveCombinedBill = async (e) => {
@@ -77,7 +77,7 @@ export default class IntegrationBillsCom extends React.Component {
         ];
     }
 
-    expandedLog = (record, index, indent, expanded) => {
+    expandedLog = (record,index,indent,expanded) => {
         const cols = [
             {
                 title: '起',
@@ -96,7 +96,7 @@ export default class IntegrationBillsCom extends React.Component {
             },
 
             {
-                title: '资源明细',
+                title: '资源明细C',
                 dataIndex: 'network_text',
                 key: 'network_text'
             },
@@ -123,15 +123,15 @@ export default class IntegrationBillsCom extends React.Component {
     };
 
     rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
+        onChange: (selectedRowKeys,selectedRows) => {
             console.log(`选择的数据Keys: ${selectedRowKeys}`);
-            console.log('选择的数据rows: ', selectedRows);
+            console.log('选择的数据rows: ',selectedRows);
         },
-        onSelect: (record, selected, selectedRows) => {
+        onSelect: (record,selected,selectedRows) => {
             console.log(toJS(record));
         },
-        onSelectAll: (selected, selectedRows, changeRows) => {
-            console.log(selected, selectedRows, changeRows);
+        onSelectAll: (selected,selectedRows,changeRows) => {
+            console.log(selected,selectedRows,changeRows);
         }
     };
 

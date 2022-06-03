@@ -19,10 +19,10 @@ import buyin from './api_buyin';
 import api_contract from './api_contract';
 import uuu from './api_uuu';
 
-import { api_root } from './api_config/base_config';
+import {api_root} from './api_config/base_config';
 import http from './http';
-export { api_root };
-export default class api {}
+export {api_root};
+export default class api { }
 
 api.button = button;
 api.device_api = device;
@@ -45,22 +45,22 @@ api.buyin = buyin;
 api.contract = api_contract;
 api.uuu = uuu;
 
-Object.keys(api).forEach((schema, index, array) => {
+Object.keys(api).forEach((schema,index,array) => {
     const methods = api[schema].methods;
     console.log(methods);
-    Object.keys(methods).forEach((method, index, array) => {
+    Object.keys(methods).forEach((method,index,array) => {
         console.log(method);
         let url = methods[method];
         console.log(url);
-        api[schema][method] = (params) => http(params, `${api_root}/${url}`);
+        api[schema][method] = (params) => http(params,`${api_root}${url}`);
     });
 });
 
-api.curd.listData = (params) => http(params, `${api_root}/${params.geturl}`);
-api.curd.deleteData = (params) => http(params, `${api_root}/${params.delurl}`);
-api.curd.updateData = (params) => http(params, `${api_root}/${params.updateurl}`);
-api.curd.addData = (params) => http(params, `${api_root}/${params.addurl}`);
-api.activity.getAssociateData = (params) => http(params, `${api_root}/${params.data.api}`);
+api.curd.listData = (params) => http(params,`${api_root}/${params.geturl}`);
+api.curd.deleteData = (params) => http(params,`${api_root}/${params.delurl}`);
+api.curd.updateData = (params) => http(params,`${api_root}/${params.updateurl}`);
+api.curd.addData = (params) => http(params,`${api_root}/${params.addurl}`);
+api.activity.getAssociateData = (params) => http(params,`${api_root}/${params.data.api}`);
 // ### getAssociateData: '/${params.data.api}
 
 console.log(api);

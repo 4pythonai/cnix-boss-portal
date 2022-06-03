@@ -39,8 +39,8 @@ export default class PrepayContractBillCreater extends React.Component {
     }
 
 
-    let params = {method: 'GET',data: {"contract_no": current_row.contract_no}}
-    let json = await api.billing.billByContract(params);
+    let params = {method: 'POST',data: {"contract_no": current_row.contract_no}}
+    let json = await api.billing.SingleContractBill(params);
     console.log('----------------->' + current_row.contract_no);
 
     console.log(json);
@@ -74,7 +74,7 @@ export default class PrepayContractBillCreater extends React.Component {
       onOk: this.saveFormData,
       footer: [<Button key="back" onClick={this.onCancel}>
         关闭
-            </Button>,],
+      </Button>,],
       onCancel: () => this.onCancel(),
 
 
@@ -106,8 +106,8 @@ export default class PrepayContractBillCreater extends React.Component {
           <p>合同资源项目时间检查失败:涉及到合同数量:{this.state.toal_check_errors.length}:</p>
           {
             this.state.toal_check_errors.map(one_contract_error =>
-              (
-                one_contract_error.errors.map(error => <li key={error.idx}>{error.text}</li>))
+            (
+              one_contract_error.errors.map(error => <li key={error.idx}>{error.text}</li>))
             )
           }
         </div >

@@ -1,10 +1,11 @@
 export default class billing {
     static methods = {
         // 按照合同进行计费
-        billByContract: '/Billing/billByContract',
+
+        SingleContractBill: '/ABillingPipe/SingleContractBill',
 
         // 按照客户进行计费
-        billByCust: '/Billing/billByCust',
+        billByCust: '/ABillingPipe/billByCust',
 
         saveBill: '/Billing/saveBill',
         transferContract: '/App/transferContract',
