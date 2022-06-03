@@ -1,10 +1,8 @@
 
 import React from 'react'
-import { Modal, Descriptions, message, InputNumber, Table, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
-import { observer, inject } from "mobx-react";
-import api from '@/api/api'
-import { toJS } from 'mobx'
-import { randomString } from '@/utils/tools'
+import {Modal,message,Table,Divider} from 'antd';
+import {observer} from "mobx-react";
+import {toJS} from 'mobx'
 
 
 @observer
@@ -22,7 +20,7 @@ export default class ResellerBillViewer extends React.Component {
     async init() {
 
 
-        if (this.props.commonTableStore.selectedRowKeys.length == 0) {
+        if(this.props.commonTableStore.selectedRowKeys.length == 0) {
             message.error('请选择一条资源计费信息');
             return;
         }
@@ -30,12 +28,12 @@ export default class ResellerBillViewer extends React.Component {
         console.log(current_row)
 
 
-        this.setState({ visible: true })
+        this.setState({visible: true})
         this.setState(current_row)
     }
 
 
-    onCancel = (e, f) => {
+    onCancel = (e,f) => {
         this.setState({
             visible: false
         })
@@ -45,7 +43,7 @@ export default class ResellerBillViewer extends React.Component {
 
     createTableByRows = (rowstr) => {
 
-        if (!this.state.visible) {
+        if(!this.state.visible) {
             return;
         }
 
@@ -53,7 +51,7 @@ export default class ResellerBillViewer extends React.Component {
         let newrow = JSON.stringify(row)
         newrow = JSON.parse(newrow)
         let num = 0
-        for (var j = 0; j < newrow.length; j++) {
+        for(var j = 0;j < newrow.length;j++) {
             num++
             newrow[j]['key'] = num
         }
@@ -104,13 +102,13 @@ export default class ResellerBillViewer extends React.Component {
         return (
             <div>
                 <Table
-                    dataSource={ newrow }
-                    columns={ cols }
+                    dataSource={newrow}
+                    columns={cols}
                     size="small"
-                    pagination={ {
+                    pagination={{
                         hideOnSinglePage: true
-                    } }
-                    style={ { marginBottom: '20px', marginLeft: '10px' } }
+                    }}
+                    style={{marginBottom: '20px',marginLeft: '10px'}}
                 />
             </div>
         )
@@ -149,16 +147,16 @@ export default class ResellerBillViewer extends React.Component {
     render() {
         console.log('will render.....')
         let modalProps = this.getModalProps();
-        return <Modal { ...modalProps }>
+        return <Modal {...modalProps}>
             <div>
 
-                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>合同号:{ this.state.contract_no }</div>
-                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>账期:{ this.state.counter }</div>
-                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>账期起始:{ this.state.periodstart }</div>
-                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>账期终止:{ this.state.periodend }</div>
-                <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用:{ this.state.period_money }元</div>
+                <div style={{marginBottom: '5px',fontWeight: 'bold'}}>合同号:{this.state.contract_no}</div>
+                <div style={{marginBottom: '5px',fontWeight: 'bold'}}>账期:{this.state.counter}</div>
+                <div style={{marginBottom: '5px',fontWeight: 'bold'}}>账期起始:{this.state.periodstart}</div>
+                <div style={{marginBottom: '5px',fontWeight: 'bold'}}>账期终止:{this.state.periodend}</div>
+                <div style={{marginBottom: '5px',fontWeight: 'bold'}}>费用:{this.state.period_money}元</div>
                 <Divider />
-                <div style={ { margin: '10px' } }>费用明细:<br /></div>
+                <div style={{margin: '10px'}}>费用明细:<br /></div>
 
                 {
                     this.createTableByRows(this.state.resource_logs)

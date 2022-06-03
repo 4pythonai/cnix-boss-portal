@@ -1,9 +1,9 @@
-// 客户集成账单.
+//  生成合并账单 :  客户集成账单.
 import React from 'react';
-import { Modal, message } from 'antd';
-import { observer } from "mobx-react";
+import {Modal,message} from 'antd';
+import {observer} from "mobx-react";
 import api from '@/api/api';
-import { toJS } from 'mobx';
+import {toJS} from 'mobx';
 import IntegrationBillsCom from "./IntegrationBillsCom";
 
 
@@ -26,18 +26,16 @@ export default class CustIntegrationBillBuilder extends React.Component {
     }
 
     async init() {
-        if (this.props.commonTableStore.selectedRowKeys.length === 0) {
+        if(this.props.commonTableStore.selectedRowKeys.length === 0) {
             message.error('请选择一个客户');
             return;
         }
         const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
-        this.setState({ custid: current_row.id });
-        const params = { method: 'POST', data: { "custid": current_row.id } };
+        this.setState({custid: current_row.id});
+        const params = {method: 'POST',data: {"custid": current_row.id}};
         const json = await api.billing.getUnUsedBills(params);
-        console.log(json);
-        console.log(json.cust);
-        console.log(json.big_total_summary);
-        
+
+
         this.setState({
             visible: true,
             all_bills: json.all_bills,
@@ -85,8 +83,8 @@ export default class CustIntegrationBillBuilder extends React.Component {
     generatePanel() {
         const divs = [];
         divs.push(
-            <div key={ "AAA" }>
-                <IntegrationBillsCom key={ 1 } updateParentVisible={ this.updateParentVisible.bind(this) } custid={ this.state.custid } onlyShowTimeLine="yes" howSaveBillBtn="no" bills={ this.state.all_bills } />
+            <div key={"AAA"}>
+                <IntegrationBillsCom key={1} updateParentVisible={this.updateParentVisible.bind(this)} custid={this.state.custid} onlyShowTimeLine="yes" howSaveBillBtn="no" bills={this.state.all_bills} />
             </div>
         );
         return divs;
@@ -95,17 +93,17 @@ export default class CustIntegrationBillBuilder extends React.Component {
 
     render() {
         const modalProps = this.getModalProps();
-        return <Modal { ...modalProps }>
+        return <Modal {...modalProps}>
             <div>
-                <div style={ { marginBottom: '5px', marginLeft: '5px' } }>
-                    <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>客户名称:{this.state.cust.customer_name}</div>
-                    <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>管理区域:{this.state.cust.region}</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>地址:{ this.state.cust.address }</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>开户行:{ this.state.cust.open_bank }</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>银行帐号:{ this.state.cust.bank_account }</div>
-                    <div style={ { marginBottom: '5px', fontWeight: 'bold' } }>费用合计:{ this.state.big_total_summary }</div>
+                <div style={{marginBottom: '5px',marginLeft: '5px'}}>
+                    <div style={{marginBottom: '5px',fontWeight: 'bold'}}>客户名称:{this.state.cust.customer_name}</div>
+                    <div style={{marginBottom: '5px',fontWeight: 'bold'}}>管理区域:{this.state.cust.region}</div>
+                    <div style={{marginBottom: '5px',fontWeight: 'bold'}}>地址:{this.state.cust.address}</div>
+                    <div style={{marginBottom: '5px',fontWeight: 'bold'}}>开户行:{this.state.cust.open_bank}</div>
+                    <div style={{marginBottom: '5px',fontWeight: 'bold'}}>银行帐号:{this.state.cust.bank_account}</div>
+                    <div style={{marginBottom: '5px',fontWeight: 'bold'}}>费用合计:{this.state.big_total_summary}</div>
                 </div>
-                { this.generatePanel() }
+                {this.generatePanel()}
             </div >
         </Modal >;
     }

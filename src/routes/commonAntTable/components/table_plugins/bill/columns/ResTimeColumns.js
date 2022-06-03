@@ -39,10 +39,9 @@ const ResTimeColumns = [
     },
     {
         title: '费用',
-        dataIndex: 'fee',
-        key: 'fee'
+        dataIndex: 'shouldpay',
+        key: 'shouldpay'
     },
-
     {
         title: '备注',
         dataIndex: 'memo',
