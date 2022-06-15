@@ -17,7 +17,6 @@ import tools from './api_tools';
 import filehandler from './api_file';
 import buyin from './api_buyin';
 import api_contract from './api_contract';
-import uuu from './api_uuu';
 
 import {api_root} from './api_config/base_config';
 import http from './http';
@@ -43,15 +42,12 @@ api.tools = tools;
 api.filehandler = filehandler;
 api.buyin = buyin;
 api.contract = api_contract;
-api.uuu = uuu;
 
 Object.keys(api).forEach((schema,index,array) => {
     const methods = api[schema].methods;
-    console.log(methods);
+    // console.log(methods);
     Object.keys(methods).forEach((method,index,array) => {
-        console.log(method);
         let url = methods[method];
-        console.log(url);
         api[schema][method] = (params) => http(params,`${api_root}${url}`);
     });
 });
@@ -63,4 +59,4 @@ api.curd.addData = (params) => http(params,`${api_root}/${params.addurl}`);
 api.activity.getAssociateData = (params) => http(params,`${api_root}/${params.data.api}`);
 // ### getAssociateData: '/${params.data.api}
 
-console.log(api);
+// console.log(api);

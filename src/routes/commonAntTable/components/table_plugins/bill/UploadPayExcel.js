@@ -1,7 +1,7 @@
-import { Modal, message, Upload, Spin, Icon, Button } from 'antd';
-import { observer } from 'mobx-react';
+import {Modal,message,Upload,Spin,Icon,Button} from 'antd';
+import {observer} from 'mobx-react';
 import React from 'react';
-import { api_root } from '@/api/api_config/base_config';
+import {api_root} from '@/api/api_config/base_config';
 
 @observer
 export default class UploadBankExcel extends React.Component {
@@ -20,15 +20,15 @@ export default class UploadBankExcel extends React.Component {
     };
 
     init() {
-        this.setState({ visible: true, working: false });
+        this.setState({visible: true,working: false});
     }
 
     showLoading = () => {
-        this.setState({ working: true });
+        this.setState({working: true});
     };
 
     hideLoading = () => {
-        this.setState({ working: false });
+        this.setState({working: false});
     };
 
     onCancel = () => {
@@ -39,6 +39,8 @@ export default class UploadBankExcel extends React.Component {
     };
 
     uploadPaymentExcel = () => {
+
+        // 方便 codecleaner检查 api.filehandler.uploadPaymentExcel()
         const that = this;
         const props = {
             name: 'file',
@@ -53,21 +55,21 @@ export default class UploadBankExcel extends React.Component {
                 console.log('上传结果');
                 console.log(info);
 
-                if (info.file.status === 'error') {
+                if(info.file.status === 'error') {
                     that.hideLoading();
                     message.success(`${info.file.name} 上传失败！`);
                 }
 
-                if (info.file.status === 'done') {
+                if(info.file.status === 'done') {
                     that.hideLoading();
 
-                    if (info.file.response.code === 200) {
+                    if(info.file.response.code === 200) {
                         message.success(`${info.file.name} 上传成功！`);
                         that.props.refreshTable();
                     }
 
-                    if (info.file.response.code === 500) {
-                        message.error(info.file.response.msg, 10);
+                    if(info.file.response.code === 500) {
+                        message.error(info.file.response.msg,10);
                     }
                 }
             }

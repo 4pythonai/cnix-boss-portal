@@ -1,4 +1,4 @@
-import { observable, action, autorun, computed } from "mobx";
+import {observable,action} from "mobx";
 
 class billingSummaryStore {
 
@@ -29,7 +29,7 @@ class billingSummaryStore {
 
 
     @action setBillingData = data => {
-        console.log('费用数据--->', data)
+        console.log('费用数据--->',data)
         // 设置计费数据
 
 
@@ -47,7 +47,7 @@ class billingSummaryStore {
         this.big_total_summary = data.big_total_summary
 
 
-        if (data.hasOwnProperty('big_total_summary')) {
+        if(data.hasOwnProperty('big_total_summary')) {
             this.big_total_summary = data.big_total_summary
 
         }

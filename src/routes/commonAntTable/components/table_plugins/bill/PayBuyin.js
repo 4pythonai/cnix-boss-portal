@@ -1,8 +1,7 @@
 import React from 'react';
-import { Modal, message } from 'antd';
-import { observer } from 'mobx-react';
-import api from '@/api/api';
-import { toJS } from 'mobx';
+import {Modal,message} from 'antd';
+import {observer} from 'mobx-react';
+import {toJS} from 'mobx';
 import PayBuyinInner from './PayBuyinInner';
 @observer
 export default class PayBuyin extends React.Component {
@@ -18,13 +17,13 @@ export default class PayBuyin extends React.Component {
     };
 
     async init() {
-        if (this.props.commonTableStore.selectedRowKeys.length == 0) {
+        if(this.props.commonTableStore.selectedRowKeys.length == 0) {
             message.error('请选择一个供应商');
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         console.log(current_row);
-        this.setState({ visible: true, vendorid: current_row.id });
+        this.setState({visible: true,vendorid: current_row.id});
     }
 
     getModalProps() {
@@ -49,7 +48,7 @@ export default class PayBuyin extends React.Component {
         this.props.refreshTable();
     };
 
-    onCancel = (e, f) => {
+    onCancel = (e,f) => {
         this.setState({
             visible: false
         });

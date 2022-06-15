@@ -3,10 +3,10 @@ import React from 'react';
 import AuthService from '../AuthService';
 import WsService from '../WsService';
 import navigationStore from '@/store/navigationStore';
-import { hashHistory } from 'react-router';
+import {hashHistory} from 'react-router';
 import userStore from '@/store/userStore';
-import { message, Tabs, Icon, Modal, Form, Select } from 'antd';
-import { randomString } from '../../../utils/tools';
+import {message,Tabs,Icon,Modal,Form,Select} from 'antd';
+import {randomString} from '../../../utils/tools';
 import api from '../../../api/api';
 import './boot.css';
 
@@ -31,8 +31,8 @@ export default class Login extends React.Component {
 
     componentWillMount() {
         let transaction_id = randomString(20);
-        this.setState({ transaction_id });
-        sessionStorage.setItem('session_id', transaction_id);
+        this.setState({transaction_id});
+        sessionStorage.setItem('session_id',transaction_id);
     }
 
     componentDidMount() {
@@ -41,7 +41,7 @@ export default class Login extends React.Component {
 
     handleFormSubmitMobile(e) {
         e.preventDefault();
-        this.login_mobile(this.jsencode(this.state.mobile), this.jsencode(this.state.password), this.state.transaction_id);
+        this.login_mobile(this.jsencode(this.state.mobile),this.jsencode(this.state.password),this.state.transaction_id);
     }
 
     handleChange(e) {
@@ -52,7 +52,7 @@ export default class Login extends React.Component {
 
     jsencode(str) {
         let encoded = '';
-        for (let i = 0; i < str.length; i++) {
+        for(let i = 0;i < str.length;i++) {
             const a = str.charCodeAt(i);
             const b = a ^ 51;
             encoded += String.fromCharCode(b);
@@ -60,27 +60,27 @@ export default class Login extends React.Component {
         return encoded;
     }
 
-    async login_mobile(mobile, password, transaction_id) {
+    async login_mobile(mobile,password,transaction_id) {
         localStorage.removeItem('id_token');
         localStorage.removeItem('mobile');
         let params = {
-            data: { mobile, password, transaction_id },
+            data: {mobile,password,transaction_id},
             method: 'POST'
         };
-        console.log(api.uuu);
-        let res = await api.uuu.login_mobile(params);
 
-        if (res.code == 401) {
-            message.error('登陆失败，请检查手机号和密码！', 2.5);
+        let res = await api.user.login_mobile(params);
+
+        if(res.code == 401) {
+            message.error('登陆失败，请检查手机号和密码！',2.5);
             return;
         }
 
-        if (res.code == 200) {
+        if(res.code == 200) {
             this.afterLogin(res);
         }
     }
     afterLogin(res) {
-        message.loading('登录成功,准备工作环境', 1.1, () => {
+        message.loading('登录成功,准备工作环境',1.1,() => {
             // navigationStore.saveSessionBadge(res.info);
             // navigationStore.setBadge(res.info);
             userStore.setUserProfile(res.profile);
@@ -90,7 +90,7 @@ export default class Login extends React.Component {
                 rolename: res.profile.roles[0].role_name,
                 rolecode: res.profile.roles[0].role_code
             });
-            if (res.profile.roles.length == 1) {
+            if(res.profile.roles.length == 1) {
                 userStore.setUserRole(res.profile.roles[0]);
                 hashHistory.push('/home');
             } else {
@@ -98,7 +98,7 @@ export default class Login extends React.Component {
                     visible: true
                 });
             }
-            console.log(456, this.state.roles);
+            console.log(456,this.state.roles);
         });
     }
     handleOk() {
@@ -113,19 +113,19 @@ export default class Login extends React.Component {
             visible: false
         });
     }
-    changeValue(a, b) {
+    changeValue(a,b) {
         this.setState({
             rolecode: b.props.value,
             rolename: b.props.children
         });
-        console.log(b.props.value, b.props.children);
+        console.log(b.props.value,b.props.children);
     }
 
     render() {
         return (
             <div className="wrapper">
                 <div className="container">
-                    <h1 style={{ fontWeight: '200' }}>Welcome</h1>
+                    <h1 style={{fontWeight: '200'}}>Welcome</h1>
                     <form className="form">
                         <input type="mobile" id="boss_mobile" name="mobile" placeholder="手机号" onChange={this.handleChange} required="" />
                         <input type="password" id="boss_pwd" name="password" placeholder="密码" onChange={this.handleChange} required="" />

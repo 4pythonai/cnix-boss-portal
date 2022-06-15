@@ -2,10 +2,10 @@ export default class processmanager {
     static methods = {
         getAllProcess: '/Bpmcfg/getAllProcess',
         getAllRoles: '/Auth/getAllRoles',
-        getAllBiztable: '/rdbms/getAllBiztable',
-        getAllPlugins: '/rdbms/getAllPlugins',
+        getAllBiztable: '/Rdbms/getAllBiztable',
+        getAllPlugins: '/Rdbms/getAllPlugins',
         getProcessMaintableList: '/curd/getProcessMaintableList',
-        getTableCols: '/rdbms/getTableCols',
+        getTableCols: '/Rdbms/getTableCols',
         setPkMain: '/Bpmcfg/setPkMain',
         deletePKmain: '/Bpmcfg/deletePKmain',
         addReferCfg: '/Bpmcfg/addReferCfg', //参考区

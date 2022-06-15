@@ -40,10 +40,10 @@ export default class ContractRelatedResources extends React.Component {
             return;
         }
 
-        let _cols = ResTimeColumns.filter(col => col.key !== 'fee');
+
         return (
             <div>
-                <Table dataSource={this.state.resources} columns={_cols} size="small" style={{marginBottom: '20px',marginLeft: '10px'}} />
+                <Table dataSource={this.state.resources} columns={ResTimeColumns} size="small" style={{marginBottom: '20px',marginLeft: '10px'}} />
             </div>
         );
     };

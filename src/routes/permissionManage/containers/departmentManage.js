@@ -1,7 +1,7 @@
 
 import React from 'react'
-import { inject, observer } from 'mobx-react'
-import { List, Card, Button } from 'antd'
+import {inject,observer} from 'mobx-react'
+import {List,Card,Button} from 'antd'
 import api from '@/api/api'
 import SearchTree from '@/components/antdComponents/searchTree'
 
@@ -19,7 +19,7 @@ export default class DepartmentManage extends React.Component {
 
 
     async getFirstNode() {
-        let res = await api.organization.orgTree();
+        let res = await api.permission.orgTree();
 
         this.setState({
             orgOriginData: res,
@@ -28,7 +28,7 @@ export default class DepartmentManage extends React.Component {
     }
 
     async onClickTreeNode(dept_ids) {
-        if (dept_ids.length == 0) {
+        if(dept_ids.length == 0) {
             return;
         }
         let params = {
@@ -37,7 +37,7 @@ export default class DepartmentManage extends React.Component {
             },
             method: 'POST'
         }
-        let res = await api.organization.getDeptMembers(params);
+        let res = await api.permission.getDeptMembers(params);
 
         console.log(res);
         this.setState({
@@ -59,8 +59,8 @@ export default class DepartmentManage extends React.Component {
 
     render() {
         let treeProps = this.getTreeProps()
-        return <div className="orgnizationWrapper" style={{ overflow: 'hidden', padding: '20px',position: 'relative' }}>
-            <div className="deptTreeBox" style={{ float: 'left', width: '30%', marginRight: '20px' }}>
+        return <div className="orgnizationWrapper" style={{overflow: 'hidden',padding: '20px',position: 'relative'}}>
+            <div className="deptTreeBox" style={{float: 'left',width: '30%',marginRight: '20px'}}>
 
                 <SearchTree {...treeProps}></SearchTree>
             </div>

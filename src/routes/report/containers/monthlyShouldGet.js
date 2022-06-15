@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import {Table} from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
 
@@ -125,7 +125,7 @@ export default class MonthlyShouldGet extends React.Component {
                 <ReportHeader
                     mmrflag={false}
                     columns={columns}
-                    type={'contractbill'}
+                    type={'normal'}
                     mode={'shouldpay'}
                     apiurl={api.report.reportByContractBill}
                     reportrowsHander={this.reportrowsHander}
@@ -136,7 +136,7 @@ export default class MonthlyShouldGet extends React.Component {
                     rowKey={'ID'}
                     title={() => {
                         return (
-                            <div style={{ marginLeft: '500px' }}>
+                            <div style={{marginLeft: '500px'}}>
                                 <h2>{tabletitle} </h2>
                             </div>
                         );

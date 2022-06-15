@@ -16,15 +16,14 @@ export default class billing {
         saveCombinedBill: '/Billing/saveCombinedBill',
         getPaperInfoById: '/Billing/getPaperInfoById',
         getZones: '/Billing/getZones',
-        getZone: '/Billing/getZone',
         getContractRelatedResources: '/Billing/getContractRelatedResources',
         savePaperBillLocateYearMonth: '/Billing/savePaperBillLocateYearMonth',
         // IBM1 合同测试接口
         testIBM: '/Billing/testIBM',
-        OneKeyContractBill: '/Billing/OneKeyContractBill',
+        OneKeyContractBill: '/ABillingPipe/BatchContractBill',
         prepareBuyInBills: '/Billing/prepareBuyInBills',
 
-        OneKeyPaperBill: '/Billing/OneKeyPaperBill',
+        OneKeyPaperBill: '/ABillingPipe/OneKeyPaperBill',
         delete_onekeybills: '/Tools/delete_onekeybills',
         saveBuyinPayment: '/BillingBuyIn/saveBuyinPayment',
         OneKeyBuyInContractBill: '/BillingBuyIn/OneKeyBuyInContractBill',

@@ -28,7 +28,7 @@ const ResTimeColumns = [
 
 
     {
-        title: '资源明细A',
+        title: '资源明细',
         dataIndex: 'network_text',
         key: 'network_text'
     },

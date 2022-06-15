@@ -44,5 +44,6 @@
     "tab.activeBorder": "#93e6fc",
     "titleBar.border": "#61dafb"
   },
-  "peacock.color": "#61dafb"
+  "peacock.color": "#61dafb",
+  "terminal.explorerKind": "external"
 }

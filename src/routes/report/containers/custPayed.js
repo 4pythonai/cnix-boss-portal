@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import {Table} from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
 
@@ -129,7 +129,7 @@ export default class CustPayed extends React.Component {
                     mmrflag={false}
                     columns={columns}
                     mode={'payed'}
-                    type={'contractbill'}
+                    type={'normal'}
                     apiurl={api.report.reportByContractBill}
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
@@ -140,7 +140,7 @@ export default class CustPayed extends React.Component {
                     rowKey={'ID'}
                     title={() => {
                         return (
-                            <div style={{ marginLeft: '500px' }}>
+                            <div style={{marginLeft: '500px'}}>
                                 <h2>{tabletitle} </h2>
                             </div>
                         );

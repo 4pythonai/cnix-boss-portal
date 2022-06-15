@@ -1,14 +1,15 @@
 import React from 'react';
 import {Modal,message,Button} from 'antd';
-import {observer} from 'mobx-react';
+import {observer,inject} from 'mobx-react';
 import api from '@/api/api';
 import {toJS} from 'mobx';
 import OneContractBillReportCom from './OneContractBillReportCom';
-
+@inject('billingSummaryStore')
 @observer
 export default class PostpayContractBillCreater extends React.Component {
     constructor(props) {
         super(props);
+        this.store = props.billingSummaryStore;
         this.init = this.init.bind(this);
     }
 
@@ -39,10 +40,12 @@ export default class PostpayContractBillCreater extends React.Component {
 
         console.log(json);
 
-        if(json.success == 'false') {
-            this.setState({visible: true,checkpassed: false,toal_check_errors: json.toal_check_errors});
-        } else {
+        if(json.code == 200) {
+            this.store.setBillingData(json);
             this.setState({visible: true,checkpassed: true,billjson: json});
+
+        } else {
+            this.setState({visible: true,checkpassed: false,toal_check_errors: []});
         }
     }
 
@@ -84,7 +87,9 @@ export default class PostpayContractBillCreater extends React.Component {
         if(this.state.checkpassed) {
             return (
                 <Modal {...modalProps}>
-                    <OneContractBillReportCom onlyShowTimeLine="no" showSaveBillBtn="yes" billjson={this.state.billjson} />
+                    <OneContractBillReportCom onlyShowTimeLine="no"
+                        store={this.props.billingSummaryStore}
+                        showSaveBillBtn="yes" billjson={this.state.billjson} />
                 </Modal>
             );
         } else {

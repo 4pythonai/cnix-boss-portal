@@ -1,11 +1,10 @@
 import React from 'react';
-import {Modal,Button,Progress,message} from 'antd';
+import {Modal,Button,Progress} from 'antd';
 import {observer} from 'mobx-react';
 import api from '@/api/api';
 import userStore from '@/store/userStore';
 import {EventSourcePolyfill} from 'event-source-polyfill';
 import {v4 as uuidv4} from 'uuid';
-
 import {root_url,port,version_2} from '@/api/api_config/base_config';
 const api_root = `${root_url}:${port}/${version_2}`;
 export {api_root};
@@ -15,8 +14,7 @@ export default class OneKeyContractBill extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
-        this.onekeyfunction = this.onekeyfunction.bind(this);
-        this.Msg = this.Msg.bind(this);
+        this.oneKeyContractBill = this.oneKeyContractBill.bind(this);
     }
 
     state = {
@@ -32,10 +30,14 @@ export default class OneKeyContractBill extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        this.setState({percent: 0.0});
         if(this.state.percentEventSource) {
             this.state.percentEventSource.close();
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({percent: 0.0});
     }
 
     getReportPercent(uuid) {
@@ -46,21 +48,19 @@ export default class OneKeyContractBill extends React.Component {
             headers: {
                 Authorization: token_from_userStore
             },
-            heartbeatTimeout: 300000
+            heartbeatTimeout: 30000
         });
 
         percentEventSource.onmessage = (result) => {
-            console.log(result.data);
             const serverobj = JSON.parse(result.data);
-            if(serverobj.row) {
-                const per = 100 * (parseInt(serverobj.row.done,10) / parseInt(serverobj.row.total,10)).toFixed(2);
-
+            console.log(serverobj);
+            if(serverobj) {
                 this.setState({
-                    percent: per
+                    percent: serverobj.percent
                 });
             }
 
-            if(serverobj.break === 'yes') {
+            if(serverobj.shouldStop === 'yes') {
                 percentEventSource.close();
             }
         };
@@ -73,28 +73,9 @@ export default class OneKeyContractBill extends React.Component {
         return percentEventSource;
     }
 
-    Msg() {
-        const ssurl = api_root + '/Billing/sse2';
-        const token_from_userStore = userStore.getToken();
-        const EventSource = EventSourcePolyfill;
-        const percentEventSource = new EventSource(ssurl,{
-            headers: {
-                Authorization: token_from_userStore
-            },
-            heartbeatTimeout: 300000
-        });
 
-        percentEventSource.addEventListener(
-            'news',
-            (event) => {
-                console.log(event.data);
-                // source.close(); // disconnect stream
-            },
-            false
-        );
-    }
 
-    async onekeyfunction() {
+    async oneKeyContractBill() {
         this.setState({visible: true});
         const uuid = uuidv4();
         const sse = this.getReportPercent(uuid);
@@ -155,7 +136,7 @@ export default class OneKeyContractBill extends React.Component {
         return (
             <Modal {...modalProps}>
                 <div>
-                    <Button key="back" onClick={this.onekeyfunction}>
+                    <Button key="back" onClick={this.oneKeyContractBill}>
                         点击开始执行
                     </Button>
 

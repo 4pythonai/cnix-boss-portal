@@ -9,6 +9,7 @@ import './paper_bill_style.scss';
 import ResTimeColumns from './columns/ResTimeColumns'
 import ABInfo from './ABInfo'
 import downloadpdf from '@/utils/Pdfhelper';
+import PaperBillColumns from './columns/PaperBillColumns'
 @inject('billingSummaryStore')
 @observer
 export default class CustPaperBillPrinter extends React.Component {
@@ -59,7 +60,7 @@ export default class CustPaperBillPrinter extends React.Component {
 
     // 资源使用日志
     expandedLog = (record,index,indent,expanded) => {
-        return <Table columns={ResTimeColumns} rowKey="reactkey" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
+        return <Table columns={ResTimeColumns} rowKey="id" rowClassName={'small_table'} dataSource={record.resource_logs} pagination={false} />;
     };
 
     // 每个合同账单的循环列表
@@ -78,63 +79,14 @@ export default class CustPaperBillPrinter extends React.Component {
             newrow[j].key = num;
         }
 
-        const cols = [
-            {
-                title: '合同号',
-                dataIndex: 'contract_no',
-                key: 'contract_no',
-                width: '140px'
-            },
-            {
-                title: '账期开始',
-                dataIndex: 'periodstart',
-                key: 'periodstart',
-                width: '150px'
-            },
-            {
-                title: '账期结束',
-                dataIndex: 'periodend',
-                key: 'periodend',
-                width: '150px'
-            },
-
-            {
-                title: '账期金额',
-                dataIndex: 'period_money',
-                key: 'period_money',
-                width: '156px'
-            },
-            {
-                title: '调整金额',
-                dataIndex: 'adjust_money',
-                key: 'adjust_money'
-            },
-            {
-                title: '调整事项',
-                dataIndex: 'memo',
-                key: 'memo'
-            },
-
-            {
-                title: '实际金额',
-                dataIndex: 'actual_money',
-                key: 'actual_money'
-            },
-
-            {
-                title: '账单类型',
-                dataIndex: 'billtype',
-                key: 'billtype'
-            }
-        ];
-
         return (
             <div>
                 <Table
                     dataSource={newrow}
-                    columns={cols}
+                    columns={PaperBillColumns}
                     size="small"
                     rowClassName={'big_table'}
+                    rowKey="id"
                     defaultExpandAllRows={true}
                     pagination={false}
                     expandedRowRender={this.expandedLog}
