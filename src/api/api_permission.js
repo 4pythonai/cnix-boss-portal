@@ -32,7 +32,7 @@ export default class permission {
         addMenu: '/Permission/addMenu',
         // 编辑菜单
         updateMenu: '/Permission/updateMenu',
-
+        deleteMenuRow: '/Permission/deleteMenu',
         getUserInformationByMenuId: '/Permission/getUserInformationByMenuId',
         getRoleByMenuId: '/Permission/getRoleByMenuId',
         getBtnForbiddens: '/Permission/getBtnForbiddens',

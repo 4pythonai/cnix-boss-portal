@@ -4,7 +4,7 @@ export default class user {
         getAllUser: '/Sales_api/getAllUser',
         login_mobile: '/Auth/login_mobile',
         login_qrscan: '/Auth/login_qrscan',
-        saveRoleAssign: 'User/saveRoleAssign',
+        saveRoleAssign: '/User/saveRoleAssign',
         profile: '/Auth/profile',
         edit_password: '/Auth/changepwd',
         getUserRoles: '/Auth/getUserRolesById',

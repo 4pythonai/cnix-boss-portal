@@ -26,9 +26,6 @@ export default class PostpayContractBillCreater extends React.Component {
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
-
-        //billingoption
-
         if(current_row.billingoption !== '后付') {
             message.error('请选择一个后付合同');
             return;
@@ -81,8 +78,6 @@ export default class PostpayContractBillCreater extends React.Component {
     };
 
     render() {
-        console.log('将要渲染');
-
         let modalProps = this.getModalProps();
         if(this.state.checkpassed) {
             return (

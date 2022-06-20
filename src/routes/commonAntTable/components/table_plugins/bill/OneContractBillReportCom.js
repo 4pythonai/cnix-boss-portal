@@ -1,8 +1,7 @@
 // 账单组件
 import React from 'react';
 import {Table,Divider,Button} from 'antd';
-import {observer,inject} from 'mobx-react';
-
+import {observer} from 'mobx-react';
 import ResTimeColumns from './columns/ResTimeColumns'
 import CycleItemColumns from './columns/CycleItemColumns'
 import TimeLineColumns from './columns/TimeLineColumns'
@@ -11,12 +10,11 @@ import SubTimeLineColumns from './columns/SubTimeLineColumns'
 
 import api from '@/api/api';
 
-// @inject('billingSummaryStore')
 @observer
 export default class OneContractBillReportCom extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log(props)
         this.billjson = props.billjson;
         this.showSaveBillBtn = props.showSaveBillBtn;
         this.onlyShowTimeLine = props.onlyShowTimeLine;

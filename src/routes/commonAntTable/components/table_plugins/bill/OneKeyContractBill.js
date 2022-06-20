@@ -41,6 +41,7 @@ export default class OneKeyContractBill extends React.Component {
     }
 
     getReportPercent(uuid) {
+        // 
         const ssurl = api_root + '/Billing/sse?uuid=' + uuid;
         const token_from_userStore = userStore.getToken();
         const EventSource = EventSourcePolyfill;
