@@ -16,6 +16,7 @@ export default class billing {
         saveCombinedBill: '/Billing/saveCombinedBill',
         getPaperInfoById: '/Billing/getPaperInfoById',
         getZones: '/Billing/getZones',
+        getZone: '/Billing/getZone',
         getContractRelatedResources: '/Billing/getContractRelatedResources',
         savePaperBillLocateYearMonth: '/Billing/savePaperBillLocateYearMonth',
         // IBM1 合同测试接口
