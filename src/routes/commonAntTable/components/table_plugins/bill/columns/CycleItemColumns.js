@@ -10,7 +10,7 @@ const CycleItemColumns = [
         key: 'sub_category_name'
     },
     {
-        title: '资源编号',
+        title: '业务编号',
         dataIndex: 'deliveryno',
         key: 'deliveryno'
     },

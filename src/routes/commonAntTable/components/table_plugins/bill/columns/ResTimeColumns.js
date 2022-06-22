@@ -1,4 +1,3 @@
-
 const ResTimeColumns = [
     {
         title: '起',
@@ -16,7 +15,7 @@ const ResTimeColumns = [
         key: 'sub_category_name'
     },
     {
-        title: '资源编号',
+        title: '业务编号',
         dataIndex: 'deliveryno',
         key: 'deliveryno'
     },
@@ -25,7 +24,6 @@ const ResTimeColumns = [
         dataIndex: 'product_name',
         key: 'product_name'
     },
-
 
     {
         title: '资源明细',
@@ -49,4 +47,4 @@ const ResTimeColumns = [
     }
 ];
 
-export default ResTimeColumns
+export default ResTimeColumns;
