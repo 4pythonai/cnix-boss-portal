@@ -1,11 +1,20 @@
 .small_table 
 {
-font-size: 12px;
+font-size: 14px;
 font-weight:440;
 color:black ;
+
 font-family: Microsoft YaHei, 微软雅黑, monospace
  
 
+}
+
+
+.ant-table-column-title{
+  
+font-size:16.5px;
+font-weight: bold;
+  
 }
 
 
@@ -15,8 +24,8 @@ tr.ant-table-expanded-row, tr.ant-table-expanded-row:hover{
 
 .big_table 
 {
-font-size: 14px;
-font-weight: bold;
+font-size: 16px;
+font-weight:480;
 color:black;
 font-family: Microsoft YaHei, 微软雅黑, monospace
 

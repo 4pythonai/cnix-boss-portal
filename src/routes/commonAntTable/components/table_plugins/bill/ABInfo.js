@@ -1,22 +1,19 @@
-
 import React from 'react';
 import './paper_bill_style.scss';
 
-
-export default class ABinfo extends React.Component {
-
-
+export default class ABInfo extends React.Component {
     render() {
         return (
-            <div style={{color: 'black',marginLeft: '10px',fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'}}>
+            <div style={{ color: 'black', marginLeft: '10px', fontFamily: '"Microsoft YaHei", 微软雅黑, monospace' }}>
                 <table>
                     <tbody>
                         <tr>
-                            <td style={{width: '565px'}}>
+                            <td style={{ width: '565px' }}>
                                 {' '}
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
                                         fontWeight: 'bold'
                                     }}>
                                     客户名称:
@@ -25,6 +22,8 @@ export default class ABinfo extends React.Component {
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
+
                                         fontWeight: 'bold'
                                     }}>
                                     纳税识别号:
@@ -33,6 +32,7 @@ export default class ABinfo extends React.Component {
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
                                         fontWeight: 'bold'
                                     }}>
                                     客户地址:
@@ -41,7 +41,8 @@ export default class ABinfo extends React.Component {
                                 <div
                                     style={{
                                         marginBottom: '5px',
-                                        fontWeight: 'bold'
+                                        fontWeight: 'bold',
+                                        fontSize: '16px'
                                     }}>
                                     联系电话:
                                     {this.props.custinfo.phone}
@@ -49,6 +50,8 @@ export default class ABinfo extends React.Component {
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
+
                                         fontWeight: 'bold'
                                     }}>
                                     开户银行:
@@ -57,6 +60,8 @@ export default class ABinfo extends React.Component {
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
+
                                         fontWeight: 'bold'
                                     }}>
                                     银行帐号:
@@ -65,56 +70,65 @@ export default class ABinfo extends React.Component {
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
                                         fontWeight: 'bold'
                                     }}>
                                     Email:
                                     {this.props.custinfo.email}
                                 </div>
                             </td>
-                            <td style={{width: '565px'}}>
+                            <td style={{ width: '565px' }}>
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
                                         fontWeight: 'bold'
                                     }}>
                                     收款公司:
-                                    {this.props.zone.company}
+                                    {this.props.zone.receive_company}
                                 </div>
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
                                         fontWeight: 'bold'
                                     }}>
                                     开户银行:
-                                    {this.props.zone.bank}
+                                    {this.props.zone.receive_bank}
                                 </div>
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
                                         fontWeight: 'bold'
                                     }}>
                                     银行帐号:
-                                    {this.props.zone.bankcode}
+                                    {this.props.zone.receive_bank_account}
                                 </div>
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
                                         fontWeight: 'bold'
                                     }}>
                                     发票类型:
-                                    {this.props.zone.invocietype}
+                                    {this.props.zone.invocie_type}
                                 </div>
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
+
                                         fontWeight: 'bold'
                                     }}>
                                     联系人:
-                                    {this.props.zone.contact} {this.props.zone.mobile}{' '}
+                                    {this.props.zone.contact_person} {this.props.zone.contact_mobile}
                                 </div>
                                 <div
                                     style={{
                                         marginBottom: '5px',
+                                        fontSize: '16px',
+
                                         fontWeight: 'bold'
                                     }}>
                                     主页:
@@ -126,8 +140,5 @@ export default class ABinfo extends React.Component {
                 </table>
             </div>
         );
-    };
-
-
-
+    }
 }

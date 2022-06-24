@@ -1,9 +1,9 @@
-import { Divider, message, Modal, Button } from 'antd';
+import { Divider, message, Modal } from 'antd';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import './paper_bill_style.scss';
-import MainPrinterCom from './CustPaperBillPrinterCompoments/MainPrinterCom';
+import PaperBillDownloader from './CustPaperBillPrinterCompoments/PaperBillDownloader';
 
 @observer
 export default class CustPaperBillPrinterDebug extends React.Component {
@@ -14,8 +14,7 @@ export default class CustPaperBillPrinterDebug extends React.Component {
 
     state = {
         visible: false,
-        paper_id: 0,
-        paper_ids: [11924, 11923, 11922]
+        paper_id: 0
     };
 
     async init() {
@@ -40,35 +39,12 @@ export default class CustPaperBillPrinterDebug extends React.Component {
         });
     };
 
-    loopids = () => {
-        // this.state.paper_ids.forEach(async (element) => {
-        //     this.setState({
-        //         paper_id: element
-        //     });
-
-        //     return <MainPrinterCom paper_id={this.state.paper_id} />;
-        // });
-
-        (async () => {
-            const data = [11924, 11923, 11922];
-            data.forEach(async (e) => {
-                const i = await function () {
-                    this.setState({
-                        paper_id: e
-                    });
-                };
-                console.log(i);
-            });
-            console.log('this will print first');
-        })();
-    };
-
     getModalProps() {
         return {
             width: 1400,
             destroyOnClose: true,
             ref: 'billrpt',
-            title: '账单打印',
+            title: '账单下载',
             bodyStyle: {
                 width: 1400,
                 height: 'auto',
@@ -89,10 +65,7 @@ export default class CustPaperBillPrinterDebug extends React.Component {
             <Modal {...modalProps}>
                 <div>
                     <Divider />
-
-                    {/* <div> {this.state.paper_id}</div> */}
-                    <MainPrinterCom paper_id={this.state.paper_id} />
-                    {/* <Button onClick={() => this.loopids()}> Loop </Button> */}
+                    <PaperBillDownloader paper_id={this.state.paper_id} />
                 </div>
             </Modal>
         );
