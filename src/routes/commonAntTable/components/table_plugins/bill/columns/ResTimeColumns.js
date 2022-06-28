@@ -12,12 +12,6 @@ const ResTimeColumns = [
         width: '120px'
     },
     {
-        title: '产品子类',
-        dataIndex: 'sub_category_name',
-        key: 'sub_category_name',
-        width: '120px'
-    },
-    {
         title: '业务编号',
         dataIndex: 'deliveryno',
         key: 'deliveryno'
@@ -25,7 +19,8 @@ const ResTimeColumns = [
     {
         title: '产品名称',
         dataIndex: 'product_name',
-        key: 'product_name'
+        key: 'product_name',
+        width: '220px'
     },
 
     {
