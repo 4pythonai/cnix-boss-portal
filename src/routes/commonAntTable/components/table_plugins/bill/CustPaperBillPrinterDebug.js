@@ -47,8 +47,6 @@ export default class CustPaperBillPrinterDebug extends React.Component {
             title: '账单下载',
             bodyStyle: {
                 width: 1400,
-                height: 'auto',
-                overflow: 'auto',
                 bottom: 0
             },
             cancelText: '取消',

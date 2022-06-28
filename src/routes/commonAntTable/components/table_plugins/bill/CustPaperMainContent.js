@@ -45,53 +45,52 @@ const CustPaperMainContent = (props) => {
 
     return (
         <div
+            id="pdf_printer_wrapper"
             style={{
-                paddingLeft: '15px',
-                paddingTop: '15px'
+                paddingLeft: '10px',
+                paddingTop: '10px'
             }}
             ref={props.pdfRef}>
-            <div style={{ margin: '0 auto' }}>
-                <div
-                    style={{
-                        marginBottom: '5px',
-                        marginLeft: '145px',
-                        fontWeight: 'bold',
-                        fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
-                    }}>
-                    <h1>账单编号:{props.paperinfo.paperno}</h1>
-                </div>
-                <div
-                    style={{
-                        marginBottom: '5px',
-                        marginLeft: '10px',
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'black',
-                        fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
-                    }}>
-                    总金额:{props.paperinfo.total_money}
-                </div>
-                <div
-                    style={{
-                        marginBottom: '5px',
-                        marginLeft: '10px',
-                        fontWeight: 'bold',
-                        color: 'black',
-                        fontSize: '16px',
-                        fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
-                    }}>
-                    账单创建时间:
-                    {props.paperinfo.createdate}
-                </div>
-                <Divider />
-                <ABInfo custinfo={props.custinfo} zone={props.zone} />
-                <Divider />
-                <div style={{ fontFamily: '"Microsoft YaHei", 微软雅黑, monospace', margin: '10px' }}>
-                    费用明细:
-                    <br />
-                </div>
-                {CreateContractBillItem(props.paperinfo.billsjson)}
+            <div
+                style={{
+                    marginBottom: '5px',
+                    marginLeft: '145px',
+                    fontWeight: 'bold',
+                    fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
+                }}>
+                <h1>账单编号:{props.paperinfo.paperno}</h1>
             </div>
+            <div
+                style={{
+                    marginBottom: '5px',
+                    marginLeft: '10px',
+                    fontWeight: 'bold',
+                    fontSize: '16px',
+                    color: 'black',
+                    fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
+                }}>
+                总金额:{props.paperinfo.total_money}
+            </div>
+            <div
+                style={{
+                    marginBottom: '5px',
+                    marginLeft: '10px',
+                    fontWeight: 'bold',
+                    color: 'black',
+                    fontSize: '16px',
+                    fontFamily: '"Microsoft YaHei", 微软雅黑, monospace'
+                }}>
+                账单创建时间:
+                {props.paperinfo.createdate}
+            </div>
+            <Divider />
+            <ABInfo custinfo={props.custinfo} zone={props.zone} />
+            <Divider />
+            <div style={{ fontFamily: '"Microsoft YaHei", 微软雅黑, monospace', margin: '10px' }}>
+                费用明细:
+                <br />
+            </div>
+            {CreateContractBillItem(props.paperinfo.billsjson)}
         </div>
     );
 };

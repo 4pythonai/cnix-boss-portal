@@ -38,7 +38,7 @@ export default function PaperBillDownloader(props) {
             setHasdata(true);
             setTimeout(() => {
                 downloadpdf(pdfRef.current, httpobj.paperinfo.paperno + '.pdf');
-            }, 2000);
+            }, 5000);
         }
     };
 

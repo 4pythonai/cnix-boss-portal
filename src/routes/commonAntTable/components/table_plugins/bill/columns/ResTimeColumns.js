@@ -2,17 +2,20 @@ const ResTimeColumns = [
     {
         title: '起',
         dataIndex: 'periodstart',
-        key: 'periodstart'
+        key: 'periodstart',
+        width: '120px'
     },
     {
         title: '止',
         dataIndex: 'periodend',
-        key: 'periodend'
+        key: 'periodend',
+        width: '120px'
     },
     {
         title: '产品子类',
         dataIndex: 'sub_category_name',
-        key: 'sub_category_name'
+        key: 'sub_category_name',
+        width: '120px'
     },
     {
         title: '业务编号',
