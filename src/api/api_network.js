@@ -3,6 +3,7 @@ export default class network {
         saveBatchIP: '/Network/saveBatchIP',
         saveBatchODFPort: '/Network/saveBatchODFPort',
         getOdfsummary: '/Network/getOdfsummary',
+        getSwSummary: '/Network/getSwSummary',
         saveSwinnerLink: '/Network/saveSwinnerLink',
         clear_ibm_net_usage: '/Network/clear_ibm_net_usage',
         SetRsBillingState: '/Network/SetRsBillingState'
