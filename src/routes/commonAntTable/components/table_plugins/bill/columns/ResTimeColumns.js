@@ -1,5 +1,11 @@
 const ResTimeColumns = [
     {
+        title: 'ID',
+        dataIndex: 'id',
+        key: 'id',
+        width: '80px'
+    },
+    {
         title: '起',
         dataIndex: 'periodstart',
         key: 'periodstart',
