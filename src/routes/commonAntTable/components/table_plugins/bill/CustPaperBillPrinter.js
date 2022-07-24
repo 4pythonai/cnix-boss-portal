@@ -1,7 +1,7 @@
 // PDF pdf  客户账单打印功能
 
 import api from '@/api/api';
-import { Button, Divider, message, Modal, Select, Table } from 'antd';
+import { Button, Divider, message, Modal, Select } from 'antd';
 import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React from 'react';

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Modal, Select, Icon, DatePicker, message, Form, Button, Radio, Upload, Input } from 'antd';
+import { Select, DatePicker, message, Button, Input } from 'antd';
 import moment from 'moment';
 import OneContractBillReportCom from '@/routes/commonAntTable/components/table_plugins/bill/OneContractBillReportCom';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import api from '@/api/api';
 import 'antd/dist/antd.css';
 const { Option } = Select;

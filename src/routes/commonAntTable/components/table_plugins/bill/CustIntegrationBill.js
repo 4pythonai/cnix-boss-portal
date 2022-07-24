@@ -1,11 +1,11 @@
 // 客户集成账单.
 import api from '@/api/api';
-import {Collapse,Divider,message,Modal,Timeline} from 'antd';
-import {toJS} from 'mobx';
-import {observer} from 'mobx-react';
+import { Collapse, Divider, message, Modal, Timeline } from 'antd';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 import React from 'react';
 import OneContractBillReportCom from './OneContractBillReportCom';
-const {Panel} = Collapse;
+const { Panel } = Collapse;
 
 @observer
 export default class CustIntegrationBill extends React.Component {
@@ -25,14 +25,15 @@ export default class CustIntegrationBill extends React.Component {
     };
 
     async init() {
-        if(this.props.commonTableStore.selectedRowKeys.length == 0) {
+        if (this.props.commonTableStore.selectedRowKeys.length == 0) {
             message.error('请选择一个客户');
             return;
         }
         const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
-        const params = {method: 'POST',data: {custid: current_row.id}};
+        const params = { method: 'POST', data: { custid: current_row.id } };
         const json = await api.billing.billByCust(params);
         console.log(json);
+        console.log(json.cust);
 
         this.setState({
             visible: true,
@@ -44,7 +45,7 @@ export default class CustIntegrationBill extends React.Component {
         });
     }
 
-    onCancel = (e,f) => {
+    onCancel = (e, f) => {
         this.setState({
             visible: false
         });
@@ -70,29 +71,29 @@ export default class CustIntegrationBill extends React.Component {
     }
 
     generateTimeline() {
-        const {payment_timeline} = this.state;
+        const { payment_timeline } = this.state;
         const panels = [];
 
-        for(let index = 0;index < payment_timeline.length;index++) {
+        for (let index = 0; index < payment_timeline.length; index++) {
             const one = payment_timeline[index];
             let color;
-            if(one.total_money === one.payment_amount) {
+            if (one.total_money === one.payment_amount) {
                 color = 'green';
             } else {
                 color = 'red';
             }
 
-            if(one.payment_amount === null) {
+            if (one.payment_amount === null) {
                 one.payment_amount = 0;
             }
 
             const owed = (parseFloat(one.total_money) - parseFloat(one.payment_amount)).toFixed(2);
             panels.push(
                 <Timeline.Item key={index} color={color}>
-                    <p style={{fontWeight: 'bold'}}> {one.paperno}</p>
-                    <p style={{fontSize: '13px'}}>账单费用: {one.total_money}</p>
-                    <p style={{fontSize: '13px'}}>已结费用: {one.payment_amount}</p>
-                    <p style={{fontSize: '13px'}}>欠费: {owed}</p>
+                    <p style={{ fontWeight: 'bold' }}> {one.paperno}</p>
+                    <p style={{ fontSize: '13px' }}>账单费用: {one.total_money}</p>
+                    <p style={{ fontSize: '13px' }}>已结费用: {one.payment_amount}</p>
+                    <p style={{ fontSize: '13px' }}>欠费: {owed}</p>
 
                     <Divider />
                 </Timeline.Item>
@@ -103,10 +104,10 @@ export default class CustIntegrationBill extends React.Component {
     }
 
     generatePanel() {
-        const {united_results} = this.state;
+        const { united_results } = this.state;
         const panels = [];
 
-        for(let index = 0;index < united_results.length;index++) {
+        for (let index = 0; index < united_results.length; index++) {
             const one = united_results[index];
             panels.push(
                 <Panel key={index} header={'合同号:' + one.contract_no + '费用:' + one.total_summary}>
@@ -124,18 +125,20 @@ export default class CustIntegrationBill extends React.Component {
         return (
             <Modal {...modalProps}>
                 <div>
-                    <div style={{marginBottom: '5px',marginLeft: '5px'}}>
-                        <div style={{marginBottom: '5px',fontWeight: 'bold'}}>客户名称:{this.state.cust.customer_name}</div>
-                        <div style={{marginBottom: '5px',fontWeight: 'bold'}}>地址:{this.state.cust.address}</div>
-                        <div style={{marginBottom: '5px',fontWeight: 'bold'}}>开户行:{this.state.cust.open_bank}</div>
-                        <div style={{marginBottom: '5px',fontWeight: 'bold'}}>银行帐号:{this.state.cust.bank_account}</div>
-                        <div style={{marginBottom: '5px',fontWeight: 'bold'}}>费用合计:{this.state.big_total_summary}</div>
+                    <div style={{ marginBottom: '5px', marginLeft: '5px' }}>
+                        <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>客户名称:{this.state.cust.customer_name}</div>
+                        <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>地址:{this.state.cust.address}</div>
+                        <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>开户行:{this.state.cust.open_bank}</div>
+                        <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>银行帐号:{this.state.cust.bank_account}</div>
+                        <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>费用合计:{this.state.big_total_summary}</div>
                     </div>
-                    <Collapse style={{width: '1400px'}} destroyInactivePanel={true}>{this.generatePanel()}</Collapse>
+                    <Collapse style={{ width: '1400px' }} destroyInactivePanel={true}>
+                        {this.generatePanel()}
+                    </Collapse>
                 </div>
                 <br />
-                <Divider style={{color: 'red'}} />
-                <div style={{height: '100%'}}>{this.generateTimeline()}</div>
+                <Divider style={{ color: 'red' }} />
+                <div style={{ height: '100%' }}>{this.generateTimeline()}</div>
             </Modal>
         );
     }
