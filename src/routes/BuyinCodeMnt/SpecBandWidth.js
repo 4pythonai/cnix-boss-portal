@@ -33,7 +33,13 @@ const SpecBandWidth = forwardRef((props, ref) => {
 
     const renderCarriers = () => {
         const OPTs = [];
-        bandCarriers.map((item, key) => OPTs.push(<Option value={item.text}>{item.text}</Option>));
+        bandCarriers.map((item, key) =>
+            OPTs.push(
+                <Option key={key} value={item.text}>
+                    {item.text}
+                </Option>
+            )
+        );
         return OPTs;
     };
 
