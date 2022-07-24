@@ -37,6 +37,7 @@ export default class billing {
         GetBuyInPayPlan: '/BillingBuyIn/GetBuyInPayPlan',
         GetBuyInPayPlanDetail: '/BillingBuyIn/GetBuyInPayPlanDetail',
         GetBuyOwned: '/BillingBuyIn/GetBuyOwned',
-        DEBUG: '/Billing/DEBUG'
+        DEBUG: '/Billing/DEBUG',
+        getUsages: '/Billing/getUsages'
     };
 }

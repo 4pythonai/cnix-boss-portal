@@ -127,9 +127,6 @@ export default class CustIntegrationBill extends React.Component {
                 <div>
                     <div style={{ marginBottom: '5px', marginLeft: '5px' }}>
                         <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>客户名称:{this.state.cust.customer_name}</div>
-                        <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>地址:{this.state.cust.address}</div>
-                        <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>开户行:{this.state.cust.open_bank}</div>
-                        <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>银行帐号:{this.state.cust.bank_account}</div>
                         <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>费用合计:{this.state.big_total_summary}</div>
                     </div>
                     <Collapse style={{ width: '1400px' }} destroyInactivePanel={true}>
