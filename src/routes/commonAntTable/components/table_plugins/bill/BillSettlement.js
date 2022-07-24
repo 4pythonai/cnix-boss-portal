@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import api from '@/api/api';
 import { toJS } from 'mobx';
 import React from 'react';
+import UnSettledCustPaperBillCols from './columns/UnSettledCustPaperBillCols';
 
 @observer
 export default class BillSettlement extends React.Component {
@@ -18,6 +19,7 @@ export default class BillSettlement extends React.Component {
         moneyleft: 0,
         moneyfrombank: 0,
         unsettledbills: [],
+        selectedBills: [],
         bankitemid: 0
     };
 
@@ -36,8 +38,6 @@ export default class BillSettlement extends React.Component {
         this.setState({ visible: true });
     }
 
-    componentDidMount() {}
-
     onCancel = (e, f) => {
         this.setState({
             visible: false
@@ -47,7 +47,7 @@ export default class BillSettlement extends React.Component {
     saveNewSettlement = async () => {
         if (this.state.moneyleft > 0) {
             console.log(this.state);
-            let params = { method: 'POST', data: { itemid: this.state.bankitemid, bills: this.state.unsettledbills } };
+            let params = { method: 'POST', data: { itemid: this.state.bankitemid, bills: this.state.selectedBills } };
             let json = await api.billing.saveNewSettlement(params);
             console.log(json);
         } else {
@@ -73,44 +73,16 @@ export default class BillSettlement extends React.Component {
         };
     }
 
-    getColumns() {
-        return [
-            {
-                title: 'ID',
-                dataIndex: 'id',
-                key: 'id'
-            },
+    rowSelection = {
+        onChange: (selectedRowKeys, items) => {
+            console.log('选择的数据rows: ', items);
+            this.setState({ selectedBills: items });
+        },
 
-            {
-                title: '客户账单编号',
-                dataIndex: 'paperno',
-                key: 'paperno'
-            },
-
-            {
-                title: '账单费用',
-                dataIndex: 'total_money',
-                key: 'total_money'
-            },
-
-            {
-                title: '已结',
-                dataIndex: 'payed',
-                key: 'payed'
-            },
-
-            {
-                title: '未结',
-                dataIndex: 'unsettled',
-                key: 'unsettled'
-            },
-            {
-                title: '本次拟结',
-                dataIndex: 'newsettled',
-                key: 'newsettled'
-            }
-        ];
-    }
+        onSelectAll: (selected, selectedBills, changeRows) => {
+            console.log(selected, selectedBills, changeRows);
+        }
+    };
 
     render() {
         let modalProps = this.getModalProps();
@@ -132,7 +104,7 @@ export default class BillSettlement extends React.Component {
                 </Button>
                 <br />
                 <br />
-                <Table dataSource={this.state.unsettledbills} columns={this.getColumns()} pagination={false} size="small" />
+                <Table rowSelection={this.rowSelection} dataSource={this.state.unsettledbills} columns={UnSettledCustPaperBillCols} pagination={false} size="small" />
             </Modal>
         );
     }
