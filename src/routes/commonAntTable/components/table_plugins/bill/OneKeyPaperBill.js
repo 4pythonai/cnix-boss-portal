@@ -14,7 +14,6 @@ export default class OneKeyPaperBill extends React.Component {
         this.init = this.init.bind(this);
         this.onekeyfunction = this.onekeyfunction.bind(this);
         this.onChangeContractBillrange = this.onChangeContractBillrange.bind(this);
-
         this.delete_onekeybills = this.delete_onekeybills.bind(this);
     }
 
@@ -22,7 +21,8 @@ export default class OneKeyPaperBill extends React.Component {
         checkpassed: false,
         visible: false,
         execute_report: [],
-        contractbillrange: ''
+        contractbillrange: '',
+        regionRadios: []
     };
 
     init() {
@@ -59,6 +59,30 @@ export default class OneKeyPaperBill extends React.Component {
         };
         const json = await api.billing.delete_onekeybills(params);
         this.setState({ execute_report: json.execute_report });
+    }
+
+    async componentWillMount() {
+        const params = {
+            method: 'POST',
+            data: {}
+        };
+        const json = await api.contract.getRegions(params);
+
+        var array1 = json.regions.map((item) => item.region);
+        var array2 = ['预付', '后付'];
+        var array3 = ['月付', '季付', '半年付', '年付'];
+        var array4 = [array1, array2, array3];
+        var result = array4.reduce((last, current) => {
+            const array = [];
+            last.forEach((par1) => {
+                current.forEach((par2) => {
+                    array.push(par1 + '_' + par2);
+                });
+            });
+            return array;
+        });
+        console.log(result);
+        this.setState({ regionRadios: result });
     }
 
     getModalProps() {
@@ -125,43 +149,13 @@ export default class OneKeyPaperBill extends React.Component {
             <Modal {...modalProps}>
                 <div stye={{ display: 'flex' }}>
                     <Radio.Group onChange={this.onChangeContractBillrange} value={this.state.contractbillrange}>
-                        <Radio value={'北京_预付_月付'}>北京预付(月付)</Radio>
-                        <Radio value={'北京_预付_季付'}>北京预付(季付)</Radio>
-                        <Radio value={'北京_预付_半年付'}>北京预付(半年付)</Radio>
-                        <Radio value={'北京_预付_年付'}>北京预付(年付)</Radio>
-                        <br />
-                        <br />
-
-                        <Radio value={'北京_后付_月付'}>北京后付(月付)</Radio>
-                        <Radio value={'北京_后付_季付'}>北京后付(季付)</Radio>
-                        <Radio value={'北京_后付_半年付'}>北京后付(半年付)</Radio>
-                        <br />
-                        <br />
-                        <Radio value={'广州_预付_月付'}>广州预付(月付)</Radio>
-                        <Radio value={'广州_预付_季付'}>广州预付(季付)</Radio>
-                        <Radio value={'广州_预付_半年付'}>广州预付(半年付)</Radio>
-                        <Radio value={'广州_预付_年付'}>广州预付(年付)</Radio>
-                        <br />
-                        <br />
-
-                        <Radio value={'广州_后付_月付'}>广州后付(月付)</Radio>
-                        <Radio value={'广州_后付_季付'}>广州后付(季付)</Radio>
-                        <Radio value={'广州_后付_半年付'}>广州后付(半年付)</Radio>
-                        <br />
-                        <br />
-
-                        <Radio value={'上海_预付_月付'}>上海预付(月付)</Radio>
-                        <Radio value={'上海_预付_季付'}>上海预付(季付)</Radio>
-                        <Radio value={'上海_预付_半年付'}>上海预付(半年付)</Radio>
-                        <Radio value={'上海_预付_年付'}>上海预付(年付)</Radio>
-                        <br />
-                        <br />
-
-                        <Radio value={'上海_后付_月付'}>上海后付(月付)</Radio>
-                        <Radio value={'上海_后付_季付'}>上海后付(季付)</Radio>
-                        <Radio value={'上海_后付_半年付'}>上海后付(半年付)</Radio>
-                        <br />
-                        <br />
+                        {this.state.regionRadios.map(function (region, index) {
+                            return (
+                                <Radio style={{ marginBottom: '10px' }} key={index} value={region}>
+                                    {region}
+                                </Radio>
+                            );
+                        })}
                     </Radio.Group>
 
                     <br />

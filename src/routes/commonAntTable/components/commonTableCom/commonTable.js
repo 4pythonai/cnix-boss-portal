@@ -2,7 +2,6 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Button, Table, message, Icon } from 'antd';
 import { toJS } from 'mobx';
-import columnsRenderHandle from './columnsRender/columnsRenderHandle';
 import field_cfg from './columnsRender/columnsRednerCfg.json';
 import ResizeableTitle from './resizeableTitle';
 import commonTableStore from '@/store/commonTableStore';
@@ -298,10 +297,6 @@ export default class CommonTable extends React.Component {
 
         let table_columns_render_cfg = field_cfg[this.props.action_code];
 
-        if (column_cfg.handler) {
-            return columnsRenderHandle[column_cfg.handler](text, record, this.commonTableStore);
-        }
-
         // 不存在处理函数
         if (table_columns_render_cfg === undefined) {
             return text;
@@ -310,7 +305,6 @@ export default class CommonTable extends React.Component {
         if (Object.keys(table_columns_render_cfg).includes(column_cfg.key) === false) {
             return text;
         }
-        return columnsRenderHandle[table_columns_render_cfg[column_cfg.key]](text, record);
     }
 
     handleResize = (col, index) => (e, { size }) => {
