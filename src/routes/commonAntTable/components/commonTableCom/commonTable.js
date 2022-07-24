@@ -1,13 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Button, Table, Input, message, Icon } from 'antd';
+import { Button, Table, message, Icon } from 'antd';
 import { toJS } from 'mobx';
 import columnsRenderHandle from './columnsRender/columnsRenderHandle';
 import field_cfg from './columnsRender/columnsRednerCfg.json';
-
 import ResizeableTitle from './resizeableTitle';
 import commonTableStore from '@/store/commonTableStore';
-import SearchContract from '../table_plugins/contractDepartment/searchContract';
 import '../../commonTable.scss';
 import api from '@/api/api';
 
@@ -237,9 +235,6 @@ export default class CommonTable extends React.Component {
         }
 
         return this.commonTableStore.TableButtonsJson.map((item, index) => {
-            if (this.commonTableStore.action_code == 'IDCReceiveContract' && this.state.buttonremark == 'false' && index > 5) {
-                return;
-            }
             return (
                 <Button key={index} type={item.ui_type} htmlType="button" onClick={(event) => this.getButtonHandler(event, item)} size="small" style={{ margin: 8 }}>
                     {item.title}
@@ -248,27 +243,6 @@ export default class CommonTable extends React.Component {
         });
     }
 
-    getMoreButton() {
-        if (this.commonTableStore.action_code == 'IDCReceiveContract' && this.state.buttonremark == 'false') {
-            return (
-                <Button style={{ color: '#409eff', cursor: 'pointer' }} onClick={() => this.changeButtonremark('true')}>
-                    更多按钮
-                </Button>
-            );
-        }
-        if (this.commonTableStore.action_code == 'IDCReceiveContract' && this.state.buttonremark == 'true') {
-            return (
-                <Button style={{ color: '#409eff', cursor: 'pointer' }} onClick={() => this.changeButtonremark('false')}>
-                    收起按钮
-                </Button>
-            );
-        }
-    }
-    changeButtonremark(e) {
-        this.setState({
-            buttonremark: e
-        });
-    }
     getButtonHandler(event, item) {
         var entry_function = item.entry_function.substring(0, item.entry_function.length - 2);
         let _compoment = this.getComponentByFile(item.file_path);
@@ -407,6 +381,7 @@ export default class CommonTable extends React.Component {
             }
         };
     }
+
     onRowClick(event, record) {
         if (this.props.sendData) {
             let arr = [];
@@ -474,29 +449,6 @@ export default class CommonTable extends React.Component {
         };
     }
 
-    getSearchCom = () => {
-        let contract_action_code_arr = [
-            'rec_pay_and_termination_1',
-            'rec_pay_and_termination_2',
-            'rec_pay_and_termination_3',
-            'contract_enquiry',
-            'effective_boss_idc_contract_receive',
-            'effective_boss_idc_contract_pay',
-            'contract_enquiry_list'
-        ];
-        if (contract_action_code_arr.includes(this.props.action_code)) {
-            return (
-                <SearchContract
-                    query_cfg={this.state.query_cfg}
-                    action_code={this.commonTableStore.action_code}
-                    listData={this.listData}
-                    clearPaginationStore={this.commonTableStore.clearPaginationStore}
-                    setQueryCfg={this.setTableCompomentQueryCfg}
-                />
-            );
-        }
-    };
-
     // 后台设置查看自己还是全部的数据
     filterSelfList = (isFilterSelfData) => {
         this.setState({ isFilterSelfData }, () => {
@@ -528,10 +480,8 @@ export default class CommonTable extends React.Component {
             <div className="table_wrapper" style={styles}>
                 {this.RenderTablePluginCom()}
                 <div className="table_button">
-                    {this.getSearchCom()}
                     {this.renderButtons()}
                     {this.getFilterButton()}
-                    {this.getMoreButton()}
                 </div>
 
                 <Table size={this.props.size ? 'small' : 'default'} key={this.props.action_code} className="commonTable" components={this.getTableComponents()} {...tableProps} />

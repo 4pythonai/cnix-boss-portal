@@ -1,9 +1,7 @@
-
 import React from 'react';
-import { Modal, message ,Table } from 'antd';
-import { observer } from "mobx-react";
- import { toJS } from 'mobx';
- 
+import { Modal, message } from 'antd';
+import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 
 @observer
 export default class AddReselerItemUsage extends React.Component {
@@ -12,14 +10,11 @@ export default class AddReselerItemUsage extends React.Component {
         this.init = this.init.bind(this);
     }
 
-
     state = {
-        visible: false,
-    }
+        visible: false
+    };
 
-      init() {
-
-
+    init() {
         if (this.props.commonTableStore.selectedRowKeys.length === 0) {
             message.error('请选择一条资源计费信息');
             return;
@@ -30,22 +25,17 @@ export default class AddReselerItemUsage extends React.Component {
         if (current_row.restype == 'IP' || current_row.restype === '带宽' || current_row.restype === 'U位') {
             this.setState({ visible: true });
             this.setState(current_row);
-
         } else {
             message.info('只有[带宽,IP,U位]才能录入资源计费信息,其他资源无需录入.');
         }
-
-
     }
-
 
     onCancel = () => {
         this.setState({
             visible: false
         });
-    }
+    };
 
- 
     getModalProps() {
         return {
             width: 1200,
@@ -54,26 +44,24 @@ export default class AddReselerItemUsage extends React.Component {
             title: '录入使用项',
             bodyStyle: {
                 width: 1200,
-                height: "auto",
+                height: 'auto',
                 overflow: 'auto',
                 bottom: 0
             },
             cancelText: '取消',
-            okText: "确定",
+            okText: '确定',
             visible: this.state.visible,
 
             onCancel: () => this.onCancel()
         };
     }
 
-
     render() {
         const modalProps = this.getModalProps();
-        return <Modal { ...modalProps }>
-            <div>
-
-
-            </div >
-        </Modal >;
+        return (
+            <Modal {...modalProps}>
+                <div></div>
+            </Modal>
+        );
     }
 }
