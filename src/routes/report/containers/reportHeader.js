@@ -1,9 +1,9 @@
-import {Button,Input,message,Modal,Select} from 'antd';
+import { Button, Input, message, Modal, Select } from 'antd';
 import ExportJsonExcel from 'js-export-excel';
 import React from 'react';
 import api from '@/api/api';
-import {v4 as uuidv4} from 'uuid';
-const {Option} = Select;
+import { v4 as uuidv4 } from 'uuid';
+const { Option } = Select;
 
 export default class ReportHeader extends React.Component {
     constructor(props) {
@@ -19,8 +19,18 @@ export default class ReportHeader extends React.Component {
         contract_no: '',
         customer_name: '',
         region: '',
-        reportrows: []
+        reportrows: [],
+        regions: []
     };
+
+    async componentWillMount() {
+        const params = {
+            method: 'POST',
+            data: {}
+        };
+        const json = await api.contract.getRegions(params);
+        this.setState({ regions: json.regions.map((item) => item.region) });
+    }
 
     onChangeyear = async (value) => {
         this.setState({
@@ -34,13 +44,13 @@ export default class ReportHeader extends React.Component {
         });
     };
 
-    onChangeContractno(a,b) {
+    onChangeContractno(a, b) {
         this.setState({
             contract_no: a.target.value
         });
     }
 
-    onChangeCustname(a,b) {
+    onChangeCustname(a, b) {
         this.setState({
             customer_name: a.target.value
         });
@@ -62,21 +72,17 @@ export default class ReportHeader extends React.Component {
             mode: this.props.mode
         };
 
-        if(parseInt(this.state.year) < 2015) {
+        if (parseInt(this.state.year) < 2015) {
             message.info('必须选择年份');
             return false;
         }
 
         argdata.mmrflag = this.props.mmrflag;
-        if(this.props.type == 'normal') {
-            argdata.Prediction = false
+        if (this.props.type == 'normal') {
+            argdata.Prediction = false;
         } else {
-            argdata.Prediction = true
+            argdata.Prediction = true;
         }
-
-
-
-
 
         let params = {
             data: argdata,
@@ -84,7 +90,7 @@ export default class ReportHeader extends React.Component {
         };
 
         let res = await this.props.apiurl(params);
-        if(res.code === 200) {
+        if (res.code === 200) {
             console.log(res);
             this.props.reportrowsHander(res.reportrows);
             this.props.setTitle(this.state.tabletitle);
@@ -106,14 +112,14 @@ export default class ReportHeader extends React.Component {
         };
         let res = await api.billing.OneKeyContractBill(params);
 
-        if(res.code === 200) {
+        if (res.code === 200) {
             message.success(res.message);
         }
     };
 
     handleExport = () => {
         const reportrows = this.state.reportrows;
-        const {columns} = this.props;
+        const { columns } = this.props;
         const option = {};
 
         option.fileName = this.state.tabletitle;
@@ -153,41 +159,38 @@ export default class ReportHeader extends React.Component {
     render() {
         return (
             <div>
-                <div style={{width: '1100px',justifyContent: 'space-between',display: 'flex',paddingLeft: '100px'}}>
+                <div style={{ width: '1100px', justifyContent: 'space-between', display: 'flex', paddingLeft: '100px' }}>
                     <Select
                         showSearch
-                        style={{width: 140}}
+                        style={{ width: 140 }}
                         placeholder="选择年份"
                         optionFilterProp="children"
                         onChange={this.onChangeyear}
-                        filterOption={(input,option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
-                        <Option value="2015">2015</Option>
-                        <Option value="2016">2016</Option>
-                        <Option value="2017">2017</Option>
-                        <Option value="2018">2018</Option>
-                        <Option value="2019">2019</Option>
-                        <Option value="2020">2020</Option>
-                        <Option value="2021">2021</Option>
-                        <Option value="2022">2022</Option>
-                        <Option value="2023">2023</Option>
-                        <Option value="2024">2024</Option>
-                        <Option value="2025">2025</Option>
-                        <Option value="2026">2026</Option>
-                        <Option value="2027">2027</Option>
-                        <Option value="2028">2028</Option>
+                        filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+                        {[...Array(15)]
+                            .map((v, i) => 2016 + i * 1)
+                            .map(function (year, index) {
+                                return (
+                                    <Option key={index} value={year}>
+                                        {year}
+                                    </Option>
+                                );
+                            })}
                     </Select>
-                    <Select showSearch style={{width: 200}} placeholder="选择地区" optionFilterProp="children" onChange={this.onChangeregion}>
-                        <Option value="北京">北京</Option>
-                        <Option value="广州">广州</Option>
-                        <Option value="上海">上海</Option>
-                        <Option value="测试">测试</Option>
-                        <Option value="DEBUG">DEBUG</Option>
+                    <Select showSearch style={{ width: 200 }} placeholder="选择地区" optionFilterProp="children" onChange={this.onChangeregion}>
+                        {this.state.regions.map(function (region, index) {
+                            return (
+                                <Option key={index} value={region}>
+                                    {region}
+                                </Option>
+                            );
+                        })}
                     </Select>
-                    <div style={{width: '220px'}}>
+                    <div style={{ width: '220px' }}>
                         {this.props.type === 'paperbill' ? (
-                            <Input style={{width: '200'}} placeholder="请输入客户名称,留空为所有" onChange={(event) => this.onChangeCustname(event,'')} onPressEnter={this.handleOk}></Input>
+                            <Input style={{ width: '200' }} placeholder="请输入客户名称,留空为所有" onChange={(event) => this.onChangeCustname(event, '')} onPressEnter={this.handleOk}></Input>
                         ) : (
-                            <Input style={{width: '200'}} placeholder="请输入合同号,留空为所有" onChange={(event) => this.onChangeContractno(event,'')} onPressEnter={this.handleOk}></Input>
+                            <Input style={{ width: '200' }} placeholder="请输入合同号,留空为所有" onChange={(event) => this.onChangeContractno(event, '')} onPressEnter={this.handleOk}></Input>
                         )}
                     </div>
 

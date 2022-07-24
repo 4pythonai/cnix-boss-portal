@@ -1,10 +1,9 @@
 import React from 'react';
 import { Tabs, Select } from 'antd';
 import RptTotalOwned from './RptTotalOwned';
-
 import RptPayPlanSummary from './RptPayPlanSummary';
 import RptPayPlanDetail from './RptPayPlanDetail';
-
+import api from '@/api/api';
 const { TabPane } = Tabs;
 const { Option } = Select;
 function callback(key) {
@@ -15,8 +14,18 @@ export default class BuyinRptView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            region: '所有'
+            region: '所有',
+            regions: []
         };
+    }
+
+    async componentWillMount() {
+        const params = {
+            method: 'POST',
+            data: {}
+        };
+        const json = await api.contract.getRegions(params);
+        this.setState({ regions: json.regions.map((item) => item.region) });
     }
 
     onChangeregion = async (value) => {
@@ -31,12 +40,13 @@ export default class BuyinRptView extends React.Component {
             <div>
                 <div style={{ margin: '10px' }}>
                     <Select showSearch style={{ width: 200 }} placeholder="选择地区" optionFilterProp="children" onChange={this.onChangeregion}>
-                        <Option value="北京">北京</Option>
-                        <Option value="广州">广州</Option>
-                        <Option value="上海">上海</Option>
-                        <Option value="所有">所有</Option>
-                        <Option value="测试">测试</Option>
-                        <Option value="DEBUG">DEBUG</Option>
+                        {this.state.regions.map(function (region, index) {
+                            return (
+                                <Option key={index} value={region}>
+                                    {region}
+                                </Option>
+                            );
+                        })}
                     </Select>
                 </div>
                 <div>
