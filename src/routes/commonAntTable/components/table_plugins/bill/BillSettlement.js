@@ -19,6 +19,7 @@ export default class BillSettlement extends React.Component {
         moneyleft: 0,
         moneyfrombank: 0,
         unsettledbills: [],
+        realSettled: [],
         selectedBills: [],
         bankitemid: 0
     };
@@ -31,23 +32,51 @@ export default class BillSettlement extends React.Component {
 
         let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         this.setState({ bankitemid: current_row.id });
-        let params = { method: 'POST', data: { itemid: current_row.id } };
-        let json = await api.billing.prepareBills(params);
-        console.log(json);
-        this.setState({ ...json });
         this.setState({ visible: true });
     }
 
     onCancel = (e, f) => {
         this.setState({
-            visible: false
+            visible: false,
+            alreadyused: 0,
+            custname: '',
+            moneyleft: 0,
+            moneyfrombank: 0,
+            unsettledbills: [],
+            realSettled: [],
+            selectedBills: [],
+            bankitemid: 0
         });
     };
 
+    listCandidates_all = async (event) => {
+        let params = { method: 'POST', data: { itemid: this.state.bankitemid } };
+        let json = await api.billing.prepareBills(params);
+        console.log(json);
+        this.setState({ ...json });
+    };
+
+    listCandidates_some = async (event) => {
+        if (this.state.selectedBills.length == 0) {
+            message.error('没有数据,无需计算');
+            return;
+        }
+
+        let params = { method: 'POST', data: { itemid: this.state.bankitemid, candidate: this.state.selectedBills } };
+        let json = await api.billing.prepareBills(params);
+        console.log(json);
+        this.setState({ realSettled: json.unsettledbills });
+    };
+
     saveNewSettlement = async () => {
+        if (this.state.realSettled.length == 0) {
+            message.error('没有数据,无需保存');
+            return;
+        }
+
         if (this.state.moneyleft > 0) {
             console.log(this.state);
-            let params = { method: 'POST', data: { itemid: this.state.bankitemid, bills: this.state.selectedBills } };
+            let params = { method: 'POST', data: { itemid: this.state.bankitemid, bills: this.state.realSettled } };
             let json = await api.billing.saveNewSettlement(params);
             console.log(json);
             this.props.refreshTable();
@@ -96,16 +125,26 @@ export default class BillSettlement extends React.Component {
                     <br />
                     剩余: {this.state.moneyleft}
                     <br />
+                    <br />
+                    <Button type="primary" onClick={(event) => this.listCandidates_all(event)}>
+                        列出账单
+                    </Button>
+                    <br />
+                    <br />
                 </div>
-                <br />
-                <br />
                 未结清账单列表:
-                <Button style={{ marginLeft: '1000px' }} type="danger" onClick={(event) => this.saveNewSettlement(event)}>
-                    保存账单
-                </Button>
                 <br />
                 <br />
                 <Table rowSelection={this.rowSelection} dataSource={this.state.unsettledbills} columns={UnSettledCustPaperBillCols} pagination={false} size="small" />
+                <br />
+                <Button type="primary" onClick={(event) => this.listCandidates_some(event)}>
+                    计算
+                </Button>
+                <Button type="danger" style={{ marginLeft: '20px' }} onClick={(event) => this.saveNewSettlement(event)}>
+                    保存账单
+                </Button>
+                <br /> <br />
+                <Table dataSource={this.state.realSettled} columns={UnSettledCustPaperBillCols} pagination={false} size="small" />
             </Modal>
         );
     }
