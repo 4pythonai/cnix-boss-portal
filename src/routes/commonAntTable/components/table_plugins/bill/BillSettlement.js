@@ -50,6 +50,7 @@ export default class BillSettlement extends React.Component {
             let params = { method: 'POST', data: { itemid: this.state.bankitemid, bills: this.state.selectedBills } };
             let json = await api.billing.saveNewSettlement(params);
             console.log(json);
+            this.props.refreshTable();
         } else {
             message.error('本条流水已经用尽');
         }
