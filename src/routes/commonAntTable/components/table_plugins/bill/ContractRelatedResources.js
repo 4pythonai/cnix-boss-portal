@@ -42,7 +42,7 @@ export default class ContractRelatedResources extends React.Component {
 
         return (
             <div>
-                <Table dataSource={this.state.resources} columns={ResTimeColumns} size="small" style={{ marginBottom: '20px', marginLeft: '10px' }} />
+                <Table rowKey="id"  dataSource={this.state.resources} columns={ResTimeColumns} size="small" style={{ marginBottom: '20px', marginLeft: '10px' }} />
             </div>
         );
     };
