@@ -220,11 +220,9 @@ export default class CommonTable extends React.Component {
         // commonTable 作为编辑器时候, x-props会传入 as_virtual属性,onChange 属性.
         RenderTablePluginCom() {
                 let PluginCom = this.state.buttonUsedComponent;
-
                 if (this.state.buttonUsedComponent) {
                         return (
                                 <PluginCom
-                                        // ref={PluginCom.name}
                                         ref={(item) => {
                                                 this.pluginComRef = item;
                                         }}
