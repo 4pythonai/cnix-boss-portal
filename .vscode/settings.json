@@ -1,12 +1,11 @@
 {
   "[js]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
   "eslint.alwaysShowStatus": true,
   "eslint.format.enable": true,
   "eslint.packageManager": "npm",
   "eslint.run": "onSave",
-  "prettier.packageManager": "npm",
   "eslint.validate": [
     "javascript",
     "javascriptreact"
