@@ -43,43 +43,18 @@ class ButtonCfg extends React.Component {
 
     //添加按钮
 
-    addActionButton = (e) => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll(async (err, values) => {
-            if (!err) {
-                if (this.dmstore.current_actcode === '') {
-                    message.error('请选择ActionCode', 0.5);
-                } else {
-                    let obj = {};
-                    console.log(this.dmstore);
-
-                    obj = Object.assign({ act_code: this.dmstore.current_actcode }, values);
-
-                    let params = {
-                        data: obj,
-                        method: 'POST'
-                    };
-
-                    if (!this.dmstore.current_actcode) {
-                        message.error('请选择ActionCode', 0.5);
-                        return;
-                    }
-                    console.log(params);
-                    let ret = await api.activity.addActionButton(params);
-                    message.info(ret.message);
-                }
-            } else {
-                message.error('请检查输入项', 0.5);
-            }
-        });
-    };
-
     render() {
         let xtitle = '设置按钮:' + this.dmstore.current_actcode + '/' + this.dmstore.current_actname;
 
         return (
             <Card title={xtitle} style={{ width: '100%' }}>
-                <CommonTable ref={this.tbref} action_code="boss_portal_button_actcode" is_association_process={false} dataGridcode={this.dmstore.current_actcode} />
+                <CommonTable
+                    query_cfg={{ code: this.dmstore.current_actcode }}
+                    ref={this.tbref}
+                    action_code="boss_portal_button_actcode"
+                    is_association_process={false}
+                    dataGridcode={this.dmstore.current_actcode}
+                />
             </Card>
         );
     }
