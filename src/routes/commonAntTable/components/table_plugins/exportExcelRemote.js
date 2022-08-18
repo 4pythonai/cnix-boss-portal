@@ -21,8 +21,7 @@ export default class ExportExcelRemote extends React.Component {
                 actcode: this.props.commonTableStore.action_code,
                 role: sessionStorage.getItem("role_code"),
                 user: sessionStorage.getItem("user"),
-                ...this.props.parentTable.listDataParams()
-            },
+             },
             method: 'POST'
         };
 

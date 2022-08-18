@@ -41,7 +41,8 @@
     "statusBar.debuggingBorder": "#fb8261",
     "statusBar.debuggingForeground": "#050114",
     "tab.activeBorder": "#93e6fc",
-    "titleBar.border": "#61dafb"
+    "titleBar.border": "#61dafb",
+    "commandCenter.border": "#05011499"
   },
   "peacock.color": "#61dafb",
   "terminal.explorerKind": "external"
