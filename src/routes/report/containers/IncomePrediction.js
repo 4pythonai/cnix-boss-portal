@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table} from 'antd';
+import { Table } from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
 
@@ -136,7 +136,7 @@ export default class IncomePrediction extends React.Component {
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
                 />
-                <div style={{margin: '20px 0 0 120px'}}>
+                <div style={{ color: '#3b3d40', margin: '20px 0 0 120px' }}>
                     <ul>
                         <li> 先全部模拟出账, OneKeyContractBillPrediction </li>
                         <li> 算法: 拷贝已经存在的合同账单到临时表,再重新生成所有的合同账单,(不考虑预付后付,取合同结束日期), 并以此为基础进行计算.</li>
@@ -146,7 +146,7 @@ export default class IncomePrediction extends React.Component {
                     rowKey={'ID'}
                     title={() => {
                         return (
-                            <div style={{marginLeft: '500px'}}>
+                            <div style={{ marginLeft: '500px' }}>
                                 <h2>{tabletitle} </h2>
                             </div>
                         );
