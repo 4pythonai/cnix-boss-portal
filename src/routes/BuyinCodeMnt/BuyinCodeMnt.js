@@ -13,6 +13,11 @@ import SpecJumper from './SpecJumper';
 import SpecCable from './SpecCable';
 import SpecUloc from './SpecUloc';
 import SpecOneTime from './SpecOneTime';
+import SpecOptimization from './SpecOptimization';
+import SpecService from './SpecService';
+import SpecMaterial from './SpecMaterial';
+import SpecDevice from './SpecDevice';
+
 import { SpecField } from './SpecField';
 
 const { Option } = Select;
@@ -91,6 +96,29 @@ export default function BuyinCodeMnt(props) {
             const SpecComponent = <SpecJumper ref={childRef} />;
             return SpecComponent;
         }
+
+        if (category === '跳线') {
+            const SpecComponent = <SpecJumper ref={childRef} />;
+            return SpecComponent;
+        }
+
+        if (category === '互联网品质优化') {
+            const SpecComponent = <SpecOptimization ref={childRef} />;
+            return SpecComponent;
+        }
+
+        if (category === '服务') {
+            const SpecComponent = <SpecService ref={childRef} />;
+            return SpecComponent;
+        }
+        if (category === '设备') {
+            const SpecComponent = <SpecDevice ref={childRef} />;
+            return SpecComponent;
+        }
+        if (category === '耗材') {
+            const SpecComponent = <SpecMaterial ref={childRef} />;
+            return SpecComponent;
+        }
         if (category === '一次性费用') {
             const SpecComponent = <SpecOneTime ref={childRef} />;
             return SpecComponent;
@@ -153,13 +181,6 @@ export default function BuyinCodeMnt(props) {
         });
 
         if (checksuccess) {
-            console.log(specValues);
-            console.log(specValues);
-            console.log(category);
-            console.log(prodname);
-            console.log(vendor);
-            console.log(price);
-
             alert('保存产品数据');
             const saveobj = {
                 specValues: specValues,
@@ -175,7 +196,7 @@ export default function BuyinCodeMnt(props) {
     };
 
     return (
-        <div style={{ margin: '10px' }}>
+        <div style={{ color: '#3b3d40', margin: '10px' }}>
             <br />
             &nbsp;&nbsp; 产品类别:&nbsp;
             <Select defaultValue="带宽" style={{ width: 120 }} onChange={handleChangeCategory}>
@@ -187,6 +208,11 @@ export default function BuyinCodeMnt(props) {
                 <Option value="U位">U位</Option>
                 <Option value="引接缆">引接缆</Option>
                 <Option value="跳线">跳线</Option>
+                <Option value="服务">服务</Option>
+                <Option value="耗材">耗材</Option>
+                <Option value="设备">设备</Option>
+
+                <Option value="互联网品质优化">互联网品质优化</Option>
                 <Option value="一次性费用">一次性费用</Option>
             </Select>
             &nbsp;&nbsp;&nbsp;&nbsp;产品名称:&nbsp;
@@ -209,10 +235,10 @@ export default function BuyinCodeMnt(props) {
             </Select>
             <br />
             <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;月单价:&nbsp;
-            <Input onChange={handleChangePrice} style={{ width: '130px' }} placeholder="价格" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月单价:&nbsp;
+            <Input onChange={handleChangePrice} style={{ width: '120px' }} placeholder="价格" />
             <br />
-            <div style={{ margin: '10px' }}>
+            <div style={{ margin: '30px 0 0 10px' }}>
                 产品规格/{category}:{getSpecDiv()}
             </div>
             <button style={{ marginLeft: '400px' }} type="primary" onClick={saveBuyin}>

@@ -3,7 +3,7 @@ import { Input } from 'antd';
 import 'antd/dist/antd.css';
 import { useFormFields } from './hooksLib';
 
-const SpecOneTime = forwardRef((props, ref) => {
+const SpecMaterial = forwardRef((props, ref) => {
     const [localobj, handleFieldChange] = useFormFields(props.specdetail);
 
     useImperativeHandle(ref, () => ({
@@ -22,4 +22,4 @@ const SpecOneTime = forwardRef((props, ref) => {
     );
 });
 
-export default SpecOneTime;
+export default SpecMaterial;
