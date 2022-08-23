@@ -1,12 +1,10 @@
 import React from 'react';
 import { registerFormFields, connect } from '@uform/react';
 import { Input } from 'antd';
-
 import CheckBoxTest from './checkBoxTest';
 import Fileuploader from './fileuploader';
 import Assocselect from './assocSelect';
 import AssocSelectSimple from './assocSelectSimple';
-
 import GetLander from './getLander';
 import GetDepart from './getDepart';
 import GetLoginuser from './getLoginuser';
@@ -34,13 +32,14 @@ import DeviceNumber from './deviceNumber';
 import ProviderList from './providerList';
 import SearchUser from './searchUser';
 import SelectCabinet from './selectCabinet';
+import ComGridSelect from './ComGridSelect';
 
 registerFormFields({
+    selectCabinet: connect()((props) => <SelectCabinet {...props} value={props.value || ''} />),
+    ComGridSelect: connect()((props) => <ComGridSelect width="1200" style={{ width: '1200px' }} {...props} value={props.value || ''} />),
     YesOrNo: connect()((props) => <YesOrNo {...props} getComponentValue={props.onChange} value={props.value || ''} />),
     checkBoxTest: connect()((props) => <CheckBoxTest {...props} getComponentValue={props.onChange} value={props.value || ''} />),
     fileuploader: connect()((props) => <Fileuploader {...props} value={props.value || ''} />),
-    selectCabinet: connect()((props) => <SelectCabinet {...props} value={props.value || ''} />),
-
     Assocselect: connect()((props) => <Assocselect {...props} value={props.value || ''} />),
     AssocSelectSimple: connect()((props) => <AssocSelectSimple {...props} value={props.value || ''} />),
     text_area: connect()((props) => <Input.TextArea {...props} value={props.value || ''} />),
@@ -48,27 +47,21 @@ registerFormFields({
     Dropdownlist: connect()((props) => <Dropdownlist {...props} getComponentValue={props.onChange} value={props.value || ''} />),
     WorkloadTableeditor: connect()((props) => <WorkloadTableeditor {...props} getComponentValue={props.onChange} value={props.value || ''} />),
     CategoryDropDown: connect()((props) => <CategoryDropDown {...props} getComponentValue={props.onChange} value={props.value || ''} />),
-
     GetLander: connect()((props) => <GetLander {...props} value={props.value || ''} />),
     GetLoginuser: connect()((props) => <GetLoginuser {...props} value={props.value || ''} />),
     GetDepart: connect()((props) => <GetDepart {...props} value={props.value || ''} />),
     SelectLimitDate: connect()((props) => <SelectLimitDate {...props} value={props.value || ''} />),
     GetDate: connect()((props) => <GetDate {...props} value={props.value || ''} />),
     GetActionCode: connect()((props) => <GetActionCode {...props} value={props.value || ''} />),
-    CustomerSelect: connect()((props) => <CustomerSelect {...props} value={props.value || ''} />),
     CheckBox: connect()((props) => <CheckBox {...props} value={props.value || ''} />),
     Wangeditor: connect()((props) => <Wangeditor {...props} value={props.value || ''} />),
     SelectExactDate: connect()((props) => <SelectExactDate {...props} value={props.value || ''} />),
-
     Dropdowncombox: connect()((props) => <Dropdowncombox {...props} value={props.value || ''} />),
-
     QuitInput: connect()((props) => <QuitInput {...props} value={props.value || ''} />),
-
     GetRadio: connect()((props) => <GetRadio {...props} value={props.value || ''} />),
     PortSpeedDropdown: connect()((props) => <PortSpeedDropdown {...props} value={props.value || ''} />),
     PortTypeDropdown: connect()((props) => <PortTypeDropdown {...props} value={props.value || ''} />),
     YnSelect: connect()((props) => <YnSelect {...props} value={props.value || ''} />),
-    CabinetPowerQuantity: connect()((props) => <CabinetPowerQuantity {...props} value={props.value || ''} />),
     UbitLocation: connect()((props) => <UbitLocation {...props} value={props.value || ''} />),
     EditgetDate: connect()((props) => <EditgetDate {...props} value={props.value || ''} />),
     DeviceDroplist: connect()((props) => <DeviceDroplist {...props} value={props.value || ''} />),

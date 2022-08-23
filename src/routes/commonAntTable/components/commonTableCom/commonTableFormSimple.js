@@ -88,7 +88,7 @@ const CommonTableForm = props => {
             >
                 <div style={ { textAlign: 'center' } }>
                     <Button type="primary" htmlType="button" className="marginRihgt10" onClick={ async event => {
-                        let res = await actions.validate()
+                        await actions.validate()
                         await props.saveFormData(actions.getFormState().values, '', props.onChange, props.as_virtual, props.optionType);
                         props.hideModal()
                     }

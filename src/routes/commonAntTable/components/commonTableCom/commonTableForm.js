@@ -10,8 +10,6 @@ const actions = createFormActions();
 const CommonTableForm = (props) => {
     let formCfg = toJS(props.formCfg);
     let layoutcfg = props.layoutcfg;
-    let formnum = [];
-    let staticformcfg = toJS(props.staticformcfg);
     const [state, setState, value] = useState({ editable: props.editable });
 
     if (!formCfg) {
@@ -45,7 +43,6 @@ const CommonTableForm = (props) => {
 
                                 for (let key in newitem.properties) {
                                     let item = newitem.properties[key];
-
                                     setFieldState(key, (state) => {
                                         state.props['x-props'].commontablestore = props.commonTableStore;
                                         state.props['x-props'].action_code = props.dataGridcode;
@@ -56,16 +53,6 @@ const CommonTableForm = (props) => {
                                     if (item['x-props'] && item['x-props'].field_id == 'customer_email') {
                                         setFieldState(key, (state) => {
                                             state.props['x-rules'] = 'email';
-                                        });
-                                    }
-                                    if (item['x-props'] && item['x-props'].field_id == 'email') {
-                                        setFieldState(key, (state) => {
-                                            state.props['x-rules'] = 'email';
-                                        });
-                                    }
-                                    if (item['x-props'] && item['x-props'].field_id == 'postcode') {
-                                        setFieldState(key, (state) => {
-                                            state.props['x-rules'] = 'zip';
                                         });
                                     }
                                 }
@@ -80,7 +67,7 @@ const CommonTableForm = (props) => {
                             htmlType="button"
                             className="marginRihgt10"
                             onClick={async (event) => {
-                                let res = await actions.validate();
+                                await actions.validate();
                                 await props.saveFormData(actions.getFormState().values, '', props.onChange, props.as_virtual, props.optionType);
                                 props.hideModal();
                             }}>

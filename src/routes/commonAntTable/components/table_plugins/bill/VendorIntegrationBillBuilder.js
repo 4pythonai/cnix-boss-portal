@@ -1,13 +1,13 @@
-//  生成合并账单 :  客户集成账单.
+//  生成合并账单 :  供应商集成账单.
 import React from 'react';
 import { Modal, message } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
 import { toJS } from 'mobx';
-import SaleIntegrationBillsCom from './SaleIntegrationBillsCom';
+import BuyIntegrationBillsCom from './BuyIntegrationBillsCom';
 
 @observer
-export default class CustIntegrationBillBuilder extends React.Component {
+export default class VendorIntegrationBillBuilder extends React.Component {
     constructor(props) {
         super(props);
         console.log(props);
@@ -24,7 +24,7 @@ export default class CustIntegrationBillBuilder extends React.Component {
 
     async init() {
         if (this.props.commonTableStore.selectedRowKeys.length === 0) {
-            message.error('请选择一个客户');
+            message.error('请选择一个供应商');
             return;
         }
         const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
@@ -51,7 +51,7 @@ export default class CustIntegrationBillBuilder extends React.Component {
             width: 1200,
             destroyOnClose: true,
             ref: 'billrpt',
-            title: '生成客户账单',
+            title: '供应商集成账单',
             bodyStyle: {
                 width: 1200,
                 height: 'auto',
@@ -76,7 +76,7 @@ export default class CustIntegrationBillBuilder extends React.Component {
         const divs = [];
         divs.push(
             <div key={'AAA'}>
-                <SaleIntegrationBillsCom
+                <BuyIntegrationBillsCom
                     key={1}
                     updateParentVisible={this.updateParentVisible.bind(this)}
                     custid={this.state.custid}

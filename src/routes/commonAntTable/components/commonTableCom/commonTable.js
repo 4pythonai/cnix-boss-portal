@@ -188,7 +188,6 @@ export default class CommonTable extends React.Component {
         if (!this.commonTableStore.TableButtonsJson) {
             return null;
         }
-
         return this.commonTableStore.TableButtonsJson.map((item, index) => {
             return (
                 <Button key={index} type={item.ui_type} htmlType="button" onClick={(event) => this.getButtonHandler(event, item)} size="small" style={{ margin: 8 }}>
@@ -292,13 +291,10 @@ export default class CommonTable extends React.Component {
                 if (b == null) {
                     b = '';
                 }
-
                 return a.length > b.length ? a : b;
             });
-
             return (item.width = 40 + getTextWidth(longest));
         });
-
         this.setState({ columns: columns });
     }
 
@@ -407,7 +403,6 @@ export default class CommonTable extends React.Component {
         };
 
         let tableProps = this.getTableProps();
-        console.log(this.state.columns);
 
         return (
             <div className="table_wrapper" style={styles}>
