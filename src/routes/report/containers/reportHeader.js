@@ -16,9 +16,9 @@ export default class ReportHeader extends React.Component {
         tabletitle: '',
         excelMsg: {},
         year: 0,
-        contract_no: '',
-        customer_name: '',
-        region: '',
+        contract_no: null,
+        customer_name: null,
+        region: null,
         reportrows: [],
         regions: []
     };
@@ -44,16 +44,21 @@ export default class ReportHeader extends React.Component {
         });
     };
 
-    onChangeContractno(a, b) {
-        this.setState({
-            contract_no: a.target.value
-        });
-    }
-
-    onChangeCustname(a, b) {
-        this.setState({
-            customer_name: a.target.value
-        });
+    onChangeFilterValue(a, b) {
+        let filterValue = a.target.value;
+        //中文,判断为客户名称
+        var reg = new RegExp('[\\u4E00-\\u9FFF]+', 'g');
+        if (reg.test(filterValue)) {
+            this.setState({
+                customer_name: a.target.value.trim(),
+                contract_no: null
+            });
+        } else {
+            this.setState({
+                customer_name: null,
+                contract_no: a.target.value.trim()
+            });
+        }
     }
 
     generageReport = async () => {
@@ -144,22 +149,22 @@ export default class ReportHeader extends React.Component {
 
     handleOk = (e) => {
         console.log(e);
-        this.setState({
-            excelModal: false
-        });
+        // this.setState({
+        //     excelModal: false
+        // });
     };
 
     handleCancel = (e) => {
         console.log(e);
-        this.setState({
-            excelModal: false
-        });
+        // this.setState({
+        //     excelModal: false
+        // });
     };
 
     render() {
         return (
             <div>
-                <div style={{ width: '1100px', justifyContent: 'space-between', display: 'flex', paddingLeft: '100px' }}>
+                <div style={{ width: '1100px', justifyContent: 'space-between', display: 'flex', marginTop: '10px', paddingLeft: '100px' }}>
                     <Select
                         showSearch
                         style={{ width: 140 }}
@@ -186,16 +191,18 @@ export default class ReportHeader extends React.Component {
                             );
                         })}
                     </Select>
+
                     <div style={{ width: '220px' }}>
-                        {this.props.type === 'paperbill' ? (
-                            <Input style={{ width: '200' }} placeholder="请输入客户名称,留空为所有" onChange={(event) => this.onChangeCustname(event, '')} onPressEnter={this.handleOk}></Input>
-                        ) : (
-                            <Input style={{ width: '200' }} placeholder="请输入合同号,留空为所有" onChange={(event) => this.onChangeContractno(event, '')} onPressEnter={this.handleOk}></Input>
-                        )}
+                        {
+                            <Input
+                                style={{ width: '200' }}
+                                placeholder="输入合同号或者客户名称"
+                                onChange={(event) => this.onChangeFilterValue(event)}
+                                onPressEnter={this.handleOk}></Input>
+                        }
                     </div>
 
                     {this.props.hasOwnProperty('Prediction') ? <Button onClick={(event) => this.OneKeyContractBillPrediction()}>批量预出全部合同账单</Button> : ''}
-
                     <Button onClick={(event) => this.generageReport()}>生成报表</Button>
                     <Button onClick={this.handleExport}> 导出Excel表格 </Button>
                 </div>

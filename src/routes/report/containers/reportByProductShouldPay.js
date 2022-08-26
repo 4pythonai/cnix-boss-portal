@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table} from 'antd';
+import { Table } from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
 
@@ -10,13 +10,13 @@ export default class reportByProductShouldPay extends React.Component {
         this.renderMoneyAndProductNum = this.renderMoneyAndProductNum.bind(this);
     }
 
-    renderMoneyAndProductNum = (text,record) => {
-        if(text.includes('/')) {
+    renderMoneyAndProductNum = (text, record) => {
+        if (text.includes('/')) {
             const tmparr = text.split('/');
             return (
                 <div>
-                    <div style={{whiteSpace: 'nowrap'}}> 金额:{tmparr[0]}</div>
-                    <div style={{borderTop: '0.5px solid black',whiteSpace: 'nowrap'}}> 数量:{tmparr[1]}</div>
+                    <div style={{ whiteSpace: 'nowrap' }}> 金额:{tmparr[0]}</div>
+                    <div style={{ borderTop: '0.5px solid black', whiteSpace: 'nowrap' }}> 数量:{tmparr[1]}</div>
                 </div>
             );
         } else {
@@ -53,18 +53,17 @@ export default class reportByProductShouldPay extends React.Component {
                 dataIndex: 'year',
                 key: 'year'
             },
-
             {
                 title: '产品',
                 dataIndex: 'product_name',
-                key: 'product_name'
+                key: 'product_name',
+                width: '200px'
             },
             {
                 title: '[1-12月合计]',
                 dataIndex: 'm_total',
                 key: 'm_total'
             },
-
             {
                 title: '1月应收',
                 dataIndex: 'm1',
@@ -168,7 +167,7 @@ export default class reportByProductShouldPay extends React.Component {
                     rowKey={'ID'}
                     title={() => {
                         return (
-                            <div style={{marginLeft: '500px'}}>
+                            <div style={{ marginLeft: '500px' }}>
                                 <h2>{tabletitle} </h2>
                             </div>
                         );

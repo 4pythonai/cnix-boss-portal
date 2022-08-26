@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table} from 'antd';
+import { Table } from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
 
@@ -49,7 +49,6 @@ export default class CustOwned extends React.Component {
                 dataIndex: 'm_total',
                 key: 'm_total'
             },
-
             {
                 title: '1月欠费',
                 dataIndex: 'm1',
@@ -122,7 +121,7 @@ export default class CustOwned extends React.Component {
             total: this.state.reportrows.length,
             pageSize: 30
         };
-        // api.report.reportByContractBill()
+
         return (
             <div className="custServiceContent">
                 <ReportHeader
@@ -140,7 +139,7 @@ export default class CustOwned extends React.Component {
                     rowKey={'ID'}
                     title={() => {
                         return (
-                            <div style={{marginLeft: '500px'}}>
+                            <div style={{ marginLeft: '500px' }}>
                                 <h2>{tabletitle} </h2>
                             </div>
                         );
