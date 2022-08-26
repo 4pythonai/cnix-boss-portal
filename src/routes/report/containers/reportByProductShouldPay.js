@@ -57,7 +57,7 @@ export default class reportByProductShouldPay extends React.Component {
                 title: '产品',
                 dataIndex: 'product_name',
                 key: 'product_name',
-                width: '200px'
+                width: '180px'
             },
             {
                 title: '[1-12月合计]',

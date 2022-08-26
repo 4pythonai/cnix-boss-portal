@@ -49,6 +49,7 @@ export default class ReportHeader extends React.Component {
         //中文,判断为客户名称
         var reg = new RegExp('[\\u4E00-\\u9FFF]+', 'g');
         if (reg.test(filterValue)) {
+            console.log('判断为汉字客户');
             this.setState({
                 customer_name: a.target.value.trim(),
                 contract_no: null
