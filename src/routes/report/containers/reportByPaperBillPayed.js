@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
+import createReportColumns from './reportColumns';
 
 export default class ReportByPaperBillPayed extends React.Component {
     constructor(props) {
@@ -27,90 +28,7 @@ export default class ReportByPaperBillPayed extends React.Component {
         excelMsg: {},
         year: 0,
         region: '',
-        columns: [
-            {
-                title: 'ID',
-                dataIndex: 'ID',
-                key: 'ID'
-            },
-            {
-                title: '年度',
-                dataIndex: 'year',
-                key: 'year'
-            },
-
-            {
-                title: '客户名称',
-                dataIndex: 'customer_name',
-                key: 'customer_name'
-            },
-            {
-                title: '[1-12月合计]',
-                dataIndex: 'm_total',
-                key: 'm_total'
-            },
-
-            {
-                title: '1月已结算',
-                dataIndex: 'm1',
-                key: 'm1'
-            },
-            {
-                title: '2月已结算',
-                dataIndex: 'm2',
-                key: 'm2'
-            },
-            {
-                title: '3月已结算',
-                dataIndex: 'm3',
-                key: 'm3'
-            },
-            {
-                title: '4月已结算',
-                dataIndex: 'm4',
-                key: 'm4'
-            },
-            {
-                title: '5月已结算',
-                dataIndex: 'm5',
-                key: 'm5'
-            },
-            {
-                title: '6月已结算',
-                dataIndex: 'm6',
-                key: 'm6'
-            },
-            {
-                title: '7月已结算',
-                dataIndex: 'm7',
-                key: 'm7'
-            },
-            {
-                title: '8月已结算',
-                dataIndex: 'm8',
-                key: 'm8'
-            },
-            {
-                title: '9月已结算',
-                dataIndex: 'm9',
-                key: 'm9'
-            },
-            {
-                title: '10月已结算',
-                dataIndex: 'm10',
-                key: 'm10'
-            },
-            {
-                title: '11月已结算',
-                dataIndex: 'm11',
-                key: 'm11'
-            },
-            {
-                title: '12月已结算',
-                dataIndex: 'm12',
-                key: 'm12'
-            }
-        ],
+        columns: createReportColumns('ReportByPaperBillPayed'),
         reportrows: []
     };
 
