@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
 import { JSONTree } from 'react-json-tree';
-import { Map } from 'immutable';
 
 export default class JsonTreeModal extends React.Component {
     constructor(props) {
@@ -26,15 +25,6 @@ export default class JsonTreeModal extends React.Component {
     };
 
     render() {
-        const json = {
-            array: [1, 2, 3],
-            bool: true,
-            object: {
-                foo: 'bar'
-            },
-            immutable: Map({ key: 'value' })
-        };
-
         const theme = {
             scheme: 'monokai',
             author: 'wimer hazenberg (http://www.monokai.nl)',
@@ -57,10 +47,7 @@ export default class JsonTreeModal extends React.Component {
         };
 
         const resLogs = this.props.record.resource_logs;
-        console.log('🚀 ~ file: JsonTreeModal.js ~ line 60 ~ JsonTreeModal ~ render ~ resLogs', resLogs);
-        // let rlog = JSON.stringify(resLogs);
         let rlog = JSON.parse(resLogs.replace(/\\/, ''));
-        console.log(rlog);
 
         return (
             <div>

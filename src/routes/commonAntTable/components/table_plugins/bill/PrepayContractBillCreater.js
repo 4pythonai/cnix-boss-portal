@@ -33,10 +33,6 @@ export default class PrepayContractBillCreater extends React.Component {
 
         let params = { method: 'POST', data: { contract_no: current_row.contract_no } };
         let json = await api.billing.SingleContractBill(params);
-        console.log('----------------->' + current_row.contract_no);
-
-        console.log(json);
-
         if (json.code == 200) {
             this.store.setBillingData(json);
             this.setState({ visible: true, checkpassed: true, billjson: json });
