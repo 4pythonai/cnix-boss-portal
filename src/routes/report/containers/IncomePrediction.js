@@ -1,8 +1,8 @@
 import React from 'react';
-import { Table } from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
 import createReportColumns from './reportColumns';
+import ReportTable from './ReportTable';
 
 export default class IncomePrediction extends React.Component {
     constructor(props) {
@@ -36,7 +36,6 @@ export default class IncomePrediction extends React.Component {
     render() {
         let columns = this.state.columns;
         let tabletitle = this.state.tabletitle;
-        let data = this.state.reportrows;
         var pagination = {
             total: this.state.reportrows.length,
             pageSize: 30
@@ -59,20 +58,8 @@ export default class IncomePrediction extends React.Component {
                         <li> 先全部模拟出账, OneKeyContractBillPrediction </li>
                         <li> 算法: 拷贝已经存在的合同账单到临时表,再重新生成所有的合同账单,(不考虑预付后付,取合同结束日期), 并以此为基础进行计算.</li>
                     </ul>
-                </div>
-                <Table
-                    rowKey={'ID'}
-                    title={() => {
-                        return (
-                            <div style={{ marginLeft: '500px' }}>
-                                <h2>{tabletitle} </h2>
-                            </div>
-                        );
-                    }}
-                    columns={columns}
-                    pagination={pagination}
-                    dataSource={data}
-                />
+                </div>{' '}
+                <ReportTable title={tabletitle} pagination={pagination} columns={columns} reportrows={this.state.reportrows} />
             </div>
         );
     }

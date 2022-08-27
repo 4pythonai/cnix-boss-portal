@@ -30,5 +30,8 @@
     "IDCPaymentsContract": {
         "contract_begin_date": "splitDate",
         "contract_end_date": "splitDate"
+    },
+    "boss_contract_bill": {
+        "resource_logs": "ResJsonRender"
     }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Table } from 'antd';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
 import createReportColumns from './reportColumns';
+import ReportTable from './ReportTable';
 
 export default class CustOwned extends React.Component {
     constructor(props) {
@@ -35,7 +35,6 @@ export default class CustOwned extends React.Component {
     render() {
         let columns = this.state.columns;
         let tabletitle = this.state.tabletitle;
-        let data = this.state.reportrows;
         var pagination = {
             total: this.state.reportrows.length,
             pageSize: 30
@@ -53,20 +52,7 @@ export default class CustOwned extends React.Component {
                     setTitle={this.setTitle}
                     title="欠费情况"
                 />
-
-                <Table
-                    rowKey={'ID'}
-                    title={() => {
-                        return (
-                            <div style={{ marginLeft: '500px' }}>
-                                <h2>{tabletitle} </h2>
-                            </div>
-                        );
-                    }}
-                    columns={columns}
-                    pagination={pagination}
-                    dataSource={data}
-                />
+                <ReportTable title={tabletitle} pagination={pagination} columns={columns} reportrows={this.state.reportrows} />
             </div>
         );
     }

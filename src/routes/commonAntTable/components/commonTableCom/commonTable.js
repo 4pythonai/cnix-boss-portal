@@ -2,11 +2,10 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Button, Table, message, Icon } from 'antd';
 import { toJS } from 'mobx';
-import field_cfg from './columnsRender/columnsRednerCfg.json';
 import commonTableStore from '@/store/commonTableStore';
 import '../../commonTable.scss';
 import createQueryConfig from './commonTableQueryCfg';
-import getTextWidth from './commonTableTextTool';
+import getTableColumns from './commonTableColumns';
 import api from '@/api/api';
 
 @observer
@@ -25,8 +24,6 @@ export default class CommonTable extends React.Component {
             isFilterSelfData: false,
             query_cfg: this.props.query_cfg ? this.props.query_cfg : null //表格保持自己的query_cfg
         };
-
-        console.log(this.state);
 
         this.resetTable = this.resetTable.bind(this);
         this.pluginComRef = null;
@@ -105,7 +102,6 @@ export default class CommonTable extends React.Component {
 
         if (res.code == 200) {
             console.log(res.data);
-
             this.commonTableStore.setIsExistence(res.data.isExistence);
             this.commonTableStore.setTableColumnsJson(res.data.tableColumnConfig);
             this.commonTableStore.setFormCfg(res.data.formcfg);
@@ -157,7 +153,9 @@ export default class CommonTable extends React.Component {
         if (json.code == 200) {
             this.commonTableStore.setDataSource(json.data);
             this.commonTableStore.setTotal(json.total);
-            this.getTableColumns();
+            // this.getTableColumns();
+            let cls = getTableColumns(this.commonTableStore);
+            this.setState({ columns: cls });
             this.rowSelectChange([], []);
         }
     };
@@ -241,67 +239,6 @@ export default class CommonTable extends React.Component {
                 />
             );
         }
-    }
-
-    columnsRender(text, record, column_cfg) {
-        if (text === '' || text === undefined) {
-            return '';
-        }
-
-        let table_columns_render_cfg = field_cfg[this.props.action_code];
-
-        // 不存在处理函数
-        if (table_columns_render_cfg === undefined) {
-            return text;
-        }
-
-        if (Object.keys(table_columns_render_cfg).includes(column_cfg.key) === false) {
-            return text;
-        }
-    }
-
-    getTableColumns() {
-        let hideColumns = ['uuid', 'processDefinitionKey', 'transactid', 'nodeKey'];
-        let columns = [];
-        this.commonTableStore.tableColumnsJson.map((item, index) => {
-            let column = {
-                title: item.title,
-                dataIndex: item.key,
-                key: item.key,
-                sorter: (a, b) => this.sorter(a[item.key], b[item.key]),
-                render: (text, record) => {
-                    return this.columnsRender(text, record, item);
-                }
-            };
-            if (hideColumns.includes(item.key) == false) {
-                columns.push(column);
-            }
-        });
-
-        columns.map((item) => {
-            let fieldValues = [];
-            fieldValues.push(item.title);
-            this.commonTableStore.dataSource.forEach((record) => {
-                fieldValues.push(record[item.dataIndex]);
-            });
-            var longest = fieldValues.reduce(function (a, b) {
-                if (a == null) {
-                    a = '';
-                }
-                if (b == null) {
-                    b = '';
-                }
-                return a.length > b.length ? a : b;
-            });
-            return (item.width = 40 + getTextWidth(longest));
-        });
-        this.setState({ columns: columns });
-    }
-
-    sorter(valueA, valueB) {
-        let targetA = valueA != null && valueA.toString().toLowerCase();
-        let targetB = valueB != null && valueB.toString().toLowerCase();
-        return targetA != null && targetA.localeCompare ? targetA.localeCompare(targetB) : targetA - targetB;
     }
 
     async setCurrentPage(currentPage) {
@@ -403,7 +340,6 @@ export default class CommonTable extends React.Component {
         };
 
         let tableProps = this.getTableProps();
-
         return (
             <div className="table_wrapper" style={styles}>
                 {this.RenderTablePluginCom()}

@@ -17,9 +17,7 @@ export default class billing {
         getPaperInfoById: '/Billing/getPaperInfoById',
         getZones: '/Billing/getZones',
         getZone: '/Billing/getZone',
-        getContractRelatedResources: '/Billing/getContractRelatedResources',
         getContractRelatedResourcesAll: '/Billing/getContractRelatedResourcesAll',
-
         savePaperBillLocateYearMonth: '/Billing/savePaperBillLocateYearMonth',
         // IBM1 合同测试接口
         testIBM: '/Billing/testIBM',
