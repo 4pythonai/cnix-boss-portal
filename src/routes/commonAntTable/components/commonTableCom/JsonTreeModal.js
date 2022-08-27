@@ -4,7 +4,7 @@ import { JSONTree } from 'react-json-tree';
 
 export default class JsonTreeModal extends React.Component {
     constructor(props) {
-        console.log(props);
+        console.log('🚀 ~ file: JsonTreeModal.js ~ line 7 ~ JsonTreeModal ~ constructor ~ props', props);
         super(props);
     }
     state = {
@@ -46,13 +46,23 @@ export default class JsonTreeModal extends React.Component {
             base0F: '#cc6633'
         };
 
-        const resLogs = this.props.record.resource_logs;
-        let rlog = JSON.parse(resLogs.replace(/\\/, ''));
+        let bigjson = '{}';
+        let title = '';
+        if (this.props.schema == 'resource_logs') {
+            bigjson = this.props.record.resource_logs;
+            title = '资源详情';
+        }
+        if (this.props.schema == 'billsjson') {
+            bigjson = this.props.record.billsjson;
+            title = '包含的合同账单详情';
+        }
+
+        let rlog = JSON.parse(bigjson.replace(/\\/, ''));
 
         return (
             <div>
                 <Button onClick={this.showModal}>详情...</Button>
-                <Modal visible={this.state.visible} title={'资源详情'} onOk={this.hideModal} onCancel={this.hideModal} width={1320}>
+                <Modal visible={this.state.visible} title={title} onOk={this.hideModal} onCancel={this.hideModal} width={1320}>
                     <div>
                         <JSONTree theme={theme} data={rlog} />
                     </div>

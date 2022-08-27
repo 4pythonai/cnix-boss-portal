@@ -15,10 +15,19 @@ function columnRender(text, record, column_cfg) {
     if (column_cfg.key == 'resource_logs') {
         return (
             <div>
-                <JsonTreeModal record={record} />
+                <JsonTreeModal schema={'resource_logs'} record={record} />
             </div>
         );
     }
+
+    if (column_cfg.key == 'billsjson') {
+        return (
+            <div>
+                <JsonTreeModal schema={'billsjson'} record={record} />
+            </div>
+        );
+    }
+
     return text;
 }
 
@@ -55,7 +64,7 @@ export default function getTableColumns(commonTableStore) {
             }
             return a.length > b.length ? a : b;
         });
-        if (item.dataIndex == 'resource_logs') {
+        if (item.dataIndex == 'resource_logs' || item.dataIndex == 'billsjson') {
             return (item.width = 40 + getTextWidth('资源详情'));
         } else {
             return (item.width = 40 + getTextWidth(longest));
