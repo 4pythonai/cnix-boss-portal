@@ -36,7 +36,7 @@ export default class PaymentSettlement extends React.Component {
         console.log(current_row);
         this.setState({ crmoney: current_row.crmoney, vendor: current_row.vendor, paymentid: current_row.id });
         let params = { method: 'POST', data: { filename: current_row.filename, vendor: current_row.partnername, itemid: current_row.id } };
-        let json = await api.billing.prepareBuyInBills(params);
+        let json = await api.billingBuy.prepareBuyInBills(params);
         console.log(json);
         this.setState({ ...json });
         this.setState({ visible: true });
@@ -54,7 +54,7 @@ export default class PaymentSettlement extends React.Component {
         console.log(this.state);
         let params = { method: 'POST', data: { paymentid: this.state.paymentid, buyinBillIds: this.state.selectedRowKeys } };
         console.log(params);
-        let json = await api.billing.saveBuyinPayment(params);
+        let json = await api.billingBuy.saveBuyinPayment(params);
         console.log(json);
     };
 

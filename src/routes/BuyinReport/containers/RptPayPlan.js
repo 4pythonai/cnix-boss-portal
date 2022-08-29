@@ -11,14 +11,14 @@ export default function RptPayPlan(props) {
 
     const getPayPlan = async () => {
         const params = { data: { period: period }, method: 'POST' };
-        const httpobj = await api.billing.GetBuyInPayPlan(params);
+        const httpobj = await api.billingSale.GetBuyInPayPlan(params);
         console.log('返回的结果', httpobj);
         setPayplan(httpobj.rows);
         setTotal(httpobj.total);
     };
     const getPayPlanDetail = async () => {
         const params = { data: { period: period }, method: 'POST' };
-        const httpobj = await api.billing.GetBuyInPayPlanDetail(params);
+        const httpobj = await api.billingSale.GetBuyInPayPlanDetail(params);
         console.log('返回的结果', httpobj);
         setPayplan(httpobj.rows);
         setTotal(httpobj.total);

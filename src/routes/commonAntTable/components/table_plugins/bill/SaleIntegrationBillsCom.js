@@ -21,7 +21,7 @@ export default class SaleIntegrationBillsCom extends React.Component {
     saveCombinedBill = async (e) => {
         const dataSend = { custid: this.custid, selectedRows: this.state.selectedRows };
         const params = { data: dataSend, method: 'POST' };
-        const json = await api.billing.saveCombinedBill(params);
+        const json = await api.billingSale.saveCombinedBill(params);
         console.log(json);
         if (json.code === 200) {
             message.success(json.msg);

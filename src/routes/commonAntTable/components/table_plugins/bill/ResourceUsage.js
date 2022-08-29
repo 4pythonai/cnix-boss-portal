@@ -27,7 +27,7 @@ export default class ResourceUsage extends React.Component {
         }
         const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         const params = { method: 'POST', data: { custid: current_row.id } };
-        const json = await api.billing.getUsages(params);
+        const json = await api.billingSale.getUsages(params);
         console.log(json);
 
         this.setState({

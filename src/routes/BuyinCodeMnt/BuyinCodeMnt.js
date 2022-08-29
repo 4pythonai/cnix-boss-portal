@@ -40,7 +40,7 @@ export default function BuyinCodeMnt(props) {
     const fetchData = async () => {
         console.log('向接口发起请求');
 
-        // let json = await api.billing.testIBM(params);
+        // let json = await api.billingSale.testIBM(params);
 
         const res = await api.buyin.getVendors();
         console.log('接口返回: ', res);

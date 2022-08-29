@@ -51,7 +51,7 @@ export default class BillSettlement extends React.Component {
 
     listCandidates_all = async (event) => {
         let params = { method: 'POST', data: { itemid: this.state.bankitemid } };
-        let json = await api.billing.prepareBills(params);
+        let json = await api.billingSale.prepareBills(params);
         console.log(json);
         this.setState({ ...json });
     };
@@ -63,7 +63,7 @@ export default class BillSettlement extends React.Component {
         }
 
         let params = { method: 'POST', data: { itemid: this.state.bankitemid, candidate: this.state.selectedBills } };
-        let json = await api.billing.prepareBills(params);
+        let json = await api.billingSale.prepareBills(params);
         console.log(json);
         this.setState({ realSettled: json.unsettledbills });
     };
@@ -77,7 +77,7 @@ export default class BillSettlement extends React.Component {
         if (this.state.moneyleft > 0) {
             console.log(this.state);
             let params = { method: 'POST', data: { itemid: this.state.bankitemid, bills: this.state.realSettled } };
-            let json = await api.billing.saveNewSettlement(params);
+            let json = await api.billingSale.saveNewSettlement(params);
             console.log(json);
             this.props.refreshTable();
         } else {

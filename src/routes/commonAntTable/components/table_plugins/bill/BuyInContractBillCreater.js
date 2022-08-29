@@ -47,7 +47,7 @@ export default class BuyInContractBillCreater extends React.Component {
                 uuid: uuid
             }
         };
-        const json = await api.billing.OneKeyBuyInContractBill(params);
+        const json = await api.billingBuy.OneKeyBuyInContractBill(params);
         if (json.success === 'no') {
             this.setState({
                 visible: true,

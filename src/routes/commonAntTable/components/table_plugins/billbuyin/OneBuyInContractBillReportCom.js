@@ -42,14 +42,13 @@ export default class OneContractBillReportCom extends React.Component {
         return (
             <div style={{ padding: '2px' }}>
                 <div>
-                    <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>客户名称:{this.billjson.cust.customer_name}</div>
+                    <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>供应商名称:{this.billjson.vendorname}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>合同号:{this.billjson.contract.contract_no}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>付款周期:{this.billjson.contract.paycycle}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>合同月租金[非计费依据]:{this.billjson.contract.monthly_fee}元</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>合同起始:{this.billjson.contract.contract_start}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>合同终止:{this.billjson.contract.contract_end}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>周期性费用合计:{this.billjson.cyclefee_summary}元</div>
-                    <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>一次性费用合计:{this.billjson.onetimefee_summary}元</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>费用合计:{this.billjson.total_summary}元</div>
                     {this.showSaveBillBtn == 'yes' ? (
                         <Button type="primary" icon="cloud-download" onClick={(event) => this.saveBill(event)}>

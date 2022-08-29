@@ -116,7 +116,7 @@ export default class ReportHeader extends React.Component {
             },
             method: 'POST'
         };
-        let res = await api.billing.OneKeyContractBill(params);
+        let res = await api.billingSale.OneKeyContractBill(params);
 
         if (res.code === 200) {
             message.success(res.message);

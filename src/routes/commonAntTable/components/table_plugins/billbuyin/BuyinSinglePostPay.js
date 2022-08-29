@@ -3,10 +3,10 @@ import { Modal, message, Button } from 'antd';
 import { observer, inject } from 'mobx-react';
 import api from '@/api/api';
 import { toJS } from 'mobx';
-import OneContractBillReportCom from './OneContractBillReportCom';
+import OneBuyInContractBillReportCom from './OneBuyInContractBillReportCom';
 @inject('billingSummaryStore')
 @observer
-export default class PrepayContractBillCreater extends React.Component {
+export default class BuyinSinglePostPay extends React.Component {
     constructor(props) {
         super(props);
         this.store = props.billingSummaryStore;
@@ -26,13 +26,17 @@ export default class PrepayContractBillCreater extends React.Component {
             return;
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
-        if (current_row.billingoption !== '预付') {
+        if (current_row.billingoption !== '后付') {
             message.error('请选择一个后付合同');
             return;
         }
 
         let params = { method: 'POST', data: { contract_no: current_row.contract_no } };
-        let json = await api.billingSale.SingleContractBill(params);
+        let json = await api.billingBuy.SingleContractBill(params);
+        console.log('----------------->' + current_row.contract_no);
+
+        console.log(json);
+
         if (json.code == 200) {
             this.store.setBillingData(json);
             this.setState({ visible: true, checkpassed: true, billjson: json });
@@ -46,7 +50,7 @@ export default class PrepayContractBillCreater extends React.Component {
             width: 1450,
             destroyOnClose: true,
             ref: 'billrpt',
-            title: '手工出账单[预付]:',
+            title: '手工出账单[后付]:',
             bodyStyle: {
                 width: 1440,
                 height: 'auto',
@@ -77,7 +81,7 @@ export default class PrepayContractBillCreater extends React.Component {
         if (this.state.checkpassed) {
             return (
                 <Modal {...modalProps}>
-                    <OneContractBillReportCom onlyShowTimeLine="no" store={this.props.billingSummaryStore} showSaveBillBtn="yes" billjson={this.state.billjson} />
+                    <OneBuyInContractBillReportCom onlyShowTimeLine="no" store={this.props.billingSummaryStore} showSaveBillBtn="yes" billjson={this.state.billjson} />
                 </Modal>
             );
         } else {

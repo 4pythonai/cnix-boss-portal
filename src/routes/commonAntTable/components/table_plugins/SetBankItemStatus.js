@@ -9,7 +9,7 @@ var SetBankItemStatus = {
             method: 'POST'
         };
         console.log(params);
-        let json = await api.billing.BatchSetBankItemStatus(params);
+        let json = await api.billingSale.BatchSetBankItemStatus(params);
         message.info(json.message);
     },
 

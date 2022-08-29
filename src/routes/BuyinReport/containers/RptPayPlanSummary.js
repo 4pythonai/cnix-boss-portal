@@ -11,7 +11,7 @@ export default function RptPayPlanSummary(props) {
 
     const getPayPlan = async () => {
         const params = { data: { period: period, region: props.region }, method: 'POST' };
-        const httpobj = await api.billing.GetBuyInPayPlan(params);
+        const httpobj = await api.billingSale.GetBuyInPayPlan(params);
         console.log('返回的结果', httpobj);
         setPayplan(httpobj.rows);
         setTotal(httpobj.total);

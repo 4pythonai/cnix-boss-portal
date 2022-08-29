@@ -31,7 +31,7 @@ export default class CustIntegrationBill extends React.Component {
         }
         const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         const params = { method: 'POST', data: { custid: current_row.id } };
-        const json = await api.billing.billByCust(params);
+        const json = await api.billingSale.billByCust(params);
         console.log(json);
         console.log(json.cust);
 

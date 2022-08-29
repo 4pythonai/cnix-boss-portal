@@ -3,10 +3,10 @@ import { Modal, message, Button } from 'antd';
 import { observer, inject } from 'mobx-react';
 import api from '@/api/api';
 import { toJS } from 'mobx';
-import OneContractBillReportCom from './OneContractBillReportCom';
+import OneBuyInContractBillReportCom from './OneBuyInContractBillReportCom';
 @inject('billingSummaryStore')
 @observer
-export default class PrepayContractBillCreater extends React.Component {
+export default class BuyinSinglePrePay extends React.Component {
     constructor(props) {
         super(props);
         this.store = props.billingSummaryStore;
@@ -32,7 +32,7 @@ export default class PrepayContractBillCreater extends React.Component {
         }
 
         let params = { method: 'POST', data: { contract_no: current_row.contract_no } };
-        let json = await api.billingSale.SingleContractBill(params);
+        let json = await api.billingBuy.SingleContractBill(params);
         if (json.code == 200) {
             this.store.setBillingData(json);
             this.setState({ visible: true, checkpassed: true, billjson: json });
@@ -77,7 +77,7 @@ export default class PrepayContractBillCreater extends React.Component {
         if (this.state.checkpassed) {
             return (
                 <Modal {...modalProps}>
-                    <OneContractBillReportCom onlyShowTimeLine="no" store={this.props.billingSummaryStore} showSaveBillBtn="yes" billjson={this.state.billjson} />
+                    <OneBuyInContractBillReportCom onlyShowTimeLine="no" store={this.props.billingSummaryStore} showSaveBillBtn="yes" billjson={this.state.billjson} />
                 </Modal>
             );
         } else {

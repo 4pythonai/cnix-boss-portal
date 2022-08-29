@@ -28,7 +28,7 @@ export default class Settlementdetail extends React.Component {
         let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         this.setState({ bankitemid: current_row.id });
         let params = { method: 'POST', data: { itemid: current_row.id } };
-        let json = await api.billing.settlementdetail(params);
+        let json = await api.billingSale.settlementdetail(params);
         console.log(json);
         this.setState({ ...json });
         this.setState({ visible: true });

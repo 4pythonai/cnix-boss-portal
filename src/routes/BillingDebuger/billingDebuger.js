@@ -84,7 +84,7 @@ class BillingDebuger extends React.Component {
         }
 
         let params = { method: 'POST', data: { ...this.state } };
-        let json = await api.billing.testIBM(params);
+        let json = await api.billingSale.testIBM(params);
         if (json.success == 'false') {
             this.setState({ visible: true, checkpassed: false, toal_check_errors: json.toal_check_errors });
         } else {

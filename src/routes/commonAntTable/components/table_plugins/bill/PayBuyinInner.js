@@ -11,7 +11,7 @@ export default function PayBuyinInner(props) {
 
     const getInputDatas = async (e) => {
         let params = { method: 'POST', data: { vendorid: props.vendorid } };
-        let json = await api.billing.getUnPayedBuyInBills(params);
+        let json = await api.billingBuy.getUnPayedBuyInBills(params);
         setBills(json.bills);
     };
 
@@ -34,7 +34,7 @@ export default function PayBuyinInner(props) {
         };
 
         let params = { method: 'POST', data: data };
-        await api.billing.SaveBuyInBillPayment(params);
+        await api.billingBuy.SaveBuyInBillPayment(params);
         props.refresh();
     };
 

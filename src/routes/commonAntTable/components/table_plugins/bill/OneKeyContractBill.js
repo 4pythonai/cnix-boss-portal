@@ -1,13 +1,13 @@
 import React from 'react';
-import {Modal,Button,Progress} from 'antd';
-import {observer} from 'mobx-react';
+import { Modal, Button, Progress } from 'antd';
+import { observer } from 'mobx-react';
 import api from '@/api/api';
 import userStore from '@/store/userStore';
-import {EventSourcePolyfill} from 'event-source-polyfill';
-import {v4 as uuidv4} from 'uuid';
-import {root_url,port,version_2} from '@/api/api_config/base_config';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import { v4 as uuidv4 } from 'uuid';
+import { root_url, port, version_2 } from '@/api/api_config/base_config';
 const api_root = `${root_url}:${port}/${version_2}`;
-export {api_root};
+export { api_root };
 
 @observer
 export default class OneKeyContractBill extends React.Component {
@@ -26,26 +26,26 @@ export default class OneKeyContractBill extends React.Component {
     };
 
     init() {
-        this.setState({visible: true});
+        this.setState({ visible: true });
     }
 
     componentWillUnmount() {
-        this.setState({percent: 0.0});
-        if(this.state.percentEventSource) {
+        this.setState({ percent: 0.0 });
+        if (this.state.percentEventSource) {
             this.state.percentEventSource.close();
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({percent: 0.0});
+        this.setState({ percent: 0.0 });
     }
 
     getReportPercent(uuid) {
-        // 
+        //
         const ssurl = api_root + '/Billing/sse?uuid=' + uuid;
         const token_from_userStore = userStore.getToken();
         const EventSource = EventSourcePolyfill;
-        const percentEventSource = new EventSource(ssurl,{
+        const percentEventSource = new EventSource(ssurl, {
             headers: {
                 Authorization: token_from_userStore
             },
@@ -55,32 +55,30 @@ export default class OneKeyContractBill extends React.Component {
         percentEventSource.onmessage = (result) => {
             const serverobj = JSON.parse(result.data);
             console.log(serverobj);
-            if(serverobj) {
+            if (serverobj) {
                 this.setState({
                     percent: serverobj.percent
                 });
             }
 
-            if(serverobj.shouldStop === 'yes') {
+            if (serverobj.shouldStop === 'yes') {
                 percentEventSource.close();
             }
         };
 
         percentEventSource.onerror = (err) => {
-            console.error('EventSource failed:',err);
+            console.error('EventSource failed:', err);
             percentEventSource.close();
         };
 
         return percentEventSource;
     }
 
-
-
     async oneKeyContractBill() {
-        this.setState({visible: true});
+        this.setState({ visible: true });
         const uuid = uuidv4();
         const sse = this.getReportPercent(uuid);
-        this.setState({uuid: uuid,percentEventSource: sse});
+        this.setState({ uuid: uuid, percentEventSource: sse });
         const params = {
             method: 'POST',
             data: {
@@ -88,8 +86,8 @@ export default class OneKeyContractBill extends React.Component {
                 type: 'normal' //- 正常方式一键出合同账单
             }
         };
-        const json = await api.billing.OneKeyContractBill(params);
-        if(json.success === 'no') {
+        const json = await api.billingSale.OneKeyContractBill(params);
+        if (json.success === 'no') {
             this.setState({
                 visible: true,
                 checkpassed: false,
@@ -129,7 +127,7 @@ export default class OneKeyContractBill extends React.Component {
     }
 
     onCancel = () => {
-        this.setState({visible: false});
+        this.setState({ visible: false });
     };
 
     render() {

@@ -21,7 +21,7 @@ export default class ContractRelatedResources extends React.Component {
 
         let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         let params = { method: 'POST', data: { contract_no: current_row.contract_no } };
-        let json = await api.billing.getContractRelatedResourcesAll(params);
+        let json = await api.billingSale.getContractRelatedResourcesAll(params);
         if (json.code === 200) {
             this.setState({ visible: true, resources: json.resources });
         } else {
@@ -42,7 +42,7 @@ export default class ContractRelatedResources extends React.Component {
 
         return (
             <div>
-                <Table rowKey="id"  dataSource={this.state.resources} columns={ResTimeColumns} size="small" style={{ marginBottom: '20px', marginLeft: '10px' }} />
+                <Table rowKey="id" dataSource={this.state.resources} columns={ResTimeColumns} size="small" style={{ marginBottom: '20px', marginLeft: '10px' }} />
             </div>
         );
     };

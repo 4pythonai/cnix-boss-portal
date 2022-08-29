@@ -35,7 +35,7 @@ export default class CustPaperBillPrinter extends React.Component {
 
         const current_rec = toJS(this.props.commonTableStore.selectedRows[0]);
         const params = { method: 'GET', data: { paperid: current_rec.id } };
-        const json = await api.billing.getPaperInfoById(params);
+        const json = await api.billingSale.getPaperInfoById(params);
 
         this.setState({
             visible: true,
@@ -43,7 +43,7 @@ export default class CustPaperBillPrinter extends React.Component {
             paperinfo: json.paperinfo
         });
 
-        const json_zone = await api.billing.getZones();
+        const json_zone = await api.billingSale.getZones();
         this.setState({ zones: json_zone.zones });
         console.log(this.state);
     }
@@ -111,7 +111,13 @@ export default class CustPaperBillPrinter extends React.Component {
                     )}
 
                     {this.state.zone && this.state.zone.id ? (
-                        <CustPaperMainContent pdfRef={this.pdfRef} zone={this.state.zone} visible={this.state.visible} paperinfo={this.state.paperinfo} custinfo={this.state.custinfo} />
+                        <CustPaperMainContent
+                            pdfRef={this.pdfRef}
+                            zone={this.state.zone}
+                            visible={this.state.visible}
+                            paperinfo={this.state.paperinfo}
+                            custinfo={this.state.custinfo}
+                        />
                     ) : (
                         <div>请选择节点 </div>
                     )}

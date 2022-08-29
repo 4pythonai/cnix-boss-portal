@@ -19,7 +19,7 @@ export default function PaperBillDownloader(props) {
         }
 
         let params = { method: 'POST', data: { paper_id: props.paper_id } };
-        const httpobj = await api.billing.getZone(params);
+        const httpobj = await api.billingSale.getZone(params);
         console.log(httpobj);
         if (httpobj.zone) {
             setZone(httpobj.zone);

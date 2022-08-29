@@ -50,7 +50,7 @@ export default class SetLocateYearAndMonth extends React.Component {
 
     saveLocateYearMonth = async () => {
         let params = { method: 'POST', data: { paperbillid: this.state.paperbillid, locateyearmonth: this.state.locateyearmonth } };
-        let json = await api.billing.savePaperBillLocateYearMonth(params);
+        let json = await api.billingSale.savePaperBillLocateYearMonth(params);
         this.props.refreshTable();
     };
 

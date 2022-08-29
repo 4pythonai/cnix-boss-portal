@@ -30,7 +30,7 @@ export default class CustIntegrationBillBuilder extends React.Component {
         const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         this.setState({ custid: current_row.id });
         const params = { method: 'POST', data: { custid: current_row.id } };
-        const json = await api.billing.getUnUsedBills(params);
+        const json = await api.billingSale.getUnUsedBills(params);
 
         this.setState({
             visible: true,

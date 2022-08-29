@@ -22,7 +22,7 @@ export default class TransferContract extends React.Component {
             let _srow = this.props.commonTableStore.selectedRows[0];
 
             let params = { method: 'POST', data: { contract_no: _srow.contract_no } };
-            let json = await api.billing.getContractRelatedResourcesAll(params);
+            let json = await api.billingSale.getContractRelatedResourcesAll(params);
             if (json.code === 200) {
                 this.setState({ selectedRows: [], old: _srow.contract_no, visible: true, resources: json.resources });
             } else {
@@ -51,7 +51,7 @@ export default class TransferContract extends React.Component {
 
         console.log('选择的数据ids: ', ids);
         let params = { data: { new: this.state.new, old: this.state.old, ids: ids }, method: 'POST' };
-        let json = await api.billing.transferContract(params);
+        let json = await api.billingSale.transferContract(params);
         console.log(json);
     }
 

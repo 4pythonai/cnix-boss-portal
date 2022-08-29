@@ -41,7 +41,7 @@ export default class OneKeyPaperBill extends React.Component {
                 contractbillrange: this.state.contractbillrange
             }
         };
-        const json = await api.billing.OneKeyPaperBill(params);
+        const json = await api.billingSale.OneKeyPaperBill(params);
         this.setState({ execute_report: json.execute_report });
     }
 
@@ -57,7 +57,7 @@ export default class OneKeyPaperBill extends React.Component {
                 contractbillrange: this.state.contractbillrange
             }
         };
-        const json = await api.billing.delete_onekeybills(params);
+        const json = await api.billingSale.delete_onekeybills(params);
         this.setState({ execute_report: json.execute_report });
     }
 

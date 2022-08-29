@@ -10,7 +10,7 @@ export default function RptTotalOwned(props) {
         setPayplan([]);
         setTotal(0);
         const params = { data: { region: props.region }, method: 'POST' };
-        const httpobj = await api.billing.GetBuyOwned(params);
+        const httpobj = await api.billingBuy.GetBuyOwned(params);
         console.log('返回的结果', httpobj);
         setPayplan(httpobj.rows);
         setTotal(httpobj.total);
