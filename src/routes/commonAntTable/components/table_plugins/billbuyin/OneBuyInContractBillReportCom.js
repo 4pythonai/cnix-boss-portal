@@ -23,10 +23,10 @@ export default class OneContractBillReportCom extends React.Component {
         console.log('componentWillReceiveProps', nextProps);
     }
 
-    saveBill = async (e) => {
+    saveBuyBill = async (e) => {
         console.log(this.props.store);
         let params = { data: this.props.store, method: 'POST' };
-        let json = await api.billingSale.saveBill(params);
+        let json = await api.billingBuy.saveBuyBill(params);
         console.log(json);
     };
 
@@ -45,13 +45,12 @@ export default class OneContractBillReportCom extends React.Component {
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>供应商名称:{this.billjson.vendorname}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>合同号:{this.billjson.contract.contract_no}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>付款周期:{this.billjson.contract.paycycle}</div>
-                    <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>合同月租金[非计费依据]:{this.billjson.contract.monthly_fee}元</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>合同起始:{this.billjson.contract.contract_start}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>合同终止:{this.billjson.contract.contract_end}</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>周期性费用合计:{this.billjson.cyclefee_summary}元</div>
                     <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>费用合计:{this.billjson.total_summary}元</div>
                     {this.showSaveBillBtn == 'yes' ? (
-                        <Button type="primary" icon="cloud-download" onClick={(event) => this.saveBill(event)}>
+                        <Button type="primary" icon="cloud-download" onClick={(event) => this.saveBuyBill(event)}>
                             保存账单[已生成账单不会被覆盖]
                         </Button>
                     ) : (
@@ -83,9 +82,6 @@ export default class OneContractBillReportCom extends React.Component {
                         size="small"
                         expandedRowRender={this.expandedLog}
                     />
-
-                    <Divider orientation="left">一次性账单</Divider>
-                    <Table dataSource={this.billjson.onetime_store} columns={TimeLineColumns} pagination={false} size="small" />
                 </div>
             </div>
         );

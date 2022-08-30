@@ -46,7 +46,7 @@ export default class BuyinSinglePrePay extends React.Component {
             width: 1450,
             destroyOnClose: true,
             ref: 'billrpt',
-            title: '手工出账单[预付]:',
+            title: '采购手工出账单[预付]:',
             bodyStyle: {
                 width: 1440,
                 height: 'auto',

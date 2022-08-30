@@ -10,11 +10,11 @@ const api_root = `${root_url}:${port}/${version_2}`;
 export { api_root };
 
 @observer
-export default class OneKeyContractBill extends React.Component {
+export default class OneKeyBuyInContractBill extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
-        this.oneKeyContractBill = this.oneKeyContractBill.bind(this);
+        this.oneKeyBuyInContractBill = this.oneKeyBuyInContractBill.bind(this);
     }
 
     state = {
@@ -41,8 +41,7 @@ export default class OneKeyContractBill extends React.Component {
     }
 
     getReportPercent(uuid) {
-        //
-        const ssurl = api_root + '/BillingSale/sse?uuid=' + uuid;
+        const ssurl = api_root + '/BillingBuy/sse?uuid=' + uuid;
         const token_from_userStore = userStore.getToken();
         const EventSource = EventSourcePolyfill;
         const percentEventSource = new EventSource(ssurl, {
@@ -74,7 +73,7 @@ export default class OneKeyContractBill extends React.Component {
         return percentEventSource;
     }
 
-    async oneKeyContractBill() {
+    async oneKeyBuyInContractBill() {
         this.setState({ visible: true });
         const uuid = uuidv4();
         const sse = this.getReportPercent(uuid);
@@ -86,7 +85,7 @@ export default class OneKeyContractBill extends React.Component {
                 type: 'normal' //- 正常方式一键出合同账单
             }
         };
-        const json = await api.billingSale.OneKeyContractBill(params);
+        const json = await api.billingBuy.OneKeyContractBill(params);
         if (json.success === 'no') {
             this.setState({
                 visible: true,
@@ -106,7 +105,7 @@ export default class OneKeyContractBill extends React.Component {
         return {
             width: 700,
             destroyOnClose: true,
-            title: '一键出合同账单',
+            title: '一键出采购合同账单',
             bodyStyle: {
                 width: 700,
                 height: 500,
@@ -135,7 +134,7 @@ export default class OneKeyContractBill extends React.Component {
         return (
             <Modal {...modalProps}>
                 <div>
-                    <Button key="back" onClick={this.oneKeyContractBill}>
+                    <Button key="back" onClick={this.oneKeyBuyInContractBill}>
                         点击开始执行
                     </Button>
 

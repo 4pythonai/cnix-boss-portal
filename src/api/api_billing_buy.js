@@ -1,13 +1,19 @@
 export default class billing {
     static methods = {
+        saveBuyBill: '/BillingBuy/saveBill',
+
+        getContractRelatedResourcesAll: '/BillingBuy/getContractRelatedResourcesAll',
+
+        OneKeyContractBill: '/BillingApiBuy/BatchContractBill',
+
         SingleContractBill: '/BillingApiBuy/SingleContractBill',
-        prepareBuyInBills: '/Billing/prepareBuyInBills',
-        saveBuyinPayment: '/BillingBuyIn/saveBuyinPayment',
-        OneKeyBuyInContractBill: '/BillingBuyIn/OneKeyBuyInContractBill',
-        SaveBuyInBillPayment: '/BillingBuyIn/SaveBuyInBillPayment',
-        getUnPayedBuyInBills: '/BillingBuyIn/getUnPayedBuyInBills',
-        GetBuyInPayPlan: '/BillingBuyIn/GetBuyInPayPlan',
-        GetBuyInPayPlanDetail: '/BillingBuyIn/GetBuyInPayPlanDetail',
-        GetBuyOwned: '/BillingBuyIn/GetBuyOwned'
+        prepareBuyInBills: '/BillingSale/prepareBuyInBills',
+        saveBuyinPayment: '/BillingBuy/saveBuyinPayment',
+        OneKeyBuyInContractBill: '/BillingBuy/OneKeyBuyInContractBill',
+        SaveBuyInBillPayment: '/BillingBuy/SaveBuyInBillPayment',
+        getUnPayedBuyInBills: '/BillingBuy/getUnPayedBuyInBills',
+        GetBuyInPayPlan: '/BillingBuy/GetBuyInPayPlan',
+        GetBuyInPayPlanDetail: '/BillingBuy/GetBuyInPayPlanDetail',
+        GetBuyOwned: '/BillingBuy/GetBuyOwned'
     };
 }

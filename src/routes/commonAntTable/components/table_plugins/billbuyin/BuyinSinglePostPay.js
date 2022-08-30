@@ -50,7 +50,7 @@ export default class BuyinSinglePostPay extends React.Component {
             width: 1450,
             destroyOnClose: true,
             ref: 'billrpt',
-            title: '手工出账单[后付]:',
+            title: '采购手工出账单[后付]:',
             bodyStyle: {
                 width: 1440,
                 height: 'auto',

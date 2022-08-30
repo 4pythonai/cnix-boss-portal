@@ -7,26 +7,26 @@ export default class billing {
         // 按照客户进行计费
         billByCust: '/BillingApiSale/billByCust',
 
-        saveBill: '/Billing/saveBill',
+        saveBill: '/BillingSale/saveBill',
         transferContract: '/App/transferContract',
-        prepareBills: '/Billing/prepareBills',
-        saveNewSettlement: '/Billing/saveNewSettlement',
-        settlementdetail: '/Billing/settlementdetail',
-        getUnUsedBills: '/Billing/getUnUsedBills',
-        saveCombinedBill: '/Billing/saveCombinedBill',
-        getPaperInfoById: '/Billing/getPaperInfoById',
-        getZones: '/Billing/getZones',
-        getZone: '/Billing/getZone',
-        getContractRelatedResourcesAll: '/Billing/getContractRelatedResourcesAll',
-        savePaperBillLocateYearMonth: '/Billing/savePaperBillLocateYearMonth',
+        prepareBills: '/BillingSale/prepareBills',
+        saveNewSettlement: '/BillingSale/saveNewSettlement',
+        settlementdetail: '/BillingSale/settlementdetail',
+        getUnUsedBills: '/BillingSale/getUnUsedBills',
+        saveCombinedBill: '/BillingSale/saveCombinedBill',
+        getPaperInfoById: '/BillingSale/getPaperInfoById',
+        getZones: '/BillingSale/getZones',
+        getZone: '/BillingSale/getZone',
+        getContractRelatedResourcesAll: '/BillingSale/getContractRelatedResourcesAll',
+        savePaperBillLocateYearMonth: '/BillingSale/savePaperBillLocateYearMonth',
         // IBM1 合同测试接口
-        testIBM: '/Billing/testIBM',
+        testIBM: '/BillingSale/testIBM',
         OneKeyContractBill: '/BillingApiSale/BatchContractBill',
 
         OneKeyPaperBill: '/BillingApiSale/OneKeyPaperBill',
         delete_onekeybills: '/Tools/delete_onekeybills',
-        BatchSetBankItemStatus: '/Billing/BatchSetBankItemStatus',
-        DEBUG: '/Billing/DEBUG',
-        getUsages: '/Billing/getUsages'
+        BatchSetBankItemStatus: '/BillingSale/BatchSetBankItemStatus',
+        DEBUG: '/BillingSale/DEBUG',
+        getUsages: '/BillingSale/getUsages'
     };
 }
