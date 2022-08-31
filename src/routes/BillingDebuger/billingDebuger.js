@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select, DatePicker, message, Button, Input } from 'antd';
 import moment from 'moment';
-import OneContractBillReportCom from '@/routes/commonAntTable/components/table_plugins/bill/OneContractBillReportCom';
+import OneContractBillReportCom from '@/routes/commonAntTable/components/table_plugins/bill/sale/OneContractBillReportCom';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
 import 'antd/dist/antd.css';

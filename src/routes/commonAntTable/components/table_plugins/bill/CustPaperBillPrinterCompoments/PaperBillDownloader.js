@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import { default as React, useEffect, useState } from 'react';
 import downloadpdf from '@/utils/Pdfhelper';
 import api from '@/api/api';
-import CustPaperMainContent from '../CustPaperMainContent';
+import CustPaperMainContent from '../sale/CustPaperMainContent';
 
 export default function PaperBillDownloader(props) {
     const [pdfRef] = useState(React.createRef(null));

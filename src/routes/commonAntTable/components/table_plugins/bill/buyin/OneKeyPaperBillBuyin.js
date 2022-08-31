@@ -12,7 +12,7 @@ export default class OneKeyPaperBillBuyin extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
-        this.onekeyfunction = this.onekeyfunction.bind(this);
+        this.oneKeyVendorFunction = this.oneKeyVendorFunction.bind(this);
         this.onChangeContractBillrange = this.onChangeContractBillrange.bind(this);
         this.delete_onekeybills = this.delete_onekeybills.bind(this);
     }
@@ -29,7 +29,7 @@ export default class OneKeyPaperBillBuyin extends React.Component {
         this.setState({ visible: true });
     }
 
-    async onekeyfunction() {
+    async oneKeyVendorFunction() {
         this.setState({
             visible: true,
             execute_report: []
@@ -41,7 +41,7 @@ export default class OneKeyPaperBillBuyin extends React.Component {
                 contractbillrange: this.state.contractbillrange
             }
         };
-        const json = await api.billingSale.OneKeyPaperBill(params);
+        const json = await api.billingBuy.OneKeyVendorPaperBill(params);
         this.setState({ execute_report: json.execute_report });
     }
 
@@ -66,7 +66,7 @@ export default class OneKeyPaperBillBuyin extends React.Component {
             method: 'POST',
             data: {}
         };
-        const json = await api.contract.getRegions(params);
+        const json = await api.contract.getVendorRegions(params);
 
         var array1 = json.regions.map((item) => item.region);
         var array2 = ['预付', '后付'];
@@ -160,7 +160,7 @@ export default class OneKeyPaperBillBuyin extends React.Component {
 
                     <br />
                     <br />
-                    <Button key="back" onClick={this.onekeyfunction}>
+                    <Button key="back" onClick={this.oneKeyVendorFunction}>
                         一键生成供应商账单
                     </Button>
 

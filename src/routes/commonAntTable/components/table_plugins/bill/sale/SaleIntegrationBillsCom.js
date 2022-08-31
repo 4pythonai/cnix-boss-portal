@@ -3,8 +3,8 @@ import React from 'react';
 import { message, Table, Divider, Button } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
-import ResTimeColumns from './columns/ResTimeColumns';
-import ContractBillColumns from './columns/ContractBillColumns';
+import ResTimeColumns from '../columns/ResTimeColumns';
+import ContractBillColumns from '../columns/ContractBillColumns';
 
 @observer
 export default class SaleIntegrationBillsCom extends React.Component {
@@ -50,7 +50,7 @@ export default class SaleIntegrationBillsCom extends React.Component {
         return (
             <div>
                 <div>
-                    <Button onClick={(event) => this.saveCombinedBill(event)}>保存合并账单</Button>
+                    <Button onClick={(event) => this.saveCombinedBill(event)}>Sale保存合并账单</Button>
                     <Divider orientation="left">未付款账单</Divider>
                     <Table
                         dataSource={this.bills}

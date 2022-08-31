@@ -1,9 +1,9 @@
 import { Divider, Table } from 'antd';
 import React from 'react';
 import './paper_bill_style.scss';
-import ResTimeColumns from './columns/ResTimeColumns';
+import ResTimeColumns from '../columns/ResTimeColumns';
 import ABInfo from './ABInfo';
-import PaperBillColumns from './columns/PaperBillColumns';
+import PaperBillColumns from '../columns/PaperBillColumns';
 
 const CustPaperMainContent = (props) => {
     // 资源使用日志

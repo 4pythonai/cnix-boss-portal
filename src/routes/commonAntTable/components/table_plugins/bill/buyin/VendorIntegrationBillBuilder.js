@@ -29,14 +29,14 @@ export default class VendorIntegrationBillBuilder extends React.Component {
         }
         const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         this.setState({ custid: current_row.id });
-        const params = { method: 'POST', data: { custid: current_row.id } };
-        const json = await api.billingSale.getUnUsedBills(params);
+        const params = { method: 'POST', data: { vendorid: current_row.id } };
+        const json = await api.billingBuy.getUnUsedBills(params);
 
         this.setState({
             visible: true,
             all_bills: json.all_bills,
             big_total_summary: json.big_total_summary,
-            cust: json.cust
+            vendor: json.vendor
         });
     }
 

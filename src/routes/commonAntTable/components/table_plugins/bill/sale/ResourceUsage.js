@@ -3,7 +3,7 @@ import api from '@/api/api';
 import { message, Modal, Table } from 'antd';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import ResTimeColumns from './columns/ResTimeColumns';
+import ResTimeColumns from '../columns/ResTimeColumns';
 
 import React from 'react';
 

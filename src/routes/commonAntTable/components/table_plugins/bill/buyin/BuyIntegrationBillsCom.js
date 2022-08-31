@@ -3,8 +3,8 @@ import React from 'react';
 import { message, Table, Divider, Button } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
-import ResTimeColumns from './columns/ResTimeColumns';
-import ContractBillColumns from './columns/ContractBillColumns';
+import ResTimeColumns from '../columns/ResTimeColumns';
+import ContractBillColumns from '../columns/ContractBillColumns';
 
 @observer
 export default class BuyIntegrationBillsCom extends React.Component {
@@ -18,10 +18,10 @@ export default class BuyIntegrationBillsCom extends React.Component {
         selectedRows: []
     };
 
-    saveCombinedBill = async (e) => {
+    saveVendorBill = async (e) => {
         const dataSend = { custid: this.custid, selectedRows: this.state.selectedRows };
         const params = { data: dataSend, method: 'POST' };
-        const json = await api.billingSale.saveCombinedBill(params);
+        const json = await api.billingBuy.saveVendorBill(params);
         console.log(json);
         if (json.code === 200) {
             message.success(json.msg);
@@ -50,7 +50,7 @@ export default class BuyIntegrationBillsCom extends React.Component {
         return (
             <div>
                 <div>
-                    <Button onClick={(event) => this.saveCombinedBill(event)}>保存合并账单</Button>
+                    <Button onClick={(event) => this.saveVendorBill(event)}>保存供应商账单</Button>
                     <Divider orientation="left">未付款账单</Divider>
                     <Table
                         dataSource={this.bills}

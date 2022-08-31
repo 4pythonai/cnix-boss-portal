@@ -3,7 +3,7 @@ import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import './paper_bill_style.scss';
-import PaperBillDownloader from './CustPaperBillPrinterCompoments/PaperBillDownloader';
+import PaperBillDownloader from '../CustPaperBillPrinterCompoments/PaperBillDownloader';
 
 @observer
 export default class CustPaperBillPrinterDebug extends React.Component {

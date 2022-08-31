@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import api from '@/api/api';
 import { toJS } from 'mobx';
 import React from 'react';
-import UnSettledCustPaperBillCols from './columns/UnSettledCustPaperBillCols';
+import UnSettledCustPaperBillCols from '../columns/UnSettledCustPaperBillCols';
 
 @observer
 export default class BillSettlement extends React.Component {

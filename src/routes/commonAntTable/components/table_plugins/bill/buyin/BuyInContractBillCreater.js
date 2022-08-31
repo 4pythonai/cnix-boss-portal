@@ -2,8 +2,6 @@ import React from 'react';
 import { Modal, Button, Progress } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
-import userStore from '@/store/userStore';
-import { EventSourcePolyfill } from 'event-source-polyfill';
 import { v4 as uuidv4 } from 'uuid';
 
 import { root_url, port, version_2 } from '@/api/api_config/base_config';

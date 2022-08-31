@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, message, Table } from 'antd';
 import api from '@/api/api';
 import { toJS } from 'mobx';
-import ResTimeColumns from './columns/ResTimeColumns';
+import ResTimeColumns from '../columns/ResTimeColumns';
 export default class ContractRelatedResources extends React.Component {
     constructor(props) {
         super(props);
