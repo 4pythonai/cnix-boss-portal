@@ -131,7 +131,7 @@ export default function BuyInItemCom(props) {
                 placeholder="选择合同"
                 optionFilterProp="children"
                 onChange={onChangeContract}
-                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+            >
                 {contractnos.map((item, i) => {
                     return (
                         <Option key={i} value={item.contract_no}>

@@ -31,8 +31,8 @@ export default class OneBuyInContractBillCreater extends React.Component {
             message.error('请选择一个采购合同');
             return;
         }
-        console.log(this.props.commonTableStore.selectedRows[0].cno);
-        this.setState({ visible: true, contractNo: this.props.commonTableStore.selectedRows[0].cno });
+        console.log(this.props.commonTableStore.selectedRows[0].contract_no);
+        this.setState({ visible: true, contractNo: this.props.commonTableStore.selectedRows[0].contract_no });
     }
 
     componentWillUnmount() {
@@ -49,7 +49,7 @@ export default class OneBuyInContractBillCreater extends React.Component {
         const params = {
             method: 'POST',
             data: {
-                cno: this.state.contractNo,
+                contract_no: this.state.contractNo,
                 uuid: uuid
             }
         };
