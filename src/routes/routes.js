@@ -15,6 +15,7 @@ const routes = {
         require('./permissionManage').default,
         require('./Toolpage').default,
         require('./report').default,
+        require('./report/buyindex').default,
         require('./BillingDebuger').default,
         require('./BuyinCodeMnt').default,
         require('./applog').default,

@@ -1,78 +1,69 @@
 export default {
     onEnter: win_requireAuth, // add this
-    path: 'report',
+    path: 'BuyReport',
     component: require('../../components/layout').default,
     childRoutes: [
         {
-            path: 'monthlyShouldGet',
+            path: 'ShouldPayVendorFromContractBill',
             getComponent(nextState, cb) {
-                import('./SaleContainers/monthlyShouldGet').then((m) => {
+                import('./BuyContainers/ShouldPayVendorFromContractBill').then((m) => {
                     cb(null, m.default);
                 });
             }
         },
 
         {
-            path: 'custOwned',
+            path: 'AlreadyPayVendorFromContractBill',
             getComponent(nextState, cb) {
-                import('./SaleContainers/custOwned').then((m) => {
+                import('./BuyContainers/AlreadyPayVendorFromContractBill').then((m) => {
                     cb(null, m.default);
                 });
             }
         },
         {
-            path: 'custPayed',
+            path: 'OwnedVendorFromContractBill',
             getComponent(nextState, cb) {
-                import('./SaleContainers/custPayed').then((m) => {
-                    cb(null, m.default);
-                });
-            }
-        },
-
-        {
-            path: 'MRR',
-            getComponent(nextState, cb) {
-                import('./SaleContainers/MRR').then((m) => {
+                import('./BuyContainers/OwnedVendorFromContractBill').then((m) => {
                     cb(null, m.default);
                 });
             }
         },
         {
-            path: 'IncomePrediction',
+            path: 'BUYMRR',
             getComponent(nextState, cb) {
-                import('./SaleContainers/IncomePrediction').then((m) => {
+                import('./BuyContainers/BUYMRR').then((m) => {
                     cb(null, m.default);
                 });
             }
         },
         {
-            path: 'reportByPaperBillShouldPay',
+            path: 'PayPrediction',
             getComponent(nextState, cb) {
-                import('./SaleContainers/reportByPaperBillShouldPay').then((m) => {
+                import('./BuyContainers/PayPrediction').then((m) => {
                     cb(null, m.default);
                 });
             }
         },
         {
-            path: 'reportByPaperBillPayed',
+            path: 'ShouldPayVendorFromPaperBill',
             getComponent(nextState, cb) {
-                import('./SaleContainers/reportByPaperBillPayed').then((m) => {
+                import('./BuyContainers/ShouldPayVendorFromPaperBill').then((m) => {
                     cb(null, m.default);
                 });
             }
         },
         {
-            path: 'reportByPaperBillOwned',
+            path: 'AlreadyPayVendorFromPaperBill',
             getComponent(nextState, cb) {
-                import('./SaleContainers/reportByPaperBillOwned').then((m) => {
+                import('./BuyContainers/AlreadyPayVendorFromPaperBill').then((m) => {
                     cb(null, m.default);
                 });
             }
         },
         {
-            path: 'reportByProductShouldPay',
+            path: 'OwnedPayVendorFromPaperBill',
             getComponent(nextState, cb) {
-                import('./SaleContainers/reportByProductShouldPay').then((m) => {
+                import('./BuyContainers/OwnedPayVendorFromPaperBill').then((m) => {
                     cb(null, m.default);
                 });
             }

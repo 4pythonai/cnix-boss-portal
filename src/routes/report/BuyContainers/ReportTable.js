@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 
-export default class CustPayed extends React.Component {
+export default class ReportTable extends React.Component {
     render() {
         return (
             <Table
