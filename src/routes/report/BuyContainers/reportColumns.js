@@ -52,7 +52,7 @@ export default function createReportColumns(reportSchema) {
         reportSchema == 'CustPayed' ||
         reportSchema == 'IncomePrediction'
     ) {
-        $owe_or_have = '应收';
+        $owe_or_have = '应付';
     }
 
     if (reportSchema == 'ReportByPaperBillPayed') {

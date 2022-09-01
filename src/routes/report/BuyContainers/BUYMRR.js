@@ -49,7 +49,7 @@ export default class BUYMRR extends React.Component {
                     mode={'shouldpay'}
                     type={'normal'}
                     title="年应收报表(MRR/基于合同账单/拆分到月)"
-                    apiurl={api.report.reportByContractBill}
+                    apiurl={api.buyReport.reportByContractBill}
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
                 />
