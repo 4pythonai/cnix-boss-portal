@@ -17,7 +17,7 @@ export default class billing {
         saveVendorBill: '/BillingBuy/saveVendorBill',
         OneKeyVendorPaperBill: '/BillingApiBuy/OneKeyVendorPaperBill',
         prepareBuyInBills: '/BillingBuy/prepareBuyInBills',
-        prepareBills: '/BillingBuy/prepareBills',
+
         saveNewSettlement: '/BillingBuy/saveNewSettlement'
     };
 }
