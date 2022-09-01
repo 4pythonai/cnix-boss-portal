@@ -47,7 +47,7 @@ export default class AlreadyPayVendorFromContractBill extends React.Component {
                     columns={columns}
                     mode={'payed'}
                     type={'normal'}
-                    apiurl={api.report.reportByContractBill}
+                    apiurl={api.buyReport.reportByContractBill}
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
                     title="结算情况"

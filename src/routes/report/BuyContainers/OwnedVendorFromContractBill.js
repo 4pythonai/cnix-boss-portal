@@ -47,7 +47,7 @@ export default class OwnedVendorFromContractBill extends React.Component {
                     columns={columns}
                     mode={'owned'}
                     type={'contractbill'}
-                    apiurl={api.report.reportByContractBill}
+                    apiurl={api.buyReport.reportByContractBill}
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
                     title="欠费情况"

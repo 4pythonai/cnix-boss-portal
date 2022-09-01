@@ -1,3 +1,4 @@
+// CG应付-基于合同账单
 import React from 'react';
 import api from '@/api/api';
 import ReportHeader from './reportHeader';
@@ -44,7 +45,7 @@ export default class ShouldPayVendorFromContractBill extends React.Component {
                     columns={columns}
                     type={'normal'}
                     mode={'shouldpay'}
-                    apiurl={api.report.reportByContractBill}
+                    apiurl={api.buyReport.reportByContractBill}
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
                     title="年应收报表(基于合同账单)"

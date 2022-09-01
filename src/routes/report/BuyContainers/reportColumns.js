@@ -31,20 +31,11 @@ export default function createReportColumns(reportSchema) {
         key: 'year'
     };
 
-    if (reportSchema === 'ReportByProductShouldPay') {
-        $tmp[2] = {
-            title: '产品',
-            dataIndex: 'product_name',
-            key: 'product_name',
-            width: '180px'
-        };
-    } else {
-        $tmp[2] = {
-            title: '客户名称',
-            dataIndex: 'customer_name',
-            key: 'customer_name'
-        };
-    }
+    $tmp[2] = {
+        title: '供应商名称',
+        dataIndex: 'vendorname',
+        key: 'vendorname'
+    };
 
     $tmp[3] = {
         title: '[1-12月合计]',

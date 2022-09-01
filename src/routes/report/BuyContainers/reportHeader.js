@@ -17,7 +17,7 @@ export default class ReportHeader extends React.Component {
         excelMsg: {},
         year: 0,
         contract_no: null,
-        customer_name: null,
+        vendor_name: null,
         region: null,
         reportrows: [],
         regions: []
@@ -28,7 +28,7 @@ export default class ReportHeader extends React.Component {
             method: 'POST',
             data: {}
         };
-        const json = await api.contract.getRegions(params);
+        const json = await api.contract.getVendorRegions(params);
         this.setState({ regions: json.regions.map((item) => item.region) });
     }
 
@@ -51,12 +51,12 @@ export default class ReportHeader extends React.Component {
         if (reg.test(filterValue)) {
             console.log('判断为汉字客户');
             this.setState({
-                customer_name: a.target.value.trim(),
+                vendor_name: a.target.value.trim(),
                 contract_no: null
             });
         } else {
             this.setState({
-                customer_name: null,
+                vendor_name: null,
                 contract_no: a.target.value.trim()
             });
         }
@@ -74,7 +74,7 @@ export default class ReportHeader extends React.Component {
             year: this.state.year,
             region: this.state.region,
             contract_no: this.state.contract_no,
-            customer_name: this.state.customer_name,
+            vendor_name: this.state.vendor_name,
             mode: this.props.mode
         };
 
@@ -197,7 +197,7 @@ export default class ReportHeader extends React.Component {
                         {
                             <Input
                                 style={{ width: '200' }}
-                                placeholder="输入合同号或者客户名称"
+                                placeholder="输入合同号或者供应商名称"
                                 onChange={(event) => this.onChangeFilterValue(event)}
                                 onPressEnter={this.handleOk}></Input>
                         }

@@ -46,7 +46,7 @@ export default class OwnedPayVendorFromPaperBill extends React.Component {
                     columns={columns}
                     mode={'owned'}
                     type={'paperbill'}
-                    apiurl={api.report.reportByPaperBill}
+                    apiurl={api.buyReport.reportByPaperBill}
                     setTitle={this.setTitle}
                     reportrowsHander={this.reportrowsHander}
                     title="年欠费报表(基于客户账单)"

@@ -40,14 +40,14 @@ export default class ShouldPayVendorFromPaperBill extends React.Component {
             pageSize: 30
         };
 
-        // api.report.reportByPaperBill()
+        // api.buyReport.reportByPaperBill()
         return (
             <div className="custServiceContent">
                 <ReportHeader
                     columns={columns}
                     mode={'shouldpay'}
                     type={'paperbill'}
-                    apiurl={api.report.reportByPaperBill}
+                    apiurl={api.buyReport.reportByPaperBill}
                     reportrowsHander={this.reportrowsHander}
                     title="年应收报表(基于客户账单)"
                     setTitle={this.setTitle}

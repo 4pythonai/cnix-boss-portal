@@ -13,7 +13,8 @@ import billingBuy from './api_billing_buy';
 
 import network from './api_network';
 import sdwan from './api_sdwan';
-import report from './api_report';
+import report from './api_report_sale';
+import buyReport from './api_report_buy';
 import button from './api_button';
 import tools from './api_tools';
 import filehandler from './api_file';
@@ -41,6 +42,7 @@ api.billingBuy = billingBuy;
 api.network = network;
 api.sdwan = sdwan;
 api.report = report;
+api.buyReport = buyReport;
 api.tools = tools;
 api.filehandler = filehandler;
 api.buyin = buyin;

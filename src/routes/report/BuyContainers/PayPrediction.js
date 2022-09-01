@@ -49,7 +49,7 @@ export default class PayPrediction extends React.Component {
                     mode={'shouldpay'}
                     type={'Prediction'}
                     title="收入预测"
-                    apiurl={api.report.reportByContractBill}
+                    apiurl={api.buyReport.reportByContractBill}
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
                 />

@@ -46,7 +46,7 @@ export default class AlreadyPayVendorFromPaperBill extends React.Component {
                     columns={columns}
                     mode={'payed'}
                     type={'paperbill'}
-                    apiurl={api.report.reportByPaperBill}
+                    apiurl={api.buyReport.reportByPaperBill}
                     reportrowsHander={this.reportrowsHander}
                     setTitle={this.setTitle}
                     title="年已结算报表(基于客户账单)"
