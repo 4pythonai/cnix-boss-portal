@@ -89,7 +89,7 @@ export default class BillSettlement extends React.Component {
         return {
             width: 1200,
             destroyOnClose: true,
-            title: '销账',
+            title: '销售销账',
             bodyStyle: {
                 width: 1200,
                 height: 'auto',

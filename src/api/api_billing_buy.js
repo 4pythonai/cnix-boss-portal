@@ -15,6 +15,9 @@ export default class billing {
         GetBuyInPayPlanDetail: '/BillingBuy/GetBuyInPayPlanDetail',
         GetBuyOwned: '/BillingBuy/GetBuyOwned',
         saveVendorBill: '/BillingBuy/saveVendorBill',
-        OneKeyVendorPaperBill: '/BillingApiBuy/OneKeyVendorPaperBill'
+        OneKeyVendorPaperBill: '/BillingApiBuy/OneKeyVendorPaperBill',
+        prepareBuyInBills: '/BillingBuy/prepareBuyInBills',
+        prepareBills: '/BillingBuy/prepareBills',
+        saveNewSettlement: '/BillingBuy/saveNewSettlement'
     };
 }
