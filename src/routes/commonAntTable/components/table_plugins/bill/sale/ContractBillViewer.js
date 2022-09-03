@@ -6,7 +6,7 @@ import ResTimeColumns from '../columns/ResTimeColumns';
 
 @inject('billingSummaryStore')
 @observer
-export default class ContractBillPrinter extends React.Component {
+export default class ContractBillViewer extends React.Component {
     constructor(props) {
         super(props);
         this.store = props.billingSummaryStore;
@@ -24,7 +24,6 @@ export default class ContractBillPrinter extends React.Component {
         }
         let current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         console.log(current_row);
-
         this.setState({ visible: true });
         this.setState(current_row);
     }
