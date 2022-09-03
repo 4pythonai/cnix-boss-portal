@@ -6,7 +6,7 @@ import './paper_bill_style.scss';
 import PaperBillDownloader from './PaperBillDownloader';
 
 @observer
-export default class CustPaperBillPrinterDebug extends React.Component {
+export default class CustPaperBillDownloader extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
