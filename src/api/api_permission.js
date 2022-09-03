@@ -39,6 +39,7 @@ export default class permission {
         getActRoleList: '/Permission/getActRoleList',
         saveForbiddenBtns: '/Permission/saveForbiddenBtns',
         orgTree: '/Organization/orgTree',
-        getDeptMembers: '/Organization/getDeptMembers'
+        getDeptMembers: '/Organization/getDeptMembers',
+        getButtonInfo: '/Permission/getButtonInfo'
     };
 }
