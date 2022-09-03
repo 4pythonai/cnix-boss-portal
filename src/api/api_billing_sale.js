@@ -5,7 +5,7 @@ export default class billing {
         SingleContractBill: '/BillingApiSale/SingleContractBill',
 
         // 按照客户进行计费
-        billByCust: '/BillingApiSale/billByCust',
+        getCustAllContractsBillingSummaryAndPayment: '/BillingApiSale/getCustAllContractsBillingSummaryAndPayment',
 
         saveBill: '/BillingSale/saveBill',
         transferContract: '/App/transferContract',

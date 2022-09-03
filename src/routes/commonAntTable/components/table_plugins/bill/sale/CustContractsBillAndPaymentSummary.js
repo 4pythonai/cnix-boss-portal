@@ -1,4 +1,3 @@
-// 客户集成账单.
 import api from '@/api/api';
 import { Collapse, Divider, message, Modal, Timeline } from 'antd';
 import { toJS } from 'mobx';
@@ -8,7 +7,7 @@ import OneContractBillReportCom from './OneContractBillReportCom';
 const { Panel } = Collapse;
 
 @observer
-export default class CustIntegrationBill extends React.Component {
+export default class CustContractsBillAndPaymentSummary extends React.Component {
     constructor(props) {
         super(props);
         console.log(props);
@@ -31,7 +30,7 @@ export default class CustIntegrationBill extends React.Component {
         }
         const current_row = toJS(this.props.commonTableStore.selectedRows[0]);
         const params = { method: 'POST', data: { custid: current_row.id } };
-        const json = await api.billingSale.billByCust(params);
+        const json = await api.billingSale.getCustAllContractsBillingSummaryAndPayment(params);
         console.log(json);
         console.log(json.cust);
 
