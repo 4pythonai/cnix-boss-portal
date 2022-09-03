@@ -1,34 +1,21 @@
-
-
-import React from 'react'
-import { Checkbox, Badge } from 'antd';
-
-import { observer, inject } from "mobx-react";
-import api from '@/api/api'
-import { toJS } from 'mobx'
-const CheckboxGroup = Checkbox.Group;
+import React from 'react';
+import { Badge } from 'antd';
+import { observer } from 'mobx-react';
 
 @observer
 export default class DevicePort extends React.Component {
     render() {
         return (
-            <div style={ devport } className={ this.props.className }>
-                {
-                    this.props.port.selected
-                        ?
-                        <Badge status="processing" offset={ [40, -10] } dot={ false } />
-                        :
-                        <Badge status="default" offset={ [40, -10] } dot={ false } />
-                }
-                <div>{ '  ' }</div>
-                <div>{ this.props.port.portmedia }</div>
-                <div>{ this.props.port.portspeed }</div>
-                <div>{ this.props.port.portname }</div>
-            </div >
-        )
+            <div style={devport} className={this.props.className}>
+                {this.props.port.selected ? <Badge status="processing" offset={[40, -10]} dot={false} /> : <Badge status="default" offset={[40, -10]} dot={false} />}
+                <div>{'  '}</div>
+                <div>{this.props.port.portmedia}</div>
+                <div>{this.props.port.portspeed}</div>
+                <div>{this.props.port.portname}</div>
+            </div>
+        );
     }
 }
-
 
 const devport = {
     border: '1px solid red',

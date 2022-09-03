@@ -21,6 +21,10 @@ export default function BtnUsage(props) {
             dataIndex: 'text'
         },
         {
+            title: 'action_code',
+            dataIndex: 'action_code'
+        },
+        {
             title: '路由',
             dataIndex: 'router',
             key: 'router'

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Modal, Descriptions, message, Checkbox } from 'antd';
-import { observer, inject } from 'mobx-react';
+import { Modal, message, Checkbox } from 'antd';
+import { observer } from 'mobx-react';
 import api from '../../../../api/api';
 import pmStore from '../../../../store/pmStore';
 
