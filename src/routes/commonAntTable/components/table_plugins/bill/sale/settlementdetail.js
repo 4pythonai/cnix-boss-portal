@@ -1,10 +1,8 @@
-import { Modal, Descriptions, message, InputNumber, Table, Icon, Divider, Radio, Checkbox, Slider, Row, Col, Input, Button } from 'antd';
-import { observer, inject } from 'mobx-react';
+import { Modal, message, Table } from 'antd';
+import { observer } from 'mobx-react';
 import api from '@/api/api';
 import { toJS } from 'mobx';
-import React, { useState } from 'react';
-import { registerFormField, connect } from '@uform/antd';
-import reqwest from 'reqwest';
+import React from 'react';
 
 @observer
 export default class Settlementdetail extends React.Component {
