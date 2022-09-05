@@ -15,7 +15,6 @@ export default class billing {
         getUnUsedBills: '/BillingSale/getUnUsedBills',
         saveCombinedBill: '/BillingSale/saveCombinedBill',
         getPaperInfoById: '/BillingSale/getPaperInfoById',
-        getZones: '/BillingSale/getZones',
         getZone: '/BillingSale/getZone',
         getContractRelatedResourcesAll: '/BillingSale/getContractRelatedResourcesAll',
         savePaperBillLocateYearMonth: '/BillingSale/savePaperBillLocateYearMonth',
