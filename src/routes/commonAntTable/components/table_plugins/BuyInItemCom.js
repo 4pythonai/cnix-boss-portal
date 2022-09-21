@@ -19,6 +19,7 @@ export default function BuyInItemCom(props) {
     const [billingdate, setBillingdate] = useState(null);
     const [closedate, setClosedate] = useState(null);
     const [memo, setMemo] = useState(null);
+    const [deliveryno, setDeliveryno] = useState(null);
 
     const handleHide = () => {
         setIsModalVisible(false);
@@ -87,6 +88,11 @@ export default function BuyInItemCom(props) {
         setMemo(e.target.value);
     }
 
+    function onChangeDelierno(e) {
+        e.persist();
+        setDeliveryno(e.target.value);
+    }
+
     const saveBuyinResourceItem = async () => {
         if (vendor === '' || vendor === undefined) {
             setIsModalVisible(true);
@@ -108,13 +114,13 @@ export default function BuyInItemCom(props) {
                 vendorID: vendor,
                 prodID: prod,
                 opendate: opendate,
+                deliveryno: deliveryno,
                 billingdate: billingdate,
                 closedate: closedate,
                 memo: memo
             };
 
             let params = { method: 'POST', data: saveobj };
-            console.log('🚀 ~ file: BuyInItemCom.js ~ line 113 ~ saveBuyinResourceItem ~ params', params);
             let res = await api.buyin.saveBuyinResourceItem(params);
             if (res.code === 200) {
                 props.refreshTable();
@@ -125,13 +131,7 @@ export default function BuyInItemCom(props) {
     return (
         <div style={{ color: '#3b3d40', margin: '10px' }}>
             &nbsp;&nbsp;&nbsp;&nbsp;合同号:&nbsp;
-            <Select
-                showSearch
-                style={{ width: 300 }}
-                placeholder="选择合同"
-                optionFilterProp="children"
-                onChange={onChangeContract}
-            >
+            <Select showSearch style={{ width: 300 }} placeholder="选择合同" optionFilterProp="children" onChange={onChangeContract}>
                 {contractnos.map((item, i) => {
                     return (
                         <Option key={i} value={item.contract_no}>
@@ -182,6 +182,8 @@ export default function BuyInItemCom(props) {
             开通时间:&nbsp;
             <DatePicker format="YYYY-MM-DD" onChange={onChangeOpendate} placeholder="请选择时间" />
             <br /> <br />
+            资源编号:&nbsp;
+            <Input style={{ width: '304px' }} placeholder="资源编号" onChange={onChangeDelierno}></Input> <br /> <br />
             计费开始:&nbsp;
             <DatePicker format="YYYY-MM-DD" onChange={onChangeBillingdate} placeholder="请选择时间" />
             <br /> <br />

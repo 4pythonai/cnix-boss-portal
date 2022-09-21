@@ -44,6 +44,13 @@ export default class BuyResItemList extends React.Component {
                 width: '80px'
             },
             {
+                title: '资源编号',
+                dataIndex: 'deliveryno',
+                key: 'deliveryno',
+                width: '80px'
+            },
+
+            {
                 title: '起',
                 dataIndex: 'billingdate',
                 key: 'billingdate',
