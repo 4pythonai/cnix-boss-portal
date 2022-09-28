@@ -87,6 +87,11 @@ export default function BuyInItemCom(props) {
         setMemo(e.target.value);
     }
 
+    function onChangeDelierno(e) {
+        e.persist();
+        setDeliveryno(e.target.value);
+    }
+
     const saveBuyinResourceItem = async () => {
         if (vendor === '' || vendor === undefined) {
             setIsModalVisible(true);
@@ -175,6 +180,7 @@ export default function BuyInItemCom(props) {
             开通时间:&nbsp;
             <DatePicker format="YYYY-MM-DD" onChange={onChangeOpendate} placeholder="请选择时间" />
             <br /> <br />
+            计费开始:&nbsp;
             <DatePicker format="YYYY-MM-DD" onChange={onChangeBillingdate} placeholder="请选择时间" />
             <br /> <br />
             计费终止:&nbsp;
