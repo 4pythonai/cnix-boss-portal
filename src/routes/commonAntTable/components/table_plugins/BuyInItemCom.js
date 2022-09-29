@@ -129,10 +129,10 @@ export default function BuyInItemCom(props) {
     return (
         <div style={{ color: '#3b3d40', margin: '10px' }}>
             &nbsp;&nbsp;&nbsp;&nbsp;合同号:&nbsp;
-            <Select showSearch style={{ width: 300 }} placeholder="选择合同" optionFilterProp="children" onChange={onChangeContract}>
+            <Select key={'cno'} showSearch style={{ width: 300 }} placeholder="选择合同" optionFilterProp="children" onChange={onChangeContract}>
                 {contractnos.map((item, i) => {
                     return (
-                        <Option key={i} value={item.contract_no}>
+                        <Option key={item.contract_no} value={item.contract_no}>
                             {item.contract_no}
                         </Option>
                     );
@@ -142,6 +142,7 @@ export default function BuyInItemCom(props) {
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;供应商:&nbsp;
             <Select
+                key={'vendor'}
                 showSearch
                 style={{ width: 300 }}
                 placeholder="选择供应商"
@@ -150,7 +151,7 @@ export default function BuyInItemCom(props) {
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
                 {vendors.map((item, i) => {
                     return (
-                        <Option key={i} value={item.id}>
+                        <Option key={item.id} value={item.id}>
                             {item.vendorname}
                         </Option>
                     );
@@ -161,7 +162,8 @@ export default function BuyInItemCom(props) {
             &nbsp;&nbsp;&nbsp;&nbsp;选产品:&nbsp;
             <Select
                 showSearch
-                style={{ width: 300 }}
+                key={'prod'}
+                style={{ width: 800 }}
                 placeholder="选产品"
                 optionFilterProp="children"
                 onChange={onChangeProd}
@@ -169,7 +171,7 @@ export default function BuyInItemCom(props) {
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
                 {prods.map((item, i) => {
                     return (
-                        <Option key={i} value={item.id}>
+                        <Option key={item.id} value={item.id}>
                             {item.prodname}
                         </Option>
                     );
