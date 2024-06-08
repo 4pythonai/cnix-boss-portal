@@ -139,7 +139,7 @@ module.exports = {
         ],
         'no-multi-str': 'warn',
         'no-native-reassign': 'warn',
-        "no-unused-react-component-methods/no-unused-react-component-methods": "error",
+        'no-unused-react-component-methods/no-unused-react-component-methods': 'error',
         'no-negated-in-lhs': 'warn',
         'no-new-func': 'warn',
         'no-new-object': 'warn',

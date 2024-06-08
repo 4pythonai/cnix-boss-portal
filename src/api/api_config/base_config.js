@@ -1,3 +1,4 @@
+// const root_url = 'http://103.151.148.2';
 const root_url = 'http://127.0.0.1';
 const port = '8502';
 const version_2 = 'v2';
