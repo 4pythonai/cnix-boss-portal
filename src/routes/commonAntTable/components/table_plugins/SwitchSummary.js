@@ -78,7 +78,7 @@ export default class SwitchSummary extends React.Component {
 
     render() {
         return (
-            <Modal visible={this.state.visible} title={this.state.devname} onOk={this.handleOk} onCancel={this.handleCancel} width={1320}>
+            <Modal visible={this.state.visible} title={'交换机概览:' + this.state.devname} onOk={this.handleOk} onCancel={this.handleCancel} width={1320}>
                 <div style={flexGrid}>{this.renderUsage()}</div>
             </Modal>
         );

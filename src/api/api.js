@@ -27,7 +27,7 @@ export { api_root };
 export default class api {}
 
 api.button = button;
-api.device_api = device;
+api.device = device;
 api.processmanager = processmanager;
 api.activity = activity;
 api.curd = curd;

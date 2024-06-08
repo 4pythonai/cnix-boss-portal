@@ -5,6 +5,7 @@ export default class device {
         addWdmModel: '/device/addWdmModel',
         addBossXpath: '/device/addBossXpath',
         updateBossXpath: '/device/updateBossXpath',
-        addSwitchPorts: '/device/addSwitchPorts'
+        addSwitchPorts: '/device/addSwitchPorts',
+        batchAddU: '/device/batchAddU'
     };
 }
