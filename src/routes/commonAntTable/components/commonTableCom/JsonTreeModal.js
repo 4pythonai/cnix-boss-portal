@@ -50,7 +50,7 @@ export default class JsonTreeModal extends React.Component {
         let title = '';
         if (this.props.schema == 'resource_logs') {
             bigjson = this.props.record.resource_logs;
-            title = '资源详情';
+            title = '资源详情JS';
         }
         if (this.props.schema == 'billsjson') {
             bigjson = this.props.record.billsjson;

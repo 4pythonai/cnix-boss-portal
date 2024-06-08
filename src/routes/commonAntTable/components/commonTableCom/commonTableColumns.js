@@ -1,6 +1,7 @@
 import React from 'react';
 import getTextWidth from './commonTableTextTool';
-import JsonTreeModal from './JsonTreeModal';
+// import JsonTreeModal from './JsonTreeModal';
+import JsonTableModal from './JsonTableModal';
 
 function sorter(valueA, valueB) {
     let targetA = valueA != null && valueA.toString().toLowerCase();
@@ -12,10 +13,13 @@ function columnRender(text, record, column_cfg) {
     if (text === '' || text === undefined) {
         return '';
     }
+
+    // 采购管理>采购合同账单,详情按钮,点击后出现json树形结构,后改为表格形式
+
     if (column_cfg.key == 'resource_logs') {
         return (
             <div>
-                <JsonTreeModal schema={'resource_logs'} record={record} />
+                <JsonTableModal schema={'resource_logs'} record={record} />
             </div>
         );
     }
