@@ -1,8 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
-import { message } from 'antd';
-import { Modal, Badge } from 'antd';
+import { message, Modal, Badge } from 'antd';
 
 @observer
 export default class Odfsummary extends React.Component {
@@ -13,10 +12,12 @@ export default class Odfsummary extends React.Component {
     };
 
     init() {
-        if (this.props.commonTableStore.selectedRows.length != 1) {
+        if (this.props.commonTableStore.selectedRows.length !== 1) {
             message.error('请选择一条数据！');
             return;
         }
+
+        this.setState({ odfusage: [] });
 
         let _tmprec = this.props.commonTableStore.selectedRows[0];
         console.log(_tmprec);
@@ -31,8 +32,7 @@ export default class Odfsummary extends React.Component {
         };
         let res = await api.network.getOdfsummary(params);
         console.log(res);
-        this.setState({ odfusage: res.data });
-        this.setState({ devname: res.devname });
+        this.setState({ odfusage: res.data, devname: res.devname });
     }
 
     showModal = () => {
@@ -60,12 +60,19 @@ export default class Odfsummary extends React.Component {
         let rows = [];
 
         this.state.odfusage.map((item) => {
+            let badgeColor = '#52c41a'; // Default green color
+            if (item.resid) {
+                badgeColor = '#f5222d'; // Red color
+            }
+            if (item.devstatus === 'bad') {
+                badgeColor = '#000000'; // Black color
+            }
+
             rows.push(
                 <div style={w200v2} key={item.id} value={item.id}>
                     <span>
-                        {' '}
-                        <Badge style={portbadge} count={item.odfportindex} /> {item.cust}
-                        {item.resid ? 'RESID=>' + item.resid : ''}{' '}
+                        <Badge style={{ ...portbadge, backgroundColor: badgeColor }} count={item.odfportindex} /> {item.cust}
+                        {item.resid ? 'RESID=>' + item.resid : ''}
                     </span>
                     <div>{item.network_text}</div>
                     <div>{item.memo}</div>
@@ -77,7 +84,7 @@ export default class Odfsummary extends React.Component {
 
     render() {
         return (
-            <Modal visible={this.state.visible} title={this.state.devname} onOk={this.handleOk} onCancel={this.handleCancel} width={1320}>
+            <Modal destroyOnClose visible={this.state.visible} title={this.state.devname} onOk={this.handleOk} onCancel={this.handleCancel} width={1320}>
                 <div style={flowgrid}>{this.renderUsage()}</div>
             </Modal>
         );
@@ -85,7 +92,7 @@ export default class Odfsummary extends React.Component {
 }
 
 const flowgrid = {
-    fontSize: '8',
+    fontSize: '8px',
     width: '1300px',
     marginTop: '12px',
     display: 'flex',
@@ -104,5 +111,5 @@ const w200v2 = {
 };
 
 const portbadge = {
-    margin: '4px 70px 4px  60px'
+    margin: '4px 70px 4px 60px'
 };
