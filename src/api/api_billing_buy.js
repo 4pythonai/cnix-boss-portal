@@ -18,6 +18,7 @@ export default class billing {
         OneKeyVendorPaperBill: '/BillingApiBuy/OneKeyVendorPaperBill',
         prepareBuyInBills: '/BillingBuy/prepareBuyInBills',
         saveNewSettlement: '/BillingBuy/saveNewSettlement',
-        BatchSetPayItemStatus: '/BillingBuy/BatchSetPayItemStatus'
+        BatchSetPayItemStatus: '/BillingBuy/BatchSetPayItemStatus',
+        SettlementdetailBuy: '/BillingBuy/SettlementdetailBuy'
     };
 }
