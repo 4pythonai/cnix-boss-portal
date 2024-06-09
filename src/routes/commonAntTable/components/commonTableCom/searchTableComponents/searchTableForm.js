@@ -27,6 +27,65 @@ export default class SearchTableForm extends React.Component {
         return inner_fmdata.values;
     };
 
+    operation_list = {
+        string: [
+            {
+                label: '包含',
+                value: 'like'
+            },
+            {
+                label: '等于',
+                value: '='
+            },
+            {
+                label: '不等于',
+                value: '!='
+            }
+        ],
+        date: [
+            {
+                label: '大于等于',
+                value: '>='
+            },
+            {
+                label: '等于',
+                value: '='
+            },
+            {
+                label: '小于等于',
+                value: '<='
+            }
+        ],
+        number: [
+            {
+                label: '大于等于',
+                value: '>='
+            },
+            {
+                label: '等于',
+                value: '='
+            },
+            {
+                label: '小于等于',
+                value: '<='
+            }
+        ],
+        other: [
+            {
+                label: '包含',
+                value: 'like'
+            },
+            {
+                label: '等于',
+                value: '='
+            },
+            {
+                label: '小于等于',
+                value: '!='
+            }
+        ]
+    };
+
     render() {
         return (
             <SchemaForm
@@ -95,24 +154,24 @@ export default class SearchTableForm extends React.Component {
                                     break;
                                 }
                             }
+                            console.log(' 💚💚💚 字段类型', type);
 
                             switch (type) {
                                 case 'string':
-                                    setEnum(operator, this.props.operation_list.string);
+                                    setEnum(operator, this.operation_list.string);
 
                                     setType('vset_' + this.props.form_index, 'string');
                                     break;
                                 case 'number':
-                                    setEnum(operator, this.props.operation_list.number);
+                                    setEnum(operator, this.operation_list.number);
                                     setType('vset_' + this.props.form_index, 'number');
                                     break;
                                 case 'date':
-                                    setEnum(operator, this.props.operation_list.date);
+                                    setEnum(operator, this.operation_list.date);
                                     setType('vset_' + this.props.form_index, 'date');
                                     break;
                                 default:
-                                    console.log();
-                                    setEnum(operator, this.props.operation_list.other);
+                                    setEnum(operator, this.operation_list.other);
                                     setType('vset_' + this.props.form_index, 'string');
                             }
                         });
