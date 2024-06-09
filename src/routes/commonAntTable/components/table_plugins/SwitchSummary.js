@@ -65,11 +65,22 @@ export default class SwitchSummary extends React.Component {
 
             rows.push(
                 <div style={w200v2} key={item.id} value={item.id}>
-                    <span>
-                        <Badge style={BadgeStyle} count={item.port} /> {item.cust}
-                    </span>
+                    <div>
+                        <Badge style={BadgeStyle} count={item.port} />
+                        <div>ID:{item.id}</div>
+                        <div
+                            style={{
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis'
+                            }}>
+                            {item.cust}
+                        </div>
+                    </div>
                     <div> {item.contract_no} </div>
+                    <div>{item.deliveryno}</div>
                     <div>{item.memo}</div>
+                    <div>{item.network_text}</div>
                 </div>
             );
         });
@@ -97,8 +108,11 @@ const flexGrid = {
 
 const w200v2 = {
     width: '150px',
-    height: '180px',
+    minHeight: '220px',
+    maxHeight: '220px',
+    height: '100%',
     fontSize: '12px',
+    fontWeight: 'bold',
     margin: '2px',
     padding: '10px',
     border: '1px solid black'
