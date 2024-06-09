@@ -54,6 +54,14 @@ export default class SearchTableForm extends React.Component {
             {
                 label: '小于等于',
                 value: '<='
+            },
+            {
+                label: '为空',
+                value: 'IS_NULL'
+            },
+            {
+                label: '不为空',
+                value: 'IS_NOT_NULL'
             }
         ],
         number: [
@@ -117,10 +125,13 @@ export default class SearchTableForm extends React.Component {
                             }
                         });
                     };
+
                     let contentfield = 'vset_' + this.props.form_index;
+
                     $('savevalue', contentfield).subscribe(() => {
                         this.props.onOk();
                     });
+
                     $('onFieldChange', contentfield).subscribe((fieldState) => {
                         if (fieldState.value) {
                             setFieldState(contentfield, (state) => {
@@ -146,17 +157,23 @@ export default class SearchTableForm extends React.Component {
                             let operator = 'operator_' + this.props.form_index;
 
                             let keys = Object.keys(formCfg);
-                            let type = '';
+                            let _type = '';
                             for (let i = 0; i < keys.length; i++) {
                                 let field_group_key = keys[i];
-                                if (formCfg[field_group_key].properties[state.value]) {
-                                    field = formCfg[field_group_key].properties[state.value].type;
-                                    break;
-                                }
-                            }
-                            console.log(' 💚💚💚 字段类型', type);
+                                //  field_group_key 永远是 UFORM_NO_NAME_FIELD0
+                                console.log(' 👻👻👻👻👻👻👻👻👻👻 state ', state);
+                                console.log(' 👻👻👻👻👻👻👻👻👻👻 field_group_key ', field_group_key);
+                                console.log(' 👻👻👻👻👻👻👻👻👻👻 formCfg[field_group_key].properties>> ', formCfg[field_group_key].properties);
+                                console.log(' 👻👻👻👻👻👻👻👻👻👻 state.value >> ', formCfg[field_group_key].properties[state.value]);
 
-                            switch (type) {
+                                console.log('💘💘💘💘💘💘💘💘💘 field=>>', formCfg[field_group_key].properties[state.value].type);
+                                field = formCfg[field_group_key].properties[state.value].type;
+                                _type = formCfg[field_group_key].properties[state.value].type;
+                                break;
+                            }
+                            console.log(' 💚💚💚 字段类型', _type);
+
+                            switch (_type) {
                                 case 'string':
                                     setEnum(operator, this.operation_list.string);
 
