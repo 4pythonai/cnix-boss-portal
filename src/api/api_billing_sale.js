@@ -26,6 +26,7 @@ export default class billing {
         delete_onekeybills: '/Tools/delete_onekeybills',
         BatchSetBankItemStatus: '/BillingSale/BatchSetBankItemStatus',
         DEBUG: '/BillingSale/DEBUG',
-        getUsages: '/BillingSale/getUsages'
+        getUsages: '/BillingSale/getUsages',
+        getPaperBillIDs: '/BillingSale/getPaperBillIDs'
     };
 }

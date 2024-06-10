@@ -1,10 +1,10 @@
 import { Button } from 'antd';
-import { default as React, useEffect, useState } from 'react';
+import { default as React, useEffect, useState, forwardRef } from 'react';
 import downloadpdf from '@/utils/Pdfhelper';
 import api from '@/api/api';
 import CustPaperMainContent from './CustPaperMainContent';
 
-export default function PaperBillDownloader(props) {
+const PaperBillDownloader = forwardRef((props, ref) => {
     const [pdfRef] = useState(React.createRef(null));
     const [hasdata, setHasdata] = useState(false);
     const [zone, setZone] = useState({});
@@ -25,19 +25,9 @@ export default function PaperBillDownloader(props) {
             setZone(httpobj.zone);
             setPaperinfo(httpobj.paperinfo);
             setcustinfo(httpobj.custinfo);
-
-            let bsstr = httpobj.paperinfo.billsjson;
-            const xrows = JSON.parse(bsstr);
-            let num = 0;
-            for (let j = 0; j < xrows.length; j++) {
-                num++;
-                xrows[j].key = num;
-            }
-
-            // setBillrows(xrows);
             setHasdata(true);
             setTimeout(() => {
-                downloadpdf(pdfRef.current, httpobj.paperinfo.paperno + '.pdf');
+                // downloadpdf(pdfRef.current, httpobj.paperinfo.paperno + '.pdf');
             }, 5000);
         }
     };
@@ -50,7 +40,13 @@ export default function PaperBillDownloader(props) {
         return (
             <div>
                 <div>
-                    <Button name="print" style={{ marginTop: '10px ' }} type="primary" onClick={() => downloadpdf(pdfRef.current, paperinfo.paperno + '.pdf')}>
+                    <Button
+                        className="pdf_download_btn"
+                        name="print"
+                        ref={ref}
+                        style={{ marginTop: '10px ' }}
+                        type="info"
+                        onClick={() => downloadpdf(pdfRef.current, paperinfo.paperno + '.pdf')}>
                         下载PDF
                     </Button>
                     <br />
@@ -63,4 +59,6 @@ export default function PaperBillDownloader(props) {
     } else {
         return <div />;
     }
-}
+});
+
+export default PaperBillDownloader;

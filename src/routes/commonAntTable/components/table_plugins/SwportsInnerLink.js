@@ -162,7 +162,6 @@ export default class SwportsInnerLink extends React.Component {
         console.log(changeValue, '保存数据', fmdata);
 
         let params = { data: fmdata, method: 'POST' };
-
         let json = await api.network.saveSwinnerLink(params);
         if (json.code == 200) {
             this.props.refreshTable();
