@@ -7,7 +7,6 @@ import bpm from './api_bpm';
 import permission from './api_permission';
 import user from './api_user';
 import customer from './api_customer';
-import activityRecord from './api_activityRecord';
 import billingSale from './api_billing_sale';
 import billingBuy from './api_billing_buy';
 
@@ -36,7 +35,6 @@ api.bpm = bpm;
 api.permission = permission;
 api.user = user;
 api.customer = customer;
-api.activityRecord = activityRecord;
 api.billingSale = billingSale;
 api.billingBuy = billingBuy;
 api.network = network;
