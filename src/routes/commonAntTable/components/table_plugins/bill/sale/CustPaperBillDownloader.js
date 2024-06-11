@@ -23,6 +23,21 @@ export default class CustPaperBillDownloader extends React.Component {
         };
     }
 
+    setCurrentPapgerID = () => {
+        if (this.props.commonTableStore.selectedRows.length <= 0) {
+            message.error('请选择一个账单');
+            return;
+        }
+
+        let currentrow = this.props.commonTableStore.selectedRows[0];
+        console.log('currentrow id : ', currentrow.id);
+
+        this.setState({
+            paper_ids: [{ id: currentrow.id }]
+        });
+        this.buttonRefs = ['1'].map(() => createRef());
+    };
+
     filterPapers = async () => {
         const fmdata = { start: this.state.start, end: this.state.end };
         console.log('fmdata: ', fmdata);
@@ -96,18 +111,20 @@ export default class CustPaperBillDownloader extends React.Component {
                         <span style={{ fontWeight: 'bold', marginLeft: '40px' }}> 账单创建时间 </span>
                         <DatePicker style={{ marginLeft: '10px' }} placeholder="账单创建时间" onChange={this.ChangeBstart} />
                         <DatePicker style={{ marginLeft: '10px' }} placeholder="账单创建时间" onChange={this.ChangeBend} />
-
-                        <Button style={{ marginLeft: '10px' }} type="primary" onClick={this.filterPapers} size={'large'}>
+                        <Button style={{ marginLeft: '10px', marginRight: '4px' }} type="primary" onClick={this.filterPapers} size={'large'}>
                             查询
                         </Button>
-
-                        <Button style={{ marginLeft: '10px' }} type="primary" onClick={this.batchDownload} icon="download" size="large" disabled={total === 0}>
+                        or
+                        <Button style={{ marginLeft: '10px' }} onClick={this.setCurrentPapgerID} size={'large'}>
+                            本条账单
+                        </Button>
+                        <Button style={{ marginLeft: '10px' }} onClick={this.batchDownload} icon="download" size="large" disabled={total === 0}>
                             {buttonText}
                         </Button>
                     </div>
                     <div id="pdf-wrapper">
                         {this.state.paper_ids.map((item, index) => (
-                            <div>
+                            <div key={index}>
                                 <Divider />
                                 <PaperBillDownloader ref={this.buttonRefs[index]} key={index} paper_id={item.id} />
                             </div>
