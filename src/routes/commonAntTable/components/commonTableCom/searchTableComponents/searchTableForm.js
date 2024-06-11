@@ -135,7 +135,13 @@ export default class SearchTableForm extends React.Component {
                     $('onFieldChange', contentfield).subscribe((fieldState) => {
                         if (fieldState.value) {
                             setFieldState(contentfield, (state) => {
-                                state.value = state.value ? state.value.replace(/(^\s*)|(\s*$)/g, '') : '';
+                                console.log('💚💚💚💚💚💚💚');
+                                console.log('state: ', state);
+                                if (typeof state.value === 'string') {
+                                    state.value = state.value.replace(/(^\s*)|(\s*$)/g, '');
+                                } else {
+                                    // 如果 state.value 不是字符串,可以在这里处理其他情况
+                                }
                             });
                         }
                     });
