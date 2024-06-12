@@ -1,169 +1,130 @@
-import React from 'react'
+import React from 'react';
 import { Table, Select, Modal, Spin, Upload, Radio, Form, Input, Icon, Divider, AutoComplete, Button, Tag, Card, Popconfirm } from 'antd';
 import Highlighter from 'react-highlight-words';
-
 import 'antd/dist/antd.css';
-import { observer, inject } from "mobx-react";
-import { toJS } from 'mobx'
-import GridAdder from './gridAdder'
-
-import Dmtabs from './dmtabs'
-import api from '../../../api/api'
+import { observer, inject } from 'mobx-react';
+import { toJS } from 'mobx';
+import GridAdder from './gridAdder';
+import Dmtabs from './dmtabs';
+import api from '../../../api/api';
+import { hashHistory } from 'react-router';
 const { Option } = Select;
 
-
-
-@inject("dmStore")
-
+@inject('dmStore')
 @observer
 export default class datagridmnt extends React.Component {
     constructor(props) {
-        super(props)
-        this.dmstore = props.dmStore
+        super(props);
+        this.dmstore = props.dmStore;
     }
 
-    state = { searchText: '', 'current_actcode': '', 'actcode': '', 'maintable': '', 'memo': '', selectedRowKeys: [] }
+    state = { searchText: '', current_actcode: '', actcode: '', maintable: '', memo: '', selectedRowKeys: [] };
 
-
-
-    getColumnSearchProps = dataIndex => ({
+    getColumnSearchProps = (dataIndex) => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-            <div style={ { padding: 8 } }>
+            <div style={{ padding: 8 }}>
                 <Input
-                    ref={ node => {
+                    ref={(node) => {
                         this.searchInput = node;
-                    } }
-                    placeholder={ `Search ${ dataIndex }` }
-                    value={ selectedKeys[0] }
-                    onChange={ e => setSelectedKeys(e.target.value ? [e.target.value] : []) }
-                    onPressEnter={ () => this.handleSearch(selectedKeys, confirm) }
-                    style={ { width: 188, marginBottom: 8, display: 'block' } }
+                    }}
+                    placeholder={`Search ${dataIndex}`}
+                    value={selectedKeys[0]}
+                    onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
+                    style={{ width: 188, marginBottom: 8, display: 'block' }}
                 />
-                <Button
-                    type="primary"
-                    onClick={ () => this.handleSearch(selectedKeys, confirm) }
-                    icon="search"
-                    size="small"
-                    style={ { width: 90, marginRight: 8 } }
-                >
+                <Button type="primary" onClick={() => this.handleSearch(selectedKeys, confirm)} icon="search" size="small" style={{ width: 90, marginRight: 8 }}>
                     Search
-            </Button>
-                <Button onClick={ () => this.handleReset(clearFilters) } size="small" style={ { width: 90 } }>
+                </Button>
+                <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
                     Reset
-            </Button>
+                </Button>
             </div>
         ),
-        filterIcon: filtered => (
-            <Icon type="search" style={ { color: filtered ? '#1890ff' : undefined } } />
-        ),
-        onFilter: (value, record) =>
-            record[dataIndex]
-                .toString()
-                .toLowerCase()
-                .includes(value.toLowerCase()),
-        onFilterDropdownVisibleChange: visible => {
+        filterIcon: (filtered) => <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />,
+        onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+        onFilterDropdownVisibleChange: (visible) => {
             if (visible) {
                 setTimeout(() => this.searchInput.select());
             }
         },
-        render: text => (
-            <Highlighter
-                highlightStyle={ { backgroundColor: '#ffc069', padding: 0 } }
-                searchWords={ [this.state.searchText] }
-                autoEscape
-                textToHighlight={ text.toString() }
-            />
-        ),
+        render: (text) => (
+            <Highlighter highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }} searchWords={[this.state.searchText]} autoEscape textToHighlight={text.toString()} />
+        )
     });
-
 
     handleSearch = (selectedKeys, confirm) => {
         confirm();
         this.setState({ searchText: selectedKeys[0] });
     };
 
-    handleReset = clearFilters => {
+    handleReset = (clearFilters) => {
         clearFilters();
         this.setState({ searchText: '' });
     };
 
-
-
     selectRow = (record) => {
         this.setState({ selectedRowKeys: [record.id] });
-        this.changeStoreCfg(record)
-    }
+        this.changeStoreCfg(record);
+    };
 
     onSelectedRowKeysChange = (selectedRowKeys, records) => {
-        let record = records[0]
-        this.selectRow(record)
-        console.log(record)
-    }
-
-
-
-
+        let record = records[0];
+        this.selectRow(record);
+        console.log(record);
+    };
 
     changeStoreCfg(record) {
-        console.log(record)
-
-        // this.setState({ current_processkey: toJS(record).processkey })
-        this.dmstore.setCurrentActcode(toJS(record).activity_code)
-        this.dmstore.clearMaintableColumns()
-        this.dmstore.setCurrentActName(toJS(record).grid_title)
-        this.dmstore.setCurrentBasetable(toJS(record).base_table)
-        this.dmstore.setCurrentActObj(toJS(record))
+        this.dmstore.setCurrentActcode(toJS(record).activity_code);
+        this.dmstore.clearMaintableColumns();
+        this.dmstore.setCurrentActName(toJS(record).grid_title);
+        this.dmstore.setCurrentBasetable(toJS(record).base_table);
+        this.dmstore.setCurrentActObj(toJS(record));
     }
 
-
-
     async deleteActioncode(idtodel) {
-
         let params = { data: { id: idtodel }, method: 'POST' };
         let res = await api.activity.deleteAction(params);
         if (res.code == 200) {
-            this.dmstore.initAll()
+            this.dmstore.initAll();
         }
     }
 
-
-
     componentDidMount() {
-        this.dmstore.initAll()
+        this.dmstore.initAll();
     }
-
-
 
     //批处理按钮组
     async onClick(actioncode, type) {
-        let params = { method: 'POST', data: { "actioncode": actioncode, "batch_type": type } }
-        let res = await api.activity.batchSetButtons(params)
-        console.log(res)
+        let params = { method: 'POST', data: { actioncode: actioncode, batch_type: type } };
+        let res = await api.activity.batchSetButtons(params);
+        console.log(res);
         if (res.code == '200') {
-
         }
     }
 
-
-
+    //跳转到字段可见配置
+    async gotoFieldVisibeConfigure(actioncode, grid_title, type) {
+        let arg = { actioncode: actioncode, grid_title: grid_title, dmstore: this.dmstore };
+        hashHistory.push({ pathname: `/FiledVisibleConfigure`, state: arg });
+        // hashHistory.push('/FiledVisibleConfigure', (state: arg));
+    }
 
     render() {
-        let dataGrids = this.dmstore.dataGrids
-        let biztables = this.dmstore.biztableList
+        let dataGrids = this.dmstore.dataGrids;
+        let biztables = this.dmstore.biztableList;
         const { selectedRowKeys } = this.state;
         const rowSelection = {
             type: 'radio',
             selectedRowKeys,
-            onChange: this.onSelectedRowKeysChange,
+            onChange: this.onSelectedRowKeysChange
         };
-
-
 
         const columns = [
             {
                 title: 'ID',
                 dataIndex: 'id',
-                key: 'id',
+                key: 'id'
             },
 
             {
@@ -171,105 +132,111 @@ export default class datagridmnt extends React.Component {
                 key: 'xcodes',
                 render: (text, record) => {
                     return (
-                        <div style={ { display: 'flex' } }>
+                        <div style={{ display: 'flex' }}>
                             <Popconfirm
                                 title="确定删除此Acttion_code?"
-                                icon={ <Icon type="api" style={ { color: 'red' } } /> }
-                                onConfirm=
-                                { () => {
-                                    console.log(toJS(record))
-                                    this.deleteActioncode(record.id)
-                                }
-                                }
-                            >
-                                <Button size="small" type="button">删除</Button>
+                                icon={<Icon type="api" style={{ color: 'red' }} />}
+                                onConfirm={() => {
+                                    console.log(toJS(record));
+                                    this.deleteActioncode(record.id);
+                                }}>
+                                <Button size="small" type="button">
+                                    删除
+                                </Button>
                             </Popconfirm>
-                            <Button size="small" type="button" onClick={ () => this.onClick(record.activity_code, 'bpmstart_template') }>启动按钮</Button>
-                            <Button size="small" type="button" onClick={ () => this.onClick(record.activity_code, 'flow_template') }>工作流模板</Button>
-                            <Button size="small" type="button" onClick={ () => this.onClick(record.activity_code, 'curd_template') }>CURD</Button>
-                            <Button size="small" type="button" onClick={ () => this.onClick(record.activity_code, 'reset') }>重置</Button>
+                            <Button size="small" type="button" onClick={() => this.gotoFieldVisibeConfigure(record.activity_code, record.grid_title, 'fieldVisible')}>
+                                字段可见配置
+                            </Button>
+                            <Button size="small" type="button" onClick={() => this.onClick(record.activity_code, 'curd_template')}>
+                                CURD
+                            </Button>
+                            <Button size="small" type="button" onClick={() => this.onClick(record.activity_code, 'reset')}>
+                                重置
+                            </Button>
                         </div>
-                    )
+                    );
                 }
             },
             {
                 title: 'ActionCode',
                 dataIndex: 'activity_code',
                 key: 'ActionCode',
-                ...this.getColumnSearchProps('activity_code'),
+                ...this.getColumnSearchProps('activity_code')
             },
 
             {
                 title: '名称',
                 dataIndex: 'grid_title',
                 key: 'grid_title',
-                ...this.getColumnSearchProps('grid_title'),
+                ...this.getColumnSearchProps('grid_title')
             },
             {
                 title: '基础表格',
                 dataIndex: 'base_table',
                 key: 'base_table',
-                ...this.getColumnSearchProps('base_table'),
+                ...this.getColumnSearchProps('base_table')
             },
             {
                 title: '多选',
                 dataIndex: 'multiple',
-                key: 'multiple',
-
+                key: 'multiple'
             },
             {
                 title: 'geturl',
                 dataIndex: 'geturl',
-                key: 'geturl',
+                key: 'geturl'
             },
             {
                 title: 'delurl',
                 dataIndex: 'delurl',
-                key: 'delurl',
+                key: 'delurl'
             },
             {
                 title: 'addurl',
                 dataIndex: 'addurl',
-                key: 'addurl',
-            }, {
+                key: 'addurl'
+            },
+            {
                 title: 'updateurl',
                 dataIndex: 'updateurl',
-                key: 'updateurl',
+                key: 'updateurl'
             },
             {
                 title: '布局',
                 dataIndex: 'layoutcfg',
-                key: 'layoutcfg',
+                key: 'layoutcfg'
             },
 
             {
                 title: 'Tips',
                 dataIndex: 'tips',
-                key: 'tips',
-            },
+                key: 'tips'
+            }
         ];
-
 
         return (
             <div>
                 <div className="bordered">
                     <div>
                         <Table
-                            onRow={ (record) => ({
+                            onRow={(record) => ({
                                 onClick: () => {
                                     this.selectRow(record);
-                                },
-                            }) }
-                            rowKey={ record => record.id }
+                                }
+                            })}
+                            rowKey={(record) => record.id}
                             size="small"
-                            columns={ columns }
-                            rowSelection={ rowSelection }
-                            dataSource={ dataGrids } />
+                            columns={columns}
+                            rowSelection={rowSelection}
+                            dataSource={dataGrids}
+                        />
                     </div>
                 </div>
 
-                <div><Dmtabs /></div>
+                <div>
+                    <Dmtabs />
+                </div>
             </div>
-        )
+        );
     }
 }

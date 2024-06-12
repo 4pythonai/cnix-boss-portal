@@ -40,6 +40,10 @@ export default class permission {
         saveForbiddenBtns: '/Permission/saveForbiddenBtns',
         orgTree: '/Organization/orgTree',
         getDeptMembers: '/Organization/getDeptMembers',
-        getButtonInfo: '/Permission/getButtonInfo'
+        getButtonInfo: '/Permission/getButtonInfo',
+
+        // 角色相关的 字段隐藏配置
+        saveRoleFieldVisible: '/Permission/saveRoleFieldVisible',
+        getRoleFieldVisible: '/Permission/getRoleFieldVisible'
     };
 }

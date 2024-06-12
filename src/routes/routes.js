@@ -19,7 +19,8 @@ const routes = {
         require('./BillingDebuger').default,
         require('./BuyinCodeMnt').default,
         require('./applog').default,
-        require('./BuyinReport').default
+        require('./BuyinReport').default,
+        require('./FiledVisibleConfigure').default
     ]
 };
 

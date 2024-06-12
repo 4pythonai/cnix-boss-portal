@@ -49,7 +49,7 @@ export default class Dmtabs extends React.Component {
             },
             {
                 key: 'tab6',
-                tab: '字段管理'
+                tab: 'T字段管理'
             },
             {
                 key: 'tab7',
