@@ -1,6 +1,6 @@
 import React from 'react';
 import getTextWidth from './commonTableTextTool';
-// import JsonTreeModal from './JsonTreeModal';
+import JsonTreeModal from './JsonTreeModal';
 import JsonTableModal from './JsonTableModal';
 
 function sorter(valueA, valueB) {
