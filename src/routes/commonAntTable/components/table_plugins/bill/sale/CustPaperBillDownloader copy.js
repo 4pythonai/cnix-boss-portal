@@ -1,68 +1,64 @@
-import React, { createRef } from 'react';
+import { Divider, message, Modal } from 'antd';
+import { DatePicker } from 'antd';
+import { Button } from 'antd';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import { Divider, message, Modal, DatePicker, Button } from 'antd';
+import React, { createRef } from 'react';
+import './paper_bill_style.scss';
+import PaperBillDownloader from './PaperBillDownloader';
 import moment from 'moment';
 import api from '@/api/api';
-import PaperBillDownloader from './PaperBillDownloader';
-import './paper_bill_style.scss';
-import { Progress } from 'antd';
 
 @observer
 export default class CustPaperBillDownloader extends React.Component {
     constructor(props) {
         super(props);
+        this.init = this.init.bind(this);
         this.state = {
             visible: false,
             paper_ids: [],
-            currentPaperIdIndex: 0,
             total: 0,
             start: null,
-            end: null,
-            currentPaperId: null,
-            percent: 0
+            end: null
         };
-        this.paperDownloaderRef = createRef();
     }
+
+    setCurrentPapgerID = () => {
+        if (this.props.commonTableStore.selectedRows.length <= 0) {
+            message.error('请选择一个账单');
+            return;
+        }
+
+        let currentrow = this.props.commonTableStore.selectedRows[0];
+        console.log('currentrow id : ', currentrow.id);
+
+        this.setState({
+            paper_ids: [{ id: currentrow.id }]
+        });
+        this.buttonRefs = ['1'].map(() => createRef());
+    };
 
     filterPapers = async () => {
         const fmdata = { start: this.state.start, end: this.state.end };
-        this.setState({ currentPaperIdIndex: 0, paper_ids: [], total: 0, currentPaperId: null, percent: 0 });
         console.log('fmdata: ', fmdata);
         let params = { data: fmdata, method: 'POST' };
         let json = await api.billingSale.getPaperBillIDs(params);
         console.log(json.paperids);
 
-        this.setState({ percent: 0, currentPaperId: null, total: json.total, paper_ids: json.paperids, visible: true }, () => {
-            this.downloadNext();
+        this.buttonRefs = json.paperids.map(() => createRef());
+        this.setState({ total: json.total, paper_ids: json.paperids, visible: true });
+    };
+
+    batchDownload = () => {
+        console.log(this.buttonRefs);
+
+        this.buttonRefs.forEach((ref) => {
+            if (ref.current) {
+                console.log(ref.current);
+                ref.current.props.onClick();
+            }
         });
     };
-
-    downloadNext = () => {
-        console.log(this.state.currentPaperIdIndex);
-        console.log(this.state.paper_ids.length);
-        let _percent = Math.round((this.state.currentPaperIdIndex / this.state.paper_ids.length) * 100);
-        console.log('_percent: ', _percent);
-
-        this.setState({ percent: _percent });
-        if (this.state.currentPaperIdIndex < this.state.paper_ids.length) {
-            const currentPaperId = this.state.paper_ids[this.state.currentPaperIdIndex].id;
-            this.setState({ currentPaperId: currentPaperId });
-            console.log(`Downloading paper ID: ${currentPaperId}`);
-            if (this.paperDownloaderRef.current) {
-                this.paperDownloaderRef.current.props.onClick();
-            }
-        } else {
-            message.success('所有账单下载完成');
-        }
-    };
-
-    handleDownloadComplete = () => {
-        this.setState((prevState) => ({ currentPaperIdIndex: prevState.currentPaperIdIndex + 1 }), this.downloadNext);
-    };
-
-    // batchDownload = () => {
-    //     this.setState({ currentPaperIdIndex: 0 }, this.downloadNext);
-    // };
 
     async init() {
         this.setState({ visible: true });
@@ -70,14 +66,7 @@ export default class CustPaperBillDownloader extends React.Component {
 
     onCancel = () => {
         this.setState({
-            visible: false,
-            paper_ids: [],
-            currentPaperIdIndex: 0,
-            total: 0,
-            start: null,
-            end: null,
-            currentPaperId: null,
-            percent: 0
+            visible: false
         });
     };
 
@@ -86,7 +75,7 @@ export default class CustPaperBillDownloader extends React.Component {
             width: 1400,
             destroyOnClose: true,
             ref: 'billrpt',
-            title: '账单批量下载工具',
+            title: '账单下载',
             bodyStyle: {
                 width: 1400,
                 bottom: 0
@@ -110,7 +99,8 @@ export default class CustPaperBillDownloader extends React.Component {
 
     render() {
         const modalProps = this.getModalProps();
-        const { total, currentPaperIdIndex, paper_ids } = this.state;
+
+        const { total } = this.state;
         const buttonText = total === 0 ? '批量下载' : `批量下载 ${total}条`;
 
         return (
@@ -124,23 +114,21 @@ export default class CustPaperBillDownloader extends React.Component {
                         <Button style={{ marginLeft: '10px', marginRight: '4px' }} type="primary" onClick={this.filterPapers} size={'large'}>
                             查询
                         </Button>
-
+                        or
+                        <Button style={{ marginLeft: '10px' }} onClick={this.setCurrentPapgerID} size={'large'}>
+                            本条账单
+                        </Button>
                         <Button style={{ marginLeft: '10px' }} onClick={this.batchDownload} icon="download" size="large" disabled={total === 0}>
                             {buttonText}
                         </Button>
                     </div>
-
                     <div id="pdf-wrapper">
-                        {this.state.currentPaperId && (
-                            <div>
-                                {this.state.currentPaperIdIndex >= 1 && <div>{this.state.currentPaperIdIndex}</div>}
-
-                                <Progress percent={this.state.percent} />
-
+                        {this.state.paper_ids.map((item, index) => (
+                            <div key={index}>
                                 <Divider />
-                                <PaperBillDownloader ref={this.paperDownloaderRef} paper_id={this.state.currentPaperId} onDownloadComplete={this.handleDownloadComplete} />
+                                <PaperBillDownloader ref={this.buttonRefs[index]} key={index} paper_id={item.id} />
                             </div>
-                        )}
+                        ))}
                     </div>
                 </div>
             </Modal>

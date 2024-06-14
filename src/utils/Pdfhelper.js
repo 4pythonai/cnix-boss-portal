@@ -38,7 +38,6 @@ export default function downloadpdf(domnode, filenme) {
                 }
             }
         }
-
         pdf.save(filenme);
     });
 }
