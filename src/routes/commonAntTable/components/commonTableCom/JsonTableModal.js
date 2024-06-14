@@ -33,7 +33,7 @@ export default class JsonTableModal extends React.Component {
         }
         if (this.props.schema == 'billsjson') {
             bigjson = this.props.record.billsjson;
-            title = '包含的合同账单详情';
+            title = 'T包含的合同账单详情';
         }
 
         let rlog = JSON.parse(bigjson.replace(/\\/, ''));

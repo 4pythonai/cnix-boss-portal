@@ -1,10 +1,11 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
 import { JSONTree } from 'react-json-tree';
+import { Table } from 'antd';
 
 export default class JsonTreeModal extends React.Component {
     constructor(props) {
-        console.log('🚀 ~ file: JsonTreeModal.js ~ line 7 ~ JsonTreeModal ~ constructor ~ props', props);
+        // console.log('🚀 ~ file: JsonTreeModal.js ~ line 7 ~ JsonTreeModal ~ constructor ~ props', props);
         super(props);
     }
     state = {
@@ -25,46 +26,81 @@ export default class JsonTreeModal extends React.Component {
     };
 
     render() {
-        const theme = {
-            scheme: 'monokai',
-            author: 'wimer hazenberg (http://www.monokai.nl)',
-            base00: '#272822',
-            base01: '#383830',
-            base02: '#49483e',
-            base03: '#75715e',
-            base04: '#a59f85',
-            base05: '#f8f8f2',
-            base06: '#f5f4f1',
-            base07: '#f9f8f5',
-            base08: '#f92672',
-            base09: '#fd971f',
-            base0A: '#f4bf75',
-            base0B: '#a6e22e',
-            base0C: '#a1efe4',
-            base0D: '#66d9ef',
-            base0E: '#ae81ff',
-            base0F: '#cc6633'
-        };
-
         let bigjson = '{}';
         let title = '';
-        if (this.props.schema == 'resource_logs') {
-            bigjson = this.props.record.resource_logs;
-            title = '资源详情JS';
-        }
+
         if (this.props.schema == 'billsjson') {
             bigjson = this.props.record.billsjson;
-            title = '包含的合同账单详情';
+            // console.log('bigjson: ', bigjson);
+            title = 'J包含的合同账单详情';
         }
 
         let rlog = JSON.parse(bigjson.replace(/\\/, ''));
+
+        const _columns = [
+            {
+                title: '账单ID',
+                dataIndex: 'id',
+                key: 'id'
+            },
+
+            {
+                title: '合同号',
+                dataIndex: 'contract_no',
+                key: 'contract_no'
+            },
+
+            {
+                title: '起始日期',
+                dataIndex: 'periodstart',
+                key: 'periodstart'
+            },
+            {
+                title: '结束日期',
+                dataIndex: 'periodend',
+                key: 'periodend'
+            },
+            {
+                title: '实际费用',
+                dataIndex: 'actual_money',
+                key: 'actual_money'
+            },
+            {
+                title: '调整费用',
+                dataIndex: 'adjust_money',
+                key: 'adjust_money'
+            },
+
+            {
+                title: '账单类型',
+                dataIndex: 'billtype',
+                key: 'billtype'
+            },
+            {
+                title: '备注',
+                dataIndex: 'memo',
+                key: 'memo'
+            },
+            {
+                title: '产品名称',
+                dataIndex: 'product_name',
+                key: 'product_name'
+            },
+            {
+                title: '账单编号',
+                dataIndex: 'billpaperno',
+                key: 'billpaperno'
+            }
+        ];
+
+        // turn string to array
 
         return (
             <div>
                 <Button onClick={this.showModal}>详情...</Button>
                 <Modal visible={this.state.visible} title={title} onOk={this.hideModal} onCancel={this.hideModal} width={1320}>
                     <div>
-                        <JSONTree theme={theme} data={rlog} />
+                        <Table size={'small'} key={this.props.schema} className="commonTable" columns={_columns} dataSource={rlog} />
                     </div>
                 </Modal>
             </div>
