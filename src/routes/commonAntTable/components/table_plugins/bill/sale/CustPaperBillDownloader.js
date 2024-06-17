@@ -125,7 +125,7 @@ export default class CustPaperBillDownloader extends React.Component {
                         <DatePicker style={{ marginLeft: '10px' }} placeholder="账单创建时间" onChange={this.ChangeBstart} />
                         <DatePicker style={{ marginLeft: '10px' }} placeholder="账单创建时间" onChange={this.ChangeBend} />
                         <Button style={{ marginLeft: '10px', marginRight: '4px' }} type="primary" onClick={this.filterPapers} size={'large'}>
-                            查询
+                            批量下载 {this.state.total}
                         </Button>
                     </div>
 
