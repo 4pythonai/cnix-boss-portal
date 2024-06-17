@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import { default as React, useEffect, useState, forwardRef } from 'react';
 import api from '@/api/api';
 import CustPaperMainContent from './CustPaperMainContent';
+import downloadpdf from '@/utils/Pdfhelper';
 
 const PaperBillDownloader = forwardRef((props, ref) => {
     const [pdfRef] = useState(React.createRef(props.paper_id));
@@ -36,25 +37,27 @@ const PaperBillDownloader = forwardRef((props, ref) => {
         return (
             <div>
                 <div>
-                    {/* <Button
-                        className="pdf_download_btn"
-                        name="print"
-                        ref={ref}
-                        style={{ marginTop: '10px ' }}
-                        type="info"
-                        onClick={() => {
-                            console.log('下载文件');
-                            downloadpdf(pdfRef.current, paperinfo.paperno + '.pdf');
-                        }}>
-                        下载PDF
-                    </Button>
-                     */}
+                    {!props.autodownload && (
+                        <Button
+                            className="pdf_download_btn"
+                            name="print"
+                            ref={ref}
+                            style={{ marginTop: '10px ' }}
+                            type="info"
+                            onClick={() => {
+                                console.log('下载文件');
+                                downloadpdf(pdfRef.current, paperinfo.paperno + '.pdf');
+                            }}>
+                            下载PDF
+                        </Button>
+                    )}
+
                     <br />
                     <br />
                 </div>
                 <br />
                 <CustPaperMainContent
-                    selfAutoDownload={props.selfAutoDownload}
+                    autodownload={props.autodownload}
                     onDownloadComplete={props.onDownloadComplete}
                     pdfRef={pdfRef}
                     zone={zone}

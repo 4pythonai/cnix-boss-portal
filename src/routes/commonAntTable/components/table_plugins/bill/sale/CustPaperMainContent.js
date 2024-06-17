@@ -12,15 +12,17 @@ const CustPaperMainContent = (props) => {
 
     useEffect(() => {
         // 这个函数在组件渲染完毕后会执行
-        console.log('组件已经渲染完毕');
+        console.log('组件已经渲染完毕', props);
 
-        setTimeout(() => {
-            downloadpdf(props.pdfRef.current, props.paperinfo.paperno + '.pdf');
-        }, 2000);
+        if (props.autodownload) {
+            setTimeout(() => {
+                downloadpdf(props.pdfRef.current, props.paperinfo.paperno + '.pdf');
+            }, 2000);
 
-        setTimeout(() => {
-            props.onDownloadComplete();
-        }, 2000);
+            setTimeout(() => {
+                props.onDownloadComplete();
+            }, 2000);
+        }
     }, []); // 空的依赖数组确保这个 effect 只在组件挂载和卸载时执行一次
 
     const expandedLog = (record, index, indent, expanded) => {

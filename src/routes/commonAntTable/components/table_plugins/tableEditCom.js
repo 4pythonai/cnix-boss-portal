@@ -16,7 +16,7 @@ export default class TableEditCom extends React.Component {
 
 
     init = async () => {
-        if (this.props.commonTableStore.selectedRows.length != 1) {
+        if ( this.props.commonTableStore.selectedRows.length != 1) {
             message.error("请选择1条数据.")
             return;
         }

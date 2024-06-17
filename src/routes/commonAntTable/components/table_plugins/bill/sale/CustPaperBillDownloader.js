@@ -11,6 +11,13 @@ import { Progress } from 'antd';
 export default class CustPaperBillDownloader extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
+        console.log(props.commonTableStore.selectedRows);
+        let singleID = null;
+        if (props.commonTableStore.selectedRows.length == 1) {
+            singleID = props.commonTableStore.selectedRows[0].id;
+        }
+
         this.state = {
             visible: false,
             paper_ids: [],
@@ -19,7 +26,8 @@ export default class CustPaperBillDownloader extends React.Component {
             start: null,
             end: null,
             currentPaperId: null,
-            percent: 0
+            percent: 0,
+            singleID: singleID
         };
         this.paperDownloaderRef = createRef();
     }
@@ -59,10 +67,6 @@ export default class CustPaperBillDownloader extends React.Component {
     handleDownloadComplete = () => {
         this.setState((prevState) => ({ currentPaperIdIndex: prevState.currentPaperIdIndex + 1 }), this.downloadNext);
     };
-
-    // batchDownload = () => {
-    //     this.setState({ currentPaperIdIndex: 0 }, this.downloadNext);
-    // };
 
     async init() {
         this.setState({ visible: true });
@@ -111,7 +115,6 @@ export default class CustPaperBillDownloader extends React.Component {
     render() {
         const modalProps = this.getModalProps();
         const { total, currentPaperIdIndex, paper_ids } = this.state;
-        const buttonText = total === 0 ? '批量下载' : `批量下载 ${total}条`;
 
         return (
             <Modal {...modalProps}>
@@ -124,21 +127,26 @@ export default class CustPaperBillDownloader extends React.Component {
                         <Button style={{ marginLeft: '10px', marginRight: '4px' }} type="primary" onClick={this.filterPapers} size={'large'}>
                             查询
                         </Button>
-
-                        <Button style={{ marginLeft: '10px' }} onClick={this.batchDownload} icon="download" size="large" disabled={total === 0}>
-                            {buttonText}
-                        </Button>
                     </div>
 
                     <div id="pdf-wrapper">
                         {this.state.currentPaperId && (
                             <div>
-                                {this.state.currentPaperIdIndex >= 1 && <div>{this.state.currentPaperIdIndex}</div>}
+                                {this.state.currentPaperIdIndex >= 1 && (
+                                    <div>
+                                        {this.state.currentPaperIdIndex}/ID={this.state.currentPaperId}
+                                    </div>
+                                )}
 
                                 <Progress percent={this.state.percent} />
 
                                 <Divider />
-                                <PaperBillDownloader ref={this.paperDownloaderRef} paper_id={this.state.currentPaperId} onDownloadComplete={this.handleDownloadComplete} />
+                                <PaperBillDownloader
+                                    autodownload={true}
+                                    ref={this.paperDownloaderRef}
+                                    paper_id={this.state.currentPaperId}
+                                    onDownloadComplete={this.handleDownloadComplete}
+                                />
                             </div>
                         )}
                     </div>
