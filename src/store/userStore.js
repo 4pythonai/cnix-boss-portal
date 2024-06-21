@@ -1,5 +1,4 @@
-import { observable, action, computed, toJS, autorun } from "mobx";
-
+import { observable, action, computed, toJS, autorun } from 'mobx';
 
 class userStore {
     contractor() {
@@ -8,58 +7,43 @@ class userStore {
         }
     }
 
-    @observable userInfo = null
+    @observable userInfo = null;
 
-    @observable token = null
-
+    @observable token = null;
 
     @action
     setUserProfile(profile) {
-
-        let userInfo = toJS(profile)
+        let userInfo = toJS(profile);
 
         localStorage.setItem('staff_id', userInfo.staff_id);
-        localStorage.setItem('staff_name', userInfo.staff_name)
-        // if (userInfo.roles.length == 1) {
-        //     alert(1)
-        //     localStorage.setItem('role_name', userInfo.roles[0].role_name)
-        // }
+        localStorage.setItem('staff_name', userInfo.staff_name);
 
-
-        this.userInfo = { ...userInfo }
-        console.log(467, userInfo)
-        sessionStorage.setItem("userInfo", JSON.stringify(userInfo))
-        sessionStorage.setItem("user", userInfo.user)
-        sessionStorage.setItem("staff_name", userInfo.staff_name)
-        // if (userInfo.roles.length == 1) {
-        //     sessionStorage.setItem("role_name", userInfo.roles[0].role_name)
-        //     sessionStorage.setItem("role_code", userInfo.roles[0].role_code)
-        // }
-
-
+        this.userInfo = { ...userInfo };
+        console.log(467, userInfo);
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+        sessionStorage.setItem('user', userInfo.user);
+        sessionStorage.setItem('staff_name', userInfo.staff_name);
     }
     @action
-    setUserRole(user){
-        localStorage.setItem('role_name', user.role_name)
-        sessionStorage.setItem("role_name", user.role_name)
-        sessionStorage.setItem("role_code", user.role_code)
+    setUserRole(user) {
+        localStorage.setItem('role_name', user.role_name);
+        sessionStorage.setItem('role_name', user.role_name);
+        sessionStorage.setItem('role_code', user.role_code);
     }
 
     @action
     getUserProfile() {
-        return this.userInfo
+        return this.userInfo;
     }
 
-
-
     @action setToken(token) {
-        localStorage.setItem('token', token)  // 防止刷新丢失token
-        sessionStorage.setItem('token', token)
-        this.token = token
+        localStorage.setItem('token', token); // 防止刷新丢失token
+        sessionStorage.setItem('token', token);
+        this.token = token;
     }
 
     @action getToken() {
-        return sessionStorage.getItem('token')
+        return sessionStorage.getItem('token');
         // if (this.token) {
         //     return this.token
         // } else {
@@ -67,16 +51,10 @@ class userStore {
         // }
     }
 
-
     @action clearToken() {
         localStorage.removeItem('token');
-        this.token = null
+        this.token = null;
     }
-
-
-
-
-
 }
 
-export default new userStore()
+export default new userStore();

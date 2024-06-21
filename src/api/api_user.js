@@ -11,7 +11,11 @@ export default class user {
         getAllRoles: '/User/getAllRoles',
         //编辑个人中心
         resetPassword: '/User/resetPassword',
-        updateUserInformation: '/User/updateUserInformation'
+        updateUserInformation: '/User/updateUserInformation',
+        getAllSales: '/User/getAllSales',
+        batchTransfer: '/User/batchTransfer',
+        singleTransfer: '/User/singleTransfer'
+
         // 离职人员销售合同未返交接单新增
     };
 }
