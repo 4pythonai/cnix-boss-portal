@@ -9,7 +9,9 @@ function sorter(valueA, valueB) {
     return targetA != null && targetA.localeCompare ? targetA.localeCompare(targetB) : targetA - targetB;
 }
 
-function columnRender(text, record, column_cfg) {
+function columnRender(text, record, column_cfg, action_code) {
+    console.log('💚💚💚💚💚💚💚💚💚💚💚action_code: ', action_code);
+
     if (text === '' || text === undefined) {
         return '';
     }
@@ -32,10 +34,43 @@ function columnRender(text, record, column_cfg) {
         );
     }
 
+    if (action_code == 'custpaperbill') {
+        if (column_cfg.key == 'payed_money') {
+            console.log('payed_money', text);
+            console.log('payed_money', record.total_money);
+            // return <div>{text}</div>;
+
+            let paidMoney = parseFloat(text);
+            let totalMoney = parseFloat(record.total_money);
+
+            if (isNaN(paidMoney)) {
+                paidMoney = 0;
+            }
+
+            // 判断转换后的值是否为有效数字
+            if (isNaN(totalMoney)) {
+                return <div>数据无效</div>;
+            }
+
+            // 根据支付情况返回相应的文本
+            if (paidMoney === totalMoney) {
+                return <div>已付款 {text}</div>;
+            } else if (paidMoney === 0) {
+                return <div>未付款</div>;
+            } else if (paidMoney < totalMoney) {
+                return <div style={{ color: 'red' }}>部分付款[{text}]</div>;
+            } else {
+                return <div>超额付款</div>; // 处理付超额的情况
+            }
+        }
+    }
+
     return text;
 }
 
 export default function getTableColumns(commonTableStore) {
+    console.log('commonTableStore', commonTableStore.action_code);
+
     let hideColumns = ['uuid', 'processDefinitionKey', 'transactid', 'nodeKey'];
     let columns = [];
     commonTableStore.tableColumnsJson.forEach((item, index) => {
@@ -45,7 +80,7 @@ export default function getTableColumns(commonTableStore) {
             key: item.key,
             sorter: (a, b) => sorter(a[item.key], b[item.key]),
             render: (text, record) => {
-                return columnRender(text, record, item);
+                return columnRender(text, record, item, commonTableStore.action_code);
             }
         };
         if (hideColumns.includes(item.key) == false) {

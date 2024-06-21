@@ -166,6 +166,7 @@ export default class datagridmnt extends React.Component {
 
             {
                 title: '名称',
+                width: '200px',
                 dataIndex: 'grid_title',
                 key: 'grid_title',
                 ...this.getColumnSearchProps('grid_title')

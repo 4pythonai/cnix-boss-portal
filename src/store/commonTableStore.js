@@ -154,7 +154,11 @@ class commonTableStore {
 
     @action setTotal = (total) => (this.total = total);
 
-    @action setTableColumnsJson = (tableColumnsJson) => (this.tableColumnsJson = tableColumnsJson);
+    @action setTableColumnsJson = (tableColumnsJson) => {
+        this.tableColumnsJson = tableColumnsJson;
+
+        // render: (dataIndexValue, record) => <img src={dataIndexValue} alt={record.name} />
+    };
 
     @action setFormCfg = (formCfg) => (this.formCfg = formCfg);
 
