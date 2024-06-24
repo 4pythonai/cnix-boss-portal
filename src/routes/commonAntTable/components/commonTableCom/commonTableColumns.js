@@ -56,7 +56,7 @@ function columnRender(text, record, column_cfg, action_code) {
             if (paidMoney === totalMoney) {
                 return <div>已付款 {text}</div>;
             } else if (paidMoney === 0) {
-                return <div>未付款</div>;
+                return <div style={{ color: 'blue' }}>未付款</div>;
             } else if (paidMoney < totalMoney) {
                 return <div style={{ color: 'red' }}>部分付款[{text}]</div>;
             } else {
