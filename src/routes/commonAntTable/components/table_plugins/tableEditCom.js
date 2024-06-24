@@ -1,50 +1,47 @@
 import CommonTableForm from '../commonTableCom/commonTableForm';
-import React from 'react'
-import { message } from 'antd'
-import CommonModal from '../commonTableCom/commonModal'
-import navigationStore from '@/store/navigationStore'
+import React from 'react';
+import { message } from 'antd';
+import CommonModal from '../commonTableCom/commonModal';
+import navigationStore from '@/store/navigationStore';
 
-import api from '@/api/api'
+import api from '@/api/api';
 
 export default class TableEditCom extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
     state = {
-        visible: false,
-    }
-
+        visible: false
+    };
 
     init = async () => {
-        if ( this.props.commonTableStore.selectedRows.length != 1) {
-            message.error("请选择1条数据.")
+        if (this.props.commonTableStore.selectedRows.length != 1) {
+            message.error('请选择1条数据.');
             return;
         }
 
-        let _tmprec = this.props.commonTableStore.selectedRows[0]
+        let _tmprec = this.props.commonTableStore.selectedRows[0];
 
         let canstart = false;
         if (_tmprec.hasOwnProperty('flowstatus')) {
-
-            if (_tmprec.flowstatus == null || _tmprec.flowstatus.trim() == "") {
+            if (_tmprec.flowstatus == null || _tmprec.flowstatus.trim() == '') {
                 canstart = true;
             }
 
             if (_tmprec.flowstatus == '未提交' || _tmprec.flowstatus == '撤回' || _tmprec.flowstatus == '已退回') {
                 canstart = true;
             } else {
-                let fmdata = {}
-                fmdata.uuid = this.props.commonTableStore.selectedRows[0].uuid
-                fmdata.processkey = navigationStore.currentMenu.process_key || this.props.commonTableStore.selectedRows[0].processDefinitionKey
+                let fmdata = {};
+                fmdata.uuid = this.props.commonTableStore.selectedRows[0].uuid;
+                fmdata.processkey = navigationStore.currentMenu.process_key || this.props.commonTableStore.selectedRows[0].processDefinitionKey;
                 let params = { data: fmdata, method: 'POST' };
                 let json = await api.bpm.checkCanEdit(params);
                 if (json.code == 200) {
-                    json.data == 'y' ? canstart = true : canstart = false
+                    json.data == 'y' ? (canstart = true) : (canstart = false);
                 }
             }
         } else {
             canstart = true;
-
         }
 
         if (_tmprec.hasOwnProperty('ghost_author') && _tmprec.ghost_author != sessionStorage.getItem('user')) {
@@ -57,104 +54,95 @@ export default class TableEditCom extends React.Component {
             return;
         }
 
-
-
-
-
-
-
-
-
-
-        this.refs.commonModalRef.showModal()
-        this.props.commonTableStore.setTableAction('edit_table')
-
-    }
+        this.refs.commonModalRef.showModal();
+        this.props.commonTableStore.setTableAction('edit_table');
+    };
 
     hideModal() {
-
-        this.refs.commonModalRef.onCancelHandle()
+        this.refs.commonModalRef.onCancelHandle();
     }
 
     saveFormData = (fmdata, changeValue, as_virtual, optionType) => {
         if (fmdata.customerid && fmdata.customerid != '') {
-            fmdata.customerAddr = fmdata.customerid.split('-')[1]
-            fmdata.customerid = fmdata.customerid.split('-')[0]
-
-
+            fmdata.customerAddr = fmdata.customerid.split('-')[1];
+            fmdata.customerid = fmdata.customerid.split('-')[0];
         }
-        if (this.props.commonTableStore.action_code == 'after_sales_technical_support' || this.props.commonTableStore.action_code == 'boss_reverse_dn_resolution' || this.props.commonTableStore.action_code == 'boss_web_traffic_monitoring') {
+        if (
+            this.props.commonTableStore.action_code == 'after_sales_technical_support' ||
+            this.props.commonTableStore.action_code == 'boss_reverse_dn_resolution' ||
+            this.props.commonTableStore.action_code == 'boss_web_traffic_monitoring'
+        ) {
             if (fmdata.contractno != undefined) {
-                fmdata.customername = fmdata.contractno.split('-')[1]
-                fmdata.customeraddr = fmdata.contractno.split('-')[2]
-                fmdata.contractno = fmdata.contractno.split('-')[0]
+                fmdata.customername = fmdata.contractno.split('-')[1];
+                fmdata.customeraddr = fmdata.contractno.split('-')[2];
+                fmdata.contractno = fmdata.contractno.split('-')[0];
             }
-
         }
         let data = {
             actcode: this.props.commonTableStore.action_code,
             rawdata: fmdata
         };
         if (this.props.as_virtual == 'y') {
-            this.updateVirtualData(fmdata)
+            this.updateVirtualData(fmdata);
             return;
         }
         this.updateDateApi(data);
-    }
+    };
 
-    getGhostData = formData => {
-        this.props.commonTableStore.triggers.map(item => {
-            formData['ghost_' + item.props.ass_select_field_id] = formData[item.props.ass_select_field_id]
-            let option_obj = item.state.optionList.find(optionItem => (optionItem.value == formData[item.props.ass_select_field_id]))
-            formData[item.props.ass_select_field_id] = option_obj.label
-        })
-        return formData
-    }
+    getGhostData = (formData) => {
+        this.props.commonTableStore.triggers.map((item) => {
+            formData['ghost_' + item.props.ass_select_field_id] = formData[item.props.ass_select_field_id];
+            let option_obj = item.state.optionList.find((optionItem) => optionItem.value == formData[item.props.ass_select_field_id]);
+            formData[item.props.ass_select_field_id] = option_obj.label;
+        });
+        return formData;
+    };
 
-    updateVirtualData = fmdata => {
-        let id = this.props.commonTableStore.selectedRowKeys[0]
-        let index = this.props.commonTableStore.dataSource.findIndex(item => item.id == id)
-        fmdata.id = id
+    updateVirtualData = (fmdata) => {
+        let id = this.props.commonTableStore.selectedRowKeys[0];
+        let index = this.props.commonTableStore.dataSource.findIndex((item) => item.id == id);
+        fmdata.id = id;
         fmdata = this.getGhostData(fmdata);
-        let dataSource = [...this.props.commonTableStore.dataSource]
-        dataSource[index] = { ...fmdata }
-        this.props.commonTableStore.setDataSource(dataSource)
+        let dataSource = [...this.props.commonTableStore.dataSource];
+        dataSource[index] = { ...fmdata };
+        this.props.commonTableStore.setDataSource(dataSource);
+    };
 
-    }
+    updateDateApi = async (fmdata) => {
+        let id = this.props.commonTableStore.selectedRowKeys[0];
+        fmdata.rawdata.id = id;
 
+        // 添加检查，确保 rawdata 有 id 属性
+        if (!fmdata.rawdata.hasOwnProperty('id') || fmdata.rawdata.id === undefined) {
+            alert('请刷新完成后再编辑');
+            return; // 如果没有 id，直接返回，不执行更新操作
+        }
 
-    updateDateApi = async fmdata => {
-        let id = this.props.commonTableStore.selectedRowKeys[0]
-        fmdata.rawdata.id = id
         let params = { data: fmdata, method: 'POST' };
         params.updateurl = this.props.commonTableStore.curd.updateurl;
+
         let json = await api.curd.updateData(params);
         if (json.code == 200) {
             this.props.refreshTable();
         }
-    }
-
+    };
     render() {
-        return <CommonModal
-            height="500px"
-            footer={ null }
-            title="编辑"
-            ref='commonModalRef'
-            layoutcfg={ this.props.commonTableStore.layoutcfg }
-        >
-            <CommonTableForm
-                as_virtual={ this.props.as_virtual }
-                editable={ true }
-                optionType='edit'
-                hideModal={ () => this.hideModal() }
-                onChange={ this.props.onChange }
-                referinfo={ this.props.commonTableStore.referinfo }
-                formCfg={ this.props.commonTableStore.formCfg }
-                layoutcfg={ this.props.commonTableStore.layoutcfg }
-                staticformcfg={ this.props.commonTableStore.staticformcfg }
-                commonTableStore={ this.props.commonTableStore }
-                saveFormData={ this.saveFormData.bind(this) }
-            />
-        </CommonModal>
+        return (
+            <CommonModal height="500px" footer={null} title="编辑" ref="commonModalRef" layoutcfg={this.props.commonTableStore.layoutcfg}>
+                <CommonTableForm
+                    as_virtual={this.props.as_virtual}
+                    editable={true}
+                    optionType="edit"
+                    hideModal={() => this.hideModal()}
+                    onChange={this.props.onChange}
+                    referinfo={this.props.commonTableStore.referinfo}
+                    formCfg={this.props.commonTableStore.formCfg}
+                    layoutcfg={this.props.commonTableStore.layoutcfg}
+                    staticformcfg={this.props.commonTableStore.staticformcfg}
+                    commonTableStore={this.props.commonTableStore}
+                    saveFormData={this.saveFormData.bind(this)}
+                />
+            </CommonModal>
+        );
     }
 }

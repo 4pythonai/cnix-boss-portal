@@ -10,8 +10,6 @@ function sorter(valueA, valueB) {
 }
 
 function columnRender(text, record, column_cfg, action_code) {
-    console.log('💚💚💚💚💚💚💚💚💚💚💚action_code: ', action_code);
-
     if (text === '' || text === undefined) {
         return '';
     }
