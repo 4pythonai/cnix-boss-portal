@@ -6,6 +6,9 @@ export default class device {
         addBossXpath: '/device/addBossXpath',
         updateBossXpath: '/device/updateBossXpath',
         addSwitchPorts: '/device/addSwitchPorts',
-        batchAddU: '/device/batchAddU'
+        batchAddU: '/device/batchAddU',
+        listSwitchDevices: '/device/listSwitchDevices',
+        listSwitchPorts: '/device/listSwitchPorts',
+        AlterTwoSwPorts: '/device/AlterTwoSwPorts'
     };
 }
