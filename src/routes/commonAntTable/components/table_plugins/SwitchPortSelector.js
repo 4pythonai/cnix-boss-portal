@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '@/api/api';
+import { Checkbox, Button, Modal } from 'antd';
 
 const SwitchPortSelector = (props) => {
     console.log('props:++++++++++++++++ ', props);
@@ -86,7 +87,9 @@ const SwitchPortSelector = (props) => {
                 </select>
             </div>
             <br />
-            <button type="submit">替换</button>
+            <Button style={{ color: 'black' }} onClick={handleSubmit} type="submit">
+                替换
+            </Button>
         </form>
     );
 };
