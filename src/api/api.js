@@ -19,6 +19,7 @@ import tools from './api_tools';
 import filehandler from './api_file';
 import buyin from './api_buyin';
 import api_contract from './api_contract';
+import api_redislog from './api_redislog';
 
 import { api_root } from './api_config/base_config';
 import http from './http';
@@ -45,6 +46,7 @@ api.tools = tools;
 api.filehandler = filehandler;
 api.buyin = buyin;
 api.contract = api_contract;
+api.redislog = api_redislog;
 
 Object.keys(api).forEach((schema, index, array) => {
     const methods = api[schema].methods;
@@ -60,6 +62,3 @@ api.curd.deleteData = (params) => http(params, `${api_root}/${params.delurl}`);
 api.curd.updateData = (params) => http(params, `${api_root}/${params.updateurl}`);
 api.curd.addData = (params) => http(params, `${api_root}/${params.addurl}`);
 api.activity.getAssociateData = (params) => http(params, `${api_root}/${params.data.api}`);
-// ### getAssociateData: '/${params.data.api}
-
-// console.log(api);

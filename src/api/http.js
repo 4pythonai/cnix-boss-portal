@@ -22,8 +22,11 @@ const http = (params, url) => {
     url = method == 'GET' ? getUrl(url, params) : url;
     return new Promise((resolve, reject) => {
         console.log('http 请求>>>>>>>' + url);
-        message.loading({ content: '处理中...', duration: 0 });
-        // let hideloading = message.loading({ content: '正在加载数据...', key: loadingKey, duration: 0 })
+
+        if (url.indexOf('getRedisLog') === -1) {
+            message.loading({ content: '处理中...', duration: 0 });
+        }
+
         const hideloading = function () {
             message.destroy();
         };

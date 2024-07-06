@@ -4,6 +4,7 @@ import moment from 'moment';
 import OneContractBillReportCom from '@/routes/commonAntTable/components/table_plugins/bill/sale/OneContractBillReportCom';
 import { observer } from 'mobx-react';
 import DatabaseConfig from './dbcfg';
+import RedisLogViewer from './RedisLogViewer';
 import api from '@/api/api';
 import 'antd/dist/antd.css';
 const { Option } = Select;
@@ -155,6 +156,7 @@ class BillingDebuger extends React.Component {
                 ) : null}
 
                 <DatabaseConfig />
+                <RedisLogViewer />
             </div>
         );
     }
