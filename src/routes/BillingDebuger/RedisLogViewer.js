@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import api from '@/api/api';
+import { JSONTree } from 'react-json-tree';
 
 const RedisLogViewer = forwardRef((props, ref) => {
     const [logs, setLogs] = useState([]);
@@ -60,6 +61,16 @@ const RedisLogViewer = forwardRef((props, ref) => {
 
                     const timestamp = logText.slice(0, 19);
                     const content = logText.slice(19).trim();
+                    let isJson;
+                    let parsedContent;
+                    try {
+                        parsedContent = JSON.parse(content);
+                        isJson = true;
+                    } catch (e) {
+                        console.log('不是json');
+                        console.log(e);
+                        isJson = false;
+                    }
 
                     return (
                         <div key={index} style={{ display: 'flex', marginBottom: '10px' }}>
@@ -67,15 +78,21 @@ const RedisLogViewer = forwardRef((props, ref) => {
                                 {timestamp}
                             </div>
 
-                            <div
-                                style={{
-                                    color: color,
-                                    maxWidth: '1100px',
-                                    wordWrap: 'break-word',
-                                    overflowWrap: 'break-word'
-                                }}>
-                                <div dangerouslySetInnerHTML={{ __html: content }} />
-                            </div>
+                            {isJson ? (
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <JSONTree style={{ width: '1000px' }} data={parsedContent} />
+                                </div>
+                            ) : (
+                                <div
+                                    style={{
+                                        color: color,
+                                        maxWidth: '1100px',
+                                        wordWrap: 'break-word',
+                                        overflowWrap: 'break-word'
+                                    }}>
+                                    <div dangerouslySetInnerHTML={{ __html: content }} />
+                                </div>
+                            )}
                         </div>
                     );
                 })}
