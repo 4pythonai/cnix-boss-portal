@@ -1,3 +1,5 @@
 export default class bpm {
-    static methods = {};
+    static methods = {
+        queryCallBack: '/App/queryCallBack'
+    };
 }
