@@ -36,6 +36,14 @@ export default class SearchFormContainer extends React.Component {
                     {
                         label: '小于等于',
                         value: '<='
+                    },
+                    {
+                        label: '为空',
+                        value: 'IS_NULL'
+                    },
+                    {
+                        label: '不为空',
+                        value: 'IS_NOT_NULL'
                     }
                 ],
                 number: [
