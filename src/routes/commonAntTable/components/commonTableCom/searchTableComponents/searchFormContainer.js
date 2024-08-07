@@ -8,7 +8,65 @@ export default class SearchFormContainer extends React.Component {
         super(props);
         this.state = {
             field_group: [{ inner_order: 0 }],
-            field_list: []
+            field_list: [],
+            operation_list: {
+                string: [
+                    {
+                        label: '包含',
+                        value: 'like'
+                    },
+                    {
+                        label: '等于',
+                        value: '='
+                    },
+                    {
+                        label: '不等于',
+                        value: '!='
+                    }
+                ],
+                date: [
+                    {
+                        label: '大于等于',
+                        value: '>='
+                    },
+                    {
+                        label: '等于',
+                        value: '='
+                    },
+                    {
+                        label: '小于等于',
+                        value: '<='
+                    }
+                ],
+                number: [
+                    {
+                        label: '大于等于',
+                        value: '>='
+                    },
+                    {
+                        label: '等于',
+                        value: '='
+                    },
+                    {
+                        label: '小于等于',
+                        value: '<='
+                    }
+                ],
+                other: [
+                    {
+                        label: '包含',
+                        value: 'like'
+                    },
+                    {
+                        label: '等于',
+                        value: '='
+                    },
+                    {
+                        label: '小于等于',
+                        value: '!='
+                    }
+                ]
+            }
         };
     }
 
@@ -103,6 +161,7 @@ export default class SearchFormContainer extends React.Component {
                         <SearchTableForm
                             key={index}
                             saveActions={this.saveActions}
+                            operation_list={this.state.operation_list}
                             formCfg={this.props.formCfg.properties.group_all.properties}
                             field_list={this.getFieldList()}
                             onOk={this.props.onOk}
