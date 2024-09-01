@@ -20,7 +20,7 @@ import filehandler from './api_file';
 import buyin from './api_buyin';
 import api_contract from './api_contract';
 import api_redislog from './api_redislog';
-
+import dd from './api_dd';
 import { api_root } from './api_config/base_config';
 import http from './http';
 export { api_root };
@@ -47,6 +47,7 @@ api.filehandler = filehandler;
 api.buyin = buyin;
 api.contract = api_contract;
 api.redislog = api_redislog;
+api.dd = dd;
 
 Object.keys(api).forEach((schema, index, array) => {
     const methods = api[schema].methods;

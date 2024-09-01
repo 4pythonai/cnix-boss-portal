@@ -21,8 +21,8 @@ const DDFormCards = ({ formData }) => {
                         {field.value &&
                             JSON.parse(field.value).map((url, index) => (
                                 <div key={index} className="mt-2">
-                                    <img src={url} alt={`Image ${index + 1}`} className="max-w-full h-auto rounded-lg shadow-md" />
-                                    <p className="mt-1 text-sm text-gray-500">{url}</p>
+                                    {/* <img src={url} alt={`Image ${index + 1}`} /> */}
+                                    <p>{url}</p>
                                 </div>
                             ))}
                     </div>
