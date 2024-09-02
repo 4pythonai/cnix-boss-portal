@@ -41,7 +41,15 @@ export default class SearchTableForm extends React.Component {
         $('onFieldChange', contentfield).subscribe((fieldState) => {
             if (fieldState.value) {
                 setFieldState(contentfield, (state) => {
-                    state.value = state.value ? state.value.replace(/(^\s*)|(\s*$)/g, '') : '';
+                    console.log('🌼🌼🌼🌼🌼🌼');
+                    console.log('🌼🌼🌼🌼🌼🌼 state', state);
+                    console.log('🌼🌼🌼🌼🌼🌼 state.value', state.value);
+                    console.log('🌼🌼🌼🌼🌼🌼 state.value', typeof state.value);
+                    if (typeof state.value == 'number') {
+                        state.value = state.value;
+                    } else {
+                        state.value = state.value ? state.value.replace(/(^\s*)|(\s*$)/g, '') : '';
+                    }
                 });
             }
         });

@@ -13,7 +13,6 @@ const DDFormCards = ({ formData }) => {
                         <div style={{ flex: 'none', width: '1000px', marginLeft: '10px' }}>{field.value || ''}</div>
                     </div>
                 );
-
             case 'DDPhotoField':
                 return (
                     <div className="mb-4">
@@ -21,7 +20,7 @@ const DDFormCards = ({ formData }) => {
                         {field.value &&
                             JSON.parse(field.value).map((url, index) => (
                                 <div key={index} className="mt-2">
-                                    {/* <img src={url} alt={`Image ${index + 1}`} /> */}
+                                    <img src={url} alt={`Image ${index + 1}`} />
                                     <p>{url}</p>
                                 </div>
                             ))}
@@ -43,5 +42,4 @@ const DDFormCards = ({ formData }) => {
         </div>
     );
 };
-
 export default DDFormCards;
