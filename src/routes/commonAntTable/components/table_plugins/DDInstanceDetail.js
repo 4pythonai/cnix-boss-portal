@@ -1,26 +1,26 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import api from '@/api/api';
-import { message, Modal, Badge } from 'antd';
+import { Modal } from 'antd';
 import ReactJson from 'react-json-view';
 import DDFormCards from './DDFormCards';
 import DDShutdown from './DDShutdown';
 
 @observer
 export default class DDInstanceDetail extends React.Component {
+    constructor(props) {
+        super(props);
+        this.init = this.init.bind(this);
+    }
+
     state = {
         visible: false,
         detailJson: {},
+        processInstanceId: null,
         formComponentValues: [],
         contractItem: {}
     };
 
     init() {
-        if (this.props.commonTableStore.selectedRows.length !== 1) {
-            message.error('请选择一条数据！');
-            return;
-        }
-
         let _tmprec = this.props.commonTableStore.selectedRows[0];
         console.log(_tmprec);
 
@@ -29,6 +29,7 @@ export default class DDInstanceDetail extends React.Component {
             jsonObj = JSON.parse(_tmprec.detailJson);
             console.log('🌸🌸🌸🌸🌸🌸🌸🌸🌸', jsonObj); // 输出解析后的 JSON 对象
             this.setState({ detailJson: jsonObj });
+            this.setState({ processInstanceId: _tmprec.processInstanceId });
             this.setState({ formComponentValues: jsonObj.result.formComponentValues });
             let _contractItem = jsonObj.result.formComponentValues.find((item) => item.componentType === 'TextField' && item.name === '合同/补充协议编号');
             console.log('🌸🌸🌸🌸🌸🌸🌸🌸🌸', _contractItem); // 输出合同/补充协议编号
@@ -69,7 +70,7 @@ export default class DDInstanceDetail extends React.Component {
                 <DDFormCards formData={this.state.formComponentValues} />
                 {this.state.contractItem && (
                     <div>
-                        <DDShutdown contractField={this.state.contractItem} />
+                        <DDShutdown processInstanceId={this.state.processInstanceId} contractField={this.state.contractItem} />
                     </div>
                 )}
             </Modal>
