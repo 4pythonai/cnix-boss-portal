@@ -27,12 +27,10 @@ export default class DDInstanceDetail extends React.Component {
         let jsonObj = {};
         try {
             jsonObj = JSON.parse(_tmprec.detailJson);
-            console.log('🌸🌸🌸🌸🌸🌸🌸🌸🌸', jsonObj); // 输出解析后的 JSON 对象
             this.setState({ detailJson: jsonObj });
             this.setState({ processInstanceId: _tmprec.processInstanceId });
             this.setState({ formComponentValues: jsonObj.result.formComponentValues });
             let _contractItem = jsonObj.result.formComponentValues.find((item) => item.componentType === 'TextField' && item.name === '合同/补充协议编号');
-            console.log('🌸🌸🌸🌸🌸🌸🌸🌸🌸', _contractItem); // 输出合同/补充协议编号
             this.setState({ contractItem: _contractItem });
         } catch (error) {
             jsonObj = { aa: '解析失败' };

@@ -16,10 +16,10 @@ const DDShutdown = ({ processInstanceId, contractField }) => {
                 let params = {
                     method: 'POST',
                     data: {
-                        contract: contractField.value
+                        processInstanceId: processInstanceId
                     }
                 };
-                const response = await api.dd.GetActiveResItems(params);
+                const response = await api.dd.GetIntanceRelatedResItems(params);
                 setProducts(response.data);
             } catch (err) {
                 setError('Failed to fetch products');

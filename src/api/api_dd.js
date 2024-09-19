@@ -1,7 +1,7 @@
 export default class dd {
     static methods = {
         GetContractProductName: '/App/GetContractProductName',
-        GetActiveResItems: '/App/GetActiveResItems',
+        GetIntanceRelatedResItems: '/App/GetIntanceRelatedResItems',
         fetchDDInstanceForBizTermianate: '/DDOA/getNetDownComledted',
         CloseResourceItems: '/App/CloseResourceItems'
     };
