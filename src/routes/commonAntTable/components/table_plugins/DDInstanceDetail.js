@@ -17,7 +17,8 @@ export default class DDInstanceDetail extends React.Component {
         detailJson: {},
         processInstanceId: null,
         formComponentValues: [],
-        contractItem: {}
+        contractItem: {},
+        operated: 'n'
     };
 
     init() {
@@ -32,6 +33,7 @@ export default class DDInstanceDetail extends React.Component {
             this.setState({ formComponentValues: jsonObj.result.formComponentValues });
             let _contractItem = jsonObj.result.formComponentValues.find((item) => item.componentType === 'TextField' && item.name === '合同/补充协议编号');
             this.setState({ contractItem: _contractItem });
+            this.setState({ operated: _tmprec.operated });
         } catch (error) {
             jsonObj = { aa: '解析失败' };
             this.setState({ detailJson: jsonObj });
@@ -68,7 +70,7 @@ export default class DDInstanceDetail extends React.Component {
                 <DDFormCards formData={this.state.formComponentValues} />
                 {this.state.contractItem && (
                     <div>
-                        <DDShutdown processInstanceId={this.state.processInstanceId} contractField={this.state.contractItem} />
+                        <DDShutdown operated={this.state.operated} processInstanceId={this.state.processInstanceId} contractField={this.state.contractItem} />
                     </div>
                 )}
             </Modal>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Checkbox, Card, message } from 'antd';
 import api from '@/api/api';
 
-const DDShutdown = ({ processInstanceId, contractField }) => {
+const DDShutdown = ({ operated, processInstanceId, contractField }) => {
     const [products, setProducts] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ const DDShutdown = ({ processInstanceId, contractField }) => {
         if (contractField && contractField.value) {
             fetchProducts();
         }
-    }, [contractField]);
+    }, [contractField, processInstanceId]);
 
     const handleCheckboxChange = (checkedValue) => {
         setSelectedProducts((prev) => (prev.includes(checkedValue) ? prev.filter((value) => value !== checkedValue) : [...prev, checkedValue]));
@@ -84,9 +84,12 @@ const DDShutdown = ({ processInstanceId, contractField }) => {
                         </span>
                     </div>
                 ))}
-                <Button type="primary" onClick={ddCloseResources} disabled={selectedProducts.length === 0} style={{ marginTop: '200px', width: '200px' }}>
-                    关闭选中资源
-                </Button>
+
+                {operated == 'n' ? (
+                    <Button type="primary" onClick={ddCloseResources} disabled={selectedProducts.length === 0} style={{ marginTop: '200px', width: '200px' }}>
+                        关闭选中资源
+                    </Button>
+                ) : null}
             </div>
         </Card>
     );
