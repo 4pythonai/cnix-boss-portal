@@ -47,8 +47,8 @@ export default class DeleteData extends React.Component {
         }
 
         confirm({
-            title: '你确定要删出这条记录么?',
-            content: '删除后将无法恢复',
+            title: '你确定要删除这条记录么?',
+            content: '删除后数据无法恢复',
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
@@ -80,6 +80,7 @@ export default class DeleteData extends React.Component {
     };
 
     async deleteData() {
+        alert(this.props.commonTableStore.curd.delurl)
         let params = {
             data: {
                 actcode: this.props.commonTableStore.action_code,

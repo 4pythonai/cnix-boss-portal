@@ -3,6 +3,7 @@ export default class dd {
         GetContractProductName: '/App/GetContractProductName',
         GetIntanceRelatedResItems: '/App/GetIntanceRelatedResItems',
         fetchDDInstanceForBizTermianate: '/DDOA/getNetDownComledted',
+        fetchDDInstanceForBizOpen: '/DDOA/fetchDDInstanceForBizOpen',
         CloseResourceItems: '/App/CloseResourceItems'
     };
 }
