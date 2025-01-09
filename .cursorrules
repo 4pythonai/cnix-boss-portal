@@ -1,0 +1,32 @@
+# Cursor Rules
+
+## Whenever you need a React component
+
+1. Carefully consider the component's purpose, functionality, and design
+
+2. Think slowly, step by step, and outline your reasoning
+
+3. This is an React App,with Ant Design ,if need to import any component,use the following format: 
+
+   ```
+   import { Select, Button, Table } from 'antd';
+   ```
+
+
+4. If it doesn't exist, generate a detailed prompt for the component, including:
+   - Component name and purpose
+   - Desired props and their types
+   - Any specific styling or behavior requirements
+
+5. URL encode the prompt
+
+6. I am using api as below,
+   ```
+      import api from '@/api/api';
+      const params = { data: { searchKey: someValue }, method: 'POST' };
+      const res = await api.SomeController.SomeMethod(params);
+
+   ```
+
+
+## Example prompt template:

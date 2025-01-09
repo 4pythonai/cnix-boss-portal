@@ -16,5 +16,6 @@ export default class dresource {
         SelectBandwidth: '/Network/SelectBandwidth',
         SelectOpticalSite: '/Network/SelectOpticalSite',
         SelectTransfer: '/Network/SelectTransfer',
+        searchDeliverInfo: '/BizCode/searchDeliverInfo',
     };
 }

@@ -18,7 +18,7 @@ const Uloc = lazy(() => import('./Uloc'));
 const Nothing = lazy(() => import('./Nothing'));
 
 
-const Allselect = observer(({ contract }) => {
+const Allselect = observer(({ maincode, contract }) => {
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState('');
@@ -120,8 +120,7 @@ const Allselect = observer(({ contract }) => {
 
     return (
         <>
-            <div>选中的数据(Table):</div>
-
+            <div>预备开通的资源:</div>
             <Table columns={columns} rowKey="reactkey" dataSource={resRows} pagination={false} />
 
             <Select
@@ -139,7 +138,7 @@ const Allselect = observer(({ contract }) => {
             {/* 使用 Suspense 包裹动态组件 */}
 
             <Suspense fallback={<div>Loading...</div>}>
-                {SelectedComponent && <SelectedComponent appendrows={appendrows} catid={catid} product_name={category} bizCode={"AAAAAAAAAAAAAAA"} />}
+                {SelectedComponent && <SelectedComponent appendrows={appendrows} catid={catid} product_name={category} bizCode={maincode} />}
             </Suspense>
         </>
     );

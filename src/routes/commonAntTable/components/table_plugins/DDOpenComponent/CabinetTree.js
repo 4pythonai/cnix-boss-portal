@@ -6,9 +6,7 @@ import api from '@/api/api'
 const { TextArea } = Input;
 
 const CabinetTree = ({ appendrows, catid, product_name, bizCode }) => {
-	// State management
 	const [cabinetStr, setCabinetStr] = useState('');
-	const [nodes, setNodes] = useState([]);
 	const [treeData, setTreeData] = useState(null);
 	const [rowObject, setRowObject] = useState({});
 
@@ -46,7 +44,7 @@ const CabinetTree = ({ appendrows, catid, product_name, bizCode }) => {
 
 		console.log("filteredNodes", filteredNodes);
 		setCabinetStr(newCabinetStr);
-		setNodes(filteredNodes);
+		// setNodes(filteredNodes);
 
 		const RowObject = {}
 		RowObject.operation = "删除"

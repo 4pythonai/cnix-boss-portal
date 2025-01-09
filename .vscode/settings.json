@@ -18,8 +18,6 @@
     "editor.formatOnSave": true,
     "files.eol": "\n",
     "workbench.colorCustomizations": {
-
-        "tab.activeBorder": "#ff0000",
         "activityBar.activeBackground": "#65c89b",
         "activityBar.activeBorder": "#c86584",
         "tab.unfocusedActiveBorder": "#000000",
