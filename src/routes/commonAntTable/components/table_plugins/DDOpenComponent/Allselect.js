@@ -1,8 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Select } from 'antd';
+import { Select, Button, Table } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
-import { Table } from 'antd';
 
 
 const { Option } = Select;
@@ -87,10 +86,19 @@ const Allselect = observer(({ contract }) => {
         }
     };
 
+    const deleteRow = (index) => {
+        const newRows = [...resRows];
+        newRows.splice(index, 1);
+        setResRows(newRows);
+    }
+
     const columns = [
         {
             title: '操作',
             dataIndex: 'operation',
+            render: (text, record) => (
+                <Button type="primary" size="small" onClick={() => deleteRow(record.key)}>删除</Button>
+            ),
         },
         {
             title: '主业务编号',
@@ -104,6 +112,11 @@ const Allselect = observer(({ contract }) => {
             dataIndex: 'restext',
         }
     ];
+
+
+    const appendrows = (rowObject) => {
+        setResRows([...resRows, rowObject]);
+    }
 
     return (
         <>
@@ -126,7 +139,7 @@ const Allselect = observer(({ contract }) => {
             {/* 使用 Suspense 包裹动态组件 */}
 
             <Suspense fallback={<div>Loading...</div>}>
-                {SelectedComponent && <SelectedComponent catid={catid} product_name={category} bizCode={"AAAAAAAAAAAAAAA"} />}
+                {SelectedComponent && <SelectedComponent appendrows={appendrows} catid={catid} product_name={category} bizCode={"AAAAAAAAAAAAAAA"} />}
             </Suspense>
         </>
     );

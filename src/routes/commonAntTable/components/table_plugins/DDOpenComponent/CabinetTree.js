@@ -5,7 +5,7 @@ import api from '@/api/api'
 
 const { TextArea } = Input;
 
-const CabinetTree = ({ catid, product_name, bizCode }) => {
+const CabinetTree = ({ appendrows, catid, product_name, bizCode }) => {
 	// State management
 	const [cabinetStr, setCabinetStr] = useState('');
 	const [nodes, setNodes] = useState([]);
@@ -53,9 +53,9 @@ const CabinetTree = ({ catid, product_name, bizCode }) => {
 		RowObject.bizcode = bizCode
 		RowObject.catid = catid
 		RowObject.product_name = product_name
-		RowObject.restext = { nodes: filteredNodes, text: newCabinetStr, }
+		RowObject.restext = JSON.stringify({ nodes: filteredNodes, text: newCabinetStr })
 		console.log("🌸🌸🌸🌸🌸 RowObject", RowObject);
-		setRowObject([RowObject]);
+		appendrows(RowObject);
 
 	};
 
