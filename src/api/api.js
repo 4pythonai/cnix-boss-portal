@@ -21,10 +21,11 @@ import buyin from './api_buyin';
 import api_contract from './api_contract';
 import api_redislog from './api_redislog';
 import dd from './api_dd';
+import dresource from './api_dresource';
 import { api_root } from './api_config/base_config';
 import http from './http';
 export { api_root };
-export default class api {}
+export default class api { }
 
 api.button = button;
 api.device = device;
@@ -48,6 +49,7 @@ api.buyin = buyin;
 api.contract = api_contract;
 api.redislog = api_redislog;
 api.dd = dd;
+api.dresource = dresource;
 
 Object.keys(api).forEach((schema, index, array) => {
     const methods = api[schema].methods;

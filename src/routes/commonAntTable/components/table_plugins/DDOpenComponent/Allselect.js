@@ -2,6 +2,8 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Select } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
+import { Table } from 'antd';
+
 
 const { Option } = Select;
 
@@ -22,6 +24,10 @@ const Allselect = observer(({ contract }) => {
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState('');
     const [SelectedComponent, setSelectedComponent] = useState(null);
+    const [category, setCategory] = useState('');
+    const [resRows, setResRows] = useState([]);
+    const [catid, setCatid] = useState('');
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,8 +53,8 @@ const Allselect = observer(({ contract }) => {
         setValue(selectedValue);
 
         const selectedOption = options.find(option => option.value === selectedValue);
-        console.log("selectedOption", selectedOption);
-        console.log("selectedOption.category", selectedOption.category);
+        setCategory(selectedOption.label);
+        setCatid(selectedOption.catid);
         // 根据选择的值动态设置要渲染的组件
         switch (selectedOption.category) {
             case 'cabinet':
@@ -81,8 +87,30 @@ const Allselect = observer(({ contract }) => {
         }
     };
 
+    const columns = [
+        {
+            title: '操作',
+            dataIndex: 'operation',
+        },
+        {
+            title: '主业务编号',
+            dataIndex: 'bizcode',
+        }, {
+            title: '产品名称',
+            dataIndex: 'product_name',
+        },
+        {
+            title: '资源',
+            dataIndex: 'restext',
+        }
+    ];
+
     return (
         <>
+            <div>选中的数据(Table):</div>
+
+            <Table columns={columns} rowKey="reactkey" dataSource={resRows} pagination={false} />
+
             <Select
                 value={value}
                 onChange={handleChange}
@@ -96,8 +124,9 @@ const Allselect = observer(({ contract }) => {
                 ))}
             </Select>
             {/* 使用 Suspense 包裹动态组件 */}
+
             <Suspense fallback={<div>Loading...</div>}>
-                {SelectedComponent && <SelectedComponent />}
+                {SelectedComponent && <SelectedComponent catid={catid} product_name={category} bizCode={"AAAAAAAAAAAAAAA"} />}
             </Suspense>
         </>
     );
