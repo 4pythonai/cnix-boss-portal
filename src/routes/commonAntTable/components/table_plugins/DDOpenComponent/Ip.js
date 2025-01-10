@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Input, Button, AutoComplete } from 'antd';
+import { debounce } from 'lodash';
 import api from '@/api/api';
 
 const { TextArea } = Input;
@@ -11,33 +12,47 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
     const [IPAddrStr, setIPAddrStr] = useState('');
     const [rowObject, setRowObject] = useState({});
 
-    // 处理IP输入变化
-    const handleSearch = async (searchText) => {
-        if (!searchText) {
-            setOptions([]);
-            return;
-        }
+    // 使用useMemo来创建防抖的搜索函数
+    const debouncedSearch = useMemo(
+        () =>
+            debounce(async (searchText) => {
+                if (!searchText) {
+                    setOptions([]);
+                    return;
+                }
 
-        try {
-            const params = {
-                data: { query: searchText },
-                method: 'POST'
-            };
-            const response = await api.dresource.SearchIPaddr(params);
-            console.log("🌸🌸🌸🌸🌸 response", response);
+                try {
+                    const params = {
+                        data: { query: searchText },
+                        method: 'POST'
+                    };
+                    const response = await api.dresource.SearchIPaddr(params);
 
-            if (response.code === 0 && response.data) {
-                // 确保数据格式正确
-                const formattedData = response.data.map(item => ({
-                    id: item.id || '',
-                    ipaddress: item.ipaddress || ''
-                }));
-                setOptions(formattedData);
-            }
-        } catch (error) {
-            console.error('Failed to search IP:', error);
-        }
+                    if (response.code === 0 && response.data) {
+                        const formattedData = response.data.map(item => ({
+                            id: item.id || '',
+                            ipaddress: item.ipaddress || ''
+                        }));
+                        setOptions(formattedData);
+                    }
+                } catch (error) {
+                    console.error('Failed to search IP:', error);
+                }
+            }, 500), // 500ms 的防抖延迟
+        []
+    );
+
+    // 处理搜索
+    const handleSearch = (searchText) => {
+        debouncedSearch(searchText);
     };
+
+    // 在组件卸载时清除防抖
+    useEffect(() => {
+        return () => {
+            debouncedSearch.cancel();
+        };
+    }, [debouncedSearch]);
 
     // 处理选择
     const handleSelect = (value, index) => {
