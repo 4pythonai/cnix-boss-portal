@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Checkbox, Card, message } from 'antd';
 import api from '@/api/api';
-import Allselect from './DDOpenComponent/Allselect';
+import RresCategorySelector from './DDOpenComponent/RresCategorySelector';
 import DeliverSelector from './DDOpenComponent/DeliverSelector'
 
 const DDOpen = ({ maincode, contractno }) => {
@@ -21,7 +21,7 @@ const DDOpen = ({ maincode, contractno }) => {
                     flexDirection: 'column',
                     gap: '10px' // 添加间距
                 }}>
-                <Allselect maincode={maincode} contract={contractno} />
+                <RresCategorySelector maincode={maincode} contract={contractno} />
                 <DeliverSelector bizcode={maincode} />
 
             </div>

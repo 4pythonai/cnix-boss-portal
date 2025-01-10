@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Allselect from '@/components/Allselect'
+import RresCategorySelector from '@/components/RresCategorySelector'
 import Contract from '@/components/Contract'
 
 
@@ -10,7 +10,7 @@ export default new Router({
     routes: [
         {
             path: '/',
-            component: Allselect,
+            component: RresCategorySelector,
             meta: {
                 title: '资源编辑器VUE'
             }
