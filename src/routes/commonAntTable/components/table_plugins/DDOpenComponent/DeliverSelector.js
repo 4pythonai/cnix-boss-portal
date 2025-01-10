@@ -54,49 +54,29 @@ const DeliverSelector = ({ bizcode }) => {
         setRelatedDelivernos(prev => prev.filter(no => no !== deliveryno));
     };
 
-    // Submit related delivery numbers
-    const handleSubmit = async () => {
-        try {
-            const params = {
-                data: {
-                    bizcode,
-                    relatedDelivernos
-                },
-                method: 'POST'
-            };
-            const res = await api.DeliveryController.submit(params);
-            if (res?.success) {
-                message.success('提交成功');
-            }
-        } catch (error) {
-            message.error('提交失败');
-        }
-    };
+
 
     return (
-        <div>
+        <div style={{ background: "#f3f2f2", padding: "10px" }}>
             <div style={{ marginBottom: 16 }}>
                 <Input.Search
-                    placeholder="请输入搜索关键词"
+                    placeholder="搜索相关子业务编号"
                     onSearch={handleSearch}
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                     style={{ width: 300 }}
                 />
-                <Button
-                    type="primary"
-                    onClick={handleSubmit}
-                    style={{ marginLeft: 16 }}
-                >
-                    提交
-                </Button>
+
             </div>
-            <Table
-                columns={columns}
-                dataSource={deliveryData}
-                rowKey="deliveryno"
-                pagination={false}
-            />
+            <div style={{ background: "#f3f2f2" }}>
+                <Table
+                    size="small"
+                    columns={columns}
+                    dataSource={deliveryData}
+                    rowKey="deliveryno"
+                    pagination={false}
+                />
+            </div>
         </div>
     );
 };

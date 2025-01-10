@@ -119,15 +119,16 @@ const Allselect = observer(({ maincode, contract }) => {
     }
 
     return (
-        <>
+        <div style={{ padding: "0 10px 10px 10px", background: "#f3f2f2" }}>
             <div>预备开通的资源:</div>
             <Table columns={columns} rowKey="reactkey" dataSource={resRows} pagination={false} />
-
+            <br />
+            选择资源类型:
             <Select
                 value={value}
                 onChange={handleChange}
                 loading={loading}
-                style={{ width: '100%' }}
+                style={{ width: '100%', marginTop: "4px" }}
             >
                 {options.map((option) => (
                     <Option key={option.value} value={option.value}>
@@ -138,9 +139,10 @@ const Allselect = observer(({ maincode, contract }) => {
             {/* 使用 Suspense 包裹动态组件 */}
 
             <Suspense fallback={<div>Loading...</div>}>
-                {SelectedComponent && <SelectedComponent appendrows={appendrows} catid={catid} product_name={category} bizCode={maincode} />}
+                {SelectedComponent && <div style={{ marginTop: "4px" }}><SelectedComponent appendrows={appendrows} catid={catid} product_name={category} bizCode={maincode} /></div>
+                }
             </Suspense>
-        </>
+        </div>
     );
 });
 

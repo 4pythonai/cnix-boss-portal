@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import { Modal } from "antd";
 import ReactJson from "react-json-view";
-import DDFormCards from "./DDFormCards";
+// import DDFormCards from "./DDFormCards";
 import DDOpen from "./DDOpen";
 
 @observer
@@ -81,34 +81,20 @@ export default class DDOpenInstanceDetail extends React.Component {
                 onCancel={this.handleCancel}
                 width={1320}
             >
-
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
-                    }}
-                >
-                    <div id="left1" style={{ width: '30%' }}>
+                <div style={{ paddingTop: '20px' }} >
+                    <div id="left1" style={{ width: '100%' }}>
                         <ReactJson
                             collapsed={true}
                             src={this.state.detailJson}
                             theme="monokai"
                         />
-                        <DDFormCards formData={this.state.formComponentValues} />
                     </div>
-                    <div id="right1" style={{ width: '70%' }}>
-
-                        <DDOpen
-                            operated={this.state.operated}
-                            processInstanceId={this.state.processInstanceId}
-                            contractField={this.state.contractItem}
-                            maincode={this.state.maincode}
-                            contractno={this.state.contractno}
-                        />
-                    </div>
+                    <DDOpen
+                        maincode={this.state.maincode}
+                        contractno={this.state.contractno}
+                    />
                 </div>
-            </Modal>
+            </Modal >
         );
     }
 }
