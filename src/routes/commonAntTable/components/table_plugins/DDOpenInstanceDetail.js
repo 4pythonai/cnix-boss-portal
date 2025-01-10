@@ -76,19 +76,22 @@ export default class DDOpenInstanceDetail extends React.Component {
         return (
             <Modal
                 destroyOnClose
+                title="DDOpenInstanceDetail"
                 visible={this.state.visible}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
                 width={1320}
+                footer={null}
             >
-                <div style={{ paddingTop: '20px' }} >
-                    <div id="left1" style={{ width: '100%' }}>
+                <div style={{ paddingTop: '10px' }} >
+                    {/* <div id="left1" style={{ width: '100%' }}>
                         <ReactJson
                             collapsed={true}
                             src={this.state.detailJson}
                             theme="monokai"
                         />
                     </div>
+                     */}
                     <DDOpen
                         maincode={this.state.maincode}
                         contractno={this.state.contractno}

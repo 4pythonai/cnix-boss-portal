@@ -84,8 +84,8 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 	return (
 		<div>
 			<div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-				<h2 style={{ margin: 0 }}>选择机柜:</h2>
-				<Button onClick={callAppendrows} >选择机柜</Button>
+				<h3 style={{ margin: 0 }}>选择机柜:</h3>
+				<Button onClick={callAppendrows} >确定</Button>
 			</div>
 
 			<TextArea

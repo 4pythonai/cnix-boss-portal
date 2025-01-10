@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { Input, Table, Button, message } from 'antd';
 import api from '@/api/api';
 
-const DeliverSelector = ({ bizcode }) => {
+const DeliverSelector = ({ setRelatedDelivernos }) => {
     const [searchValue, setSearchValue] = useState('');
     const [deliveryData, setDeliveryData] = useState([]);
-    const [relatedDelivernos, setRelatedDelivernos] = useState([]);
-
-    // Table columns definition
     const columns = [
         { title: '客户名称', dataIndex: 'custname', key: 'custname' },
         { title: '送货单号', dataIndex: 'deliveryno', key: 'deliveryno' },
@@ -58,7 +55,8 @@ const DeliverSelector = ({ bizcode }) => {
 
     return (
         <div style={{ background: "#f3f2f2", padding: "10px" }}>
-            <div style={{ marginBottom: 16 }}>
+            <div style={{ marginBottom: 16 }
+            } >
                 <Input.Search
                     placeholder="搜索相关子业务编号"
                     onSearch={handleSearch}
@@ -67,7 +65,7 @@ const DeliverSelector = ({ bizcode }) => {
                     style={{ width: 300 }}
                 />
 
-            </div>
+            </div >
             <div style={{ background: "#f3f2f2" }}>
                 <Table
                     size="small"
@@ -77,7 +75,7 @@ const DeliverSelector = ({ bizcode }) => {
                     pagination={false}
                 />
             </div>
-        </div>
+        </div >
     );
 };
 
