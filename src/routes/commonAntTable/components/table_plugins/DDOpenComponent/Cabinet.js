@@ -9,16 +9,12 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 	const [treeData, setTreeData] = useState(null);
 	const [rowObject, setRowObject] = useState({});
 
-	const transformTreeData = (data) => {
-		return data;
-	};
-
 	const initTree = async () => {
 		try {
 			const params = { data: {}, method: 'POST' };
 			const response = await api.dresource.Network_tree(params);
 			console.log("response", response);
-			const transformedData = transformTreeData(response.tree);
+			const transformedData = response.tree
 			setTreeData(transformedData);
 		} catch (error) {
 			console.error('Failed to fetch tree data:', error);
@@ -87,7 +83,7 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 				<h3 style={{ margin: 0 }}>选择机柜:</h3>
 				<Button onClick={callAppendrows} >确定</Button>
 			</div>
-
+			{/* 选中的资源 */}
 			<TextArea
 				style={{ marginTop: '4px' }}
 				value={cabinetStr}
