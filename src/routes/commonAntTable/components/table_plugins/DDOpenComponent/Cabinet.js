@@ -33,8 +33,11 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 		// loop checkedNodes to get newCabinetStr
 		for (const node of info.checkedNodes) {
 			console.log("NDE:", node);
-			newCabinetStr = `${node.props.text}/${newCabinetStr}`;
-			filteredNodes.push(node.props.id);
+			if (node.props.nodetype.includes("cabinet")) {
+				newCabinetStr = `${node.props.text}/${newCabinetStr}`;
+				filteredNodes.push(node.props.id);
+			}
+
 		}
 
 		console.log("filteredNodes", filteredNodes);
