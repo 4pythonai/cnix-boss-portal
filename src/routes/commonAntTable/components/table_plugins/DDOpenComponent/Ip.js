@@ -8,7 +8,7 @@ const { Option } = AutoComplete;
 const Ip = ({ appendrows, catid, product_name, bizCode }) => {
     const [ipAddresses, setIpAddresses] = useState([{ ipaddress: '', idx: 0 }]);
     const [options, setOptions] = useState([]);
-    const [cabinetStr, setCabinetStr] = useState('');
+    const [IPAddrStr, setIPAddrStr] = useState('');
     const [rowObject, setRowObject] = useState({});
 
     // 处理IP输入变化
@@ -47,6 +47,13 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
         updateTotalStr(newIpAddresses);
     };
 
+    // 修改handleChange只更新输入框的值，不更新TextArea
+    const handleChange = (value, index) => {
+        const newIpAddresses = [...ipAddresses];
+        newIpAddresses[index].ipaddress = value;
+        setIpAddresses(newIpAddresses);
+    };
+
     // 测试用的静态选项
     useEffect(() => {
         // 设置一些测试数据
@@ -77,7 +84,7 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
             .map(item => item.ipaddress)
             .filter(ip => ip)
             .join(',');
-        setCabinetStr(str);
+        setIPAddrStr(str);
     };
 
     // 确认选择
@@ -88,8 +95,8 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
             catid: catid,
             product_name: product_name,
             restext: JSON.stringify({
-                text: cabinetStr,
-                ips: ipAddresses.map(item => item.ipaddress).filter(ip => ip)
+                text: IPAddrStr,
+                nodes: ipAddresses.map(item => item.ipaddress).filter(ip => ip)
             })
         };
         setRowObject(RowObject);
@@ -105,7 +112,7 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
 
             <TextArea
                 style={{ marginTop: '4px', marginBottom: '16px' }}
-                value={cabinetStr}
+                value={IPAddrStr}
                 placeholder="选中的IP"
                 readOnly
             />
@@ -140,6 +147,7 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
                     <AutoComplete
                         style={{ width: '100%' }}
                         value={item.ipaddress}
+                        onChange={(value) => handleChange(value, index)}
                         onSearch={handleSearch}
                         onSelect={(value) => handleSelect(value, index)}
                         placeholder="请输入IP地址搜索"
