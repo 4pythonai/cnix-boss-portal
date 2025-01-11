@@ -1,11 +1,122 @@
-// src/routes/commonAntTable/components/table_plugins/DDOpenComponent/Ethernet.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Input, Tree, Button, Card, Row, Col } from 'antd';
+import api from '@/api/api';
 
-const Ethernet = () => {
+const { TextArea } = Input;
+
+const Ethernet = ({ appendrows, catid, product_name, bizCode }) => {
+    const [treeData, setTreeData] = useState(null);
+    const [fromCabinet, setFromCabinet] = useState({ nodes: [], text: '' });
+    const [toCabinet, setToCabinet] = useState({ nodes: [], text: '' });
+    const [activeSelection, setActiveSelection] = useState('from'); // 'from' or 'to'
+
+    const initTree = async () => {
+        try {
+            const params = { data: {}, method: 'POST' };
+            const response = await api.dresource.Network_tree_all(params);
+            setTreeData(response.tree);
+        } catch (error) {
+            console.error('Failed to fetch tree data:', error);
+        }
+    };
+
+    const onCheck = (checkedKeys, info) => {
+        const filteredNodes = [];
+        let cabinetStr = '';
+
+        // 只处理最后选中的节点
+        const lastNode = info.checkedNodes[info.checkedNodes.length - 1];
+        if (lastNode && lastNode.props.nodetype.includes("cabinet")) {
+            cabinetStr = lastNode.props.text;
+            filteredNodes.push(lastNode.props.id);
+
+            if (activeSelection === 'from') {
+                setFromCabinet({ nodes: filteredNodes, text: cabinetStr });
+            } else {
+                setToCabinet({ nodes: filteredNodes, text: cabinetStr });
+            }
+        }
+    };
+
+    const handleSubmit = () => {
+        if (!fromCabinet.nodes.length || !toCabinet.nodes.length) {
+            return;
+        }
+
+        const rowObject = {
+            operation: "删除",
+            bizcode: bizCode,
+            catid: catid,
+            product_name: product_name,
+            restext: JSON.stringify({
+                from: fromCabinet,
+                to: toCabinet
+            })
+        };
+        appendrows(rowObject);
+    };
+
+    useEffect(() => {
+        initTree();
+    }, []);
+
     return (
-        <div className="w-full max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold">Ethernet组件</h2>
-        </div >
+        <div className="w-full max-w-4xl mx-auto">
+            <div style={{ marginBottom: 16 }}>
+                <Button
+                    type={'default'}
+                    icon="left"
+                    onClick={() => setActiveSelection('from')}
+                    style={{ marginRight: 8 }}
+                >
+                    选择起始机柜
+                </Button>
+                <Button
+                    type={'default'}
+                    icon="right"
+                    onClick={() => setActiveSelection('to')}
+                    style={{ marginRight: 8 }}
+                >
+                    选择目标机柜
+                </Button>
+                <Button type="primary" onClick={handleSubmit}>确定</Button>
+            </div>
+
+            <Row gutter={16} style={{ marginBottom: 16 }}>
+                <Col span={12}>
+                    <Card title="起始机柜">
+                        <TextArea
+                            value={fromCabinet.text}
+                            placeholder="请选择起始机柜"
+                            readOnly
+                        />
+                    </Card>
+                </Col>
+                <Col span={12}>
+                    <Card title="目标机柜">
+                        <TextArea
+                            value={toCabinet.text}
+                            placeholder="请选择目标机柜"
+                            readOnly
+                        />
+                    </Card>
+                </Col>
+            </Row>
+
+            {treeData && (
+                <Tree
+                    checkable
+                    defaultExpandAll={false}
+                    onCheck={onCheck}
+                    treeData={treeData}
+                    fieldNames={{
+                        title: 'label',
+                        children: 'children'
+                    }}
+                />
+            )}
+        </div>
     );
 };
+
 export default Ethernet;

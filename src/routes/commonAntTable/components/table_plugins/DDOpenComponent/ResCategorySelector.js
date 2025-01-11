@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Select, Button, Table } from 'antd';
+import { Select, Button, Table, message } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
 
@@ -109,11 +109,22 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
         {
             title: '资源',
             dataIndex: 'restext',
-        }
+        },
+        {
+            title: 'catid',
+            dataIndex: 'catid',
+        },
     ];
 
 
     const appendrows = (rowObject) => {
+        // rowObject.restext 中需要必须有 nodes属性 , restext 要转为json,且  nodes 不能为空
+        // const restext = JSON.parse(rowObject.restext);
+        // if (!restext.nodes || restext.nodes.length === 0) {
+        //     message.error('资源不能为空');
+        //     return;
+        // }
+
         setResRows([...resRows, rowObject]);
     }
 

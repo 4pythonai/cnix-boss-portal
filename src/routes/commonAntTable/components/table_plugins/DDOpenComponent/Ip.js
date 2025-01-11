@@ -69,14 +69,7 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
         setIpAddresses(newIpAddresses);
     };
 
-    // 测试用的静态选项
-    useEffect(() => {
-        // 设置一些测试数据
-        setOptions([
-            { value: '192.168.1.1', label: '192.168.1.1' },
-            { value: '192.168.1.2', label: '192.168.1.2' },
-        ]);
-    }, []);
+
 
     // 添加IP输入框
     const addIP = () => {
@@ -95,15 +88,25 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
 
     // 更新总字符串
     const updateTotalStr = (addresses) => {
-        const str = addresses
-            .map(item => item.ipaddress)
-            .filter(ip => ip)
-            .join(',');
+        // 使用 Set 去重
+        const uniqueIps = [...new Set(
+            addresses
+                .map(item => item.ipaddress)
+                .filter(ip => ip)
+        )];
+        const str = uniqueIps.join(',');
         setIPAddrStr(str);
     };
 
     // 确认选择
     const callAppendrows = () => {
+        // 同样在这里也要确保使用去重后的IP列表
+        const uniqueIps = [...new Set(
+            ipAddresses
+                .map(item => item.ipaddress)
+                .filter(ip => ip)
+        )];
+
         const RowObject = {
             operation: "删除",
             bizcode: bizCode,
@@ -111,7 +114,7 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
             product_name: product_name,
             restext: JSON.stringify({
                 text: IPAddrStr,
-                nodes: ipAddresses.map(item => item.ipaddress).filter(ip => ip)
+                nodes: uniqueIps  // 使用去重后的IP数组
             })
         };
         setRowObject(RowObject);
