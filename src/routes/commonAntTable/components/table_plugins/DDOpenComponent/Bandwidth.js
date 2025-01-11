@@ -65,10 +65,9 @@ const Bandwidth = ({ appendrows, catid, product_name, bizCode }) => {
         <div className="dad">
             <div className="row">
                 <Button
-                    type="primary"
+                    style={{ marginTop: '10px' }}
                     className="left"
                     size="small"
-                    icon="export"
                     onClick={saveData}
                 >
                     保存带宽

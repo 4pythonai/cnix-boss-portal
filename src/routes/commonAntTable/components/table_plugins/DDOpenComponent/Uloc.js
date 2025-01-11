@@ -80,7 +80,6 @@ const Uloc = ({ appendrows, catid, product_name, bizCode }) => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <h3 style={{ margin: 0 }}>选择机位:</h3>
                 <Button
-                    type="primary"
                     size="small"
                     onClick={handleSave}
                 >

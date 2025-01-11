@@ -111,7 +111,7 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
             dataIndex: 'restext',
         },
         {
-            title: 'catid',
+            title: '资源大类',
             dataIndex: 'catid',
         },
     ];
@@ -122,29 +122,35 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
     }
 
     return (
-        <div style={{ padding: "0 10px 10px 10px", background: "#f3f2f2" }}>
-            <div style={{ margin: "10px 0" }}>预备开通的资源:</div>
-            <Table columns={columns} rowKey="reactkey" dataSource={resRows} pagination={false} />
+        <div>
+            <div style={{ padding: "0 10px 10px 10px", background: "#554e4e" }}>
+                <div style={{ color: "white", padding: "10px 0" }}>预备开通的资源:</div>
+                <div style={{ background: "white" }}>
+                    <Table columns={columns} rowKey="reactkey" dataSource={resRows} pagination={false} />
+                </div>
+            </div>
             <br />
-            选择资源类型:
-            <Select
-                value={value}
-                onChange={handleChange}
-                loading={loading}
-                style={{ width: '100%', marginTop: "4px" }}
-            >
-                {options.map((option) => (
-                    <Option key={option.value} value={option.value}>
-                        {option.label}
-                    </Option>
-                ))}
-            </Select>
-            {/* 使用 Suspense 包裹动态组件 */}
+            <div style={{ padding: "10px 10px 10px 10px", background: "#f3f2f2" }}>
+                选择资源类型:
+                <Select
+                    value={value}
+                    onChange={handleChange}
+                    loading={loading}
+                    style={{ width: '100%', marginTop: "4px" }}
+                >
+                    {options.map((option) => (
+                        <Option key={option.value} value={option.value}>
+                            {option.label}
+                        </Option>
+                    ))}
+                </Select>
+                {/* 使用 Suspense 包裹动态组件 */}
 
-            <Suspense fallback={<div>Loading...</div>}>
-                {SelectedComponent && <div style={{ marginTop: "4px" }}><SelectedComponent appendrows={appendrows} catid={catid} product_name={category} bizCode={maincode} /></div>
-                }
-            </Suspense>
+                <Suspense fallback={<div>Loading...</div>}>
+                    {SelectedComponent && <div style={{ marginTop: "4px" }}><SelectedComponent appendrows={appendrows} catid={catid} product_name={category} bizCode={maincode} /></div>
+                    }
+                </Suspense>
+            </div>
         </div>
     );
 });

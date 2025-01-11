@@ -79,7 +79,7 @@ const Ethernet = ({ appendrows, catid, product_name, bizCode }) => {
                 >
                     选择目标机柜
                 </Button>
-                <Button type="primary" onClick={handleSubmit}>确定</Button>
+                <Button onClick={handleSubmit}>确定</Button>
             </div>
 
             <Row gutter={16} style={{ marginBottom: 16 }}>

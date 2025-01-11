@@ -136,7 +136,6 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
             />
 
             <Button
-                type="primary"
                 onClick={addIP}
                 style={{ marginBottom: '16px' }}
             >
@@ -156,7 +155,6 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
                     }}
                 >
                     <Button
-                        type="primary"
                         danger
                         onClick={() => delIP(index)}
                     >

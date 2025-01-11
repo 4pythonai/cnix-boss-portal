@@ -282,7 +282,6 @@ const Xpath = ({ appendrows, catid, product_name, bizCode }) => {
         <div className="dad">
             <div className="row" style={{ marginTop: "10px" }}>
                 <Button
-                    type="primary"
                     onClick={saveData}
                 >
                     保存端口
@@ -298,7 +297,6 @@ const Xpath = ({ appendrows, catid, product_name, bizCode }) => {
 
             <div style={{ marginTop: "10px" }} className="row">
                 <Button
-                    type="primary"
                     onClick={addLine}
                 >
                     增加ODF的端口
@@ -355,7 +353,6 @@ const Xpath = ({ appendrows, catid, product_name, bizCode }) => {
             {/* 添加增加交换机端口按钮 */}
             <div style={{ marginTop: "10px" }}>
                 <Button
-                    type="primary"
                     onClick={addSwitchport}
                 >
                     增加交换机端口
