@@ -55,6 +55,7 @@ const DeliverSelector = ({ setRelatedDelivernos }) => {
 
     return (
         <div style={{ background: "#f3f2f2", padding: "10px" }}>
+            <h2 style={{ fontSize: "14px" }}>选择关联子业务编号</h2>
             <div style={{ marginBottom: 16 }
             } >
                 <Input.Search
