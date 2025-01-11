@@ -130,7 +130,7 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
 
     return (
         <div style={{ padding: "0 10px 10px 10px", background: "#f3f2f2" }}>
-            <div>预备开通的资源:</div>
+            <div style={{ margin: "10px 0" }}>预备开通的资源:</div>
             <Table columns={columns} rowKey="reactkey" dataSource={resRows} pagination={false} />
             <br />
             选择资源类型:
