@@ -260,6 +260,7 @@ const Xpath = ({ appendrows, catid, product_name, bizCode }) => {
         RowObject.operation = "删除"
         RowObject.bizcode = bizCode
         RowObject.catid = catid
+        RowObject.deliverType = "业务"
         RowObject.product_name = product_name
         RowObject.restext = JSON.stringify({
             text: totalStr,

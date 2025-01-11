@@ -46,6 +46,7 @@ const Ethernet = ({ appendrows, catid, product_name, bizCode }) => {
         const rowObject = {
             operation: "删除",
             bizcode: bizCode,
+            deliverType: "业务",
             catid: catid,
             product_name: product_name,
             restext: JSON.stringify({

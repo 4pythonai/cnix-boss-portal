@@ -64,6 +64,7 @@ const Uloc = ({ appendrows, catid, product_name, bizCode }) => {
         const RowObject = {
             operation: "删除",
             bizcode: bizCode,
+            deliverType: "业务",
             catid: catid,
             product_name: product_name,
             restext: JSON.stringify({

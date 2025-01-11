@@ -91,6 +91,16 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
         setResRows(newRows);
     }
 
+    const handleDeliverTypeChange = (value, record) => {
+        const newRows = resRows.map(row => {
+            if (row.key === record.key) {
+                return { ...row, deliverType: value };
+            }
+            return row;
+        });
+        setResRows(newRows);
+    };
+
     const columns = [
         {
             title: '操作',
@@ -113,6 +123,21 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
         {
             title: '资源大类',
             dataIndex: 'catid',
+        },
+        {
+            title: '资源类型',
+            dataIndex: 'deliverType',
+            render: (text, record) => (
+                <Select
+                    value={text || '业务'}
+                    style={{ width: 100 }}
+                    onChange={(value) => handleDeliverTypeChange(value, record)}
+                >
+                    <Option value="业务">业务</Option>
+                    <Option value="配套">配套</Option>
+                    <Option value="自用">自用</Option>
+                </Select>
+            ),
         },
     ];
 

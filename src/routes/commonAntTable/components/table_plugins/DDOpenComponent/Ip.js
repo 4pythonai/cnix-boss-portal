@@ -111,6 +111,7 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
             operation: "删除",
             bizcode: bizCode,
             catid: catid,
+            deliverType: "业务",
             product_name: product_name,
             restext: JSON.stringify({
                 text: IPAddrStr,
