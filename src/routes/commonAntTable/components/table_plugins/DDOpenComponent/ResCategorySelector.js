@@ -118,13 +118,6 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
 
 
     const appendrows = (rowObject) => {
-        // rowObject.restext 中需要必须有 nodes属性 , restext 要转为json,且  nodes 不能为空
-        // const restext = JSON.parse(rowObject.restext);
-        // if (!restext.nodes || restext.nodes.length === 0) {
-        //     message.error('资源不能为空');
-        //     return;
-        // }
-
         setResRows([...resRows, rowObject]);
     }
 
