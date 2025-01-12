@@ -42,7 +42,6 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 
 		console.log("filteredNodes", filteredNodes);
 		setCabinetStr(newCabinetStr);
-		// setNodes(filteredNodes);
 
 		const RowObject = {}
 		RowObject.operation = "删除"
@@ -52,8 +51,6 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 		RowObject.deliverType = "业务"
 		RowObject.memo = ""
 		RowObject.restext = JSON.stringify({ nodes: filteredNodes, text: newCabinetStr })
-		console.log("🌸🌸🌸🌸🌸 RowObject", RowObject);
-		// appendrows(RowObject);
 		setRowObject(RowObject);
 
 	};

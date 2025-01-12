@@ -42,10 +42,6 @@ const Ethernet = ({ appendrows, catid, product_name, bizCode }) => {
         if (!fromCabinet.nodes.length || !toCabinet.nodes.length) {
             return;
         }
-
-
-
-
         const RowObject = {}
         RowObject.operation = "删除"
         RowObject.bizcode = bizCode
@@ -57,10 +53,6 @@ const Ethernet = ({ appendrows, catid, product_name, bizCode }) => {
             from: fromCabinet,
             to: toCabinet
         })
-
-
-
-
         appendrows(RowObject);
     };
 

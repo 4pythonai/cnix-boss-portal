@@ -45,7 +45,6 @@ const Bandwidth = ({ appendrows, catid, product_name, bizCode }) => {
     };
 
     const saveData = () => {
-        console.log("🌸🌸🌸🌸🌸 retobj", retobj);
 
         const RowObject = {}
         RowObject.operation = "删除"
@@ -59,7 +58,6 @@ const Bandwidth = ({ appendrows, catid, product_name, bizCode }) => {
             bw: bandwidth,
             site: site1Value
         })
-        // console.log("🌸🌸🌸🌸🌸 RowObject", RowObject);
         appendrows(RowObject);
     };
 
