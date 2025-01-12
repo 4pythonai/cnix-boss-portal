@@ -10,7 +10,7 @@ const DDOpen = ({ maincode, contractno }) => {
 
 
     const handleBossOpenk = async () => {
-
+        console.log("相关子relatedDelivernos", relatedDelivernos);
         const params = {
             data: {
                 maincode: maincode,

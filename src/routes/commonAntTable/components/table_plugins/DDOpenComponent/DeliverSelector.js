@@ -37,8 +37,24 @@ const DeliverSelector = ({ setRelatedDelivernos }) => {
             };
             const res = await api.dresource.searchDeliverInfo(params);
             if (res?.data) {
-                setDeliveryData(res.data);
-                setRelatedDelivernos(res.data.map(item => item.deliveryno));
+                // 检查新数据是否已存在
+                const newData = res.data.filter(newItem =>
+                    !deliveryData.some(existingItem =>
+                        existingItem.deliveryno === newItem.deliveryno
+                    )
+                );
+
+                if (newData.length > 0) {
+                    // 追加新数据到现有数据中
+                    setDeliveryData(prevData => [...prevData, ...newData]);
+                    // 更新关联的delivernos
+                    setRelatedDelivernos(prevNos => [...prevNos, ...newData.map(item => item.deliveryno)]);
+                } else {
+                    message.info('该送货单号已存在或未找到相关数据');
+                }
+
+                // 清空搜索框
+                setSearchValue('');
             }
         } catch (error) {
             message.error('搜索失败');

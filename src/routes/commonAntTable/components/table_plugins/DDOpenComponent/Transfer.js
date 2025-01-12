@@ -91,6 +91,19 @@ const Transfer = ({ appendrows, catid, product_name, bizCode }) => {
                 placeholder="选择的传输"
             />
 
+            <div style={{ marginTop: '20px' }}>
+                <Form>
+                    <Form.Item label="带宽(m)">
+                        <Input
+                            value={bandwidth}
+                            onChange={(e) => setBandwidth(e.target.value)}
+                            placeholder="请输入带宽"
+                            allowClear
+                        />
+                    </Form.Item>
+                </Form>
+            </div>
+
             <div style={{ paddingTop: '10px' }}>
                 <div style={{ display: 'flex', gap: '20px' }}>
                     <div style={{ flex: 1 }}>
@@ -122,18 +135,7 @@ const Transfer = ({ appendrows, catid, product_name, bizCode }) => {
                     </div>
                 </div>
 
-                <div style={{ marginTop: '20px' }}>
-                    <Form>
-                        <Form.Item label="带宽">
-                            <Input
-                                value={bandwidth}
-                                onChange={(e) => setBandwidth(e.target.value)}
-                                placeholder="请输入带宽"
-                                allowClear
-                            />
-                        </Form.Item>
-                    </Form>
-                </div>
+
             </div>
         </div>);
 };
