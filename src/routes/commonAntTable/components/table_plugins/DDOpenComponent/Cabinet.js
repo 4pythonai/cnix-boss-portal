@@ -50,7 +50,7 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 		RowObject.catid = catid
 		RowObject.product_name = product_name
 		RowObject.deliverType = "业务"
-
+		RowObject.memo = ""
 		RowObject.restext = JSON.stringify({ nodes: filteredNodes, text: newCabinetStr })
 		console.log("🌸🌸🌸🌸🌸 RowObject", RowObject);
 		// appendrows(RowObject);

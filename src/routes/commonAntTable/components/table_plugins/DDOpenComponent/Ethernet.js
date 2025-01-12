@@ -43,18 +43,25 @@ const Ethernet = ({ appendrows, catid, product_name, bizCode }) => {
             return;
         }
 
-        const rowObject = {
-            operation: "删除",
-            bizcode: bizCode,
-            deliverType: "业务",
-            catid: catid,
-            product_name: product_name,
-            restext: JSON.stringify({
-                from: fromCabinet,
-                to: toCabinet
-            })
-        };
-        appendrows(rowObject);
+
+
+
+        const RowObject = {}
+        RowObject.operation = "删除"
+        RowObject.bizcode = bizCode
+        RowObject.catid = catid
+        RowObject.product_name = product_name
+        RowObject.deliverType = "业务"
+        RowObject.memo = ""
+        RowObject.restext = JSON.stringify({
+            from: fromCabinet,
+            to: toCabinet
+        })
+
+
+
+
+        appendrows(RowObject);
     };
 
     useEffect(() => {

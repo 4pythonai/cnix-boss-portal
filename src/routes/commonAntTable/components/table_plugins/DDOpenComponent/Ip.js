@@ -107,17 +107,20 @@ const Ip = ({ appendrows, catid, product_name, bizCode }) => {
                 .filter(ip => ip)
         )];
 
-        const RowObject = {
-            operation: "删除",
-            bizcode: bizCode,
-            catid: catid,
-            deliverType: "业务",
-            product_name: product_name,
-            restext: JSON.stringify({
-                text: IPAddrStr,
-                nodes: uniqueIps  // 使用去重后的IP数组
-            })
-        };
+
+        const RowObject = {}
+        RowObject.operation = "删除"
+        RowObject.bizcode = bizCode
+        RowObject.catid = catid
+        RowObject.product_name = product_name
+        RowObject.deliverType = "业务"
+        RowObject.memo = ""
+        RowObject.restext = JSON.stringify({
+            text: IPAddrStr,
+            nodes: uniqueIps  // 使用去重后的IP数组
+        })
+
+
         setRowObject(RowObject);
         appendrows(RowObject);
     };

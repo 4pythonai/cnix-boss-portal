@@ -60,18 +60,19 @@ const Uloc = ({ appendrows, catid, product_name, bizCode }) => {
     // 保存数据
     const handleSave = () => {
 
+        const RowObject = {}
 
-        const RowObject = {
-            operation: "删除",
-            bizcode: bizCode,
-            deliverType: "业务",
-            catid: catid,
-            product_name: product_name,
-            restext: JSON.stringify({
-                text: ulocStr,
-                nodes: selectedNodes  // 使用去重后的IP数组
-            })
-        };
+        RowObject.operation = "删除"
+        RowObject.bizcode = bizCode
+        RowObject.catid = catid
+        RowObject.product_name = product_name
+        RowObject.deliverType = "业务"
+        RowObject.memo = ""
+        RowObject.restext = JSON.stringify({
+            text: ulocStr,
+            nodes: selectedNodes  // 使用去重后的IP数组
+        })
+
         setRowObject(RowObject);
         appendrows(RowObject);
     };

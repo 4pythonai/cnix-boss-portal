@@ -261,6 +261,7 @@ const Xpath = ({ appendrows, catid, product_name, bizCode }) => {
         RowObject.bizcode = bizCode
         RowObject.catid = catid
         RowObject.deliverType = "业务"
+        RowObject.memo = ""
         RowObject.product_name = product_name
         RowObject.restext = JSON.stringify({
             text: totalStr,

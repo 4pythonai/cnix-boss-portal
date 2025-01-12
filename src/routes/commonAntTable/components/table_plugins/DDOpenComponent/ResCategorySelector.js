@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Select, Button, Table, message } from 'antd';
+import { Select, Button, Table, message, Input } from 'antd';
 import { observer } from 'mobx-react';
 import api from '@/api/api';
 
@@ -111,9 +111,20 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
         setResRows(newRows);
     };
 
+    const handleMemoChange = (value, record) => {
+        const newRows = resRows.map(row => {
+            if (row.key === record.key) {
+                return { ...row, memo: value };
+            }
+            return row;
+        });
+        setResRows(newRows);
+    };
+
     const columns = [
         {
             title: '操作',
+            width: 50,
             dataIndex: 'operation',
             render: (text, record) => (
                 <Button type="primary" size="small" onClick={() => deleteRow(record.key)}>删除</Button>
@@ -127,15 +138,24 @@ const ResCategorySelector = observer(({ maincode, contract, resRows, setResRows 
             dataIndex: 'product_name',
         },
         {
-            title: '资源',
+            title: '资源详情',
+            width: 400,
             dataIndex: 'restext',
         },
         {
-            title: '资源大类',
-            dataIndex: 'catid',
-        },
-        {
+            title: '备注',
+            width: 200,
+            dataIndex: 'memo',
+            render: (text, record) => (
+                <Input
+                    style={{ width: '200px' }}
+                    value={text || ''}
+                    onChange={(e) => handleMemoChange(e.target.value, record)}
+                />
+            ),
+        }, {
             title: '资源类型',
+            width: 60,
             dataIndex: 'deliverType',
             render: (text, record) => (
                 <Select

@@ -9,11 +9,22 @@ const DDOpen = ({ maincode, contractno }) => {
     const [relatedDelivernos, setRelatedDelivernos] = useState([]);
 
 
-    const handleOk = () => {
-        console.log("🌸🌸🌸🌸🌸 relatedDelivernos", relatedDelivernos);
-        console.log("🌸🌸🌸🌸🌸 resRows", resRows);
-        console.log("🌸🌸🌸🌸🌸 maincode", maincode);
-        console.log("🌸🌸🌸🌸🌸 contractno", contractno);
+    const handleBossOpenk = async () => {
+
+        const params = {
+            data: {
+                maincode: maincode,
+                contractno: contractno,
+                resRows: resRows,
+                relatedDelivernos: relatedDelivernos
+            }, method: 'POST'
+        };
+        const response = await api.dresource.BOSSOpenResource(params);
+        console.log("response", response);
+
+
+
+
     }
 
     return (
@@ -25,7 +36,7 @@ const DDOpen = ({ maincode, contractno }) => {
                     </div>
                 </Col>
                 <Col span={6}>
-                    <Button type="primary" onClick={handleOk}>确定</Button>
+                    <Button type="primary" onClick={handleBossOpenk}>确定进行资源开通</Button>
                 </Col>
             </Row>
             <div
