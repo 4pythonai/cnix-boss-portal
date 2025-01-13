@@ -1,33 +1,32 @@
-import React, { useState, useEffect, } from 'react';
-import { Input, Tree, Button } from 'antd';
-import api from '@/api/api'
+import React, { useState, useEffect } from "react";
+import { Input, Tree, Button } from "antd";
+import api from "@/api/api";
 
 const { TextArea } = Input;
 
 const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
-	const [cabinetStr, setCabinetStr] = useState('');
+	const [cabinetStr, setCabinetStr] = useState("");
 	const [treeData, setTreeData] = useState(null);
 	const [rowObject, setRowObject] = useState({});
 
 	const initTree = async () => {
 		try {
-			const params = { data: {}, method: 'POST' };
+			const params = { data: {}, method: "POST" };
 			const response = await api.dresource.Network_tree_all(params);
 			console.log("response", response);
-			const transformedData = response.tree
+			const transformedData = response.tree;
 			setTreeData(transformedData);
 		} catch (error) {
-			console.error('Failed to fetch tree data:', error);
+			console.error("Failed to fetch tree data:", error);
 		}
 	};
 
 	// Handle tree selection
 	const onCheck = (checkedKeys, info) => {
 		console.log("选中的 keys:", checkedKeys);
-		console.log("选中的节点信息:", info.checkedNodes);// info.checkedNodes[0]  props as {text,id}
+		console.log("选中的节点信息:", info.checkedNodes); // info.checkedNodes[0]  props as {text,id}
 
-
-		let newCabinetStr = '';
+		let newCabinetStr = "";
 		const filteredNodes = [];
 
 		// loop checkedNodes to get newCabinetStr
@@ -37,26 +36,27 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 				newCabinetStr = `${node.props.text}/${newCabinetStr}`;
 				filteredNodes.push(node.props.id);
 			}
-
 		}
 
 		console.log("filteredNodes", filteredNodes);
 		setCabinetStr(newCabinetStr);
 		// setNodes(filteredNodes);
 
-		const RowObject = {}
-		RowObject.operation = "删除"
-		RowObject.bizcode = bizCode
-		RowObject.catid = catid
-		RowObject.product_name = product_name
-		RowObject.deliverType = "业务"
-		RowObject.memo = ""
+		const RowObject = {};
+		RowObject.operation = "删除";
+		RowObject.bizcode = bizCode;
+		RowObject.catid = catid;
+		RowObject.product_name = product_name;
+		RowObject.deliverType = "业务";
+		RowObject.memo = "";
 
-		RowObject.restext = JSON.stringify({ nodes: filteredNodes, text: newCabinetStr })
+		RowObject.restext = JSON.stringify({
+			nodes: filteredNodes,
+			text: newCabinetStr,
+		});
 		console.log("🌸🌸🌸🌸🌸 RowObject", RowObject);
 		// appendrows(RowObject);
 		setRowObject(RowObject);
-
 	};
 
 	// Helper function to find node by ID in tree
@@ -81,17 +81,17 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 	const callAppendrows = () => {
 		console.log("🌸🌸🌸🌸🌸 rowObject", rowObject);
 		appendrows(rowObject);
-	}
+	};
 
 	return (
 		<div>
-			<div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+			<div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
 				<h3 style={{ margin: 0 }}>选择机柜:</h3>
-				<Button onClick={callAppendrows} >确定</Button>
+				<Button onClick={callAppendrows}>确定</Button>
 			</div>
 			{/* 选中的资源 */}
 			<TextArea
-				style={{ marginTop: '4px' }}
+				style={{ marginTop: "4px" }}
 				value={cabinetStr}
 				placeholder="选中的机柜"
 				readOnly
@@ -104,8 +104,8 @@ const Cabinet = ({ appendrows, catid, product_name, bizCode }) => {
 					onCheck={onCheck}
 					treeData={treeData}
 					fieldNames={{
-						title: 'label',
-						children: 'children'
+						title: "label",
+						children: "children",
 					}}
 				/>
 			)}
