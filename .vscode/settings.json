@@ -1,4 +1,7 @@
 {
+	"[js]": {
+		"editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+	},
 	"eslint.alwaysShowStatus": true,
 	"eslint.format.enable": true,
 	"eslint.packageManager": "npm",
