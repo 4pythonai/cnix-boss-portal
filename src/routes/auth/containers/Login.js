@@ -14,6 +14,8 @@ export default class Login extends React.Component {
 	constructor(props) {
 		super();
 		this.state = {
+			mobile: "",
+			password: "",
 			visible: false,
 			roles: [],
 			rolename: "",
@@ -65,12 +67,12 @@ export default class Login extends React.Component {
 	}
 
 	async login_mobile(mobile, password, transaction_id) {
-		if (!mobile || mobile.trim() === "") {
+		if (!mobile || mobile.trim() === "" || mobile == null) {
 			message.error("请输入手机号", 2.5);
 			return;
 		}
 
-		if (!password || password.trim() === "") {
+		if (!password || password.trim() === "" || password == null) {
 			message.error("请输入密码", 2.5);
 			return;
 		}
@@ -162,7 +164,7 @@ export default class Login extends React.Component {
 							onClick={this.handleFormSubmitMobile}
 							type="submit"
 						>
-							Login/登录
+							Login//登录
 						</button>
 					</form>
 				</div>
