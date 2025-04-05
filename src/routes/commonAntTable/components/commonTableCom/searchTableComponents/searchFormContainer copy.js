@@ -12,26 +12,66 @@ export default class SearchFormContainer extends React.Component {
 			operation_list: {
 				string: [
 					{
+						label: "包含",
+						value: "like",
+					},
+					{
 						label: "等于",
 						value: "=",
+					},
+					{
+						label: "不等于",
+						value: "!=",
 					},
 				],
 				date: [
 					{
+						label: "大于等于",
+						value: ">=",
+					},
+					{
 						label: "等于",
 						value: "=",
+					},
+					{
+						label: "小于等于",
+						value: "<=",
+					},
+					{
+						label: "为空",
+						value: "IS_NULL",
+					},
+					{
+						label: "不为空",
+						value: "IS_NOT_NULL",
 					},
 				],
 				number: [
 					{
+						label: "大于等于",
+						value: ">=",
+					},
+					{
 						label: "等于",
 						value: "=",
+					},
+					{
+						label: "小于等于",
+						value: "<=",
 					},
 				],
 				other: [
 					{
+						label: "包含",
+						value: "like",
+					},
+					{
 						label: "等于",
 						value: "=",
+					},
+					{
+						label: "小于等于",
+						value: "!=",
 					},
 				],
 			},

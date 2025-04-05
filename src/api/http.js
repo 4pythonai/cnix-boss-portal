@@ -33,18 +33,17 @@ const http = (params, url) => {
 
         request(method, url, { headers, ...options })
             .then((res) => {
-                console.log("匹配json/res", res);
-
+                // console.log("匹配json/res", res);
                 // const matches = res.body.match(/({[\s\S]*})$/);
                 const matches = res.body.match(/(\{.*\})\s*$/);
 
                 if (matches) {
                     const jsonStr = matches[1];
-                    console.log("匹配到的最后的json串", jsonStr);
+                    // console.log("匹配到的最后的json串", jsonStr);
                     res.body = jsonStr;
                 }
 
-                console.log("清理后的 res.body", res.body);
+                // console.log("清理后的 res.body", res.body);
 
                 if (res.statusCode == 401) {
                     hashHistory.push('/login');
