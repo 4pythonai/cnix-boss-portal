@@ -1,51 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Card, message, Row, Col } from "antd";
-import api from "@/api/api";
+import { Button, Card, Row, Col } from "antd";
+import DDOpen from "./DDOpen";
 
-const DDTasks = ({ ddUserid,area, operationRecords, processInstanceId, tasks }) => {
+const DDTasks = ({ maincode, contractno, area, operationRecords, processInstanceId, tasks, hideModal }) => {
 	const [inputValues, setInputValues] = useState({});
+	const [openTaskId, setOpenTaskId] = useState(null);
 
 	// Sort tasks by createTime
 	const sortedTasks = [...tasks].sort(
 		(a, b) => new Date(a.createTime) - new Date(b.createTime),
 	);
 
-	const handleInputChange = (taskId, value) => {
-		setInputValues((prev) => ({
-			...prev,
-			[taskId]: value,
-		}));
+
+	const handleOpenArea = (taskId) => {
+		setOpenTaskId(taskId);
 	};
 
-	const handleSubmit = async (activityId, taskId) => {
-		const inputValue = inputValues[taskId];
-		if (!inputValue) {
-			message.warning("请输入内容");
-			return;
-		}
 
-		//16551695175697348 陈新
-		try {
-			// Call your API here
-			const params = {
-				data: {
-					area: area,
-					processInstanceId: processInstanceId,
-					activityId: activityId,
-					taskId: taskId,
-					remark: inputValue,
-					result: "agree",
-					actionerUserId: ddUserid,
-				},
-				method: "POST",
-			};
-			console.log("params", params);
-			const res = await api.dd.subTaskProcess(params);
-			message.success("提交成功");
-		} catch (error) {
-			message.error("提交失败");
-		}
-	};
 
 	return (
 		<div style={{ marginLeft: "15px" }}>
@@ -77,22 +48,32 @@ const DDTasks = ({ ddUserid,area, operationRecords, processInstanceId, tasks }) 
 
 						</Col>
 						{task.result === "NONE" && (
-							<Col span={8}>
+							<Col>
 								<div style={{ display: "flex", gap: "8px" }}>
-									<Input
-										placeholder="请输入内容"
-										value={inputValues[task.taskId] || ""}
-										onChange={(e) =>
-											handleInputChange(task.taskId, e.target.value)
-										}
-									/>
 									<Button
 										type="primary"
-										onClick={() => handleSubmit(task.activityId, task.taskId)}
+										onClick={() => handleOpenArea(openTaskId === task.taskId ? null : task.taskId)}
 									>
-										提交
+										{openTaskId === task.taskId ? "关闭资源选择器" : "展示资源选择器"}
 									</Button>
 								</div>
+								{openTaskId === task.taskId && (
+									<div style={{ marginTop: "60px", border: "1px solid black", padding: "10px" }}>
+										<DDOpen
+											maincode={maincode}
+											contractno={contractno}
+											area={area}
+											processInstanceId={processInstanceId}
+											activityId={task.activityId}
+											taskId={task.taskId}
+											remark={inputValues[task.taskId]}
+											result="agree"
+											actionerUserId={JSON.parse(sessionStorage.getItem("userInfo")).ddUserid}
+											hideModal={hideModal}
+										/>
+									</div>
+
+								)}
 							</Col>
 						)}
 					</Row>

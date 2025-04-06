@@ -1,11 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { Modal } from "antd";
+import { Modal, Card, Row, Col } from "antd";
 import ReactJson from "react-json-view";
-import DDOpen from "./DDOpen";
 import DDTasks from "./DDTasks";
 import api from "@/api/api";
-import JsonTableModal from "../commonTableCom/JsonTableModal";
 
 @observer
 export default class DDOpenInstanceDetail extends React.Component {
@@ -18,26 +16,21 @@ export default class DDOpenInstanceDetail extends React.Component {
 		visible: false,
 		detailJson: {},
 		processInstanceId: null,
-		formComponentValues: [],
-		operationRecords:[],
+		operationRecords: [],
 		tasks: [],
-		title:'',
-		contractItem: {},
-		operated: "n",
+		title: '',
 		maincode: "",
 		contractno: "",
 		area: "",
-		ddUserid: "",
+		custName: "",
 	};
 
 	async init() {
 		const _tmprec = this.props.commonTableStore.selectedRows[0];
-
 		const area = _tmprec.area;
-		const processCode = _tmprec.processCode;
 		const processInstanceId = _tmprec.processInstanceId;
 		this.setState({ area: area });
-
+		this.setState({ custName: _tmprec.custName });
 		const params = {
 			method: "POST",
 			data: { area: area, processInstanceId: processInstanceId },
@@ -46,24 +39,11 @@ export default class DDOpenInstanceDetail extends React.Component {
 
 		let jsonObj = {};
 		try {
-			// jsonObj = JSON.parse(_tmprec.detailJson);
-			console.log("🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️");
-			console.log(flowResponse.data.result);
-			console.log("钉钉Userid", JSON.parse(sessionStorage.getItem("userInfo")).ddUserid);
-			this.setState({ ddUserid: JSON.parse(sessionStorage.getItem("userInfo")).ddUserid });
 			jsonObj = flowResponse.data.result;
 			this.setState({ detailJson: jsonObj });
 			this.setState({ processInstanceId: processInstanceId });
-			this.setState({ formComponentValues: jsonObj.formComponentValues });
 			this.setState({ tasks: jsonObj.tasks });
 			this.setState({ operationRecords: jsonObj.operationRecords });
-			const _contractItem = jsonObj.formComponentValues.find(
-				(item) =>
-					item.componentType === "TextField" &&
-					item.name === "合同/补充协议编号",
-			);
-			this.setState({ contractItem: _contractItem });
-			this.setState({ operated: _tmprec.operated });
 			this.setState({ maincode: _tmprec.maincode });
 			this.setState({ contractno: _tmprec.contractno });
 			this.setState({ title: jsonObj.title });
@@ -81,19 +61,12 @@ export default class DDOpenInstanceDetail extends React.Component {
 		});
 	};
 
-	handleOk = (e) => {
-		console.log(e);
+	hideModal = () => {
 		this.setState({
 			visible: false,
 		});
 	};
 
-	handleCancel = (e) => {
-		console.log(e);
-		this.setState({
-			visible: false,
-		});
-	};
 
 	render() {
 		return (
@@ -101,12 +74,36 @@ export default class DDOpenInstanceDetail extends React.Component {
 				destroyOnClose
 				title={"DDOpenInstanceDetail:" + this.state.title}
 				visible={this.state.visible}
-				onOk={this.handleOk}
-				onCancel={this.handleCancel}
+				onOk={this.hideModal}
+				onCancel={this.hideModal}
 				width={1320}
 				footer={null}
 			>
 				<div style={{ paddingTop: "10px" }}>
+					<Card
+						style={{
+							border: "1px solid #f0f0f0",
+							marginTop: "10px",
+						}}
+					>
+						<Row gutter={16} align="middle">
+							<Col span={16}>
+								<div>
+									<strong>合同号:</strong> {this.state.contractno}
+								</div>
+							</Col>
+							<Col span={16}>
+								<div>
+									<strong>客户名称:</strong> {this.state.custName}
+								</div>
+							</Col>
+							<Col span={16}>
+								<div>
+									<strong>钉钉流水号:</strong> {this.state.detailJson.businessId}
+								</div>
+							</Col>
+						</Row>
+					</Card>
 					<div id="left1" style={{ width: "100%" }}>
 						<ReactJson
 							collapsed={true}
@@ -114,16 +111,14 @@ export default class DDOpenInstanceDetail extends React.Component {
 							theme="monokai"
 						/>
 					</div>
-					<DDOpen
+					<DDTasks
 						maincode={this.state.maincode}
 						contractno={this.state.contractno}
-					/>
-					<DDTasks
-						ddUserid={this.state.ddUserid}
 						area={this.state.area}
 						operationRecords={this.state.operationRecords}
 						processInstanceId={this.state.processInstanceId}
 						tasks={this.state.tasks}
+						hideModal={this.hideModal}
 					/>
 				</div>
 			</Modal>

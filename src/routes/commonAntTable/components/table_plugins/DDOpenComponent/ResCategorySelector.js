@@ -11,19 +11,10 @@ const Xpath = lazy(() => import("./Xpath"));
 const Optical = lazy(() => import("./Optical"));
 const Bandwidth = lazy(() => import("./Bandwidth"));
 const Transfer = lazy(() => import("./Transfer"));
-// const Ip = lazy(() => import('./Ip'));
-// const Ethernet = lazy(() => import('./Ethernet'));
-// const Uloc = lazy(() => import('./Uloc'));
-// const Nothing = lazy(() => import('./Nothing'));
-
+const Ip = lazy(() => import('./Ip'));
+const Ethernet = lazy(() => import('./Ethernet'));
+const Uloc = lazy(() => import('./Uloc'));
 const Cabinet = lazy(() => import("./Cabinet"));
-// const Xpath = lazy(() => import('./Nothing'));
-// const Optical = lazy(() => import("./Nothing"));
-// const Bandwidth = lazy(() => import("./Nothing"));
-// const Transfer = lazy(() => import('./Nothing'));
-const Ip = lazy(() => import("./Nothing"));
-const Ethernet = lazy(() => import("./Nothing"));
-const Uloc = lazy(() => import("./Nothing"));
 const Nothing = lazy(() => import("./Nothing"));
 
 const ResCategorySelector = observer(

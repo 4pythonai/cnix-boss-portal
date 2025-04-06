@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Button, Checkbox, Card, message, Row, Col } from "antd";
+import React, { useState } from "react";
+import { Button, Row, Col } from "antd";
 import api from "@/api/api";
 import ResCategorySelector from "./DDOpenComponent/ResCategorySelector";
 import DeliverSelector from "./DDOpenComponent/DeliverSelector";
 
-const DDOpen = ({ maincode, contractno }) => {
+
+const DDOpen = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal }) => {
 	const [resRows, setResRows] = useState([]);
 	const [relatedDelivernos, setRelatedDelivernos] = useState([]);
 
-	const handleBossOpenk = async () => {
+	const handleSubTaskRemarkSummint = async () => {
 		console.log("相关子relatedDelivernos", relatedDelivernos);
 		const params = {
 			data: {
+				area: area,
+				processInstanceId: processInstanceId,
+				activityId: activityId,
+				taskId: taskId,
+				remark: remark,
+				result: result,
+				actionerUserId: actionerUserId,
 				maincode: maincode,
 				contractno: contractno,
 				resRows: resRows,
@@ -19,21 +27,17 @@ const DDOpen = ({ maincode, contractno }) => {
 			},
 			method: "POST",
 		};
-		const response = await api.dresource.BOSSOpenResource(params);
-		console.log("response", response);
+		const response = await api.dd.SubTaskRemarkSubmit(params);
+		alert(response.message)
+		hideModal();
 	};
 
 	return (
 		<div style={{ marginLeft: "15px" }}>
 			<Row align="middle" style={{ marginBottom: "10px", marginTop: "10px" }}>
-				<Col span={10}>
-					<div style={{ fontWeight: "bold", fontSize: "18px" }}>
-						开通资源:业务编号:{maincode}/合同号:{contractno}
-					</div>
-				</Col>
 				<Col span={6}>
-					<Button type="primary" onClick={handleBossOpenk}>
-						确定进行资源开通
+					<Button type="primary" onClick={handleSubTaskRemarkSummint}>
+						确定资源选择
 					</Button>
 				</Col>
 			</Row>

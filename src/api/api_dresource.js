@@ -17,6 +17,5 @@ export default class dresource {
         SelectOpticalSite: '/Network/SelectOpticalSite',
         SelectTransfer: '/Network/SelectTransfer',
         searchDeliverInfo: '/BizCode/searchDeliverInfo',
-        BOSSOpenResource: '/App/BOSSOpenResource'
     };
 }
