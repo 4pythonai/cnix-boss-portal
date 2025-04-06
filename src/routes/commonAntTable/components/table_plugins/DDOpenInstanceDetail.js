@@ -67,6 +67,23 @@ export default class DDOpenInstanceDetail extends React.Component {
 		});
 	};
 
+	refreshTasks = async () => {
+		const params = {
+			method: "POST",
+			data: { area: this.state.area, processInstanceId: this.state.processInstanceId },
+		};
+		const flowResponse = await api.dd.getOpenFlowDetail(params);
+		try {
+			const jsonObj = flowResponse.data.result;
+			this.setState({
+				detailJson: jsonObj,
+				tasks: jsonObj.tasks,
+				operationRecords: jsonObj.operationRecords
+			});
+		} catch (error) {
+			console.error("刷新任务列表失败:", error);
+		}
+	};
 
 	render() {
 		return (
@@ -111,6 +128,7 @@ export default class DDOpenInstanceDetail extends React.Component {
 						processInstanceId={this.state.processInstanceId}
 						tasks={this.state.tasks}
 						hideModal={this.hideModal}
+						refreshTasks={this.refreshTasks}
 					/>
 				</div>
 			</Modal>

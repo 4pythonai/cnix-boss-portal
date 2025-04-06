@@ -5,7 +5,7 @@ import ResCategorySelector from "./DDOpenComponent/ResCategorySelector";
 import DeliverSelector from "./DDOpenComponent/DeliverSelector";
 
 
-const DDOpen = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal }) => {
+const DDOperator = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal, refreshTasks }) => {
 	const [resRows, setResRows] = useState([]);
 	const [relatedDelivernos, setRelatedDelivernos] = useState([]);
 
@@ -28,8 +28,9 @@ const DDOpen = ({ maincode, contractno, area, processInstanceId, activityId, tas
 			method: "POST",
 		};
 		const response = await api.dd.SubTaskRemarkSubmit(params);
-		alert(response.message)
-		hideModal();
+		// alert(response.message)
+		// hideModal();
+		refreshTasks();
 	};
 
 	return (
@@ -62,4 +63,4 @@ const DDOpen = ({ maincode, contractno, area, processInstanceId, activityId, tas
 	);
 };
 
-export default DDOpen;
+export default DDOperator;

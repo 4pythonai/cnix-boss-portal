@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Row, Col } from "antd";
-import DDOpen from "./DDOpen";
+import DDOperator from "./DDOperator";
 
-const DDTasks = ({ maincode, contractno, area, operationRecords, processInstanceId, tasks, hideModal }) => {
+const DDTasks = ({ maincode, contractno, area, operationRecords, processInstanceId, tasks, hideModal, refreshTasks }) => {
 	const [inputValues, setInputValues] = useState({});
 	const [openTaskId, setOpenTaskId] = useState(null);
 
-	// Sort tasks by createTime
-	const sortedTasks = [...tasks].sort(
+	// Sort tasks by createTime,且只包含"BOSS占用"类型的节点
+	const sortedTasks = [...tasks].filter(task => task.activityName.includes('BOSS占用')).sort(
 		(a, b) => new Date(a.createTime) - new Date(b.createTime),
 	);
 
@@ -47,7 +47,7 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 							</div>
 
 						</Col>
-						{task.result === "NONE" && (
+						{task.result === "NONE" && task.activityName.includes('BOSS占用') && (
 							<Col>
 								<div style={{ display: "flex", gap: "8px" }}>
 									<Button
@@ -59,7 +59,7 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 								</div>
 								{openTaskId === task.taskId && (
 									<div style={{ marginTop: "60px", border: "1px solid black", padding: "10px" }}>
-										<DDOpen
+										<DDOperator
 											maincode={maincode}
 											contractno={contractno}
 											area={area}
@@ -70,6 +70,7 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 											result="agree"
 											actionerUserId={JSON.parse(sessionStorage.getItem("userInfo")).ddUserid}
 											hideModal={hideModal}
+											refreshTasks={refreshTasks}
 										/>
 									</div>
 
