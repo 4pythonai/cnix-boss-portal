@@ -4,7 +4,7 @@ import { Modal, Card, Row, Col } from "antd";
 import ReactJson from "react-json-view";
 import DDTasks from "./DDTasks";
 import api from "@/api/api";
-
+import DDFormValueRender from "./DDFormValueRender";
 @observer
 export default class DDOpenInstanceDetail extends React.Component {
 	constructor(props) {
@@ -89,28 +89,20 @@ export default class DDOpenInstanceDetail extends React.Component {
 						<Row gutter={16} align="middle">
 							<Col span={16}>
 								<div>
-									<strong>合同号:</strong> {this.state.contractno}
-								</div>
-							</Col>
-							<Col span={16}>
-								<div>
-									<strong>客户名称:</strong> {this.state.custName}
-								</div>
-							</Col>
-							<Col span={16}>
-								<div>
 									<strong>钉钉流水号:</strong> {this.state.detailJson.businessId}
 								</div>
 							</Col>
 						</Row>
 					</Card>
-					<div id="left1" style={{ width: "100%" }}>
+					{/* <div id="left1" style={{ width: "100%" }}>
 						<ReactJson
 							collapsed={true}
 							src={this.state.detailJson}
 							theme="monokai"
 						/>
-					</div>
+					</div> */}
+
+					<DDFormValueRender formComponentValues={this.state.detailJson.formComponentValues} />
 					<DDTasks
 						maincode={this.state.maincode}
 						contractno={this.state.contractno}
