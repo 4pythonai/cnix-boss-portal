@@ -20,7 +20,7 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 
 	return (
 		<div style={{ marginLeft: "15px" }}>
-			{sortedTasks.map((task) => (
+			{tasks.map((task) => (
 				<Card
 					key={task.taskId}
 					style={{

@@ -89,7 +89,7 @@ export default class DDOpenInstanceDetail extends React.Component {
 		return (
 			<Modal
 				destroyOnClose
-				title={"DDOpenInstanceDetail:" + this.state.title}
+				title={`DDOpenInstanceDetail:${this.state.title}`}
 				visible={this.state.visible}
 				onOk={this.hideModal}
 				onCancel={this.hideModal}
@@ -111,13 +111,13 @@ export default class DDOpenInstanceDetail extends React.Component {
 							</Col>
 						</Row>
 					</Card>
-					{/* <div id="left1" style={{ width: "100%" }}>
+					<div id="left1" style={{ width: "100%" }}>
 						<ReactJson
 							collapsed={true}
 							src={this.state.detailJson}
 							theme="monokai"
 						/>
-					</div> */}
+					</div>
 
 					<DDFormValueRender formComponentValues={this.state.detailJson.formComponentValues} />
 					<DDTasks
