@@ -15,6 +15,10 @@ export default class SearchFormContainer extends React.Component {
 						label: "等于",
 						value: "=",
 					},
+					{
+						label: '包含',
+						value: 'like'
+					},
 				],
 				date: [
 					{
@@ -26,6 +30,10 @@ export default class SearchFormContainer extends React.Component {
 					{
 						label: "等于",
 						value: "=",
+					},
+					{
+						label: '包含',
+						value: 'like'
 					},
 				],
 				other: [
