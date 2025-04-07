@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Row, Col } from "antd";
-import DDOperator from "./DDOperator";
+import DDResSelector from "./DDResSelector";
+import DDBillingSetter from "./DDBillingSetter";
 
 const DDTasks = ({ maincode, contractno, area, operationRecords, processInstanceId, tasks, hideModal, refreshTasks }) => {
 	const [inputValues, setInputValues] = useState({});
 	const [openTaskId, setOpenTaskId] = useState(null);
 
-	// Sort tasks by createTime,且只包含"BOSS占用"类型的节点
-	const sortedTasks = [...tasks].filter(task => task.activityName.includes('BOSS占用')).sort(
+	// Sort tasks by createTime,且只包含"BOSS占用"||"确认计费日期"类型的节点
+	const sortedTasks = [...tasks].filter(task => task.activityName.includes('BOSS占用') || task.activityName.includes('确认计费日期')).sort(
 		(a, b) => new Date(a.createTime) - new Date(b.createTime),
 	);
 
 
-	const handleOpenArea = (taskId) => {
+	const handleOpenResSelector = (taskId) => {
 		setOpenTaskId(taskId);
 	};
 
@@ -20,7 +21,7 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 
 	return (
 		<div style={{ marginLeft: "15px" }}>
-			{tasks.map((task) => (
+			{sortedTasks.map((task) => (
 				<Card
 					key={task.taskId}
 					style={{
@@ -47,19 +48,19 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 							</div>
 
 						</Col>
-						{task.result === "NONE" && task.activityName.includes('BOSS占用') && (
+						{task.result === "NONE" && (task.activityName.includes('BOSS占用')) && (
 							<Col>
 								<div style={{ display: "flex", gap: "8px" }}>
 									<Button
 										type="primary"
-										onClick={() => handleOpenArea(openTaskId === task.taskId ? null : task.taskId)}
+										onClick={() => handleOpenResSelector(openTaskId === task.taskId ? null : task.taskId)}
 									>
 										{openTaskId === task.taskId ? "关闭资源选择器" : "展示资源选择器"}
 									</Button>
 								</div>
 								{openTaskId === task.taskId && (
 									<div style={{ marginTop: "60px", border: "1px solid black", padding: "10px" }}>
-										<DDOperator
+										<DDResSelector
 											maincode={maincode}
 											contractno={contractno}
 											area={area}
@@ -74,6 +75,33 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 										/>
 									</div>
 
+								)}
+							</Col>
+						)}
+						{task.result === "NONE" && (task.activityName.includes('确认计费日期')) && (
+							<Col>
+								<div style={{ display: "flex", gap: "8px" }}>
+									<Button
+										type="primary"
+										onClick={() => handleOpenResSelector(openTaskId === task.taskId ? null : task.taskId)}
+									>
+										{openTaskId === task.taskId ? "关闭计费设置器" : "展示计费设置器"}
+									</Button>
+								</div>
+								{openTaskId === task.taskId && (
+									<DDBillingSetter
+										maincode={maincode}
+										contractno={contractno}
+										area={area}
+										processInstanceId={processInstanceId}
+										activityId={task.activityId}
+										taskId={task.taskId}
+										remark={inputValues[task.taskId]}
+										result="agree"
+										actionerUserId={JSON.parse(sessionStorage.getItem("userInfo")).ddUserid}
+										hideModal={hideModal}
+										refreshTasks={refreshTasks}
+									/>
 								)}
 							</Col>
 						)}
