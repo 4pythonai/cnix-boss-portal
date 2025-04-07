@@ -9,7 +9,7 @@ export default class SearchTableForm extends React.Component {
     constructor(props) {
         super(props);
 
-        let actions = createAsyncFormActions();
+        const actions = createAsyncFormActions();
 
         this.state = {
             actions: actions
@@ -56,6 +56,8 @@ export default class SearchTableForm extends React.Component {
     };
 
     handleFieldChange = ($, setFieldState, field) => {
+
+
         $('onFieldChange', field)
             .pipe(
                 withLatestFrom($('onChangeOption')),
@@ -80,12 +82,19 @@ export default class SearchTableForm extends React.Component {
                         break;
                     }
                 }
-
+                console.log(fieldType)
                 switch (fieldType) {
+                    // console.log(SearchTableForm)
                     case 'string':
                         this.setEnum(operator, this.props.operation_list.string);
                         this.setType('vset_' + this.props.form_index, 'string');
                         break;
+
+                    case 'Assocselect':
+                        this.setEnum(operator, this.props.operation_list.string);
+                        this.setType('vset_' + this.props.form_index, 'string');
+                        break;
+
                     case 'number':
                         this.setEnum(operator, this.props.operation_list.number);
                         this.setType('vset_' + this.props.form_index, 'number');
