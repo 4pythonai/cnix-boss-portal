@@ -157,7 +157,7 @@ export default class SearchFormContainer extends React.Component {
 							field_list={this.getFieldList()}
 							onOk={this.props.onOk}
 							form_index={item.inner_order}
-						></SearchTableForm>
+						/>
 					);
 				})}
 			</div>
