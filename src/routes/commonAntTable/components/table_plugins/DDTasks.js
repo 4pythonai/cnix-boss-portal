@@ -17,7 +17,24 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 		setOpenTaskId(taskId);
 	};
 
-
+	const renderParentBossValue = (task) => {
+		if (task._bossOpenValue?.saveId) {
+			return <div style={{ marginBottom: '10px' }}>
+				<div
+					style={{
+						padding: '10px 2px 10px 2px',
+						border: "1px solid  black",
+						clear: "left",
+						display: "flex",
+						gap: "8px",
+					}}
+				>
+					<strong>前置处理结果:</strong><br />
+					{task._bossOpenValue.formattedText}
+				</div>
+			</div>
+		}
+	}
 
 	return (
 		<div style={{ marginLeft: "15px" }}>
@@ -29,8 +46,9 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 						marginTop: "10px",
 					}}
 				>
-					<Row gutter={16} align="middle">
-						<Col span={16}>
+					<Row gutter={24} align="middle">
+						<Col span={24}>
+							{renderParentBossValue(task)}
 							<div>
 								<strong>活动名称:</strong> {task.activityId}/{task.activityName}
 							</div>
@@ -45,6 +63,7 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 							<div>
 								<strong>批注:</strong>
 								{task.result === "NONE" ? "" : operationRecords.find(record => record.activityId === task.activityId)?.remark || "无批注"}
+								<br />		<br />
 							</div>
 
 						</Col>
@@ -80,7 +99,7 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 						)}
 						{task.result === "NONE" && (task.activityName.includes('确认计费日期')) && (
 							<Col>
-								<div style={{ display: "flex", gap: "8px" }}>
+								<div style={{ clear: "left", display: "flex", gap: "8px" }}>
 									<Button
 										type="primary"
 										onClick={() => handleOpenResSelector(openTaskId === task.taskId ? null : task.taskId)}
@@ -89,19 +108,22 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 									</Button>
 								</div>
 								{openTaskId === task.taskId && (
-									<DDBillingSetter
-										maincode={maincode}
-										contractno={contractno}
-										area={area}
-										processInstanceId={processInstanceId}
-										activityId={task.activityId}
-										taskId={task.taskId}
-										remark={inputValues[task.taskId]}
-										result="agree"
-										actionerUserId={JSON.parse(sessionStorage.getItem("userInfo")).ddUserid}
-										hideModal={hideModal}
-										refreshTasks={refreshTasks}
-									/>
+
+									<div>
+										<DDBillingSetter
+											maincode={maincode}
+											contractno={contractno}
+											area={area}
+											processInstanceId={processInstanceId}
+											activityId={task.activityId}
+											taskId={task.taskId}
+											remark={inputValues[task.taskId]}
+											result="agree"
+											actionerUserId={JSON.parse(sessionStorage.getItem("userInfo")).ddUserid}
+											hideModal={hideModal}
+											refreshTasks={refreshTasks}
+										/>
+									</div>
 								)}
 							</Col>
 						)}

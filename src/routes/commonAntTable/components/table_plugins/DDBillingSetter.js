@@ -23,17 +23,13 @@ const DDBillingSetter = ({ maincode, contractno, area, processInstanceId, activi
 			method: "POST",
 		};
 		const response = await api.dd.DDSetBillingDate(params);
-		// alert(response.message)
-		// hideModal();
 		refreshTasks();
 	};
 
 	return (
-		<div style={{ marginTop: '60px', border: "1px solid black", padding: "10px" }}>
+		<div style={{ marginTop: '30px', border: "1px solid black", padding: "10px" }}>
 			<div>
-				{/* add Date selector */}
 				<DatePicker />
-
 				<Button style={{ marginLeft: "20px" }} type="primary" onClick={DDSetBillingDate}>
 					确定计费日期
 				</Button>

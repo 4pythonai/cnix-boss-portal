@@ -23,6 +23,7 @@ export default class DDOpenInstanceDetail extends React.Component {
 		contractno: "",
 		area: "",
 		custName: "",
+		fetchSuccess: true,
 	};
 
 	async init() {
@@ -40,6 +41,7 @@ export default class DDOpenInstanceDetail extends React.Component {
 		let jsonObj = {};
 		try {
 			jsonObj = flowResponse.data.result;
+			console.log("🈲🈲🈲🈲🈲🈲🈲🈲🈲🈲jsonObj", jsonObj);
 			this.setState({ detailJson: jsonObj });
 			this.setState({ processInstanceId: processInstanceId });
 			this.setState({ tasks: jsonObj.tasks });
@@ -47,12 +49,18 @@ export default class DDOpenInstanceDetail extends React.Component {
 			this.setState({ maincode: _tmprec.maincode });
 			this.setState({ contractno: _tmprec.contractno });
 			this.setState({ title: jsonObj.title });
+			if (flowResponse.code === 200) {
+				this.setState({ fetchSuccess: true });
+				this.showModal();
+			} else {
+				this.setState({ fetchSuccess: false });
+			}
+
 		} catch (error) {
 			jsonObj = { aa: "解析失败" };
 			this.setState({ detailJson: jsonObj });
 		}
 
-		this.showModal();
 	}
 
 	showModal = () => {
@@ -105,9 +113,12 @@ export default class DDOpenInstanceDetail extends React.Component {
 					>
 						<Row gutter={16} align="middle">
 							<Col span={16}>
-								<div>
+								{this.state.fetchSuccess ? <div>
 									<strong>钉钉流水号:</strong> {this.state.detailJson.businessId}
+								</div> : <div>
+									<strong>钉钉流水号:</strong> 获取失败
 								</div>
+								}
 							</Col>
 						</Row>
 					</Card>
@@ -118,9 +129,12 @@ export default class DDOpenInstanceDetail extends React.Component {
 							theme="monokai"
 						/>
 					</div>
+					{this.state.fetchSuccess ? <DDFormValueRender formComponentValues={this.state.detailJson.formComponentValues} /> : <div>
+						<strong>钉钉流水号:</strong> 获取失败
+					</div>
+					}
 
-					<DDFormValueRender formComponentValues={this.state.detailJson.formComponentValues} />
-					<DDTasks
+					{this.state.fetchSuccess ? <DDTasks
 						maincode={this.state.maincode}
 						contractno={this.state.contractno}
 						area={this.state.area}
@@ -129,7 +143,11 @@ export default class DDOpenInstanceDetail extends React.Component {
 						tasks={this.state.tasks}
 						hideModal={this.hideModal}
 						refreshTasks={this.refreshTasks}
-					/>
+					/> : <div>
+						<strong>钉钉流水号:</strong> 获取失败
+					</div>
+					}
+
 				</div>
 			</Modal>
 		);
