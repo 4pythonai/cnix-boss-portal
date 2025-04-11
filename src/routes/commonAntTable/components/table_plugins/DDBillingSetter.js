@@ -52,7 +52,7 @@ const DDBillingSetter = ({ maincode, contractno, area, processInstanceId, activi
 		<div style={{ marginTop: '30px', border: "1px solid black", padding: "10px" }}>
 			<div>
 				<DatePicker onChange={(value) => setBillingDate(value)} />
-				<Button style={{ marginLeft: "20px" }} type="primary" onClick={DDSetBillingDate}>
+				<Button style={{ marginLeft: "20px", color: "green" }} onClick={DDSetBillingDate}>
 					确定计费日期
 				</Button>
 
