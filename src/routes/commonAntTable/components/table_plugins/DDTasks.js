@@ -120,8 +120,8 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 											remark={inputValues[task.taskId]}
 											result="agree"
 											actionerUserId={JSON.parse(sessionStorage.getItem("userInfo")).ddUserid}
-											hideModal={hideModal}
 											refreshTasks={refreshTasks}
+											_bossOpenValue={task._bossOpenValue}
 										/>
 									</div>
 								)}

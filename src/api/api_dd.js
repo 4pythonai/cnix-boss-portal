@@ -8,6 +8,7 @@ export default class dd {
         getGetContractProductName: "/App/GetContractProductName",
         getOpenFlowDetail: "/DDOA/getOpenFlowDetail",
         SubTaskRemarkSubmit: '/DDOA/SubTaskRemarkSubmit',
+        DDSetBillingDate: '/DDOA/DDSetBillingDate',
 
     };
 }
