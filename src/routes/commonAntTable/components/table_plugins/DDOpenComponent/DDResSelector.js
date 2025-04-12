@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Row, Col, message } from "antd";
 import api from "@/api/api";
-import ResCategorySelector from "../DDReourceSelector/ResCategorySelector";
+import OneResTypeSelector from "../DDReourceSelector/OneResTypeSelector";
 import SubDeliverNoSelector from "../DDReourceSelector/SubDeliverNoSelector";
 
 
@@ -58,7 +58,7 @@ const DDResSelector = ({ maincode, contractno, area, processInstanceId, activity
 					gap: "10px",
 				}}
 			>
-				<ResCategorySelector
+				<OneResTypeSelector
 					maincode={maincode}
 					contract={contractno}
 					resRows={resRows}
