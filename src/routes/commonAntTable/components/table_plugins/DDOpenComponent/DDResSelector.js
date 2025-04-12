@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, message } from "antd";
 import api from "@/api/api";
 import ResCategorySelector from "../DDReourceSelector/ResCategorySelector";
 import SubDeliverNoSelector from "../DDReourceSelector/SubDeliverNoSelector";
@@ -10,6 +10,13 @@ const DDResSelector = ({ maincode, contractno, area, processInstanceId, activity
 	const [relatedDelivernos, setRelatedDelivernos] = useState([]);
 
 	const handleSubTaskRemarkSummint = async () => {
+		//  make sure resRows not empty
+		if (resRows.length === 0) {
+			message.error("请选择资源");
+			return;
+		}
+
+
 		console.log("相关子relatedDelivernos", relatedDelivernos);
 		const params = {
 			data: {
@@ -38,7 +45,7 @@ const DDResSelector = ({ maincode, contractno, area, processInstanceId, activity
 			<Row align="middle" style={{ marginBottom: "10px", marginTop: "10px" }}>
 				<Col span={6}>
 					<Button type="primary" onClick={handleSubTaskRemarkSummint}>
-						确定资源选择
+						确定提交选中的资源
 					</Button>
 				</Col>
 			</Row>
