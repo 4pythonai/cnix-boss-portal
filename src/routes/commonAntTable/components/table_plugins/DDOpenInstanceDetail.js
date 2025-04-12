@@ -2,10 +2,10 @@ import React from "react";
 import { observer } from "mobx-react";
 import { Modal, Card, Row, Col } from "antd";
 import ReactJson from "react-json-view";
-import DDTasks from "./DDTasks";
+import DDTasks from "./DDOpenComponent/DDTasks";
 import api from "@/api/api";
-import DDFormValueRender from "./DDFormValueRender";
-import DDUserSelector from "./DDUserSelector";
+import DDFormValueRender from "./DDOpenComponent/DDFormValueRender";
+import DDUserSelector from "./DDOpenComponent/DDUserSelector";
 @observer
 export default class DDOpenInstanceDetail extends React.Component {
 	constructor(props) {

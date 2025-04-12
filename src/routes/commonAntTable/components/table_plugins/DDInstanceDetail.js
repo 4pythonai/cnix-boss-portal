@@ -2,8 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Modal } from 'antd';
 import ReactJson from 'react-json-view';
-import DDFormCards from './DDFormCards';
-import DDShutdown from './DDShutdown';
+import DDFormCards from './DDCloseComponent/DDFormCards';
+import DDShutdown from './DDCloseComponent/DDShutdown';
 
 @observer
 export default class DDInstanceDetail extends React.Component {
