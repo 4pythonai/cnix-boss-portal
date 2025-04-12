@@ -5,7 +5,7 @@ import ResCategorySelector from "./DDOpenComponent/ResCategorySelector";
 import SubDeliverNoSelector from "./DDOpenComponent/SubDeliverNoSelector";
 
 
-const DDOperator = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal, refreshTasks }) => {
+const DDResSelector = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal, refreshTasks }) => {
 	const [resRows, setResRows] = useState([]);
 	const [relatedDelivernos, setRelatedDelivernos] = useState([]);
 
@@ -63,4 +63,4 @@ const DDOperator = ({ maincode, contractno, area, processInstanceId, activityId,
 	);
 };
 
-export default DDOperator;
+export default DDResSelector;
