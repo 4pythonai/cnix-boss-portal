@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Row, Col, message } from "antd";
 import api from "@/api/api";
 import OneResTypeSelector from "../DDReourceSelector/OneResTypeSelector";
-import SubDeliverNoSelector from "../DDReourceSelector/SubDeliverNoSelector";
+// import SubDeliverNoSelector from "../DDReourceSelector/SubDeliverNoSelector";
 
 
 const DDResSelector = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal, refreshTasks }) => {
@@ -64,7 +64,6 @@ const DDResSelector = ({ maincode, contractno, area, processInstanceId, activity
 					resRows={resRows}
 					setResRows={setResRows}
 				/>
-				<SubDeliverNoSelector setRelatedDelivernos={setRelatedDelivernos} />
 			</div>
 		</div>
 	);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
-import { Select, Button, Table, message, Input } from "antd";
+import { Select, Button, Table, message, Input, Popover } from "antd";
 import { observer } from "mobx-react";
+import SubDeliverNoSelector from "../DDReourceSelector/SubDeliverNoSelector";
 import api from "@/api/api";
 
 const { Option } = Select;
@@ -25,6 +26,7 @@ const OneResTypeSelector = observer(
 		const [SelectedComponent, setSelectedComponent] = useState(null);
 		const [category, setCategory] = useState("");
 		const [catid, setCatid] = useState("");
+		const [visiblePopoverKey, setVisiblePopoverKey] = useState(null);
 
 		useEffect(() => {
 			const fetchData = async () => {
@@ -112,14 +114,26 @@ const OneResTypeSelector = observer(
 			setResRows(newRows);
 		};
 
-		const handleSubNumberChange = (value, record) => {
+		// Handler when SubDeliverNoSelector selects a number
+		const handleSubNumberSelect = (selectedSubNumber, record) => {
 			const newRows = resRows.map((row) => {
 				if (row.key === record.key || row.reactkey === record.reactkey) {
-					return { ...row, subNumber: value };
+					return { ...row, subNumber: selectedSubNumber };
 				}
 				return row;
 			});
 			setResRows(newRows);
+			setVisiblePopoverKey(null); // Close popover after selection
+		};
+
+		// Handler for Popover visibility change
+		const handlePopoverVisibleChange = (visible, recordKey) => {
+			if (visible) {
+				setVisiblePopoverKey(recordKey);
+			} else if (visiblePopoverKey === recordKey) {
+				// Only hide if it's the currently visible one being hidden
+				setVisiblePopoverKey(null);
+			}
 		};
 
 		const columns = [
@@ -182,13 +196,34 @@ const OneResTypeSelector = observer(
 				title: "关联子编号",
 				width: 150,
 				dataIndex: "subNumber",
-				render: (text, record) => (
-					<Input
-						style={{ width: "100%" }}
-						value={text || ""}
-						onChange={(e) => handleSubNumberChange(e.target.value, record)}
-					/>
-				),
+				render: (text, record) => {
+					const recordKey = record.key || record.reactkey;
+					return (
+						<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+							<span style={{ flexGrow: 1, marginRight: '8px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+								{text || "-"}
+							</span>
+							<Popover
+								content={
+									<SubDeliverNoSelector
+										// Pass the selection handler, binding the current record
+										onSelect={(selectedNumber) => handleSubNumberSelect(selectedNumber, record)}
+									/>
+								}
+								title="搜索并选择子编号"
+								trigger="click"
+								visible={visiblePopoverKey === recordKey}
+								onVisibleChange={(visible) => handlePopoverVisibleChange(visible, recordKey)}
+								placement="left"
+								overlayStyle={{ width: '800px' }} // Increased width
+							>
+								<Button type="link" size="small">
+									选择
+								</Button>
+							</Popover>
+						</div>
+					);
+				}
 			}
 		];
 
