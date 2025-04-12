@@ -5,6 +5,7 @@ import ReactJson from "react-json-view";
 import DDTasks from "./DDTasks";
 import api from "@/api/api";
 import DDFormValueRender from "./DDFormValueRender";
+import DDUserSelector from "./DDUserSelector";
 @observer
 export default class DDOpenInstanceDetail extends React.Component {
 	constructor(props) {
@@ -24,31 +25,32 @@ export default class DDOpenInstanceDetail extends React.Component {
 		area: "",
 		custName: "",
 		fetchSuccess: true,
+		ddUser: "",
 	};
 
 	async init() {
 		const _tmprec = this.props.commonTableStore.selectedRows[0];
 		const area = _tmprec.area;
-		const processInstanceId = _tmprec.processInstanceId;
+		this.setState({ processInstanceId: _tmprec.processInstanceId });
 		this.setState({ area: area });
 		this.setState({ custName: _tmprec.custName });
+
 		const params = {
 			method: "POST",
-			data: { area: area, processInstanceId: processInstanceId },
+			data: { area: area, processInstanceId: _tmprec.processInstanceId },
 		};
+
 		const flowResponse = await api.dd.getOpenFlowDetail(params);
 
-		let jsonObj = {};
+		let flowObj = {};
 		try {
-			jsonObj = flowResponse.data.result;
-			console.log("🈲🈲🈲🈲🈲🈲🈲🈲🈲🈲jsonObj", jsonObj);
-			this.setState({ detailJson: jsonObj });
-			this.setState({ processInstanceId: processInstanceId });
-			this.setState({ tasks: jsonObj.tasks });
-			this.setState({ operationRecords: jsonObj.operationRecords });
+			flowObj = flowResponse.data.result;
+			this.setState({ detailJson: flowObj });
+			this.setState({ tasks: flowObj.tasks });
+			this.setState({ operationRecords: flowObj.operationRecords });
 			this.setState({ maincode: _tmprec.maincode });
 			this.setState({ contractno: _tmprec.contractno });
-			this.setState({ title: jsonObj.title });
+			this.setState({ title: flowObj.title });
 			if (flowResponse.code === 200) {
 				this.setState({ fetchSuccess: true });
 				this.showModal();
@@ -57,8 +59,8 @@ export default class DDOpenInstanceDetail extends React.Component {
 			}
 
 		} catch (error) {
-			jsonObj = { aa: "解析失败" };
-			this.setState({ detailJson: jsonObj });
+			flowObj = { aa: "解析失败" };
+			this.setState({ detailJson: flowObj });
 		}
 
 	}
@@ -82,16 +84,60 @@ export default class DDOpenInstanceDetail extends React.Component {
 		};
 		const flowResponse = await api.dd.getOpenFlowDetail(params);
 		try {
-			const jsonObj = flowResponse.data.result;
+			const flowObj = flowResponse.data.result;
 			this.setState({
-				detailJson: jsonObj,
-				tasks: jsonObj.tasks,
-				operationRecords: jsonObj.operationRecords
+				tasks: flowObj.tasks,
+				operationRecords: flowObj.operationRecords
 			});
 		} catch (error) {
 			console.error("刷新任务列表失败:", error);
 		}
 	};
+
+	renderBusinessId() {
+		return this.state.fetchSuccess ? (
+			<div>
+				<strong>钉钉流水号:</strong> {this.state.detailJson.businessId}
+			</div>
+		) : (
+			<div>
+				<strong>钉钉流水号:</strong> 获取失败
+			</div>
+		);
+	}
+
+	renderFormValueRender() {
+		return this.state.fetchSuccess ? (
+			<DDFormValueRender formComponentValues={this.state.detailJson.formComponentValues} />
+		) : (
+			<>
+			</>
+		);
+	}
+
+	renderTasks() {
+		return this.state.fetchSuccess ? (
+			<DDTasks
+				actionerUserId={this.state.ddUser}
+				maincode={this.state.maincode}
+				contractno={this.state.contractno}
+				area={this.state.area}
+				operationRecords={this.state.operationRecords}
+				processInstanceId={this.state.processInstanceId}
+				tasks={this.state.tasks}
+				hideModal={this.hideModal}
+				refreshTasks={this.refreshTasks}
+			/>
+		) : (
+			<>
+			</>
+		);
+	}
+
+	// Define a function to handle user selection
+	handleUserSelect = (value) => {
+		this.setState({ ddUser: value });
+	}
 
 	render() {
 		return (
@@ -113,41 +159,20 @@ export default class DDOpenInstanceDetail extends React.Component {
 					>
 						<Row gutter={16} align="middle">
 							<Col span={16}>
-								{this.state.fetchSuccess ? <div>
-									<strong>钉钉流水号:</strong> {this.state.detailJson.businessId}
-								</div> : <div>
-									<strong>钉钉流水号:</strong> 获取失败
-								</div>
-								}
+								{this.renderBusinessId()}
 							</Col>
 						</Row>
 					</Card>
-					<div id="left1" style={{ width: "100%" }}>
+					<DDUserSelector onSelect={this.handleUserSelect} />
+					{/* <div id="left1" style={{ width: "100%" }}>
 						<ReactJson
 							collapsed={true}
 							src={this.state.detailJson}
 							theme="monokai"
 						/>
-					</div>
-					{this.state.fetchSuccess ? <DDFormValueRender formComponentValues={this.state.detailJson.formComponentValues} /> : <div>
-						<strong>钉钉流水号:</strong> 获取失败
-					</div>
-					}
-
-					{this.state.fetchSuccess ? <DDTasks
-						maincode={this.state.maincode}
-						contractno={this.state.contractno}
-						area={this.state.area}
-						operationRecords={this.state.operationRecords}
-						processInstanceId={this.state.processInstanceId}
-						tasks={this.state.tasks}
-						hideModal={this.hideModal}
-						refreshTasks={this.refreshTasks}
-					/> : <div>
-						<strong>钉钉流水号:</strong> 获取失败
-					</div>
-					}
-
+					</div> */}
+					{this.renderFormValueRender()}
+					{this.renderTasks()}
 				</div>
 			</Modal>
 		);

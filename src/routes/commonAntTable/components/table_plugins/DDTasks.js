@@ -3,7 +3,7 @@ import { Button, Card, Row, Col } from "antd";
 import DDResSelector from "./DDResSelector";
 import DDBillingSetter from "./DDBillingSetter";
 
-const DDTasks = ({ maincode, contractno, area, operationRecords, processInstanceId, tasks, hideModal, refreshTasks }) => {
+const DDTasks = ({ actionerUserId, maincode, contractno, area, operationRecords, processInstanceId, tasks, hideModal, refreshTasks }) => {
 	const [inputValues, setInputValues] = useState({});
 	const [openTaskId, setOpenTaskId] = useState(null);
 
@@ -89,7 +89,7 @@ const DDTasks = ({ maincode, contractno, area, operationRecords, processInstance
 												taskId={task.taskId}
 												remark={inputValues[task.taskId]}
 												result="agree"
-												actionerUserId={JSON.parse(sessionStorage.getItem("userInfo")).ddUserid}
+												actionerUserId={actionerUserId}
 												hideModal={hideModal}
 												refreshTasks={refreshTasks}
 											/>
