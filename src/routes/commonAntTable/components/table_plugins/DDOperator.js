@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Row, Col } from "antd";
 import api from "@/api/api";
-import ResCategorySelector from "./DDOpenComponent/ResCategorySelector";
-import SubDeliverNoSelector from "./DDOpenComponent/SubDeliverNoSelector";
+// import ResCategorySelector from "./DDOpenComponent/ResCategorySelector";
+// import SubDeliverSelector from "./DDOpenComponent/SubDeliverSelector";
 
 
 const DDOperator = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal, refreshTasks }) => {
@@ -51,13 +51,14 @@ const DDOperator = ({ maincode, contractno, area, processInstanceId, activityId,
 					gap: "10px",
 				}}
 			>
-				<ResCategorySelector
+				{/* <ResCategorySelector
 					maincode={maincode}
 					contract={contractno}
 					resRows={resRows}
 					setResRows={setResRows}
 				/>
-				<SubDeliverNoSelector setRelatedDelivernos={setRelatedDelivernos} />
+				<SubDeliverSelector setRelatedDelivernos={setRelatedDelivernos} />
+				 */}
 			</div>
 		</div>
 	);

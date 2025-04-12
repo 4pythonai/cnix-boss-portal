@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { Table } from "antd";
-import api from "@/api/api";
-import ResCategorySelector from "./DDOpenComponent/ResCategorySelector";
-import DeliverSelector from "./DDOpenComponent/DeliverSelector";
 import DDTableFieldRender from "./DDOpenComponent/DDTableFieldRender";
 
 const DDFormValueRender = ({ formComponentValues }) => {

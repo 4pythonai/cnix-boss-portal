@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input, Table, Button, message } from "antd";
 import api from "@/api/api";
 
-const DeliverSelector = ({ setRelatedDelivernos }) => {
+const SubDeliverNoSelector = ({ setRelatedDelivernos }) => {
 	const [searchValue, setSearchValue] = useState("");
 	const [deliveryData, setDeliveryData] = useState([]);
 	const columns = [
@@ -95,4 +95,4 @@ const DeliverSelector = ({ setRelatedDelivernos }) => {
 	);
 };
 
-export default DeliverSelector;
+export default SubDeliverNoSelector;
