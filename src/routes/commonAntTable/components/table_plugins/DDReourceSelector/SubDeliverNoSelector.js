@@ -6,21 +6,19 @@ const SubDeliverNoSelector = ({ onSelect }) => {
 	const [searchValue, setSearchValue] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [selectedKeys, setSelectedKeys] = useState([]);
+
+	const rowSelection = {
+		selectedRowKeys: selectedKeys,
+		onChange: (keys) => {
+			setSelectedKeys(keys);
+		},
+	};
 
 	const columns = [
 		{ title: "客户名称", dataIndex: "custname", key: "custname" },
 		{ title: "子业务编号", dataIndex: "deliveryno", key: "deliveryno" },
 		{ title: "产品名称", dataIndex: "product_name", key: "product_name" },
-		{
-			title: "操作",
-			key: "action",
-			width: 60,
-			render: (_, record) => (
-				<Button type="link" size="small" onClick={() => handleSelect(record.deliveryno)}>
-					选择
-				</Button>
-			),
-		},
 	];
 
 	const handleSearch = async (value) => {
@@ -51,14 +49,15 @@ const SubDeliverNoSelector = ({ onSelect }) => {
 		}
 	};
 
-	const handleSelect = (deliveryno) => {
+	const handleConfirmSelection = () => {
+		const selectedString = selectedKeys.join(',');
 		if (onSelect) {
-			onSelect(deliveryno);
+			onSelect(selectedString);
 		}
 	};
 
 	return (
-		<div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+		<div style={{ maxHeight: '300px', display: 'flex', flexDirection: 'column' }}>
 			<div style={{ marginBottom: 8, paddingRight: '10px' }}>
 				<Input.Search
 					placeholder="搜索相关子业务编号"
@@ -71,14 +70,27 @@ const SubDeliverNoSelector = ({ onSelect }) => {
 					size="small"
 				/>
 			</div>
-			<Table
-				size="small"
-				columns={columns}
-				dataSource={searchResults}
-				rowKey="deliveryno"
-				pagination={false}
-				loading={loading}
-			/>
+			<div style={{ flexGrow: 1, overflowY: 'auto' }}>
+				<Table
+					size="small"
+					columns={columns}
+					dataSource={searchResults}
+					rowKey="deliveryno"
+					pagination={false}
+					loading={loading}
+					rowSelection={rowSelection}
+				/>
+			</div>
+			<div style={{ marginTop: 8, textAlign: 'right', paddingRight: '10px' }}>
+				<Button
+					type="primary"
+					size="small"
+					onClick={handleConfirmSelection}
+					disabled={selectedKeys.length === 0}
+				>
+					确定选择
+				</Button>
+			</div>
 		</div>
 	);
 };
