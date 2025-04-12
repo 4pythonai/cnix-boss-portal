@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Table } from "antd";
-import DDTableFieldRender from "./DDOpenComponent/DDTableFieldRender";
+import DDTableFieldRender from "./DDReourceSelector/DDTableFieldRender";
 
 const DDFormValueRender = ({ formComponentValues }) => {
 	const columns = [

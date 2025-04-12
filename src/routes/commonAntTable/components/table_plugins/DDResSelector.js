@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Row, Col } from "antd";
 import api from "@/api/api";
-import ResCategorySelector from "./DDOpenComponent/ResCategorySelector";
-import SubDeliverNoSelector from "./DDOpenComponent/SubDeliverNoSelector";
+import ResCategorySelector from "./DDReourceSelector/ResCategorySelector";
+import SubDeliverNoSelector from "./DDReourceSelector/SubDeliverNoSelector";
 
 
 const DDResSelector = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal, refreshTasks }) => {
