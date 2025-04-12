@@ -17,7 +17,7 @@ const Uloc = lazy(() => import('./Uloc'));
 const Cabinet = lazy(() => import("./Cabinet"));
 const Nothing = lazy(() => import("./Nothing"));
 
-const ResCategorySelector = observer(
+const OneResTypeSelector = observer(
 	({ maincode, contract, resRows, setResRows }) => {
 		const [options, setOptions] = useState([]);
 		const [loading, setLoading] = useState(false);
@@ -223,4 +223,4 @@ const ResCategorySelector = observer(
 	},
 );
 
-export default ResCategorySelector;
+export default OneResTypeSelector;
