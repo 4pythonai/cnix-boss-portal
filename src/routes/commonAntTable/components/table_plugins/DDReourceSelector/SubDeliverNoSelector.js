@@ -86,7 +86,6 @@ const SubDeliverNoSelector = ({ onSelect }) => {
 					type="primary"
 					size="small"
 					onClick={handleConfirmSelection}
-					disabled={selectedKeys.length === 0}
 				>
 					确定选择
 				</Button>

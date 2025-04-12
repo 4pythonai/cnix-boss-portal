@@ -152,16 +152,19 @@ const OneResTypeSelector = observer(
 				),
 			},
 			{
-				title: "主业务编号",
+				title: "主编号",
+				width: 50,
 				dataIndex: "bizcode",
 			},
 			{
-				title: "产品名称",
+				title: "产品",
+				width: 50,
 				dataIndex: "product_name",
 			},
 			{
-				title: "资源详情",
-				width: 400,
+				title: "详情",
+				width: 300,
+				ellipsis: true,
 				dataIndex: "restext",
 			},
 			{
@@ -194,7 +197,8 @@ const OneResTypeSelector = observer(
 			},
 			{
 				title: "关联子编号",
-				width: 150,
+				width: 80,
+				ellipsis: true,
 				dataIndex: "subNumber",
 				render: (text, record) => {
 					const recordKey = record.key || record.reactkey;
@@ -242,8 +246,9 @@ const OneResTypeSelector = observer(
 					<div style={{ color: "white", padding: "10px 0" }}>
 						预备开通的资源:
 					</div>
-					<div style={{ background: "white" }}>
+					<div style={{ background: "white", fontSize: 10 }}>
 						<Table
+							className="custom-table"
 							size="small"
 							columns={columns}
 							rowKey="reactkey"
