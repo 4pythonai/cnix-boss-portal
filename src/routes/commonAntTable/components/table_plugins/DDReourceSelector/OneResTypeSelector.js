@@ -112,6 +112,16 @@ const OneResTypeSelector = observer(
 			setResRows(newRows);
 		};
 
+		const handleSubNumberChange = (value, record) => {
+			const newRows = resRows.map((row) => {
+				if (row.key === record.key || row.reactkey === record.reactkey) {
+					return { ...row, subNumber: value };
+				}
+				return row;
+			});
+			setResRows(newRows);
+		};
+
 		const columns = [
 			{
 				title: "操作",
@@ -168,10 +178,27 @@ const OneResTypeSelector = observer(
 					</Select>
 				),
 			},
+			{
+				title: "关联子编号",
+				width: 150,
+				dataIndex: "subNumber",
+				render: (text, record) => (
+					<Input
+						style={{ width: "100%" }}
+						value={text || ""}
+						onChange={(e) => handleSubNumberChange(e.target.value, record)}
+					/>
+				),
+			}
 		];
 
 		const appendrows = (rowObject) => {
-			setResRows([...resRows, rowObject]);
+			// 确保 newKey 总是唯一的
+			const newKey = `reactkey_${Date.now()}_${Math.random()}`;
+			// 确保 key 和 reactkey 都被设置了
+			const newRow = { ...rowObject, reactkey: newKey, key: newKey };
+			console.log("Appending row with key:", newKey, newRow); // 添加日志确认
+			setResRows(prevRows => [...prevRows, newRow]); // 使用函数式更新可能更安全
 		};
 
 		return (
@@ -182,6 +209,7 @@ const OneResTypeSelector = observer(
 					</div>
 					<div style={{ background: "white" }}>
 						<Table
+							size="small"
 							columns={columns}
 							rowKey="reactkey"
 							dataSource={resRows}
