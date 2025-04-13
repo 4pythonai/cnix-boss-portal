@@ -2,9 +2,6 @@ import React from "react";
 import { observer } from "mobx-react";
 import { Modal, Card, Row, Col, Table } from "antd";
 import api from "@/api/api";
-
-
-import ResTimeColumns from '@/routes/commonAntTable/components/table_plugins/bill/columns/ResTimeColumns';
 @observer
 export default class MainCodeExplorer extends React.Component {
 	constructor(props) {
@@ -20,6 +17,49 @@ export default class MainCodeExplorer extends React.Component {
 		subRows: [],
 		maincode: "",
 	};
+
+	ResTimeColumns = [
+		{
+			title: 'ID',
+			dataIndex: 'id',
+			width: '80px'
+		},
+		{
+			title: '开通',
+			dataIndex: 'opendate',
+			width: '120px'
+		},
+		{
+			title: '计费',
+			dataIndex: 'billingdate',
+			width: '120px'
+		},
+		{
+			title: '业务编号',
+			dataIndex: 'deliveryno',
+		},
+		{
+			title: '产品名称',
+			dataIndex: 'product_name',
+			width: '220px'
+		},
+
+		{
+			title: '资源明细',
+			dataIndex: 'network_text',
+		},
+		{
+			title: '业务属性',
+			dataIndex: 'deliverType',
+		},
+		{
+			title: '备注',
+			dataIndex: 'memo',
+			key: 'memo'
+		}
+	];
+
+
 
 	async init() {
 		const _tmprec = this.props.commonTableStore.selectedRows[0];
@@ -88,8 +128,8 @@ export default class MainCodeExplorer extends React.Component {
 
 				</Row>
 				<div style={{ paddingTop: "10px" }}>
-					<Table size="small" columns={ResTimeColumns} dataSource={this.state.resRows} />
-					<Table size="small" columns={ResTimeColumns} dataSource={this.state.subRows} />
+					<Table size="small" columns={this.ResTimeColumns} dataSource={this.state.resRows} />
+					<Table size="small" columns={this.ResTimeColumns} dataSource={this.state.subRows} />
 				</div>
 			</Modal >
 		);
