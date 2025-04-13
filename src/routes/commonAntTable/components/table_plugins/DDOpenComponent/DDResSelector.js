@@ -14,6 +14,12 @@ const DDResSelector = ({ maincode, contractno, area, processInstanceId, activity
 			message.error("请选择资源");
 			return;
 		}
+		// remove reactkey,key,operation from every row from resRows
+		const SimpleResRows = resRows.map(row => {
+			const { reactkey, key, operation, ...rest } = row;
+			return rest;
+		});
+
 		const params = {
 			data: {
 				area: area,
@@ -25,7 +31,7 @@ const DDResSelector = ({ maincode, contractno, area, processInstanceId, activity
 				actionerUserId: actionerUserId,
 				maincode: maincode,
 				contractno: contractno,
-				resRows: resRows,
+				resRows: SimpleResRows,
 			},
 			method: "POST",
 		};
