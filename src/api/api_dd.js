@@ -9,6 +9,6 @@ export default class dd {
         getOpenFlowDetail: "/DDOA/getOpenFlowDetail",
         SubTaskRemarkSubmit: '/DDOA/SubTaskRemarkSubmit',
         DDSetBillingDate: '/DDOA/DDSetBillingDate',
-
+        AgreeTask: '/DDOA/AgreeTask',
     };
 }

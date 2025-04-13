@@ -125,7 +125,6 @@ export default class DDOpenInstanceDetail extends React.Component {
 				operationRecords={this.state.operationRecords}
 				processInstanceId={this.state.processInstanceId}
 				tasks={this.state.tasks}
-				hideModal={this.hideModal}
 				refreshTasks={this.refreshTasks}
 			/>
 		) : (
@@ -164,13 +163,15 @@ export default class DDOpenInstanceDetail extends React.Component {
 						</Row>
 					</Card>
 					<DDUserSelector onSelect={this.handleUserSelect} />
-					{/* <div id="left1" style={{ width: "100%" }}>
+
+					<div id="left1" style={{ width: "100%" }}>
 						<ReactJson
 							collapsed={true}
 							src={this.state.detailJson}
 							theme="monokai"
 						/>
-					</div> */}
+					</div>
+
 					{this.renderFormValueRender()}
 					{this.renderTasks()}
 				</div>

@@ -45,7 +45,7 @@ const DDBillingSetter = ({ maincode, contractno, area, processInstanceId, activi
 
 		console.log("🈲🈲🈲🈲🈲🈲🈲🈲🈲🈲params", params);
 		const response = await api.dd.DDSetBillingDate(params);
-		// refreshTasks();
+		refreshTasks();
 	};
 
 	return (

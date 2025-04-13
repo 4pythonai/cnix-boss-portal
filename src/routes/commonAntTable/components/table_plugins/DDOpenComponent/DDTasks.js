@@ -2,15 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Button, Card, Row, Col } from "antd";
 import DDResSelector from "./DDResSelector";
 import DDBillingSetter from "./DDBillingSetter";
+import DDCommonAgree from "./DDCommonAgree";
 
-const DDTasks = ({ actionerUserId, maincode, contractno, area, operationRecords, processInstanceId, tasks, hideModal, refreshTasks }) => {
+const DDTasks = ({ actionerUserId, maincode, contractno, area, operationRecords, processInstanceId, tasks, refreshTasks }) => {
 	const [inputValues, setInputValues] = useState({});
 	const [openTaskId, setOpenTaskId] = useState(null);
 
 	// Sort tasks by createTime,且只包含"BOSS占用"||"确认计费日期"类型的节点
-	const sortedTasks = [...tasks].filter(task => task.activityName.includes('BOSS占用') || task.activityName.includes('确认计费日期')).sort(
+	// const sortedTasks = [...tasks].filter(task => task.activityName.includes('BOSS占用') || task.activityName.includes('确认计费日期')).sort(
+	// 	(a, b) => new Date(a.createTime) - new Date(b.createTime),
+	// );
+
+	const sortedTasks = [...tasks].sort(
 		(a, b) => new Date(a.createTime) - new Date(b.createTime),
 	);
+
 
 
 	const handleOpenResSelector = (taskId) => {
@@ -90,7 +96,6 @@ const DDTasks = ({ actionerUserId, maincode, contractno, area, operationRecords,
 												remark={inputValues[task.taskId]}
 												result="agree"
 												actionerUserId={actionerUserId}
-												hideModal={hideModal}
 												refreshTasks={refreshTasks}
 											/>
 										</div>
@@ -120,7 +125,7 @@ const DDTasks = ({ actionerUserId, maincode, contractno, area, operationRecords,
 												taskId={task.taskId}
 												remark={inputValues[task.taskId]}
 												result="agree"
-												actionerUserId={JSON.parse(sessionStorage.getItem("userInfo")).ddUserid}
+												actionerUserId={actionerUserId}
 												refreshTasks={refreshTasks}
 												_bossOpenValue={task._bossOpenValue}
 											/>
@@ -128,6 +133,39 @@ const DDTasks = ({ actionerUserId, maincode, contractno, area, operationRecords,
 									)}
 								</Col>
 							)}
+
+							{task.result === "NONE" && !task.activityName.includes('BOSS占用') && !task.activityName.includes('确认计费日期') && (
+								<Col>
+									<div style={{ clear: "left", display: "flex", gap: "8px" }}>
+										<Button
+											style={{ color: "green" }}
+											onClick={() => handleOpenResSelector(openTaskId === task.taskId ? null : task.taskId)}
+										>
+											{openTaskId === task.taskId ? "关闭" : "展示"}
+										</Button>
+									</div>
+									{openTaskId === task.taskId && (
+
+										<div>
+											<DDCommonAgree
+												maincode={maincode}
+												contractno={contractno}
+												area={area}
+												processInstanceId={processInstanceId}
+												activityId={task.activityId}
+												taskId={task.taskId}
+												remark={inputValues[task.taskId]}
+												result="agree"
+												actionerUserId={actionerUserId}
+												refreshTasks={refreshTasks}
+												_bossOpenValue={task._bossOpenValue}
+											/>
+										</div>
+									)}
+								</Col>
+							)}
+
+
 						</Row>
 					</Card>
 

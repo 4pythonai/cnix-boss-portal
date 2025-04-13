@@ -5,9 +5,8 @@ import OneResTypeSelector from "../DDReourceSelector/OneResTypeSelector";
 // import SubDeliverNoSelector from "../DDReourceSelector/SubDeliverNoSelector";
 
 
-const DDResSelector = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, hideModal, refreshTasks }) => {
+const DDResSelector = ({ maincode, contractno, area, processInstanceId, activityId, taskId, remark, result, actionerUserId, refreshTasks }) => {
 	const [resRows, setResRows] = useState([]);
-	const [relatedDelivernos, setRelatedDelivernos] = useState([]);
 
 	const handleSubTaskRemarkSummint = async () => {
 		//  make sure resRows not empty
@@ -15,9 +14,6 @@ const DDResSelector = ({ maincode, contractno, area, processInstanceId, activity
 			message.error("请选择资源");
 			return;
 		}
-
-
-		console.log("相关子relatedDelivernos", relatedDelivernos);
 		const params = {
 			data: {
 				area: area,
@@ -30,7 +26,6 @@ const DDResSelector = ({ maincode, contractno, area, processInstanceId, activity
 				maincode: maincode,
 				contractno: contractno,
 				resRows: resRows,
-				relatedDelivernos: relatedDelivernos,
 			},
 			method: "POST",
 		};
