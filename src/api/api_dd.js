@@ -10,5 +10,6 @@ export default class dd {
         SubTaskRemarkSubmit: '/DDOA/SubTaskRemarkSubmit',
         DDSetBillingDate: '/DDOA/DDSetBillingDate',
         AgreeTask: '/DDOA/AgreeTask',
+        getMainCodeRelation: '/DDOA/getMainCodeRelation',
     };
 }

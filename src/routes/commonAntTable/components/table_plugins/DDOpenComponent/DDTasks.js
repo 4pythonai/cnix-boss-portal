@@ -52,7 +52,7 @@ const DDTasks = ({ actionerUserId, maincode, contractno, area, operationRecords,
 							</div>
 							<div>
 								<strong>创建时间:</strong>
-								{new Date(task.createTime).toLocaleString()}
+								{task.createTime}
 							</div>
 							<div>
 								<strong>状态:</strong>

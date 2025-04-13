@@ -181,7 +181,7 @@ const OneResTypeSelector = observer(
 			},
 			{
 				title: "资源类型",
-				width: 60,
+				width: 40,
 				dataIndex: "deliverType",
 				render: (text, record) => (
 					<Select
@@ -197,7 +197,7 @@ const OneResTypeSelector = observer(
 			},
 			{
 				title: "关联子编号",
-				width: 80,
+				width: 180,
 				ellipsis: true,
 				dataIndex: "subNumber",
 				render: (text, record) => {
