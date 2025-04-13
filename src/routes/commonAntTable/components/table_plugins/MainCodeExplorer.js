@@ -128,9 +128,26 @@ export default class MainCodeExplorer extends React.Component {
 
 				</Row>
 				<div style={{ paddingTop: "10px" }}>
+					<Row gutter={24} align="middle">
+						<Col span={24}>
+							<div>
+								<strong>业务资源</strong>
+							</div>
+						</Col>
+					</Row>
 					<Table size="small" columns={this.ResTimeColumns} dataSource={this.state.resRows} />
+				</div>
+				<div style={{ paddingTop: "10px" }}>
+					<Row gutter={24} align="middle">
+						<Col span={24}>
+							<div>
+								<strong>关联资源</strong>
+							</div>
+						</Col>
+					</Row>
 					<Table size="small" columns={this.ResTimeColumns} dataSource={this.state.subRows} />
 				</div>
+
 			</Modal >
 		);
 	}
