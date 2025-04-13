@@ -14,7 +14,6 @@ const DDBillingSetter = ({ maincode, contractno, area, processInstanceId, activi
 			return;
 		}
 
-		// _bossOpenValue  的  saveId 必须不能为空
 		if (_bossOpenValue.saveId == null) {
 			message.error('无法找到提交的资源选择情况');
 			return;

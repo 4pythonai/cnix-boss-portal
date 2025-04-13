@@ -15,6 +15,7 @@ export default class MainCodeExplorer extends React.Component {
 	state = {
 		visible: false,
 		title: '',
+		openRow: {},
 		resRows: [],
 		subRows: [],
 		maincode: "",
@@ -31,6 +32,7 @@ export default class MainCodeExplorer extends React.Component {
 		const mainInfo = await api.dd.getMainCodeRelation(params);
 		console.log(mainInfo);
 		this.setState({
+			openRow: mainInfo.openRow,
 			resRows: mainInfo.resRows,
 			subRows: mainInfo.subRows,
 		})
@@ -65,12 +67,31 @@ export default class MainCodeExplorer extends React.Component {
 				width={1320}
 				footer={null}
 			>
+
+				<Row gutter={24} align="middle">
+					<Col span={24}>
+						<div>
+							<strong>主业务编号: {this.state.openRow.maincode} </strong>
+						</div>
+						<div>
+							<strong>合同号/客户名称:</strong> {this.state.openRow.contractno}/{this.state.openRow.custName}
+						</div>
+						<div>
+							<strong>区域:</strong>
+							{this.state.openRow.area}
+						</div>
+						<div>
+							<strong>流程创建时间:</strong>
+							{this.state.openRow.createTime}
+						</div>
+					</Col>
+
+				</Row>
 				<div style={{ paddingTop: "10px" }}>
-					AAAAAAAAAAAAAAAAA
-					<Table columns={ResTimeColumns} dataSource={this.state.resRows} />
-					<Table columns={ResTimeColumns} dataSource={this.state.subRows} />
+					<Table size="small" columns={ResTimeColumns} dataSource={this.state.resRows} />
+					<Table size="small" columns={ResTimeColumns} dataSource={this.state.subRows} />
 				</div>
-			</Modal>
+			</Modal >
 		);
 	}
 }
