@@ -12,8 +12,9 @@ const DDTasks = ({ actionerUserId, maincode, contractno, area, operationRecords,
 	// const sortedTasks = [...tasks].filter(task => task.activityName.includes('BOSS占用') || task.activityName.includes('确认计费日期')).sort(
 	// 	(a, b) => new Date(a.createTime) - new Date(b.createTime),
 	// );
-
-	const sortedTasks = tasks;
+	//  task createTime as 2025-04-14T11:35Z
+	// 按照 createTime 排序
+	const sortedTasks = [...tasks].sort((a, b) => new Date(a.createTime) - new Date(b.createTime));
 	// const sortedTasks = [...tasks].sort(
 	// 	(a, b) => new Date(a.createTime) - new Date(b.createTime),
 	// );

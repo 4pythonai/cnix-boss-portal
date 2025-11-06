@@ -95,7 +95,7 @@
         "start": "node scripts/start.js",
         "docker": "node scripts/docker.js",
         "midway": "node scripts/midway.js",
-        "build": "node scripts/build.js",
+        "build": "NODE_OPTIONS=--openssl-legacy-provider node scripts/build.js",
         "test": "node scripts/test.js --no-cache"
     },
     "browserslist": {
@@ -147,7 +147,7 @@
         "eslint-plugin-react": "^7.21.5",
         "eslint-plugin-react-hooks": "^4.2.0",
         "eslint-plugin-unused-imports": "^1.0.1",
-        "node-sass": "^4.12.0",
+        "sass": "^1.77.0",
         "prettier-eslint": "^12.0.0",
         "sass-loader": "^7.2.0",
         "stylelint": "^16.6.1",
